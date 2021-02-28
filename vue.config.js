@@ -18,7 +18,6 @@ module.exports = {
     if (process.env.NODE_ENV === 'production') {
       config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
     }
-    config.externals = process.env.NODE_ENV === 'development' ? {} : externals
   },
   pages: {
     index: {
@@ -26,8 +25,7 @@ module.exports = {
       template: 'public/index.html',
       filename: 'index.html',
       title: 'SooYi.CN',
-      chunks: ['chunk-vendors', 'chunk-common', 'index'],
-      cdn: process.env.NODE_ENV === 'development' ? [] : cdn
+      chunks: ['chunk-vendors', 'chunk-common', 'index']
     }
   },
   chainWebpack: config => {
