@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@s/*": ["./services/*"],
+      "@a/*": ["./assets/*"],
+      "@c/*": ["./components/*"],
+      "@v/*": ["./views/*"],
+      "@x/*": ["./vuex/*"],
+      "@l/*": ["./libs/*"]
+    }
+  },
+  "exclude": ["node_modules", "build"]
+}
