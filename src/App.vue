@@ -8,7 +8,12 @@
           <li class="label">新媒体配置</li>
           <li class="label">视频动画</li>
           <li class="seperator"></li>
-          <li class="search_item"><input type="text" placeholder="搜索素材" /></li>
+          <li class="search_item">
+            <input type="text" placeholder="搜索素材" />
+            <div class="icon_view">
+              <div class="close"></div>
+            </div>
+          </li>
           <li class="btn_view">
             <span class="btn1">注册</span>
             <span class="btn2">登录</span>
@@ -79,13 +84,47 @@
         .search_item {
           margin-right: 0.347222rem;
           box-sizing: border-box;
+          position: relative;
           input {
             width: 1.798611rem;
-            height: 40px;
+            height: 0.277778rem;
             border: 1px solid $color3;
-            border-radius: 25px;
+            border-radius: 0.173611rem;
             box-sizing: border-box;
             padding-left: 0.15625rem;
+          }
+          .icon_view {
+            width: 0.252083rem;
+            height: 0.277778rem;
+            background: #2361ac;
+            position: absolute;
+            border-radius: 0 0.277778rem 0.277778rem 0;
+            right: 0;
+            top: 0;
+            .close {
+              position: relative;
+              width: 0.252083rem;
+              height: 0.277778rem;
+            }
+
+            .close::before,
+            .close::after {
+              position: absolute;
+              content: ' ';
+              background-color: #ffffff;
+              left: 0.104167rem;
+              top: 0.069444rem;
+              width: 2px;
+              height: 0.125rem;
+            }
+
+            .close::before {
+              transform: rotate(45deg);
+            }
+
+            .close::after {
+              transform: rotate(-45deg);
+            }
           }
         }
         .btn_view {
