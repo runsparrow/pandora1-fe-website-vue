@@ -105,6 +105,7 @@
            position: relative;
            padding-top: .076389rem;
            position: relative;
+
            input {
             width: 1.798611rem;
             height: 0.277778rem;
@@ -112,6 +113,7 @@
             border-radius: 0.173611rem;
             box-sizing: border-box;
             padding-left: 0.15625rem;
+            font-size: $font_size16;
           }
 
           .search_right_bg_view
