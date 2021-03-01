@@ -3,15 +3,20 @@
     <div class="header_view">
       <div class="top_view">
         <ul class="list">
-          <li class="logo">Logo图片</li>
+          <li class="logo">
+            <img class="logo_img" src="./assets/imgs/logo_01.png" alt="" srcset="./assets/imgs/logo_01@2x.png 2x">
+            <span class="logo_title">SooYi.CN</span>
+          </li>
           <li class="label">推广海报</li>
           <li class="label">新媒体配置</li>
           <li class="label">视频动画</li>
           <li class="seperator"></li>
           <li class="search_item">
             <input type="text" placeholder="搜索素材" />
-            <div class="icon_view">
-              <div class="close"></div>
+
+            <div class="search_right_bg_view">
+               <img class="search_icon" src="./assets/imgs/search.png" alt="" srcset="./assets/imgs/search@2x.png 2x">
+               <img class="search_clear" src="./assets/imgs/search_clear.png" alt="" srcset="./assets/imgs/search_clear@2x.png 2x">
             </div>
           </li>
           <li class="btn_view">
@@ -20,80 +25,87 @@
           </li>
         </ul>
       </div>
-      <div class="logo_view">
-        BANNER(请给与尺寸范围)
-      </div>
     </div>
-    <div class="center_view">
-      <div class="left_view">
-        111
-      </div>
-      <div class="right_view">
-        222
-      </div>
-    </div>
-    <div class="footer_view">22</div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 @import './assets/css/colors';
+@import './assets/css/font_size';
 .container {
-  margin-left: 0.711806rem;
-  margin-right: 0.739583rem;
+  box-sizing: border-box;
+  margin-left: .715278rem;
+  margin-right: .736111rem;
   border: 1px solid blue;
   width: 8.548611rem;
-  .header_view {
+  .header_view
+  {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    .top_view {
-      height: 0.833333rem;
+    .top_view
+    {
+      height: .833333rem;
       box-sizing: border-box;
       border: 1px solid yellow;
       display: flex;
       flex-direction: row;
       align-items: center;
-      .list {
+      .list
+      {
+        height: 100%;
         list-style: none;
         display: flex;
         flex-direction: row;
         box-sizing: border-box;
-        align-items: flex-end;
-        .logo {
-          height: 0.256944rem;
-          width: 1.458333rem;
-          border: 1px solid blue;
+        align-items: center;
+        flex:1;
+        justify-content: space-between;
+        .logo
+        {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            margin: 0;
+            .logo_img
+            {
+              width:.430625rem;
+              height: .242083rem;
+            }
+            .logo_title
+            {
+               color:$color4;
+               font-size: $font-size37;
+               line-height: .180556rem;
+            }
         }
         .label {
           color: $color1;
           font-size: $font_size16;
-          margin-left: 0.173611rem;
-          margin-right: 0.173611rem;
-          margin-bottom: 0.055556rem;
+          margin-top: .138889rem;
         }
         .seperator {
-          margin-right: 0.684028rem;
-          margin-left: 0.138889rem;
           position: relative;
           &::before {
             position: absolute;
-            top: -0.236111rem;
+            top: -.034722rem;
             right: 0;
             left: 0;
             bottom: 0;
-            height: 0.180556rem;
+            height: .180556rem;
             width: 0px;
             border: 1px solid $color2;
             content: '';
             background-color: red;
           }
         }
-        .search_item {
-          margin-right: 0.347222rem;
-          box-sizing: border-box;
-          position: relative;
-          input {
+        .search_item
+        {
+           box-sizing: border-box;
+           position: relative;
+           padding-top: .076389rem;
+           position: relative;
+           input {
             width: 1.798611rem;
             height: 0.277778rem;
             border: 1px solid $color3;
@@ -101,44 +113,42 @@
             box-sizing: border-box;
             padding-left: 0.15625rem;
           }
-          .icon_view {
-            width: 0.252083rem;
-            height: 0.277778rem;
-            background: #2361ac;
+
+          .search_right_bg_view
+          {
             position: absolute;
-            border-radius: 0 0.277778rem 0.277778rem 0;
             right: 0;
-            top: 0;
-            .close {
-              position: relative;
-              width: 0.252083rem;
-              height: 0.277778rem;
-            }
-
-            .close::before,
-            .close::after {
+            top:.076389rem;
+            width: .256944rem;
+             height: 0.277778rem;
+             background-image: url('./assets/imgs/search_right_bg.png');
+             background-repeat: no-repeat;
+             background-size: .256944rem 0.277778rem;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             .search_clear
+             {
+                width: .087361rem;
+                height: .0875rem;
+             }
+             .search_icon
+            {
+              width: .132083rem;
+              height: .132083rem;
               position: absolute;
-              content: ' ';
-              background-color: #ffffff;
-              left: 0.104167rem;
-              top: 0.069444rem;
-              width: 2px;
-              height: 0.125rem;
-            }
-
-            .close::before {
-              transform: rotate(45deg);
-            }
-
-            .close::after {
-              transform: rotate(-45deg);
+              left: -.236597rem;
             }
           }
         }
-        .btn_view {
+        .btn_view
+        {
           display: flex;
           flex-direction: row;
           width: 1.222222rem;
+          justify-content: flex-end;
+          box-sizing: border-box;
+          padding-top: .076389rem;
           .btn1 {
             width: 0.555556rem;
             height: 0.277778rem;
@@ -167,33 +177,6 @@
         }
       }
     }
-    .logo_view {
-      height: 1.416667rem;
-      border: 1px solid yellow;
-      display: flex;
-      color: $color1;
-      justify-content: center;
-      align-items: center;
-      font-size: $font_size17;
-    }
-  }
-  .center_view {
-    height: 2.791667rem;
-    border: 1px solid yellow;
-    display: flex;
-    flex-direction: row;
-    .left_view {
-      width: 4.274306rem;
-      border: 1px solid red;
-    }
-    .right_view {
-      width: 4.274306rem;
-      border: 1px solid red;
-    }
-  }
-  .footer_view {
-    height: 2.875rem;
-    border: 1px solid yellow;
   }
 }
 </style>
