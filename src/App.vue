@@ -24,7 +24,14 @@
         BANNER(请给与尺寸范围)
       </div>
     </div>
-    <div class="center_view">11</div>
+    <div class="center_view">
+      <div class="left_view">
+        111
+      </div>
+      <div class="right_view">
+        222
+      </div>
+    </div>
     <div class="footer_view">22</div>
   </div>
 </template>
@@ -35,6 +42,7 @@
   margin-left: 0.711806rem;
   margin-right: 0.739583rem;
   border: 1px solid blue;
+  width: 8.548611rem;
   .header_view {
     display: flex;
     flex-direction: column;
@@ -70,7 +78,7 @@
           position: relative;
           &::before {
             position: absolute;
-            top: -34px;
+            top: -0.236111rem;
             right: 0;
             left: 0;
             bottom: 0;
@@ -172,6 +180,16 @@
   .center_view {
     height: 2.791667rem;
     border: 1px solid yellow;
+    display: flex;
+    flex-direction: row;
+    .left_view {
+      width: 4.274306rem;
+      border: 1px solid red;
+    }
+    .right_view {
+      width: 4.274306rem;
+      border: 1px solid red;
+    }
   }
   .footer_view {
     height: 2.875rem;
