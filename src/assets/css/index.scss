@@ -1,0 +1,16 @@
+@media screen and (min-width: 1440px) {
+  html {
+    font-size: 144px !important;
+  }
+}
+
+body {
+  min-width: 1440px;
+  max-width: 1440px;
+  width: 19.2rem;
+  font-family: Arial, Helvetica;
+  margin: 0 auto;
+  line-height: 1.5;
+  background: #ffffff;
+  border: 1px solid red;
+}
