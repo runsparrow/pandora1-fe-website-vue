@@ -77,7 +77,7 @@
         </div>
         <div class="item">
           <img class="hot_img" src="./assets/imgs/hot_img.png" alt="" srcset="./assets/imgs/hot_img@2x.png 2x" />
-          <span class="hot_title">推广海报</span>
+          <span class="hot_title">新媒体配图</span>
           <div class="hot_more_view">
             <span class="poionter">查看更多</span>
             <img
@@ -90,7 +90,7 @@
         </div>
         <div class="item">
           <img class="hot_img" src="./assets/imgs/hot_img.png" alt="" srcset="./assets/imgs/hot_img@2x.png 2x" />
-          <span class="hot_title">推广海报</span>
+          <span class="hot_title">动画漫画</span>
           <div class="hot_more_view">
             <span class="poionter">查看更多</span>
             <img
@@ -103,7 +103,7 @@
         </div>
         <div class="item">
           <img class="hot_img" src="./assets/imgs/hot_img.png" alt="" srcset="./assets/imgs/hot_img@2x.png 2x" />
-          <span class="hot_title">推广海报</span>
+          <span class="hot_title">其他</span>
           <div class="hot_more_view">
             <span class="poionter">查看更多</span>
             <img
@@ -292,7 +292,7 @@
         padding: 0;
       }
       .desc {
-        line-height: 0.15rem;
+        line-height: 0.138889rem;
         font-size: font_size18;
         color: $color5;
         margin: 0;
@@ -421,7 +421,7 @@
           width: 1.638889rem;
           height: 1.104167rem;
           box-shadow: 0px 10px 46px rgba(0, 0, 0, 0.07);
-          border-radius: 30px;
+          border-radius: 30px 30px 0 0;
         }
         .hot_title {
           color: $color1;
