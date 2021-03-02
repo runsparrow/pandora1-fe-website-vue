@@ -178,6 +178,7 @@
               height: 0.132083rem;
               position: absolute;
               left: -0.236597rem;
+              top: 0.069444rem;
             }
           }
         }
@@ -303,6 +304,9 @@
           width: 3.393611rem;
           height: 2.117986rem;
           position: absolute;
+          top: 0.166667rem;
+          left: 0.180556rem;
+          right: 0.180556rem;
         }
         .opacity_view {
           position: absolute;
