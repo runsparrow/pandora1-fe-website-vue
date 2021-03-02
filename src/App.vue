@@ -212,6 +212,7 @@
             .search_clear {
               width: 0.087361rem;
               height: 0.0875rem;
+              cursor: pointer;
             }
             .search_icon {
               width: 0.132083rem;
@@ -241,6 +242,7 @@
             text-align: center;
             line-height: 0.277778rem;
             margin-right: 0.041667rem;
+            cursor: pointer;
           }
           .btn2 {
             width: 0.555556rem;
@@ -254,6 +256,7 @@
             text-align: center;
             line-height: 0.277778rem;
             margin-left: 0.041667rem;
+            cursor: pointer;
           }
         }
       }
@@ -308,6 +311,7 @@
         border-radius: 10px;
         display: flex;
         justify-content: space-between;
+        cursor: pointer;
         align-items: center;
         .label {
           font-size: $font_size16;
@@ -447,6 +451,7 @@
             width: 0.112361rem;
             height: 0.076528rem;
             margin-left: 0.270833rem;
+            cursor: pointer;
           }
         }
       }
