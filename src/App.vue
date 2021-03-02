@@ -33,30 +33,41 @@
       <div class="logo_view">
         BANNER(请给与尺寸范围)
       </div>
-      <div class="center_view">
-        <div class="left_view">
-          <p class="point_title">It is a long established</p>
-          <p class="point_title">fact that areader</p>
-          <span class="desc maginTop">医云直击医圈人群的痛点，提升视觉编辑相关的工作</span>
-          <span class="desc">我们有全球独家的医学漫画素材</span>
-          <span class="desc">更有志同道合的伙伴...</span>
-          <div class="btn_more">
-            <span class="label">了解更多</span>
-            <img
-              class="label_img"
-              src="./assets/imgs/arrow-pointing-to-right.png"
-              alt=""
-              srcset="./assets/imgs/arrow-pointing-to-right@2x.png 2x"
-            />
-          </div>
+    </div>
+    <div class="center_view">
+      <div class="left_view">
+        <p class="point_title">It is a long established</p>
+        <p class="point_title">fact that areader</p>
+        <span class="desc maginTop">医云直击医圈人群的痛点，提升视觉编辑相关的工作</span>
+        <span class="desc">我们有全球独家的医学漫画素材</span>
+        <span class="desc">更有志同道合的伙伴...</span>
+        <div class="btn_more">
+          <span class="label">了解更多</span>
+          <img
+            class="label_img"
+            src="./assets/imgs/arrow-pointing-to-right.png"
+            alt=""
+            srcset="./assets/imgs/arrow-pointing-to-right@2x.png 2x"
+          />
         </div>
-        <div class="right_view">
-          <div class="frame_view">
-            <img class="frame_banner_img" src="./assets/imgs/index_banner.png" alt="" />
-            <div class="laptop_line"></div>
-            <div class="laptop_bottom"></div>
-          </div>
+      </div>
+      <div class="right_view">
+        <div class="frame_view">
+          <img class="frame_banner_img" src="./assets/imgs/index_banner.png" alt="" />
+          <div class="laptop_line"></div>
+          <div class="laptop_bottom"></div>
         </div>
+      </div>
+    </div>
+    <div class="footer_view">
+      <div class="row">热门下载</div>
+      <div class="list">
+        <div class="item">
+          <img class="hot_img" src="./assets/imgs/hot_img.png" alt="" srcset="./assets/imgs/hot_img@2x.png 2x" />
+        </div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
       </div>
     </div>
   </div>
@@ -69,7 +80,6 @@
   box-sizing: border-box;
   margin-left: 0.715278rem;
   margin-right: 0.736111rem;
-  border: 1px solid blue;
   width: 8.548611rem;
   .header_view {
     display: flex;
@@ -78,7 +88,6 @@
     .top_view {
       height: 0.833333rem;
       box-sizing: border-box;
-      border: 1px solid yellow;
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -211,115 +220,150 @@
       font-size: $font_size17;
       border: 1px solid $color6;
     }
-    .center_view {
+  }
+  .center_view {
+    box-sizing: border-box;
+    height: 2.922847rem;
+    display: flex;
+    flex-direction: row;
+    .left_view {
+      width: 4.274306rem;
       box-sizing: border-box;
-      height: 2.922847rem;
-      border: 1px solid yellow;
-      display: flex;
-      flex-direction: row;
-      .left_view {
-        width: 4.274306rem;
-        border: 1px solid red;
-        box-sizing: border-box;
-        padding-right: 0.197917rem;
-        padding-left: 0.430556rem;
-        padding-top: 0.506944rem;
-        .point_title {
-          color: $color1;
-          font-size: $font_size38;
-          line-height: 0.3rem;
-          font-weight: bold;
-          margin: 0;
-          padding: 0;
-        }
-        .desc {
-          line-height: 0.15rem;
-          font-size: font_size18;
-          color: $color5;
-          margin: 0;
-          padding: 0;
-          display: block;
-          &.maginTop {
-            margin-top: 0.090278rem;
-          }
-        }
-        .btn_more {
-          box-sizing: border-box;
-          width: 1.180556rem;
-          height: 0.347222rem;
-          margin-top: 0.076389rem;
-          background: $color7;
-          border-radius: 10px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          .label {
-            font-size: $font_size16;
-            font-weight: 400;
-            line-height: 27px;
-            color: #ffffff;
-            margin-left: 0.1875rem;
-          }
-          .label_img {
-            width: 0.118056rem;
-            height: 0.083333rem;
-            margin-right: 0.166667rem;
-          }
+      padding-right: 0.197917rem;
+      padding-left: 0.430556rem;
+      padding-top: 0.506944rem;
+      .point_title {
+        color: $color1;
+        font-size: $font_size38;
+        line-height: 0.3rem;
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+      }
+      .desc {
+        line-height: 0.15rem;
+        font-size: font_size18;
+        color: $color5;
+        margin: 0;
+        padding: 0;
+        display: block;
+        &.maginTop {
+          margin-top: 0.090278rem;
         }
       }
-      .right_view {
-        width: 4.274306rem;
+      .btn_more {
         box-sizing: border-box;
-        border: 1px solid red;
-        padding-top: 0.347222rem;
-        padding-right: 0.430556rem;
-        padding-left: 0.208333rem;
-        .frame_view {
-          box-sizing: border-box;
-          width: 3.758264rem;
-          height: 2.451389rem;
+        width: 1.180556rem;
+        height: 0.347222rem;
+        margin-top: 0.076389rem;
+        background: $color7;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .label {
+          font-size: $font_size16;
+          font-weight: 400;
+          line-height: 27px;
+          color: #ffffff;
+          margin-left: 0.1875rem;
+        }
+        .label_img {
+          width: 0.118056rem;
+          height: 0.083333rem;
+          margin-right: 0.166667rem;
+        }
+      }
+    }
+    .right_view {
+      width: 4.274306rem;
+      box-sizing: border-box;
+      padding-top: 0.347222rem;
+      padding-right: 0.430556rem;
+      padding-left: 0.208333rem;
+      .frame_view {
+        box-sizing: border-box;
+        width: 3.758264rem;
+        height: 2.451389rem;
 
-          background: #f5f5f5;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2) inset;
-          border-radius: 12px;
-          position: relative;
-          .frame_banner_img {
-            width: 3.393611rem;
-            height: 2.117986rem;
-          }
-          .opacity_view {
-            position: absolute;
-            bottom: 0;
-            width: 3.722222rem;
-            height: 0.263889rem;
-            background: $color8;
-            opacity: 0.05;
-            border-radius: 0.333333rem;
-          }
-          .laptop_line {
-            position: absolute;
-            width: 0.798611rem;
-            height: 0.020833rem;
-            bottom: 0.034722rem;
-            background: linear-gradient(
-              90deg,
-              rgba(188, 189, 191, 0.5) 0%,
-              rgba(216, 216, 223, 0.5) 10%,
-              rgba(216, 216, 223, 0.5) 89%,
-              rgba(173, 170, 189, 0.5) 100%
-            );
-          }
-          .laptop_bottom {
-            position: absolute;
-            bottom: -0.055556rem;
-            left: -50px;
-            width: 4.465278rem;
-            height: 0.059444rem;
-            background: linear-gradient(180deg, #ffffff 0%, #cdcbd5 100%);
-          }
+        background: #f5f5f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2) inset;
+        border-radius: 12px;
+        position: relative;
+        .frame_banner_img {
+          width: 3.393611rem;
+          height: 2.117986rem;
+        }
+        .opacity_view {
+          position: absolute;
+          bottom: 0;
+          width: 3.722222rem;
+          height: 0.263889rem;
+          background: $color8;
+          opacity: 0.05;
+          border-radius: 0.333333rem;
+        }
+        .laptop_line {
+          position: absolute;
+          width: 0.798611rem;
+          height: 0.020833rem;
+          bottom: 0.034722rem;
+          background: linear-gradient(
+            90deg,
+            rgba(188, 189, 191, 0.5) 0%,
+            rgba(216, 216, 223, 0.5) 10%,
+            rgba(216, 216, 223, 0.5) 89%,
+            rgba(173, 170, 189, 0.5) 100%
+          );
+        }
+        .laptop_bottom {
+          position: absolute;
+          bottom: -0.055556rem;
+          left: -50px;
+          width: 4.465278rem;
+          height: 0.059444rem;
+          background: linear-gradient(180deg, #ffffff 0%, #cdcbd5 100%);
+        }
+      }
+    }
+  }
+  .footer_view {
+    box-sizing: border-box;
+    margin-bottom: 0.375rem;
+    .row {
+      margin-top: 0.423611rem;
+      margin-left: 0.430556rem;
+      font-size: $font_size25;
+      font-family: Microsoft YaHei;
+      font-weight: 400;
+      line-height: 0.3125rem;
+      color: $color1;
+    }
+    .list {
+      display: flex;
+      flex-direction: row;
+      width: 7.701389rem;
+      margin-top: 0.472222rem;
+      margin-left: 0.430556rem;
+      margin-right: 1.159722rem;
+      box-sizing: border-box;
+      border: 1px solid blue;
+      justify-content: space-between;
+      .item {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        width: 1.641736rem;
+        height: 1.737986rem;
+        border: 1px solid red;
+        .hot_img {
+          width: 1.638889rem;
+          height: 1.104167rem;
+          box-shadow: 0px 10px 46px rgba(0, 0, 0, 0.07);
+          border-radius: 30px;
         }
       }
     }
