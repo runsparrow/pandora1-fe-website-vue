@@ -40,6 +40,15 @@
           <span class="desc maginTop">医云直击医圈人群的痛点，提升视觉编辑相关的工作</span>
           <span class="desc">我们有全球独家的医学漫画素材</span>
           <span class="desc">更有志同道合的伙伴...</span>
+          <div class="btn_more">
+            <span class="label">了解更多</span>
+            <img
+              class="label_img"
+              src="./assets/imgs/arrow-pointing-to-right.png"
+              alt=""
+              srcset="./assets/imgs/arrow-pointing-to-right@2x.png 2x"
+            />
+          </div>
         </div>
         <div class="right_view">
           <div class="frame_view">
@@ -234,6 +243,29 @@
             margin-top: 0.090278rem;
           }
         }
+        .btn_more {
+          box-sizing: border-box;
+          width: 1.180556rem;
+          height: 0.347222rem;
+          margin-top: 0.076389rem;
+          background: $color7;
+          border-radius: 10px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .label {
+            font-size: $font_size16;
+            font-weight: 400;
+            line-height: 27px;
+            color: #ffffff;
+            margin-left: 0.1875rem;
+          }
+          .label_img {
+            width: 0.118056rem;
+            height: 0.083333rem;
+            margin-right: 0.166667rem;
+          }
+        }
       }
       .right_view {
         width: 4.274306rem;
@@ -251,12 +283,21 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2) inset;
           border-radius: 12px;
           position: relative;
           .frame_banner_img {
             width: 3.393611rem;
             height: 2.117986rem;
+          }
+          .opacity_view {
+            position: absolute;
+            bottom: 0;
+            width: 3.722222rem;
+            height: 0.263889rem;
+            background: $color8;
+            opacity: 0.05;
+            border-radius: 0.333333rem;
           }
           .laptop_line {
             position: absolute;
