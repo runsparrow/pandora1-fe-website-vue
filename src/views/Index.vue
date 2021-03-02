@@ -4,7 +4,7 @@
       <div class="top_view">
         <ul class="list">
           <li class="logo">
-            <img class="logo_img" src="../assets/imgs/logo_01.png" alt="" srcset="../assets/imgs/logo_01@2x.png 2x" />
+            <img class="logo_img" src="@a/imgs/logo_01.png" alt="" srcset="@a/imgs/logo_01@2x.png 2x" />
             <span class="logo_title">SooYi.CN</span>
           </li>
           <li class="label">推广海报</li>
@@ -15,18 +15,8 @@
             <input type="text" placeholder="搜索素材" />
 
             <div class="search_right_bg_view">
-              <img
-                class="search_icon"
-                src="../assets/imgs/search.png"
-                alt=""
-                srcset="../assets/imgs/search@2x.png 2x"
-              />
-              <img
-                class="search_clear"
-                src="../assets/imgs/search_clear.png"
-                alt=""
-                srcset="../assets/imgs/search_clear@2x.png 2x"
-              />
+              <img class="search_icon" src="@a/imgs/search.png" alt="" srcset="@a/imgs/search@2x.png 2x" />
+              <img class="search_clear" src="@a/imgs/search_clear.png" alt="" srcset="@a/imgs/search_clear@2x.png 2x" />
             </div>
           </li>
           <li class="btn_view" v-if="true">
@@ -56,15 +46,15 @@
           <span class="label">了解更多</span>
           <img
             class="label_img"
-            src="../assets/imgs/arrow-pointing-to-right.png"
+            src="@a/imgs/arrow-pointing-to-right.png"
             alt=""
-            srcset="../assets/imgs/arrow-pointing-to-right@2x.png 2x"
+            srcset="@a/imgs/arrow-pointing-to-right@2x.png 2x"
           />
         </div>
       </div>
       <div class="right_view">
         <div class="frame_view">
-          <img class="frame_banner_img" src="../assets/imgs/index_banner.png" alt="" />
+          <img class="frame_banner_img" src="@a/imgs/index_banner.png" alt="" />
           <div class="laptop_line"></div>
           <div class="laptop_bottom"></div>
         </div>
@@ -74,54 +64,54 @@
       <div class="row">热门下载</div>
       <div class="list">
         <div class="item">
-          <img class="hot_img" src="../assets/imgs/hot_img.png" alt="" srcset="../assets/imgs/hot_img@2x.png 2x" />
+          <img class="hot_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
           <span class="hot_title">推广海报</span>
           <div class="hot_more_view">
             <span class="poionter">查看更多</span>
             <img
               class="blue_direct_img"
-              src="../assets/imgs/arrow-pointing-to-right-blue.png"
+              src="@a/imgs/arrow-pointing-to-right-blue.png"
               alt=""
-              srcset="../assets/imgs/arrow-pointing-to-right-blue@2x.png 2x"
+              srcset="@a/imgs/arrow-pointing-to-right-blue@2x.png 2x"
             />
           </div>
         </div>
         <div class="item">
-          <img class="hot_img" src="../assets/imgs/hot_img.png" alt="" srcset="../assets/imgs/hot_img@2x.png 2x" />
+          <img class="hot_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
           <span class="hot_title">新媒体配图</span>
           <div class="hot_more_view">
             <span class="poionter">查看更多</span>
             <img
               class="blue_direct_img"
-              src="../assets/imgs/arrow-pointing-to-right-blue.png"
+              src="@a/imgs/arrow-pointing-to-right-blue.png"
               alt=""
-              srcset="../assets/imgs/arrow-pointing-to-right-blue@2x.png 2x"
+              srcset="@a/imgs/arrow-pointing-to-right-blue@2x.png 2x"
             />
           </div>
         </div>
         <div class="item">
-          <img class="hot_img" src="../assets/imgs/hot_img.png" alt="" srcset="../assets/imgs/hot_img@2x.png 2x" />
+          <img class="hot_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
           <span class="hot_title">动画漫画</span>
           <div class="hot_more_view">
             <span class="poionter">查看更多</span>
             <img
               class="blue_direct_img"
-              src="../assets/imgs/arrow-pointing-to-right-blue.png"
+              src="@a/imgs/arrow-pointing-to-right-blue.png"
               alt=""
-              srcset="../assets/imgs/arrow-pointing-to-right-blue@2x.png 2x"
+              srcset="@a/imgs/arrow-pointing-to-right-blue@2x.png 2x"
             />
           </div>
         </div>
         <div class="item">
-          <img class="hot_img" src="../assets/imgs/hot_img.png" alt="" srcset="../assets/imgs/hot_img@2x.png 2x" />
+          <img class="hot_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
           <span class="hot_title">其他</span>
           <div class="hot_more_view">
             <span class="poionter">查看更多</span>
             <img
               class="blue_direct_img"
-              src="../assets/imgs/arrow-pointing-to-right-blue.png"
+              src="@a/imgs/arrow-pointing-to-right-blue.png"
               alt=""
-              srcset="../assets/imgs/arrow-pointing-to-right-blue@2x.png 2x"
+              srcset="@a/imgs/arrow-pointing-to-right-blue@2x.png 2x"
             />
           </div>
         </div>

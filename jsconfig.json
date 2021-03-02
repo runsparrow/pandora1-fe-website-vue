@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@s/*": ["./services/*"],
-      "@a/*": ["./assets/*"],
-      "@c/*": ["./components/*"],
-      "@v/*": ["./views/*"],
-      "@x/*": ["./vuex/*"],
-      "@l/*": ["./libs/*"]
+      "@/*": ["./src/services/*"],
+      "@s/*": ["./src/services/*"],
+      "@a/*": ["./src/assets/*"],
+      "@c/*": ["./src/components/*"],
+      "@v/*": ["./src/views/*"],
+      "@x/*": ["./src/vuex/*"],
+      "@l/*": ["./src/libs/*"]
     }
   },
   "exclude": ["node_modules", "build"]
