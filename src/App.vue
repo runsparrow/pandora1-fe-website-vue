@@ -302,6 +302,7 @@
         .frame_banner_img {
           width: 3.393611rem;
           height: 2.117986rem;
+          position: absolute;
         }
         .opacity_view {
           position: absolute;
