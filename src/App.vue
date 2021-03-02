@@ -64,15 +64,31 @@
       <div class="list">
         <div class="item">
           <img class="hot_img" src="./assets/imgs/hot_img.png" alt="" srcset="./assets/imgs/hot_img@2x.png 2x" />
+          <span class="hot_title">推广海报</span>
+          <div class="hot_more_view">
+            <span class="poionter">查看更多</span>
+          </div>
         </div>
         <div class="item">
           <img class="hot_img" src="./assets/imgs/hot_img.png" alt="" srcset="./assets/imgs/hot_img@2x.png 2x" />
+          <span class="hot_title">推广海报</span>
+          <div class="hot_more_view">
+            <span class="poionter">查看更多</span>
+          </div>
         </div>
         <div class="item">
           <img class="hot_img" src="./assets/imgs/hot_img.png" alt="" srcset="./assets/imgs/hot_img@2x.png 2x" />
+          <span class="hot_title">推广海报</span>
+          <div class="hot_more_view">
+            <span class="poionter">查看更多</span>
+          </div>
         </div>
         <div class="item">
           <img class="hot_img" src="./assets/imgs/hot_img.png" alt="" srcset="./assets/imgs/hot_img@2x.png 2x" />
+          <span class="hot_title">推广海报</span>
+          <div class="hot_more_view">
+            <span class="poionter">查看更多</span>
+          </div>
         </div>
       </div>
     </div>
@@ -179,6 +195,7 @@
               position: absolute;
               left: -0.236597rem;
               top: 0.069444rem;
+              cursor: pointer;
             }
           }
         }
@@ -195,7 +212,7 @@
             background: $color4;
             border-radius: 21px;
             display: block;
-            color: #ffffff;
+            color: $color9;
             font-size: $font-size16;
             text-align: center;
             line-height: 0.277778rem;
@@ -204,8 +221,8 @@
           .btn2 {
             width: 0.555556rem;
             height: 0.277778rem;
-            background: #ffffff;
-            border: 1px solid #707070;
+            background: $color9;
+            border: 1px solid $color6;
             border-radius: 21px;
             display: block;
             color: $color4;
@@ -272,7 +289,7 @@
           font-size: $font_size16;
           font-weight: 400;
           line-height: 27px;
-          color: #ffffff;
+          color: $color9;
           margin-left: 0.1875rem;
         }
         .label_img {
@@ -369,12 +386,38 @@
         flex-direction: column;
         width: 1.641736rem;
         height: 1.737986rem;
-        border: 1px solid red;
+        background: $color9;
+        border-radius: 30px;
+        box-shadow: 0px 10px 46px rgba(0, 0, 0, 0.07);
         .hot_img {
           width: 1.638889rem;
           height: 1.104167rem;
           box-shadow: 0px 10px 46px rgba(0, 0, 0, 0.07);
           border-radius: 30px;
+        }
+        .hot_title {
+          color: $color1;
+          font-size: $font_size20;
+          display: inline-block;
+          box-sizing: border-box;
+          padding-top: 0.083333rem;
+          padding-left: 0.215278rem;
+          padding-right: 0.1875rem;
+          font-weight: bold;
+        }
+        .hot_more_view {
+          box-sizing: border-box;
+          padding-top: 0.069444rem;
+          padding-left: 0.215278rem;
+          padding-right: 0.1875rem;
+          font-size: $font_size14;
+          color: $color7;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          .poionter {
+            cursor: pointer;
+          }
         }
       }
     }
