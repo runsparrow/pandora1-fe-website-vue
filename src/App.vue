@@ -65,9 +65,15 @@
         <div class="item">
           <img class="hot_img" src="./assets/imgs/hot_img.png" alt="" srcset="./assets/imgs/hot_img@2x.png 2x" />
         </div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
+        <div class="item">
+          <img class="hot_img" src="./assets/imgs/hot_img.png" alt="" srcset="./assets/imgs/hot_img@2x.png 2x" />
+        </div>
+        <div class="item">
+          <img class="hot_img" src="./assets/imgs/hot_img.png" alt="" srcset="./assets/imgs/hot_img@2x.png 2x" />
+        </div>
+        <div class="item">
+          <img class="hot_img" src="./assets/imgs/hot_img.png" alt="" srcset="./assets/imgs/hot_img@2x.png 2x" />
+        </div>
       </div>
     </div>
   </div>
@@ -350,7 +356,6 @@
       margin-left: 0.430556rem;
       margin-right: 1.159722rem;
       box-sizing: border-box;
-      border: 1px solid blue;
       justify-content: space-between;
       .item {
         box-sizing: border-box;
