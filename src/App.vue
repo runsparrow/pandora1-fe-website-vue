@@ -80,6 +80,12 @@
           <span class="hot_title">推广海报</span>
           <div class="hot_more_view">
             <span class="poionter">查看更多</span>
+            <img
+              class="blue_direct_img"
+              src="./assets/imgs/arrow-pointing-to-right-blue.png"
+              alt=""
+              srcset="./assets/imgs/arrow-pointing-to-right-blue@2x.png 2x"
+            />
           </div>
         </div>
         <div class="item">
@@ -87,6 +93,12 @@
           <span class="hot_title">推广海报</span>
           <div class="hot_more_view">
             <span class="poionter">查看更多</span>
+            <img
+              class="blue_direct_img"
+              src="./assets/imgs/arrow-pointing-to-right-blue.png"
+              alt=""
+              srcset="./assets/imgs/arrow-pointing-to-right-blue@2x.png 2x"
+            />
           </div>
         </div>
         <div class="item">
@@ -94,6 +106,12 @@
           <span class="hot_title">推广海报</span>
           <div class="hot_more_view">
             <span class="poionter">查看更多</span>
+            <img
+              class="blue_direct_img"
+              src="./assets/imgs/arrow-pointing-to-right-blue.png"
+              alt=""
+              srcset="./assets/imgs/arrow-pointing-to-right-blue@2x.png 2x"
+            />
           </div>
         </div>
       </div>
