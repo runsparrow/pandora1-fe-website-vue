@@ -24,9 +24,15 @@
               />
             </div>
           </li>
-          <li class="btn_view">
+          <li class="btn_view" v-if="true">
             <span class="btn1">注册</span>
             <span class="btn2">登录</span>
+          </li>
+          <li v-else class="btn_view">
+            <div class="login_header_logo">
+              头像
+            </div>
+            <span class="username">徐升</span>
           </li>
         </ul>
       </div>
@@ -257,6 +263,24 @@
             line-height: 0.277778rem;
             margin-left: 0.041667rem;
             cursor: pointer;
+          }
+          .login_header_logo {
+            width: 0.465278rem;
+            height: 0.465278rem;
+            border: 1px solid #707070;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 0.465278rem;
+            font-size: $font_size16;
+            font-weight: 400;
+            color: $color1;
+          }
+          .username {
+            font-size: $font_size16;
+            font-family: Microsoft YaHei;
+            font-weight: 400;
+            line-height: 0.465278rem;
+            margin-left: 0.055556rem;
           }
         }
       }
