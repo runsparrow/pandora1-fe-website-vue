@@ -322,6 +322,7 @@
           width: 0.798611rem;
           height: 0.020833rem;
           bottom: 0.034722rem;
+          left: 40%;
           background: linear-gradient(
             90deg,
             rgba(188, 189, 191, 0.5) 0%,
