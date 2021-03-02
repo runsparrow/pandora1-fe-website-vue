@@ -4,7 +4,7 @@
       <div class="top_view">
         <ul class="list">
           <li class="logo">
-            <img class="logo_img" src="./assets/imgs/logo_01.png" alt="" srcset="./assets/imgs/logo_01@2x.png 2x">
+            <img class="logo_img" src="./assets/imgs/logo_01.png" alt="" srcset="./assets/imgs/logo_01@2x.png 2x" />
             <span class="logo_title">SooYi.CN</span>
           </li>
           <li class="label">推广海报</li>
@@ -15,8 +15,13 @@
             <input type="text" placeholder="搜索素材" />
 
             <div class="search_right_bg_view">
-               <img class="search_icon" src="./assets/imgs/search.png" alt="" srcset="./assets/imgs/search@2x.png 2x">
-               <img class="search_clear" src="./assets/imgs/search_clear.png" alt="" srcset="./assets/imgs/search_clear@2x.png 2x">
+              <img class="search_icon" src="./assets/imgs/search.png" alt="" srcset="./assets/imgs/search@2x.png 2x" />
+              <img
+                class="search_clear"
+                src="./assets/imgs/search_clear.png"
+                alt=""
+                srcset="./assets/imgs/search_clear@2x.png 2x"
+              />
             </div>
           </li>
           <li class="btn_view">
@@ -24,6 +29,25 @@
             <span class="btn2">登录</span>
           </li>
         </ul>
+      </div>
+      <div class="logo_view">
+        BANNER(请给与尺寸范围)
+      </div>
+      <div class="center_view">
+        <div class="left_view">
+          <p class="point_title">It is a long established</p>
+          <p class="point_title">fact that areader</p>
+          <span class="desc maginTop">医云直击医圈人群的痛点，提升视觉编辑相关的工作</span>
+          <span class="desc">我们有全球独家的医学漫画素材</span>
+          <span class="desc">更有志同道合的伙伴...</span>
+        </div>
+        <div class="right_view">
+          <div class="frame_view">
+            <img class="frame_banner_img" src="./assets/imgs/index_banner.png" alt="" />
+            <div class="laptop_line"></div>
+            <div class="laptop_bottom"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -34,79 +58,72 @@
 @import './assets/css/font_size';
 .container {
   box-sizing: border-box;
-  margin-left: .715278rem;
-  margin-right: .736111rem;
+  margin-left: 0.715278rem;
+  margin-right: 0.736111rem;
   border: 1px solid blue;
   width: 8.548611rem;
-  .header_view
-  {
+  .header_view {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    .top_view
-    {
-      height: .833333rem;
+    .top_view {
+      height: 0.833333rem;
       box-sizing: border-box;
       border: 1px solid yellow;
       display: flex;
       flex-direction: row;
       align-items: center;
-      .list
-      {
+      .list {
         height: 100%;
         list-style: none;
         display: flex;
         flex-direction: row;
         box-sizing: border-box;
         align-items: center;
-        flex:1;
+        flex: 1;
         justify-content: space-between;
-        .logo
-        {
-            display: flex;
-            flex-direction: row;
-            align-items: flex-end;
-            margin: 0;
-            .logo_img
-            {
-              width:.430625rem;
-              height: .242083rem;
-            }
-            .logo_title
-            {
-               color:$color4;
-               font-size: $font-size37;
-               line-height: .180556rem;
-            }
+        .logo {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-end;
+          margin: 0;
+          .logo_img {
+            width: 0.430625rem;
+            height: 0.242083rem;
+          }
+          .logo_title {
+            color: $color4;
+            font-size: $font-size37;
+            line-height: 0.180556rem;
+          }
         }
         .label {
           color: $color1;
           font-size: $font_size16;
-          margin-top: .138889rem;
+          margin-top: 0.138889rem;
         }
         .seperator {
           position: relative;
           &::before {
             position: absolute;
-            top: -.034722rem;
+            top: -0.034722rem;
             right: 0;
             left: 0;
             bottom: 0;
-            height: .180556rem;
+            height: 0.180556rem;
             width: 0px;
             border: 1px solid $color2;
             content: '';
             background-color: red;
           }
         }
-        .search_item
-        {
-           box-sizing: border-box;
-           position: relative;
-           padding-top: .076389rem;
-           position: relative;
+        .search_item {
+          box-sizing: border-box;
+          position: relative;
+          padding-top: 0.076389rem;
+          position: relative;
 
-           input {
+          input {
             width: 1.798611rem;
             height: 0.277778rem;
             border: 1px solid $color3;
@@ -116,41 +133,37 @@
             font-size: $font_size16;
           }
 
-          .search_right_bg_view
-          {
+          .search_right_bg_view {
             position: absolute;
             right: 0;
-            top:.076389rem;
-            width: .256944rem;
-             height: 0.277778rem;
-             background-image: url('./assets/imgs/search_right_bg.png');
-             background-repeat: no-repeat;
-             background-size: .256944rem 0.277778rem;
-             display: flex;
-             justify-content: center;
-             align-items: center;
-             .search_clear
-             {
-                width: .087361rem;
-                height: .0875rem;
-             }
-             .search_icon
-            {
-              width: .132083rem;
-              height: .132083rem;
+            top: 0.076389rem;
+            width: 0.256944rem;
+            height: 0.277778rem;
+            background-image: url('./assets/imgs/search_right_bg.png');
+            background-repeat: no-repeat;
+            background-size: 0.256944rem 0.277778rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .search_clear {
+              width: 0.087361rem;
+              height: 0.0875rem;
+            }
+            .search_icon {
+              width: 0.132083rem;
+              height: 0.132083rem;
               position: absolute;
-              left: -.236597rem;
+              left: -0.236597rem;
             }
           }
         }
-        .btn_view
-        {
+        .btn_view {
           display: flex;
           flex-direction: row;
           width: 1.222222rem;
           justify-content: flex-end;
           box-sizing: border-box;
-          padding-top: .076389rem;
+          padding-top: 0.076389rem;
           .btn1 {
             width: 0.555556rem;
             height: 0.277778rem;
@@ -175,6 +188,96 @@
             text-align: center;
             line-height: 0.277778rem;
             margin-left: 0.041667rem;
+          }
+        }
+      }
+    }
+    .logo_view {
+      box-sizing: border-box;
+      height: 1.416667rem;
+      display: flex;
+      color: $color1;
+      justify-content: center;
+      align-items: center;
+      font-size: $font_size17;
+      border: 1px solid $color6;
+    }
+    .center_view {
+      box-sizing: border-box;
+      height: 2.922847rem;
+      border: 1px solid yellow;
+      display: flex;
+      flex-direction: row;
+      .left_view {
+        width: 4.274306rem;
+        border: 1px solid red;
+        box-sizing: border-box;
+        padding-right: 0.197917rem;
+        padding-left: 0.430556rem;
+        padding-top: 0.506944rem;
+        .point_title {
+          color: $color1;
+          font-size: $font_size38;
+          line-height: 0.3rem;
+          font-weight: bold;
+          margin: 0;
+          padding: 0;
+        }
+        .desc {
+          line-height: 0.15rem;
+          font-size: font_size18;
+          color: $color5;
+          margin: 0;
+          padding: 0;
+          display: block;
+          &.maginTop {
+            margin-top: 0.090278rem;
+          }
+        }
+      }
+      .right_view {
+        width: 4.274306rem;
+        box-sizing: border-box;
+        border: 1px solid red;
+        padding-top: 0.347222rem;
+        padding-right: 0.430556rem;
+        padding-left: 0.208333rem;
+        .frame_view {
+          box-sizing: border-box;
+          width: 3.758264rem;
+          height: 2.451389rem;
+
+          background: #f5f5f5;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
+          border-radius: 12px;
+          position: relative;
+          .frame_banner_img {
+            width: 3.393611rem;
+            height: 2.117986rem;
+          }
+          .laptop_line {
+            position: absolute;
+            width: 0.798611rem;
+            height: 0.020833rem;
+            bottom: 0.034722rem;
+            background: linear-gradient(
+              90deg,
+              rgba(188, 189, 191, 0.5) 0%,
+              rgba(216, 216, 223, 0.5) 10%,
+              rgba(216, 216, 223, 0.5) 89%,
+              rgba(173, 170, 189, 0.5) 100%
+            );
+          }
+          .laptop_bottom {
+            position: absolute;
+            bottom: -0.055556rem;
+            left: -50px;
+            width: 4.465278rem;
+            height: 0.059444rem;
+            background: linear-gradient(180deg, #ffffff 0%, #cdcbd5 100%);
           }
         }
       }
