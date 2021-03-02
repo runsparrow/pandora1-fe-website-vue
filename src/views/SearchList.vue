@@ -77,7 +77,7 @@
         <li class="item">
           <span class="label">热门下载</span>
           <img class="select_img" src="@a/imgs/jiantou_down.png" alt="" srcset="@a/imgs/jiantou_down@2x.png 2x" />
-          <ul class="children_list" v-if="false">
+          <ul class="children_list" v-if="true">
             <li class="child_item top">全部排序</li>
             <li class="child_item active">热门下载</li>
             <li class="child_item label">最新上传</li>
