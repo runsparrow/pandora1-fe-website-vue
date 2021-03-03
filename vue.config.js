@@ -33,7 +33,7 @@ module.exports = {
       .set('@a', resolve('src/assets'))
       .set('@c', resolve('src/components'))
       .set('@v', resolve('src/views'))
-      .set('@x', resolve('src/vuex'))
+      .set('@x', resolve('src/store'))
       .set('@l', resolve('src/libs'))
 
     const svgRule = config.module.rule('svg')

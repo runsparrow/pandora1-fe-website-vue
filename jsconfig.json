@@ -7,7 +7,7 @@
       "@a/*": ["./src/assets/*"],
       "@c/*": ["./src/components/*"],
       "@v/*": ["./src/views/*"],
-      "@x/*": ["./src/vuex/*"],
+      "@x/*": ["./src/store/*"],
       "@l/*": ["./src/libs/*"]
     }
   },

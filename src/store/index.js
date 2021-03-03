@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import state from './state'
-import mutations from './mutations'
-import actions from './actions'
-import user from './modules/user-module'
+import state from '@x/state'
+import mutations from '@x/mutations'
+import actions from '@x/actions'
+import user from '@x/modules/user-module'
 
 Vue.use(Vuex)
 
