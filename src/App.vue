@@ -1,16 +1,36 @@
 <template>
-  <transition name="fade">
+  <transition name="router">
     <router-view />
   </transition>
 </template>
 
-<style lang="scss" scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
+<script>
+export default {
+  watch: {
+    $route(to) {
+      //监听路由
+    }
+  }
 }
-.fade-enter,
-.fade-leave-active {
+</script>
+
+<style lang="scss" scoped>
+.router-enter {
+  opacity: 0;
+}
+.router-enter-active {
+  transition: opacity 0.5s ease;
+}
+.router-enter-to {
+  opacity: 1;
+}
+.router-leave {
+  opacity: 1;
+}
+.router-leave-active {
+  transition: opacity 0.5s ease;
+}
+.router-leave-to {
   opacity: 0;
 }
 </style>
