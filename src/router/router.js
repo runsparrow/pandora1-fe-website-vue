@@ -1,10 +1,10 @@
 export default [
   {
     path: '/',
-    component: () => import(/* webpackChunkName: "home-view" */ '../views/Index.vue')
+    component: () => import(/* webpackChunkName: "home-view" */ '@v/Index.vue')
   },
   {
     path: '/search',
-    component: () => import(/* webpackChunkName: "search-view" */ '../views/SearchList.vue')
+    component: () => import(/* webpackChunkName: "search-view" */ '@v/SearchList.vue')
   }
 ]
