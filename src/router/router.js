@@ -6,5 +6,9 @@ export default [
   {
     path: '/search',
     component: () => import(/* webpackChunkName: "search-view" */ '@v/SearchList.vue')
+  },
+  {
+    path: '*',
+    component: () => import(/* webpackChunkName: "not-found-view" */ '@v/NotFound.vue')
   }
 ]
