@@ -19,17 +19,17 @@
           <div class="right_view">账号登录</div>
         </div>
         <div class="mobile_view">
-          <input class="form_input_mobile" type="text" placeholder="请输入手机号" />
+          <input class="form_input_mobile" type="text" placeholder="请输入手机号" v-model.trim="accountName" />
           <div class="error_msg">手机号有误</div>
           <img class="user_mobile_img" src="@a/imgs/user_mobile.png" alt="" srcset="@a/imgs/user_mobile@2x.png 2x" />
         </div>
         <div class="pwd_view">
-          <input class="form_input_pwd" type="password" placeholder="请输入密码" />
+          <input class="form_input_pwd" type="password" placeholder="请输入密码" v-model.trim="accountPwd" />
           <div class="error_msg">密码有误</div>
           <img class="user_pwd_img" src="@a/imgs/user_pwd.png" alt="" srcset="@a/imgs/user_pwd@2x.png 2x" />
         </div>
 
-        <button class="btn_submit">提交</button>
+        <button class="btn_submit" @click="loginSooYi">提交</button>
         <div class="dec_view">
           <span class="label01">没有账号?</span>
           <span class="label02">马上注册</span>
@@ -47,7 +47,31 @@
 </template>
 
 <script>
-export default {}
+import axios from 'axios'
+export default {
+  name: 'LoginView',
+  data() {
+    return {
+      accountName: '15801755080',
+      accountPwd: 'guest'
+    }
+  },
+  methods: {
+    loginSooYi() {
+      axios
+        .post(process.env.VUE_APP_BASE_URL + '/MIS/CMS/Auth/GetToken', {
+          accountName: this.accountName,
+          accountPwd: this.accountPwd
+        })
+        .then(res => {
+          if (res.data.result) {
+            alert('通过网关访问,登录成功!用户名:' + res.data.userInfo.userName)
+            alert('Token:' + res.data.token)
+          }
+        })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

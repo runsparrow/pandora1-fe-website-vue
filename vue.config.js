@@ -10,7 +10,17 @@ module.exports = {
   devServer: {
     host: 'localhost',
     port: 3000,
-    open: true
+    open: true,
+    proxy: {
+      '/pandora1': {
+        target: 'http://106.15.88.18',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/pandora1': '/pandora1'
+        }
+      }
+    }
   },
   configureWebpack: config => {
     if (process.env.NODE_ENV === 'production') {
