@@ -134,6 +134,7 @@ export default {
   margin-left: 0.715278rem;
   margin-right: 0.736111rem;
   width: 8.548611rem;
+  margin: 0 auto;
   .header_view {
     display: flex;
     flex-direction: column;

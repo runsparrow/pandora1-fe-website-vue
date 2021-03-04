@@ -110,7 +110,9 @@ export default {
 @import '../assets/css/colors';
 @import '../assets/css/font_size';
 .searchListView {
+  box-sizing: border-box;
   width: 10rem;
+  margin: 0 auto;
   .container {
     box-sizing: border-box;
     margin-left: 0.715278rem;
@@ -286,6 +288,7 @@ export default {
     padding-left: 0.715278rem;
     padding-right: 0.736111rem;
     padding-top: 0.270833rem;
+    padding-bottom: 0.270833rem;
     .list {
       display: flex;
       flex-direction: row;

@@ -11,23 +11,23 @@ const router = new VueRouter({
   routes
 })
 
-const HAS_LOGINED = true
+const HAS_LOGINED = false
 
-router.beforeEach((to, from, next) => {
-  to.meta && setDocumentTitle(to.meta.title)
-  if (to.path !== '/login') {
-    if (HAS_LOGINED) {
-      next()
-    } else {
-      next('/login')
-    }
-  } else {
-    if (HAS_LOGINED) {
-      next('/')
-    } else {
-      next()
-    }
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   to.meta && setDocumentTitle(to.meta.title)
+//   if (to.path !== '/login') {
+//     if (HAS_LOGINED) {
+//       next()
+//     } else {
+//       next('/login')
+//     }
+//   } else {
+//     if (HAS_LOGINED) {
+//       next('/')
+//     } else {
+//       next()
+//     }
+//   }
+// })
 
 export default router

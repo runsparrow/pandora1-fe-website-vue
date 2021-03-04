@@ -10,11 +10,29 @@ li {
   margin: 0;
 }
 
+::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #cbcbcb;
+  font-size: 0.111111rem;
+}
+
+::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #cbcbcb;
+  font-size: 0.111111rem;
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #cbcbcb;
+  font-size: 0.111111rem;
+}
+
 body {
-  min-width: 720px;
-  max-width: 1440px;
+  // min-width: 720px;
+  // max-width: 1440px;
   box-sizing: border-box;
-  width: 10rem;
+  // width: 10rem;
   font-family: Arial, Helvetica;
   margin: 0 auto;
   line-height: 1.5;
