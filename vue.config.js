@@ -11,6 +11,16 @@ module.exports = {
     host: 'localhost',
     port: 3000,
     open: true,
+    // proxy: {
+    //   '/pandora1': {
+    //     target: 'http://106.15.88.18:8002',
+    //     ws: true,
+    //     changeOrigin: true,
+    //     pathRewrite: {
+    //       '^/pandora1': '/'
+    //     }
+    //   }
+    // }
     proxy: {
       '/pandora1': {
         target: 'http://106.15.88.18',
