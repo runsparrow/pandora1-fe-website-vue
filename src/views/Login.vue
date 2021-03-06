@@ -59,7 +59,7 @@ export default {
   methods: {
     loginSooYi() {
       axios
-        .post(process.env.VUE_APP_BASE_URL + '/MIS/CMS/Auth/GetToken', {
+        .post(process.env.VUE_APP_BASE_API_URL + '/MIS/CMS/Auth/GetToken', {
           accountName: this.accountName,
           accountPwd: this.accountPwd
         })
