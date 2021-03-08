@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import ajax from '@s/ajax-service'
+import ajax from '@/libs/ajax-service'
 export default {
   name: 'LoginView',
   data() {
@@ -72,16 +72,6 @@ export default {
           alert('Token:' + res.token)
         }
       })
-      // .post('/MIS/CMS/Auth/GetToken', {
-      //   accountName: this.accountName,
-      //   accountPwd: this.accountPwd
-      // })
-      // .then(res => {
-      //   if (res.data.result) {
-      //     alert('通过网关访问,登录成功!用户名:' + res.data.userInfo.userName)
-      //     alert('Token:' + res.data.token)
-      //   }
-      // })
     }
   }
 }

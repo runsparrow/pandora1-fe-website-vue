@@ -1,4 +1,4 @@
-import ajax from '../libs/axios-interceptor'
+import ajax from './axios-interceptor'
 
 const ajaxRequest = param => {
   return ajax.request({
