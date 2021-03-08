@@ -39,6 +39,7 @@
               srcset="@a/imgs/register_mobile@2x.png 2x"
             />
             <div :class="['error_msg', { error_msg_hidden: !accountNameInValid }]">手机号不能为空</div>
+            <button class="btn_submit" @click="toHomePage" style="margin-top:0px;">获取验证码</button>
           </div>
         </template>
         <template v-else>
