@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import ajax from '@s/ajax-service'
 export default {
   name: 'LoginView',
   data() {
@@ -58,17 +58,30 @@ export default {
   },
   methods: {
     loginSooYi() {
-      axios
-        .post(process.env.VUE_APP_BASE_API_URL + '/MIS/CMS/Auth/GetToken', {
+      ajax({
+        url: '/MIS/CMS/Auth/GetToken',
+        method: 'POST',
+        data: {
           accountName: this.accountName,
           accountPwd: this.accountPwd
-        })
-        .then(res => {
-          if (res.data.result) {
-            alert('通过网关访问,登录成功!用户名:' + res.data.userInfo.userName)
-            alert('Token:' + res.data.token)
-          }
-        })
+        }
+      }).then(res => {
+        console.log(res)
+        if (res.result) {
+          alert('通过网关访问,登录成功!用户名:' + res.userInfo.userName)
+          alert('Token:' + res.token)
+        }
+      })
+      // .post('/MIS/CMS/Auth/GetToken', {
+      //   accountName: this.accountName,
+      //   accountPwd: this.accountPwd
+      // })
+      // .then(res => {
+      //   if (res.data.result) {
+      //     alert('通过网关访问,登录成功!用户名:' + res.data.userInfo.userName)
+      //     alert('Token:' + res.data.token)
+      //   }
+      // })
     }
   }
 }
