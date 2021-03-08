@@ -20,13 +20,25 @@
         </div>
         <template v-if="token === ''">
           <div class="mobile_view">
-            <input class="form_input_mobile" type="text" placeholder="请输入手机号" v-model.trim="accountName" />
-            <div class="error_msg">手机号有误</div>
+            <input
+              class="form_input_mobile"
+              type="text"
+              placeholder="请输入手机号"
+              v-model.trim="accountName"
+              @keyup="validAccountName($event)"
+            />
+            <div :class="['error_msg', { error_msg_hidden: !accountNameInValid }]">手机号不能为空</div>
             <img class="user_mobile_img" src="@a/imgs/user_mobile.png" alt="" srcset="@a/imgs/user_mobile@2x.png 2x" />
           </div>
           <div class="pwd_view">
-            <input class="form_input_pwd" type="password" placeholder="请输入密码" v-model.trim="accountPwd" />
-            <div class="error_msg">密码有误</div>
+            <input
+              class="form_input_pwd"
+              type="password"
+              placeholder="请输入密码"
+              v-model.trim="accountPwd"
+              @keyup="validAccountPwd($event)"
+            />
+            <div :class="['error_msg', { error_msg_hidden: !accountPwdInValid }]">密码不能为空</div>
             <img class="user_pwd_img" src="@a/imgs/user_pwd.png" alt="" srcset="@a/imgs/user_pwd@2x.png 2x" />
           </div>
 
@@ -68,8 +80,10 @@ export default {
   name: 'LoginView',
   data() {
     return {
-      accountName: '15801755080',
-      accountPwd: 'guest',
+      accountName: '',
+      accountNameInValid: false,
+      accountPwd: '',
+      accountPwdInValid: false,
       timer: null,
       seconds: 3
     }
@@ -79,18 +93,43 @@ export default {
   },
   methods: {
     ...mapMutations(['setUserInfoMutation']),
+    validAccountName($event) {
+      if ($event.target.value === '') {
+        this.accountNameInValid = true
+      } else {
+        this.accountNameInValid = false
+      }
+    },
+    validAccountPwd($event) {
+      if ($event.target.value === '') {
+        this.accountPwdInValid = true
+      } else {
+        this.accountPwdInValid = false
+      }
+    },
     loginSooYi() {
       let that = this
+      if (that.accountName === '') {
+        that.accountNameInValid = true
+      }
+      if (that.accountPwd === '') {
+        that.accountPwdInValid = true
+      }
+      if (that.accountNameInValid || that.accountPwdInValid) {
+        return
+      }
       ajax({
         url: '/MIS/CMS/Auth/GetToken',
         method: 'POST',
         data: {
-          accountName: this.accountName,
-          accountPwd: this.accountPwd
+          accountName: that.accountName,
+          accountPwd: that.accountPwd
         }
       }).then(res => {
         console.log(res)
         if (res.result) {
+          that.accountNameInValid = false
+          that.accountPwdInValid = false
           that.setUserInfoMutation({ userName: res.userInfo.userName, token: res.token })
           that.timer = setInterval(() => {
             that.seconds -= 1
@@ -99,6 +138,8 @@ export default {
               that.$router.push('/')
             }
           }, 1000)
+        } else {
+          alert('手机号或密码错误!')
         }
       })
     },
@@ -239,6 +280,9 @@ export default {
           font-size: $font_size12;
           visibility: visible;
         }
+        .error_msg_hidden {
+          visibility: hidden;
+        }
       }
       .pwd_view {
         box-sizing: border-box;
@@ -268,6 +312,9 @@ export default {
           margin-left: 0.534722rem;
           font-size: $font_size12;
           visibility: visible;
+        }
+        .error_msg_hidden {
+          visibility: hidden;
         }
       }
       .btn_submit {
