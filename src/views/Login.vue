@@ -15,11 +15,15 @@
     <div class="main">
       <div class="form_view">
         <div class="title_view">
-          <div class="left_view">快速注册</div>
-          <div class="right_view">账号登录</div>
+          <div :class="['left_view', { activeLeftTab: activeTab === 0 }]" @click="() => (activeTab = 0)">
+            快速注册
+          </div>
+          <div :class="['right_view', { activeRightTab: activeTab === 1 }]" @click="() => (activeTab = 1)">
+            账号登录
+          </div>
         </div>
-        <template v-if="token === ''">
-          <div class="mobile_view">
+        <template v-if="activeTab === 0">
+          <div class="mobile_register_view">
             <input
               class="form_input_mobile"
               type="text"
@@ -27,47 +31,73 @@
               v-model.trim="accountName"
               @keyup="validAccountName($event)"
             />
-            <div :class="['error_msg', { error_msg_hidden: !accountNameInValid }]">手机号不能为空</div>
-            <img class="user_mobile_img" src="@a/imgs/user_mobile.png" alt="" srcset="@a/imgs/user_mobile@2x.png 2x" />
-          </div>
-          <div class="pwd_view">
-            <input
-              class="form_input_pwd"
-              type="password"
-              placeholder="请输入密码"
-              v-model.trim="accountPwd"
-              @keyup="validAccountPwd($event)"
+            <span class="register_label">+86</span>
+            <img
+              class="register_mobile_img"
+              src="@a/imgs/register_mobile.png"
+              alt=""
+              srcset="@a/imgs/register_mobile@2x.png 2x"
             />
-            <div :class="['error_msg', { error_msg_hidden: !accountPwdInValid }]">密码不能为空</div>
-            <img class="user_pwd_img" src="@a/imgs/user_pwd.png" alt="" srcset="@a/imgs/user_pwd@2x.png 2x" />
-          </div>
-
-          <button class="btn_submit" @click="loginSooYi">提交</button>
-          <div class="dec_view">
-            <span class="label01">没有账号?</span>
-            <span class="label02">马上注册</span>
-            <span class="label04">忘记密码</span>
+            <div :class="['error_msg', { error_msg_hidden: !accountNameInValid }]">手机号不能为空</div>
           </div>
         </template>
         <template v-else>
+          <template v-if="token === ''">
+            <div class="mobile_view">
+              <input
+                class="form_input_mobile"
+                type="text"
+                placeholder="请输入手机号"
+                v-model.trim="accountName"
+                @keyup="validAccountName($event)"
+              />
+              <div :class="['error_msg', { error_msg_hidden: !accountNameInValid }]">手机号不能为空</div>
+              <img
+                class="user_mobile_img"
+                src="@a/imgs/user_mobile.png"
+                alt=""
+                srcset="@a/imgs/user_mobile@2x.png 2x"
+              />
+            </div>
+            <div class="pwd_view">
+              <input
+                class="form_input_pwd"
+                type="password"
+                placeholder="请输入密码"
+                v-model.trim="accountPwd"
+                @keyup="validAccountPwd($event)"
+              />
+              <div :class="['error_msg', { error_msg_hidden: !accountPwdInValid }]">密码不能为空</div>
+              <img class="user_pwd_img" src="@a/imgs/user_pwd.png" alt="" srcset="@a/imgs/user_pwd@2x.png 2x" />
+            </div>
+
+            <button class="btn_submit" @click="loginSooYi">提交</button>
+            <div class="dec_view">
+              <span class="label01">没有账号?</span>
+              <span class="label02">马上注册</span>
+              <span class="label04">忘记密码</span>
+            </div>
+          </template>
+          <template v-else>
+            <img
+              class="success_login_img"
+              src="@a/imgs/success_login.png"
+              alt=""
+              srcset="@a/imgs/success_login@2x.png 2x"
+            />
+            <span class="success_label">恭喜您，已经陈宫登录!</span>
+            <span class="success_label"
+              >{{ seconds }}秒后，<span class="success_label_return_index" @click="toHomePage">返回首页</span></span
+            >
+            <button class="btn_submit" @click="toHomePage">立即跳转</button>
+          </template>
           <img
-            class="success_login_img"
-            src="@a/imgs/success_login.png"
+            class="login_bottom_img"
+            src="@a/imgs/login_bottom_img.png"
             alt=""
-            srcset="@a/imgs/success_login@2x.png 2x"
+            srcset="@a/imgs/login_bottom_img@2x.png 2x"
           />
-          <span class="success_label">恭喜您，已经陈宫登录!</span>
-          <span class="success_label"
-            >{{ seconds }}秒后，<span class="success_label_return_index" @click="toHomePage">返回首页</span></span
-          >
-          <button class="btn_submit" @click="toHomePage">立即跳转</button>
         </template>
-        <img
-          class="login_bottom_img"
-          src="@a/imgs/login_bottom_img.png"
-          alt=""
-          srcset="@a/imgs/login_bottom_img@2x.png 2x"
-        />
       </div>
     </div>
   </div>
@@ -85,7 +115,8 @@ export default {
       accountPwd: '',
       accountPwdInValid: false,
       timer: null,
-      seconds: 3
+      seconds: 3,
+      activeTab: 1
     }
   },
   computed: {
@@ -229,14 +260,15 @@ export default {
           align-items: center;
           box-sizing: border-box;
           justify-content: center;
-
-          background: $color12;
-          border: 1px solid $color6;
-          opacity: 1;
+          cursor: pointer;
+          color: #707070;
+          border: 1px solid #707070;
           border-radius: 0px 0px 0.145833rem 0px;
-          color: $color13;
+          background: #ebebeb;
+          opacity: 1;
           font-size: $font_size20;
           font-weight: bold;
+          background: #ebebeb;
         }
         .right_view {
           height: 100%;
@@ -247,10 +279,74 @@ export default {
           box-sizing: border-box;
           font-size: $font_size20;
           font-weight: bold;
-
-          color: $color14;
+          cursor: pointer;
+          border-radius: 0px 0px 0.145833rem 0px;
+          background: #ffffff;
+          color: #707070;
+          border: 1px solid #707070;
+          border-radius: 0px 0px 0px 0.145833rem;
+          background: #ebebeb;
+        }
+        .activeLeftTab {
+          cursor: default !important;
+          color: #000c20;
+          border: 1px solid #707070;
+          background: #ffffff;
+          border: none;
+        }
+        .activeRightTab {
+          cursor: default !important;
+          color: #000c20;
+          background: #ffffff;
+          border: none;
+          /* border: 1px solid #707070;
+          border-radius: 0px 0px 0px 0.145833rem; */
+          /* background: #ebebeb; */
         }
       }
+      .mobile_register_view {
+        box-sizing: border-box;
+        position: relative;
+        .form_input_mobile {
+          width: 2.222222rem;
+          height: 0.326389rem;
+          border: 1px solid $color4;
+          border-radius: 0.159722rem;
+          margin-top: 0.215278rem;
+          margin-left: 0.145833rem;
+          margin-right: 0.152778rem;
+          box-sizing: border-box;
+          padding-left: 0.631944rem;
+          font-size: $font_size16;
+          font-weight: 400;
+        }
+        .register_label {
+          position: absolute;
+          left: 0.256944rem;
+          top: 0.298611rem;
+
+          font-size: $font_size16;
+          font-weight: 400;
+          color: $color16;
+        }
+        .register_mobile_img {
+          width: 0.055556rem;
+          height: 0.0625rem;
+          position: absolute;
+          left: 0.520833rem;
+          top: 0.354167rem;
+        }
+        .error_msg {
+          color: $color15;
+          margin-left: 0.777778rem;
+          font-size: $font_size12;
+          visibility: visible;
+        }
+        .error_msg_hidden {
+          visibility: hidden;
+        }
+      }
+
       .mobile_view {
         box-sizing: border-box;
         position: relative;
