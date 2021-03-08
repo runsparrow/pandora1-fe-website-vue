@@ -18,23 +18,38 @@
           <div class="left_view">快速注册</div>
           <div class="right_view">账号登录</div>
         </div>
-        <div class="mobile_view">
-          <input class="form_input_mobile" type="text" placeholder="请输入手机号" v-model.trim="accountName" />
-          <div class="error_msg">手机号有误</div>
-          <img class="user_mobile_img" src="@a/imgs/user_mobile.png" alt="" srcset="@a/imgs/user_mobile@2x.png 2x" />
-        </div>
-        <div class="pwd_view">
-          <input class="form_input_pwd" type="password" placeholder="请输入密码" v-model.trim="accountPwd" />
-          <div class="error_msg">密码有误</div>
-          <img class="user_pwd_img" src="@a/imgs/user_pwd.png" alt="" srcset="@a/imgs/user_pwd@2x.png 2x" />
-        </div>
+        <template v-if="token === ''">
+          <div class="mobile_view">
+            <input class="form_input_mobile" type="text" placeholder="请输入手机号" v-model.trim="accountName" />
+            <div class="error_msg">手机号有误</div>
+            <img class="user_mobile_img" src="@a/imgs/user_mobile.png" alt="" srcset="@a/imgs/user_mobile@2x.png 2x" />
+          </div>
+          <div class="pwd_view">
+            <input class="form_input_pwd" type="password" placeholder="请输入密码" v-model.trim="accountPwd" />
+            <div class="error_msg">密码有误</div>
+            <img class="user_pwd_img" src="@a/imgs/user_pwd.png" alt="" srcset="@a/imgs/user_pwd@2x.png 2x" />
+          </div>
 
-        <button class="btn_submit" @click="loginSooYi">提交</button>
-        <div class="dec_view">
-          <span class="label01">没有账号?</span>
-          <span class="label02">马上注册</span>
-          <span class="label04">忘记密码</span>
-        </div>
+          <button class="btn_submit" @click="loginSooYi">提交</button>
+          <div class="dec_view">
+            <span class="label01">没有账号?</span>
+            <span class="label02">马上注册</span>
+            <span class="label04">忘记密码</span>
+          </div>
+        </template>
+        <template v-else>
+          <img
+            class="success_login_img"
+            src="@a/imgs/success_login.png"
+            alt=""
+            srcset="@a/imgs/success_login@2x.png 2x"
+          />
+          <span class="success_label">恭喜您，已经陈宫登录!</span>
+          <span class="success_label"
+            >{{ seconds }}秒后，<span class="success_label_return_index" @click="toHomePage">返回首页</span></span
+          >
+          <button class="btn_submit" @click="toHomePage">立即跳转</button>
+        </template>
         <img
           class="login_bottom_img"
           src="@a/imgs/login_bottom_img.png"
@@ -48,16 +63,24 @@
 
 <script>
 import ajax from '@/libs/ajax-service'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'LoginView',
   data() {
     return {
       accountName: '15801755080',
-      accountPwd: 'guest'
+      accountPwd: 'guest',
+      timer: null,
+      seconds: 3
     }
   },
+  computed: {
+    ...mapState(['token'])
+  },
   methods: {
+    ...mapMutations(['setUserInfoMutation']),
     loginSooYi() {
+      let that = this
       ajax({
         url: '/MIS/CMS/Auth/GetToken',
         method: 'POST',
@@ -68,10 +91,20 @@ export default {
       }).then(res => {
         console.log(res)
         if (res.result) {
-          alert('通过网关访问,登录成功!用户名:' + res.userInfo.userName)
-          alert('Token:' + res.token)
+          that.setUserInfoMutation({ userName: res.userInfo.userName, token: res.token })
+          that.timer = setInterval(() => {
+            that.seconds -= 1
+            if (that.seconds === 0) {
+              clearInterval(that.timer)
+              that.$router.push('/')
+            }
+          }, 1000)
         }
       })
+    },
+    toHomePage() {
+      clearInterval(this.timer)
+      this.$router.push('/')
     }
   }
 }
@@ -299,6 +332,25 @@ export default {
         height: 0.402361rem;
         margin: 0 auto;
         margin-top: 0.319444rem;
+      }
+
+      .success_login_img {
+        width: 0.635208rem;
+        height: 0.635208rem;
+        margin-left: 0.9375rem;
+        margin-right: 0.951389rem;
+        margin-top: 0.291667rem;
+      }
+      .success_label {
+        color: $color8;
+        font-size: $font_size16;
+        text-align: center;
+        margin-top: 0.0625rem;
+        .success_label_return_index {
+          color: $color4;
+          font-size: $font_size20;
+          cursor: pointer;
+        }
       }
     }
   }

@@ -1,6 +1,10 @@
 export default [
   {
     path: '/',
+    redirect: '/home'
+  },
+  {
+    path: '/home',
     meta: { title: '首页' },
     component: () => import(/* webpackChunkName: "home-view" */ '@v/Index.vue')
   },
