@@ -132,13 +132,8 @@
             >
             <button class="btn_submit" @click="toHomePage">立即跳转</button>
           </template>
-          <img
-            class="login_bottom_img"
-            src="@a/imgs/login_bottom_img.png"
-            alt=""
-            srcset="@a/imgs/login_bottom_img@2x.png 2x"
-          />
         </template>
+        <img class="login_icon" src="@a/imgs/login_bottom_img.png" alt="" srcset="@a/imgs/login_bottom_img@2x.png 2x" />
       </div>
     </div>
   </div>
@@ -310,6 +305,7 @@ export default {
       margin-bottom: 1.736111rem;
       display: flex;
       flex-direction: column;
+      position: relative;
       .title_view {
         height: 0.326389rem;
         display: flex;
@@ -450,6 +446,15 @@ export default {
         }
       }
 
+      .login_icon {
+        width: 0.715694rem;
+        height: 0.402361rem;
+        position: absolute;
+        bottom: 0.388889rem;
+        left: 0.902778rem;
+        right: 0.902778rem;
+      }
+
       .mobile_view {
         box-sizing: border-box;
         position: relative;
@@ -573,12 +578,6 @@ export default {
           line-height: 0.010417rem;
           color: $color13;
         }
-      }
-      .login_bottom_img {
-        width: 0.715694rem;
-        height: 0.402361rem;
-        margin: 0 auto;
-        margin-top: 0.319444rem;
       }
 
       .success_login_img {
