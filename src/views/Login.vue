@@ -52,16 +52,49 @@
               placeholder="请输入手机号"
               v-model.trim="accountName"
               @keyup="validAccountName($event)"
+              v-if="register_show"
             />
-            <span class="register_label">+86</span>
+            <span class="register_label" v-if="register_show">+86</span>
             <img
               class="register_mobile_img"
               src="@a/imgs/register_mobile.png"
               alt=""
               srcset="@a/imgs/register_mobile@2x.png 2x"
+              v-if="register_show"
             />
-            <div :class="['error_msg', { error_msg_hidden: !accountNameInValid }]">{{ accountNameErrorMsg }}</div>
-            <button class="btn_submit" @click="getCode" style="margin-top:0px;">获取验证码</button>
+            <div v-if="register_show" :class="['error_msg', { error_msg_hidden: !accountNameInValid }]">
+              {{ accountNameErrorMsg }}
+            </div>
+
+            <input
+              class="form_input_code"
+              maxlength="6"
+              type="text"
+              placeholder="输入验证码"
+              v-model.trim="accountCode"
+              @keyup="validCode($event)"
+              v-if="!register_show"
+            />
+            <img
+              class="register_email_img"
+              v-if="!register_show"
+              src="@a/imgs/email.png"
+              alt=""
+              srcset="@a/imgs/email@2x.png 2x"
+            />
+            <div class="code_line" v-if="!register_show"></div>
+            <span class="code_desc" v-if="!register_show && code_seconds > 0">{{ code_seconds }}s后重新获取</span>
+            <span class="code_btn" v-if="!register_show && code_seconds === 0" @click="reloadGetCode">重新获取</span>
+            <div
+              v-if="!register_show"
+              :class="['error_msg', { error_msg_hidden: !accountCodeInValid }]"
+              style="margin-left:.569444rem"
+            >
+              {{ accountCodeErrorMsg }}
+            </div>
+
+            <button class="btn_submit" v-if="register_show" @click="getCode" style="margin-top:0px;">获取验证码</button>
+            <button class="btn_submit" v-if="!register_show" @click="submitCode" style="margin-top:0px;">提交</button>
             <div class="banner_view">
               <div class="unchecked" v-if="!accept_checked" @click="accept_checked = !accept_checked"></div>
               <img
@@ -152,9 +185,15 @@ export default {
       accountPwd: '',
       accountPwdInValid: false,
       timer: null,
+      code_timer: null,
       seconds: 3,
       activeTab: 1,
-      accept_checked: false
+      accept_checked: false,
+      accountCode: '',
+      register_show: true,
+      accountCodeInValid: false,
+      code_seconds: 5,
+      accountCodeErrorMsg: '验证码不能为空'
     }
   },
   computed: {
@@ -175,6 +214,28 @@ export default {
         }
       }
     },
+    reloadGetCode() {
+      this.code_seconds = 60
+      this.code_timer = setInterval(() => {
+        this.code_seconds -= 1
+        if (this.code_seconds === 0) {
+          clearInterval(this.code_timer)
+        }
+      }, 1000)
+    },
+    validCode($event) {
+      if ($event.target.value === '') {
+        this.accountCodeErrorMsg = '验证码不能为空'
+        this.accountCodeInValid = true
+      } else {
+        this.accountNameInValid = false
+      }
+    },
+    submitCode() {
+      //后台检查
+      // this.accountCodeErrorMsg = '验证码有误'
+      // this.accountCodeInValid = true
+    },
     getCode() {
       if (this.accountName.trim() === '') {
         this.accountNameInValid = true
@@ -187,7 +248,13 @@ export default {
       if (!this.accept_checked) {
         return
       } else {
-        alert('短信已经发送')
+        this.register_show = false
+        this.code_timer = setInterval(() => {
+          this.code_seconds -= 1
+          if (this.code_seconds === 0) {
+            clearInterval(this.code_timer)
+          }
+        }, 1000)
       }
     },
     validAccountPwd($event) {
@@ -379,6 +446,55 @@ export default {
           padding-left: 0.631944rem;
           font-size: $font_size16;
           font-weight: 400;
+        }
+        .form_input_code {
+          width: 2.222222rem;
+          height: 0.326389rem;
+          border: 1px solid $color4;
+          border-radius: 0.159722rem;
+          margin-top: 0.215278rem;
+          margin-left: 0.145833rem;
+          margin-right: 0.152778rem;
+          box-sizing: border-box;
+          padding-left: 0.416667rem;
+          font-size: $font_size16;
+          font-weight: 400;
+        }
+        .register_email_img {
+          width: 0.120347rem;
+          height: 0.115764rem;
+          position: absolute;
+          left: 0.347222rem;
+          top: 0.3125rem;
+        }
+        .code_line {
+          width: 0px;
+          height: 0.180556rem;
+          border: 1px solid $color16;
+          position: absolute;
+          right: 1.041667rem;
+          top: 0.284722rem;
+          line-height: 0.180556rem;
+        }
+        .code_desc {
+          font-size: $font_size16;
+          font-weight: 400;
+          line-height: 0.180556rem;
+          color: $color16;
+          position: absolute;
+          right: 0.25rem;
+          top: 0.284722rem;
+        }
+        .code_btn {
+          font-size: $font_size16;
+          font-weight: 400;
+          line-height: 0.180556rem;
+          color: $color8;
+          position: absolute;
+          right: 0.347222rem;
+          top: 0.284722rem;
+          display: inline-block;
+          cursor: pointer;
         }
         .register_label {
           position: absolute;
