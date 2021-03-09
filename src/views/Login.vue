@@ -23,7 +23,11 @@
                 (accountName = ''),
                 (accountNameInValid = false),
                 (accountPwdInValid = false),
-                (accept_checked = false)
+                (accept_checked = false),
+                (register_show = true),
+                (accountCode = ''),
+                (code_seconds = 5),
+                (accountCodeInValid = false)
               )
             "
           >
