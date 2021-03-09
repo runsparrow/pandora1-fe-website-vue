@@ -14,6 +14,12 @@ export default [
     component: () => import(/* webpackChunkName: "login-view" */ '@v/Login.vue')
   },
   {
+    path: '/forgot',
+    meta: { title: '找回密码' },
+    component: () => import(/* webpackChunkName: "login-view" */ '@v/ForgotPwd.vue')
+  },
+
+  {
     path: '/search',
     meta: { title: '查询' },
     component: () => import(/* webpackChunkName: "search-view" */ '@v/SearchList.vue')

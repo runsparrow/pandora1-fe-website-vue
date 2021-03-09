@@ -115,6 +115,7 @@
                   v-model.trim="accountRegPwd"
                   @keyup="validRegPwd($event)"
                   v-if="register_show === 2"
+                  style="margin-top: .236111rem"
                 />
                 <img
                   v-if="register_show === 2"
@@ -122,6 +123,7 @@
                   src="@a/imgs/user_pwd.png"
                   alt=""
                   srcset="@a/imgs/user_pwd@2x.png 2x"
+                  style="top: 0.326389rem;"
                 />
                 <div
                   v-if="register_show === 2"
@@ -148,6 +150,7 @@
                   src="@a/imgs/user_pwd.png"
                   alt=""
                   srcset="@a/imgs/user_pwd@2x.png 2x"
+                  style="top:.090278rem"
                 />
                 <div
                   v-if="register_show === 2"
@@ -252,7 +255,7 @@
                 "
                 >马上注册</span
               >
-              <span class="label04">忘记密码</span>
+              <span class="label04" @click="toForgotPage">忘记密码</span>
             </div>
           </template>
           <template v-else>
@@ -313,6 +316,9 @@ export default {
   },
   methods: {
     ...mapMutations(['setUserInfoMutation']),
+    toForgotPage() {
+      this.$router.push('/forgot')
+    },
     tologinPage() {
       this.activeTab = 1
       this.register_show = 0
@@ -890,6 +896,7 @@ export default {
           font-weight: 400;
           line-height: 0.010417rem;
           color: $color13;
+          cursor: pointer;
         }
       }
 

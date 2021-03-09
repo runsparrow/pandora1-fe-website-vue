@@ -15,7 +15,9 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const { token } = $store.state
   to.meta && setDocumentTitle(to.meta.title)
-  if (to.path !== '/login') {
+  if (to.path === '/forgot') {
+    next()
+  } else if (to.path !== '/login') {
     if (token) {
       next()
     } else {
