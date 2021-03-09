@@ -15,10 +15,32 @@
     <div class="main">
       <div class="form_view">
         <div class="title_view">
-          <div :class="['left_view', { activeLeftTab: activeTab === 0 }]" @click="() => (activeTab = 0)">
+          <div
+            :class="['left_view', { activeLeftTab: activeTab === 0 }]"
+            @click="
+              () => (
+                (activeTab = 0),
+                (accountName = ''),
+                (accountNameInValid = false),
+                (accountPwdInValid = false),
+                (accept_checked = false)
+              )
+            "
+          >
             快速注册
           </div>
-          <div :class="['right_view', { activeRightTab: activeTab === 1 }]" @click="() => (activeTab = 1)">
+          <div
+            :class="['right_view', { activeRightTab: activeTab === 1 }]"
+            @click="
+              () => (
+                (activeTab = 1),
+                (accountName = ''),
+                (accountNameInValid = false),
+                (accountPwdInValid = false),
+                (accountPwd = '')
+              )
+            "
+          >
             账号登录
           </div>
         </div>
@@ -38,8 +60,24 @@
               alt=""
               srcset="@a/imgs/register_mobile@2x.png 2x"
             />
-            <div :class="['error_msg', { error_msg_hidden: !accountNameInValid }]">手机号不能为空</div>
-            <button class="btn_submit" @click="toHomePage" style="margin-top:0px;">获取验证码</button>
+            <div :class="['error_msg', { error_msg_hidden: !accountNameInValid }]">{{ accountNameErrorMsg }}</div>
+            <button class="btn_submit" @click="getCode" style="margin-top:0px;">获取验证码</button>
+            <div class="banner_view">
+              <div class="unchecked" v-if="!accept_checked" @click="accept_checked = !accept_checked"></div>
+              <img
+                v-else
+                @click="accept_checked = !accept_checked"
+                class="accept_content_img"
+                src="@a/imgs/accept_content.png"
+                alt=""
+                srcset="@a/imgs/accept_content@2x.png 2x"
+              />
+              <span class="line_normal" @click="accept_checked = !accept_checked">同意</span>
+              <span class="line_important">用户协议</span>
+              <span class="line_normal">与</span>
+              <span class="line_important">隐私政策</span>
+            </div>
+            <span v-if="!accept_checked" class="accept_error_msg">请阅读后点击同意以完成注册</span>
           </div>
         </template>
         <template v-else>
@@ -52,7 +90,7 @@
                 v-model.trim="accountName"
                 @keyup="validAccountName($event)"
               />
-              <div :class="['error_msg', { error_msg_hidden: !accountNameInValid }]">手机号不能为空</div>
+              <div :class="['error_msg', { error_msg_hidden: !accountNameInValid }]">{{ accountNameErrorMsg }}</div>
               <img
                 class="user_mobile_img"
                 src="@a/imgs/user_mobile.png"
@@ -75,7 +113,9 @@
             <button class="btn_submit" @click="loginSooYi">提交</button>
             <div class="dec_view">
               <span class="label01">没有账号?</span>
-              <span class="label02">马上注册</span>
+              <span class="label02" @click="() => ((activeTab = 0), (accountName = ''), (accountNameInValid = false))"
+                >马上注册</span
+              >
               <span class="label04">忘记密码</span>
             </div>
           </template>
@@ -112,12 +152,14 @@ export default {
   data() {
     return {
       accountName: '',
+      accountNameErrorMsg: '手机号不能为空',
       accountNameInValid: false,
       accountPwd: '',
       accountPwdInValid: false,
       timer: null,
       seconds: 3,
-      activeTab: 1
+      activeTab: 1,
+      accept_checked: false
     }
   },
   computed: {
@@ -127,9 +169,30 @@ export default {
     ...mapMutations(['setUserInfoMutation']),
     validAccountName($event) {
       if ($event.target.value === '') {
+        this.accountNameErrorMsg = '手机号不能为空'
         this.accountNameInValid = true
       } else {
+        if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test($event.target.value)) {
+          this.accountNameErrorMsg = '手机号码有误，请重填'
+          this.accountNameInValid = true
+        } else {
+          this.accountNameInValid = false
+        }
+      }
+    },
+    getCode() {
+      if (this.accountName.trim() === '') {
+        this.accountNameInValid = true
+        return
+      } else if (this.accountName.trim() !== '' && this.accountNameInValid) {
+        return
+      } else {
         this.accountNameInValid = false
+      }
+      if (!this.accept_checked) {
+        return
+      } else {
+        alert('短信已经发送')
       }
     },
     validAccountPwd($event) {
@@ -346,6 +409,45 @@ export default {
         .error_msg_hidden {
           visibility: hidden;
         }
+        .banner_view {
+          display: flex;
+          flex-direction: row;
+          margin-top: 0.090278rem;
+          box-sizing: border-box;
+          justify-content: center;
+          align-items: center;
+          .unchecked {
+            width: 0.125rem;
+            height: 0.125rem;
+            background: #ffffff;
+            border: 1px solid $color17;
+            border-radius: 50%;
+            margin-right: 0.020833rem;
+            margin-top: -0.020833rem;
+            box-sizing: border-box;
+          }
+          .accept_content_img {
+            width: 0.125rem;
+            height: 0.125rem;
+            margin-right: 0.020833rem;
+            border-radius: 50%;
+            box-sizing: border-box;
+          }
+          .line_normal {
+            color: $color18;
+            font-size: $font_size16;
+          }
+          .line_important {
+            color: $color4;
+            font-size: $font_size16;
+          }
+        }
+        .accept_error_msg {
+          color: $color15;
+          font-size: $font_size12;
+          text-align: center;
+          margin-left: 0.777778rem;
+        }
       }
 
       .mobile_view {
@@ -453,6 +555,7 @@ export default {
           margin-right: 0.027778rem;
           padding-right: 0.034722rem;
           position: relative;
+          cursor: pointer;
           &::before {
             position: absolute;
             top: -0.069444rem;
