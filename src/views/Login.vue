@@ -215,7 +215,7 @@ export default {
       }
     },
     reloadGetCode() {
-      this.code_seconds = 60
+      this.code_seconds = 5
       this.code_timer = setInterval(() => {
         this.code_seconds -= 1
         if (this.code_seconds === 0) {
