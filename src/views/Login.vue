@@ -24,7 +24,7 @@
                 (accountNameInValid = false),
                 (accountPwdInValid = false),
                 (accept_checked = false),
-                (register_show = true),
+                (register_show = 0),
                 (accountCode = ''),
                 (code_seconds = 5),
                 (accountCodeInValid = false)
@@ -56,17 +56,17 @@
               placeholder="请输入手机号"
               v-model.trim="accountName"
               @keyup="validAccountName($event)"
-              v-if="register_show"
+              v-if="register_show === 0"
             />
-            <span class="register_label" v-if="register_show">+86</span>
+            <span class="register_label" v-if="register_show === 0">+86</span>
             <img
               class="register_mobile_img"
               src="@a/imgs/register_mobile.png"
               alt=""
               srcset="@a/imgs/register_mobile@2x.png 2x"
-              v-if="register_show"
+              v-if="register_show === 0"
             />
-            <div v-if="register_show" :class="['error_msg', { error_msg_hidden: !accountNameInValid }]">
+            <div v-if="register_show === 0" :class="['error_msg', { error_msg_hidden: !accountNameInValid }]">
               {{ accountNameErrorMsg }}
             </div>
 
@@ -77,29 +77,90 @@
               placeholder="输入验证码"
               v-model.trim="accountCode"
               @keyup="validCode($event)"
-              v-if="!register_show"
+              v-if="register_show === 1"
             />
             <img
               class="register_email_img"
-              v-if="!register_show"
+              v-if="!register_show === 1"
               src="@a/imgs/email.png"
               alt=""
               srcset="@a/imgs/email@2x.png 2x"
             />
-            <div class="code_line" v-if="!register_show"></div>
-            <span class="code_desc" v-if="!register_show && code_seconds > 0">{{ code_seconds }}s后重新获取</span>
-            <span class="code_btn" v-if="!register_show && code_seconds === 0" @click="reloadGetCode">重新获取</span>
+            <div class="code_line" v-if="register_show === 1"></div>
+
+            <span class="code_desc" v-if="register_show === 1 && code_seconds > 0">{{ code_seconds }}s后重新获取</span>
+            <span class="code_btn" v-if="register_show === 1 && code_seconds === 0" @click="reloadGetCode"
+              >重新获取</span
+            >
             <div
-              v-if="!register_show"
+              v-if="register_show === 1"
               :class="['error_msg', { error_msg_hidden: !accountCodeInValid }]"
               style="margin-left:.569444rem"
             >
               {{ accountCodeErrorMsg }}
             </div>
+            <div class="pwd_view">
+              <input
+                class="form_input_pwd"
+                maxlength="20"
+                type="password"
+                placeholder="请输入新密码"
+                v-model.trim="accountRegPwd"
+                @keyup="validRegPwd($event)"
+                v-if="register_show === 2"
+              />
+              <img
+                v-if="register_show === 2"
+                class="user_pwd_img"
+                src="@a/imgs/user_pwd.png"
+                alt=""
+                srcset="@a/imgs/user_pwd@2x.png 2x"
+              />
+              <div
+                v-if="register_show === 2"
+                :class="['error_msg', { error_msg_hidden: !accountRegPwdInValid }]"
+                style="margin-left:.569444rem"
+              >
+                {{ accountRegPwdErrorMsg }}
+              </div>
+            </div>
+            <div class="pwd_view">
+              <input
+                class="form_input_pwd"
+                style="margin-top:0"
+                maxlength="20"
+                type="password"
+                placeholder="请再次输入密码"
+                v-model.trim="accountRegConfirmPwd"
+                @keyup="validRegConfirmPwd($event)"
+                v-if="register_show === 2"
+              />
+              <img
+                v-if="register_show === 2"
+                class="user_pwd_img"
+                src="@a/imgs/user_pwd.png"
+                alt=""
+                srcset="@a/imgs/user_pwd@2x.png 2x"
+              />
+              <div
+                v-if="register_show === 2"
+                :class="['error_msg', { error_msg_hidden: !accountRegConfirmPwdInValid }]"
+                style="margin-left:.569444rem"
+              >
+                {{ accountRegConfirmPwdErrorMsg }}
+              </div>
+            </div>
 
-            <button class="btn_submit" v-if="register_show" @click="getCode" style="margin-top:0px;">获取验证码</button>
-            <button class="btn_submit" v-if="!register_show" @click="submitCode" style="margin-top:0px;">提交</button>
-            <div class="banner_view">
+            <button class="btn_submit" v-if="register_show === 0" @click="getCode" style="margin-top:0px;">
+              获取验证码
+            </button>
+            <button class="btn_submit" v-if="register_show === 1" @click="submitCode" style="margin-top:0px;">
+              提交
+            </button>
+            <button class="btn_submit" v-if="register_show === 2" @click="submitReg" style="margin-top:0px;">
+              提交
+            </button>
+            <div class="banner_view" v-if="register_show < 2">
               <div class="unchecked" v-if="!accept_checked" @click="accept_checked = !accept_checked"></div>
               <img
                 v-else
@@ -114,7 +175,7 @@
               <span class="line_normal">与</span>
               <span class="line_important">隐私政策</span>
             </div>
-            <span v-if="!accept_checked" class="accept_error_msg">请阅读后点击同意以完成注册</span>
+            <span v-if="!accept_checked && register_show < 2" class="accept_error_msg">请阅读后点击同意以完成注册</span>
           </div>
         </template>
         <template v-else>
@@ -194,10 +255,16 @@ export default {
       activeTab: 1,
       accept_checked: false,
       accountCode: '',
-      register_show: true,
+      register_show: 0,
       accountCodeInValid: false,
       code_seconds: 5,
-      accountCodeErrorMsg: '验证码不能为空'
+      accountCodeErrorMsg: '验证码不能为空',
+      accountRegPwd: '',
+      accountRegPwdInValid: false,
+      accountRegPwdErrorMsg: '新密码不能为空',
+      accountRegConfirmPwd: '',
+      accountRegConfirmPwdInValid: false,
+      accountRegConfirmPwdErrorMsg: '确认密码不能为空'
     }
   },
   computed: {
@@ -215,6 +282,28 @@ export default {
           this.accountNameInValid = true
         } else {
           this.accountNameInValid = false
+        }
+      }
+    },
+    validRegPwd($event) {
+      if ($event.target.value === '') {
+        this.accountRegPwdErrorMsg = '新密码不能为空'
+        this.accountRegPwdInValid = true
+      } else {
+        this.accountRegPwdInValid = false
+      }
+    },
+    validRegConfirmPwd($event) {
+      if ($event.target.value === '') {
+        this.accountRegConfirmPwdErrorMsg = '确认密码不能为空'
+        this.accountRegConfirmPwdInValid = true
+      } else {
+        console.log(this.accountRegConfirmPwd, this.accountRegPwd)
+        if (this.accountRegConfirmPwd !== this.accountRegPwd) {
+          this.accountRegConfirmPwdErrorMsg = '两次密码不同，请重新输入'
+          this.accountRegConfirmPwdInValid = true
+        } else {
+          this.accountRegConfirmPwdInValid = false
         }
       }
     },
@@ -236,9 +325,34 @@ export default {
       }
     },
     submitCode() {
+      if (this.accountCode === '') {
+        this.accountCodeErrorMsg = '验证码不能为空'
+        this.accountCodeInValid = true
+        return
+      } else {
+        this.accountCodeInValid = false
+      }
+      if (!this.accept_checked) {
+        return
+      }
+      this.register_show = 2
       //后台检查
       // this.accountCodeErrorMsg = '验证码有误'
       // this.accountCodeInValid = true
+    },
+    submitReg() {
+      if (this.accountRegPwd === '') {
+        this.accountRegPwdErrorMsg = '新密码不能为空'
+        this.accountRegPwdInValid = true
+      }
+      if (this.accountRegConfirmPwd === '') {
+        this.accountRegConfirmPwdErrorMsg = '确认密码不能为空'
+        this.accountRegConfirmPwdInValid = true
+      }
+      if (this.accountRegConfirmPwdInValid || this.accountRegPwdInValid) {
+        return
+      }
+      alert('提交注册API')
     },
     getCode() {
       if (this.accountName.trim() === '') {
@@ -252,7 +366,7 @@ export default {
       if (!this.accept_checked) {
         return
       } else {
-        this.register_show = false
+        this.register_show = 1
         this.code_timer = setInterval(() => {
           this.code_seconds -= 1
           if (this.code_seconds === 0) {
@@ -438,6 +552,28 @@ export default {
       .mobile_register_view {
         box-sizing: border-box;
         position: relative;
+        .pwd_view {
+          //写到这里
+          box-sizing: border-box;
+          position: relative;
+          .form_input_pwd {
+            box-sizing: border-box;
+            position: relative;
+            .form_input_code {
+              width: 2.222222rem;
+              height: 0.326389rem;
+              border: 1px solid $color4;
+              border-radius: 0.159722rem;
+              margin-top: 0.215278rem;
+              margin-left: 0.145833rem;
+              margin-right: 0.152778rem;
+              box-sizing: border-box;
+              padding-left: 0.416667rem;
+              font-size: $font_size16;
+              font-weight: 400;
+            }
+          }
+        }
         .form_input_mobile {
           width: 2.222222rem;
           height: 0.326389rem;
