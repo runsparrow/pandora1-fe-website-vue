@@ -19,7 +19,7 @@
               <img class="search_clear" src="@a/imgs/search_clear.png" alt="" srcset="@a/imgs/search_clear@2x.png 2x" />
             </div>
           </li>
-          <li class="btn_view" v-if="true">
+          <li class="btn_view" v-if="token === ''">
             <span class="btn1">注册</span>
             <span class="btn2">登录</span>
           </li>
@@ -27,7 +27,7 @@
             <div class="login_header_logo">
               头像
             </div>
-            <span class="username">徐升</span>
+            <span class="username">{{ userName }}</span>
           </li>
         </ul>
       </div>
@@ -121,8 +121,12 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 export default {
-  name: 'IndexView'
+  name: 'IndexView',
+  computed: {
+    ...mapState(['token', 'userName'])
+  }
 }
 </script>
 
@@ -173,6 +177,7 @@ export default {
           color: $color1;
           font-size: $font_size16;
           margin-top: 0.138889rem;
+          cursor: pointer;
         }
         .seperator {
           position: relative;
@@ -448,6 +453,7 @@ export default {
           height: 1.104167rem;
           box-shadow: 0px 10px 46px rgba(0, 0, 0, 0.07);
           border-radius: 30px 30px 0 0;
+          cursor: pointer;
         }
         .hot_title {
           color: $color1;
