@@ -371,6 +371,7 @@ export default {
           line-height: 0.243056rem;
           font-weight: 400;
           color: $color9;
+          cursor: pointer;
         }
         .collect {
           box-sizing: border-box;
@@ -384,6 +385,7 @@ export default {
           font-weight: 400;
           color: $color4;
           margin-left: 0.0625rem;
+          cursor: pointer;
         }
       }
       .author_view {
