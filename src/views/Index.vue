@@ -274,7 +274,7 @@ export default {
           .login_header_logo {
             width: 0.465278rem;
             height: 0.465278rem;
-            border: 1px solid #707070;
+            border: 1px solid $color6;
             border-radius: 50%;
             text-align: center;
             line-height: 0.465278rem;
@@ -284,7 +284,6 @@ export default {
           }
           .username {
             font-size: $font_size16;
-            font-family: Microsoft YaHei;
             font-weight: 400;
             line-height: 0.465278rem;
             margin-left: 0.055556rem;

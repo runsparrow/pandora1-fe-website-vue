@@ -25,6 +25,11 @@ export default [
     component: () => import(/* webpackChunkName: "search-view" */ '@v/SearchList.vue')
   },
   {
+    path: '/search_detail',
+    meta: { title: '查询' },
+    component: () => import(/* webpackChunkName: "search-view" */ '@v/SearchDetail.vue')
+  },
+  {
     path: '*',
     meta: { title: '404页' },
     component: () => import(/* webpackChunkName: "not-found-view" */ '@v/NotFound.vue')
