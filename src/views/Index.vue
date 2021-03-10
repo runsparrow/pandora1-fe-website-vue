@@ -63,7 +63,7 @@
     <div class="footer_view">
       <div class="row">热门下载</div>
       <div class="list">
-        <div class="item">
+        <div class="item" @click="toDetail">
           <img class="hot_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
           <span class="hot_title">推广海报</span>
           <div class="hot_more_view">
@@ -76,7 +76,7 @@
             />
           </div>
         </div>
-        <div class="item">
+        <div class="item" @click="toDetail">
           <img class="hot_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
           <span class="hot_title">新媒体配图</span>
           <div class="hot_more_view">
@@ -89,7 +89,7 @@
             />
           </div>
         </div>
-        <div class="item">
+        <div class="item" @click="toDetail">
           <img class="hot_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
           <span class="hot_title">动画漫画</span>
           <div class="hot_more_view">
@@ -102,7 +102,7 @@
             />
           </div>
         </div>
-        <div class="item">
+        <div class="item" @click="toDetail">
           <img class="hot_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
           <span class="hot_title">其他</span>
           <div class="hot_more_view">
@@ -126,6 +126,11 @@ export default {
   name: 'IndexView',
   computed: {
     ...mapState(['token', 'userName'])
+  },
+  methods: {
+    toDetail() {
+      this.$router.push('search_detail')
+    }
   }
 }
 </script>
