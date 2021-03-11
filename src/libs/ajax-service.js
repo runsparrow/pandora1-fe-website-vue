@@ -1,7 +1,7 @@
 import ajax from './axios-interceptor'
 
-const ajaxRequest = param => {
-  return ajax.request({
+const ajaxRequest = async param => {
+  const result = await ajax.request({
     url: param.url || '',
     method: param.method || 'GET',
     responseType: param.responseType || 'json',
@@ -9,6 +9,7 @@ const ajaxRequest = param => {
     params: param.params || '',
     cancelTimeout: param.cancelTimeout || false
   })
+  return result
 }
 
 export default ajaxRequest

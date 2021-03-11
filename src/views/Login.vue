@@ -280,6 +280,7 @@
 
 <script>
 import ajax from '@/libs/ajax-service'
+import APIS from '@/api-urls'
 import { mapState, mapMutations, mapGetters } from 'vuex'
 export default {
   name: 'LoginView',
@@ -446,7 +447,7 @@ export default {
         this.accountPwdInValid = false
       }
     },
-    loginSooYi() {
+    async loginSooYi() {
       let that = this
       if (that.accountName === '') {
         that.accountNameInValid = true
@@ -457,30 +458,32 @@ export default {
       if (that.accountNameInValid || that.accountPwdInValid) {
         return
       }
-      ajax({
-        url: '/MIS/CMS/Auth/GetToken',
+      const {
+        result,
+        token,
+        userInfo: { userName }
+      } = await ajax({
+        url: APIS.MIS_CMS_Auth_GetToken,
         method: 'POST',
         data: {
           accountName: that.accountName,
           accountPwd: that.accountPwd
         }
-      }).then(res => {
-        console.log(res)
-        if (res.result) {
-          that.accountNameInValid = false
-          that.accountPwdInValid = false
-          that.setUserInfoMutation({ userName: res.userInfo.userName, token: res.token })
-          that.timer = setInterval(() => {
-            that.seconds -= 1
-            if (that.seconds === 0) {
-              clearInterval(that.timer)
-              that.$router.push('/')
-            }
-          }, 1000)
-        } else {
-          alert('手机号或密码错误!')
-        }
       })
+      if (result) {
+        that.accountNameInValid = false
+        that.accountPwdInValid = false
+        that.setUserInfoMutation({ userName: userName, token: token })
+        that.timer = setInterval(() => {
+          that.seconds -= 1
+          if (that.seconds === 0) {
+            clearInterval(that.timer)
+            that.$router.push('/')
+          }
+        }, 1000)
+      } else {
+        alert('手机号或密码错误!')
+      }
     },
     toHomePage() {
       clearInterval(this.timer)
