@@ -5,11 +5,12 @@ import getters from '@x/getters'
 import mutations from '@x/mutations'
 import actions from '@x/actions'
 import user from '@x/modules/user-module'
-import VuexPersistence from 'vuex-persist'
+import saveInLocal from '@/store/saveInLocal'
+// import VuexPersistence from 'vuex-persist'
 
-const vuexLocal = new VuexPersistence({
-  storage: window.localStorage
-})
+// const vuexLocal = new VuexPersistence({
+//   storage: window.localStorage
+// })
 
 Vue.use(Vuex)
 
@@ -22,5 +23,5 @@ export default new Vuex.Store({
   modules: {
     user
   },
-  plugins: [vuexLocal.plugin]
+  plugins: [saveInLocal]
 })
