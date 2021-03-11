@@ -458,31 +458,35 @@ export default {
       if (that.accountNameInValid || that.accountPwdInValid) {
         return
       }
-      const {
-        result,
-        token,
-        userInfo: { userName }
-      } = await ajax({
-        url: APIS.MIS_CMS_Auth_GetToken,
-        method: 'POST',
-        data: {
-          accountName: that.accountName,
-          accountPwd: that.accountPwd
-        }
-      })
-      if (result) {
-        that.accountNameInValid = false
-        that.accountPwdInValid = false
-        that.setUserInfoMutation({ userName: userName, token: token })
-        that.timer = setInterval(() => {
-          that.seconds -= 1
-          if (that.seconds === 0) {
-            clearInterval(that.timer)
-            that.$router.push('/')
+      try {
+        const {
+          result,
+          token,
+          userInfo: { userName }
+        } = await ajax({
+          url: APIS.MIS_CMS_Auth_GetToken,
+          method: 'POST',
+          data: {
+            accountName: that.accountName,
+            accountPwd: that.accountPwd
           }
-        }, 1000)
-      } else {
-        alert('手机号或密码错误!')
+        })
+        if (result) {
+          that.accountNameInValid = false
+          that.accountPwdInValid = false
+          that.setUserInfoMutation({ userName: userName, token: token })
+          that.timer = setInterval(() => {
+            that.seconds -= 1
+            if (that.seconds === 0) {
+              clearInterval(that.timer)
+              that.$router.push('/')
+            }
+          }, 1000)
+        } else {
+          alert('手机号或密码错误!')
+        }
+      } catch (err) {
+        console.log(err)
       }
     },
     toHomePage() {
