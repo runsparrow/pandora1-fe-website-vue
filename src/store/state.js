@@ -1,4 +1,5 @@
 export default {
   userName: '',
-  token: ''
+  token: '',
+  version: '1.0'
 }

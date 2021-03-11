@@ -280,7 +280,7 @@
 
 <script>
 import ajax from '@/libs/ajax-service'
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 export default {
   name: 'LoginView',
   data() {
@@ -312,7 +312,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['token'])
+    ...mapState(['token']),
+    ...mapGetters(['version'])
   },
   methods: {
     ...mapMutations(['setUserInfoMutation']),
