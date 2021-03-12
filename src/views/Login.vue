@@ -279,9 +279,8 @@
 </template>
 
 <script>
-import ajax from '@/libs/ajax-service'
-import APIS from '@/api-urls'
 import { mapState, mapMutations, mapGetters } from 'vuex'
+import { getUserInfoService } from '@s/login-service'
 export default {
   name: 'LoginView',
   data() {
@@ -463,14 +462,7 @@ export default {
           result,
           token,
           userInfo: { userName }
-        } = await ajax({
-          url: APIS.MIS_CMS_Auth_GetToken,
-          method: 'POST',
-          data: {
-            accountName: that.accountName,
-            accountPwd: that.accountPwd
-          }
-        })
+        } = await getUserInfoService({ accountName: that.accountName, accountPwd: that.accountPwd })
         if (result) {
           that.accountNameInValid = false
           that.accountPwdInValid = false

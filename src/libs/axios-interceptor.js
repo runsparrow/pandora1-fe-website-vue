@@ -12,6 +12,9 @@ ajax.interceptors.request.use(
     if (cancelTimeout) {
       config.timeout = 0
     }
+    if (!Object.keys(url).length) {
+      //开启Spin
+    }
     ajaxQueues[url] = true
     return config
   },
