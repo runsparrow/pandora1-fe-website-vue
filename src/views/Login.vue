@@ -280,7 +280,7 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
-import { getUserInfoService, getUserCodeService, submitUserCodeService } from '@s/login-service'
+import { getUserInfoService, getUserCodeService, submitUserCodeService, submitRegService } from '@s/login-service'
 export default {
   name: 'LoginView',
   data() {
@@ -406,7 +406,7 @@ export default {
         this.register_show = 2
       }
     },
-    submitReg() {
+    async submitReg() {
       if (this.accountRegPwd === '') {
         this.accountRegPwdErrorMsg = '新密码不能为空'
         this.accountRegPwdInValid = true
@@ -418,14 +418,20 @@ export default {
       if (this.accountRegConfirmPwdInValid || this.accountRegPwdInValid) {
         return
       }
-      this.registSuccess = true
-      this.register_time = setInterval(() => {
-        this.register_seconds -= 1
-        if (this.register_seconds === 0) {
-          clearInterval(this.register_time)
-          this.tologinPage()
-        }
-      }, 1000)
+      const { id } = await submitRegService({
+        name: this.accountName.trim(),
+        password: this.accountRegPwd
+      })
+      if (id > 0) {
+        this.registSuccess = true
+        this.register_time = setInterval(() => {
+          this.register_seconds -= 1
+          if (this.register_seconds === 0) {
+            clearInterval(this.register_time)
+            this.tologinPage()
+          }
+        }, 1000)
+      }
     },
     async getCode() {
       if (this.accountName.trim() === '') {
