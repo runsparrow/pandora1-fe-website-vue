@@ -8,3 +8,19 @@ export const getUserInfoService = async payload => {
     data: payload
   })
 }
+
+export const getUserCodeService = async payload => {
+  return await ajax({
+    url: CONFIG.API_URLS.MIS_CMS_Auth_GetAuthCode,
+    method: 'POST',
+    data: payload
+  })
+}
+
+export const submitUserCodeService = async payload => {
+  return await ajax({
+    url: CONFIG.API_URLS.MIS_CMS_Auth_GetAuth,
+    method: 'POST',
+    data: payload
+  })
+}

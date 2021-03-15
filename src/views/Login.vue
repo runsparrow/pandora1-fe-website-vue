@@ -26,7 +26,7 @@
                 (accept_checked = false),
                 (register_show = 0),
                 (accountCode = ''),
-                (code_seconds = 5),
+                (code_seconds = 60),
                 (accountCodeInValid = false),
                 (accountRegPwd = ''),
                 (accountRegConfirmPwd = ''),
@@ -248,7 +248,7 @@
                     (accountNameInValid = false),
                     (register_show = 0),
                     (accountCode = ''),
-                    (code_seconds = 5),
+                    (code_seconds = 60),
                     (accountRegPwd = ''),
                     (accountRegConfirmPwd = '')
                   )
@@ -280,7 +280,7 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
-import { getUserInfoService } from '@s/login-service'
+import { getUserInfoService, getUserCodeService, submitUserCodeService } from '@s/login-service'
 export default {
   name: 'LoginView',
   data() {
@@ -299,7 +299,7 @@ export default {
       accountCode: '',
       register_show: 0,
       accountCodeInValid: false,
-      code_seconds: 5,
+      code_seconds: 60,
       register_seconds: 5,
       accountCodeErrorMsg: '验证码不能为空',
       accountRegPwd: '',
@@ -312,7 +312,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['token']),
+    ...mapState(['token', 'code']),
     ...mapGetters(['version'])
   },
   methods: {
@@ -325,7 +325,7 @@ export default {
       this.register_show = 0
       this.registSuccess = false
       this.accountName = ''
-      this.code_seconds = 5
+      this.code_seconds = 60
       this.register_seconds = 5
       clearInterval(this.register_time)
     },
@@ -363,14 +363,19 @@ export default {
         }
       }
     },
-    reloadGetCode() {
-      this.code_seconds = 5
-      this.code_timer = setInterval(() => {
-        this.code_seconds -= 1
-        if (this.code_seconds === 0) {
-          clearInterval(this.code_timer)
-        }
-      }, 1000)
+    async reloadGetCode() {
+      this.code_seconds = 60
+      const { result, code } = await getUserCodeService({
+        mobile: this.accountName.trim()
+      })
+      if (result) {
+        this.code_timer = setInterval(() => {
+          this.code_seconds -= 1
+          if (this.code_seconds === 0) {
+            clearInterval(this.code_timer)
+          }
+        }, 1000)
+      }
     },
     validCode($event) {
       if ($event.target.value === '') {
@@ -380,7 +385,7 @@ export default {
         this.accountNameInValid = false
       }
     },
-    submitCode() {
+    async submitCode() {
       clearInterval(this.code_timer)
       if (this.accountCode === '') {
         this.accountCodeErrorMsg = '验证码不能为空'
@@ -392,10 +397,13 @@ export default {
       if (!this.accept_checked) {
         return
       }
-      this.register_show = 2
-      //后台检查
-      // this.accountCodeErrorMsg = '验证码有误'
-      // this.accountCodeInValid = true
+      const { result } = await submitUserCodeService({
+        mobile: this.accountName.trim(),
+        code: this.accountCode.trim()
+      })
+      if (result) {
+        this.register_show = 2
+      }
     },
     submitReg() {
       if (this.accountRegPwd === '') {
@@ -418,7 +426,7 @@ export default {
         }
       }, 1000)
     },
-    getCode() {
+    async getCode() {
       if (this.accountName.trim() === '') {
         this.accountNameInValid = true
         return
@@ -430,13 +438,18 @@ export default {
       if (!this.accept_checked) {
         return
       } else {
-        this.register_show = 1
-        this.code_timer = setInterval(() => {
-          this.code_seconds -= 1
-          if (this.code_seconds === 0) {
-            clearInterval(this.code_timer)
-          }
-        }, 1000)
+        const { result, code } = await getUserCodeService({
+          mobile: this.accountName.trim()
+        })
+        if (result) {
+          this.register_show = 1
+          this.code_timer = setInterval(() => {
+            this.code_seconds -= 1
+            if (this.code_seconds === 0) {
+              clearInterval(this.code_timer)
+            }
+          }, 1000)
+        }
       }
     },
     validAccountPwd($event) {
