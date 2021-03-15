@@ -375,6 +375,7 @@ export default {
             clearInterval(this.code_timer)
           }
         }, 1000)
+        alert('短信已发送!')
       }
     },
     validCode($event) {
@@ -449,6 +450,7 @@ export default {
               clearInterval(this.code_timer)
             }
           }, 1000)
+          alert('短信已发送!')
         }
       }
     },
