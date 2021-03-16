@@ -457,7 +457,7 @@ export default {
               clearInterval(this.code_timer)
             }
           }, 1000)
-          alert('短信已发送!')
+          alert('验证码已发送到你的手机!')
         }
       }
     },
