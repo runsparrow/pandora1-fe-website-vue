@@ -418,11 +418,12 @@ export default {
       if (this.accountRegConfirmPwdInValid || this.accountRegPwdInValid) {
         return
       }
-      const { id } = await submitRegService({
+      const { result } = await submitRegService({
         name: this.accountName.trim(),
-        password: this.accountRegPwd
+        password: this.accountRegPwd,
+        gender: ''
       })
-      if (id > 0) {
+      if (result) {
         this.registSuccess = true
         this.register_time = setInterval(() => {
           this.register_seconds -= 1
