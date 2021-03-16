@@ -488,7 +488,9 @@ export default {
         if (result) {
           that.accountNameInValid = false
           that.accountPwdInValid = false
-          that.setUserInfoMutation({ userName: userName, token: token })
+          const dateTime = new Date()
+          dateTime.setHours(dateTime.getHours() + 2)
+          that.setUserInfoMutation({ userName: userName, token: token, expires: new Date(dateTime).getTime() })
           that.timer = setInterval(() => {
             that.seconds -= 1
             if (that.seconds === 0) {

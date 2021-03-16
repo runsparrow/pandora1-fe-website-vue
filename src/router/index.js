@@ -13,10 +13,14 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const { token } = $store.state
+  const { token, expires } = $store.state
+  const dateTime = new Date().getTime()
   to.meta && setDocumentTitle(to.meta.title)
   if (to.path === '/forgot') {
     next()
+  } else if (expires !== 0 && dateTime - expires >= 0) {
+    $store.commit('clearStore')
+    next('/login')
   } else if (to.path !== '/login') {
     if (token) {
       next()
