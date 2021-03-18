@@ -280,7 +280,13 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
-import { getUserInfoService, getUserCodeService, submitUserCodeService, submitRegService } from '@s/login-service'
+import {
+  getUserInfoService,
+  getUserCodeService,
+  submitUserCodeService,
+  submitRegService,
+  checkMobileExistService
+} from '@s/login-service'
 export default {
   name: 'LoginView',
   data() {
@@ -404,6 +410,8 @@ export default {
       })
       if (result) {
         this.register_show = 2
+      } else {
+        alert('验证码错误!')
       }
     },
     async submitReg() {
@@ -453,18 +461,26 @@ export default {
       if (!this.accept_checked) {
         return
       } else {
-        const { result, code } = await getUserCodeService({
-          mobile: this.accountName.trim()
-        })
-        if (result) {
-          this.register_show = 1
-          this.code_timer = setInterval(() => {
-            this.code_seconds -= 1
-            if (this.code_seconds === 0) {
-              clearInterval(this.code_timer)
-            }
-          }, 1000)
-          alert('验证码已发送到你的手机!')
+        const { result } = await checkMobileExistService(this.accountName.trim())
+        if (!result) {
+          this.accountNameErrorMsg = ''
+          this.accountNameInValid = false
+          const { result, code } = await getUserCodeService({
+            mobile: this.accountName.trim()
+          })
+          if (result) {
+            this.register_show = 1
+            this.code_timer = setInterval(() => {
+              this.code_seconds -= 1
+              if (this.code_seconds === 0) {
+                clearInterval(this.code_timer)
+              }
+            }, 1000)
+            alert('验证码已发送到你的手机!')
+          }
+        } else {
+          this.accountNameErrorMsg = '此手机号已经注册过！'
+          this.accountNameInValid = true
         }
       }
     },

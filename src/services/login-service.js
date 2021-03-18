@@ -32,3 +32,19 @@ export const submitRegService = async payload => {
     data: payload
   })
 }
+
+export const submitForgotPwdService = async payload => {
+  return await ajax({
+    url: CONFIG.API_URLS.Unauthorized_MIS_CMS_Member_Update_Forget,
+    method: 'POST',
+    data: payload
+  })
+}
+
+export const checkMobileExistService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.Unauthorized_MIS_CMS_Member_Row_ByMobile}/${payload}`,
+    method: 'GET',
+    data: payload
+  })
+}

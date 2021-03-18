@@ -161,6 +161,8 @@
 </template>
 
 <script>
+import { mapState, mapMutations, mapGetters } from 'vuex'
+import { getUserCodeService, submitUserCodeService, submitForgotPwdService } from '@s/login-service'
 export default {
   name: 'ForgotPwd',
   data() {
@@ -172,7 +174,7 @@ export default {
       accountCode: '',
       accountCodeInValid: false,
       accountCodeErrorMsg: '验证码不能为空',
-      code_seconds: 5,
+      code_seconds: 60,
       code_timer: null,
       accountRegPwd: '',
       accountRegPwdInValid: false,
@@ -189,7 +191,7 @@ export default {
     tologinPage() {
       this.$router.push('/login')
     },
-    submitReg() {
+    async submitReg() {
       if (this.accountRegPwd === '') {
         this.accountRegPwdErrorMsg = '新密码不能为空'
         this.accountRegPwdInValid = true
@@ -201,14 +203,28 @@ export default {
       if (this.accountRegConfirmPwdInValid || this.accountRegPwdInValid) {
         return
       }
-      this.registSuccess = true
-      this.register_time = setInterval(() => {
-        this.register_seconds -= 1
-        if (this.register_seconds === 0) {
-          clearInterval(this.register_time)
-          this.tologinPage()
-        }
-      }, 1000)
+      const { result, errorInfo } = await submitForgotPwdService({
+        mobile: this.accountName.trim(),
+        password: this.accountRegPwd,
+        gender: ''
+      })
+      if (result) {
+        this.registSuccess = true
+        this.register_time = setInterval(() => {
+          this.register_seconds -= 1
+          if (this.register_seconds === 0) {
+            clearInterval(this.register_time)
+            this.tologinPage()
+          }
+        }, 1000)
+      } else {
+        alert(errorInfo)
+        this.register_show = 0
+        this.accountName = ''
+        this.accountRegPwd = ''
+        this.accountRegConfirmPwd = ''
+        this.accountCode = ''
+      }
     },
     validRegPwd($event) {
       if ($event.target.value === '') {
@@ -231,7 +247,7 @@ export default {
         }
       }
     },
-    submitCode() {
+    async submitCode() {
       clearInterval(this.code_timer)
       if (this.accountCode === '') {
         this.accountCodeErrorMsg = '验证码不能为空'
@@ -240,19 +256,30 @@ export default {
       } else {
         this.accountCodeInValid = false
       }
-      this.register_show = 2
-      //后台检查
-      // this.accountCodeErrorMsg = '验证码有误'
-      // this.accountCodeInValid = true
+      const { result } = await submitUserCodeService({
+        mobile: this.accountName.trim(),
+        code: this.accountCode.trim()
+      })
+      if (result) {
+        this.register_show = 2
+      } else {
+        alert('验证码错误!')
+      }
     },
-    reloadGetCode() {
-      this.code_seconds = 5
-      this.code_timer = setInterval(() => {
-        this.code_seconds -= 1
-        if (this.code_seconds === 0) {
-          clearInterval(this.code_timer)
-        }
-      }, 1000)
+    async reloadGetCode() {
+      this.code_seconds = 60
+      const { result, code } = await getUserCodeService({
+        mobile: this.accountName.trim()
+      })
+      if (result) {
+        this.code_timer = setInterval(() => {
+          this.code_seconds -= 1
+          if (this.code_seconds === 0) {
+            clearInterval(this.code_timer)
+          }
+        }, 1000)
+        alert('短信已发送!')
+      }
     },
     validCode($event) {
       if ($event.target.value === '') {
@@ -262,7 +289,7 @@ export default {
         this.accountNameInValid = false
       }
     },
-    getCode() {
+    async getCode() {
       if (this.accountName.trim() === '') {
         this.accountNameInValid = true
         return
@@ -271,13 +298,19 @@ export default {
       } else {
         this.accountNameInValid = false
       }
-      this.register_show = 1
-      this.code_timer = setInterval(() => {
-        this.code_seconds -= 1
-        if (this.code_seconds === 0) {
-          clearInterval(this.code_timer)
-        }
-      }, 1000)
+      const { result, code } = await getUserCodeService({
+        mobile: this.accountName.trim()
+      })
+      if (result) {
+        this.register_show = 1
+        this.code_timer = setInterval(() => {
+          this.code_seconds -= 1
+          if (this.code_seconds === 0) {
+            clearInterval(this.code_timer)
+          }
+        }, 1000)
+        alert('验证码已发送到你的手机!')
+      }
     },
     validAccountName($event) {
       if ($event.target.value === '') {
