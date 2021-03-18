@@ -162,7 +162,12 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
-import { getUserCodeService, submitUserCodeService, submitForgotPwdService } from '@s/login-service'
+import {
+  getUserCodeService,
+  submitUserCodeService,
+  submitForgotPwdService,
+  checkMobileExistService
+} from '@s/login-service'
 export default {
   name: 'ForgotPwd',
   data() {
@@ -298,18 +303,26 @@ export default {
       } else {
         this.accountNameInValid = false
       }
-      const { result, code } = await getUserCodeService({
-        mobile: this.accountName.trim()
-      })
+      const { result } = await checkMobileExistService(this.accountName.trim())
       if (result) {
-        this.register_show = 1
-        this.code_timer = setInterval(() => {
-          this.code_seconds -= 1
-          if (this.code_seconds === 0) {
-            clearInterval(this.code_timer)
-          }
-        }, 1000)
-        alert('验证码已发送到你的手机!')
+        const { result, code } = await getUserCodeService({
+          mobile: this.accountName.trim()
+        })
+        if (result) {
+          this.accountNameErrorMsg = ''
+          this.accountNameInValid = false
+          this.register_show = 1
+          this.code_timer = setInterval(() => {
+            this.code_seconds -= 1
+            if (this.code_seconds === 0) {
+              clearInterval(this.code_timer)
+            }
+          }, 1000)
+          alert('验证码已发送到你的手机!')
+        }
+      } else {
+        this.accountNameErrorMsg = '此手机号未注册过！'
+        this.accountNameInValid = true
       }
     },
     validAccountName($event) {
