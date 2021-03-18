@@ -418,8 +418,8 @@ export default {
       if (this.accountRegConfirmPwdInValid || this.accountRegPwdInValid) {
         return
       }
-      const { result } = await submitRegService({
-        name: this.accountName.trim(),
+      const { result, errorInfo } = await submitRegService({
+        mobile: this.accountName.trim(),
         password: this.accountRegPwd,
         gender: ''
       })
@@ -432,6 +432,13 @@ export default {
             this.tologinPage()
           }
         }, 1000)
+      } else {
+        alert(errorInfo)
+        this.register_show = 0
+        this.accountName = ''
+        this.accountRegPwd = ''
+        this.accountRegConfirmPwd = ''
+        this.accountCode = ''
       }
     },
     async getCode() {

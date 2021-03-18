@@ -27,7 +27,7 @@ export const submitUserCodeService = async payload => {
 
 export const submitRegService = async payload => {
   return await ajax({
-    url: CONFIG.API_URLS.Unauthorized_MIS_CMS_User_Create_Regist,
+    url: CONFIG.API_URLS.Unauthorized_MIS_CMS_Member_Create_Regist,
     method: 'POST',
     data: payload
   })
