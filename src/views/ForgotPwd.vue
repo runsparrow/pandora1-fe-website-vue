@@ -63,7 +63,11 @@
             <div class="code_line" v-if="register_show === 1"></div>
 
             <span class="code_desc" v-if="register_show === 1 && code_seconds > 0">{{ code_seconds }}s后重新获取</span>
-            <span class="code_btn" v-if="register_show === 1 && code_seconds === 0" @click="reloadGetCode"
+            <span
+              class="code_btn"
+              v-if="register_show === 1 && code_seconds === 0"
+              @click="reloadGetCode"
+              :disabled="btn_disabled"
               >重新获取</span
             >
             <div
@@ -128,13 +132,25 @@
               </div>
             </div>
 
-            <button class="btn_submit" @click="getCode" v-if="register_show === 0" style="margin-top:0px;">
+            <button
+              class="btn_submit"
+              @click="getCode"
+              v-if="register_show === 0"
+              style="margin-top:0px;"
+              :disabled="btn_disabled"
+            >
               获取验证码
             </button>
             <button class="btn_submit" v-if="register_show === 1" @click="submitCode" style="margin-top:0px;">
               提交
             </button>
-            <button class="btn_submit" v-if="register_show === 2" @click="submitReg" style="margin-top:0px;">
+            <button
+              class="btn_submit"
+              v-if="register_show === 2"
+              @click="submitReg"
+              style="margin-top:0px;"
+              :disabled="btn_disabled"
+            >
               提交
             </button>
           </div>
@@ -189,7 +205,8 @@ export default {
       accountRegConfirmPwdErrorMsg: '确认密码不能为空',
       registSuccess: false,
       register_seconds: 5,
-      register_time: null
+      register_time: null,
+      btn_disabled: false
     }
   },
   methods: {
@@ -208,12 +225,14 @@ export default {
       if (this.accountRegConfirmPwdInValid || this.accountRegPwdInValid) {
         return
       }
+      this.btn_disabled = true
       const { result, errorInfo } = await submitForgotPwdService({
         mobile: this.accountName.trim(),
         password: this.accountRegPwd,
         gender: ''
       })
       if (result) {
+        this.btn_disabled = false
         this.registSuccess = true
         this.register_time = setInterval(() => {
           this.register_seconds -= 1
@@ -223,6 +242,7 @@ export default {
           }
         }, 1000)
       } else {
+        this.btn_disabled = false
         alert(errorInfo)
         this.register_show = 0
         this.accountName = ''
@@ -272,6 +292,7 @@ export default {
       }
     },
     async reloadGetCode() {
+      this.btn_disabled = true
       this.code_seconds = 60
       const { result, code } = await getUserCodeService({
         mobile: this.accountName.trim()
@@ -281,6 +302,7 @@ export default {
           this.code_seconds -= 1
           if (this.code_seconds === 0) {
             clearInterval(this.code_timer)
+            this.btn_disabled = false
           }
         }, 1000)
         alert('短信已发送!')
@@ -291,7 +313,7 @@ export default {
         this.accountCodeErrorMsg = '验证码不能为空'
         this.accountCodeInValid = true
       } else {
-        this.accountNameInValid = false
+        this.accountCodeInValid = false
       }
     },
     async getCode() {
@@ -303,6 +325,7 @@ export default {
       } else {
         this.accountNameInValid = false
       }
+      this.btn_disabled = true
       const { result } = await checkMobileExistService(this.accountName.trim())
       if (result) {
         const { result, code } = await getUserCodeService({
@@ -318,9 +341,11 @@ export default {
               clearInterval(this.code_timer)
             }
           }, 1000)
+          this.btn_disabled = false
           alert('验证码已发送到你的手机!')
         }
       } else {
+        this.btn_disabled = false
         this.accountNameErrorMsg = '此手机号未注册过！'
         this.accountNameInValid = true
       }

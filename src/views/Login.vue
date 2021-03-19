@@ -99,7 +99,11 @@
               <span class="code_desc" v-if="register_show === 1 && code_seconds > 0"
                 >{{ code_seconds }}s后重新获取</span
               >
-              <span class="code_btn" v-if="register_show === 1 && code_seconds === 0" @click="reloadGetCode"
+              <span
+                class="code_btn"
+                v-if="register_show === 1 && code_seconds === 0"
+                @click="reloadGetCode"
+                :disabled="btn_disabled"
                 >重新获取</span
               >
               <div
@@ -182,13 +186,25 @@
                 </div>
               </div>
 
-              <button class="btn_submit" v-if="register_show === 0" @click="getCode" style="margin-top:0px;">
+              <button
+                class="btn_submit"
+                v-if="register_show === 0"
+                @click="getCode"
+                style="margin-top:0px;"
+                :disabled="btn_disabled"
+              >
                 获取验证码
               </button>
               <button class="btn_submit" v-if="register_show === 1" @click="submitCode" style="margin-top:0px;">
                 提交
               </button>
-              <button class="btn_submit" v-if="register_show === 2" @click="submitReg" style="margin-top:0px;">
+              <button
+                class="btn_submit"
+                v-if="register_show === 2"
+                @click="submitReg"
+                style="margin-top:0px;"
+                :disabled="btn_disabled"
+              >
                 提交
               </button>
               <div class="banner_view" v-if="register_show < 2">
@@ -341,7 +357,8 @@ export default {
       userName: '',
       userNameErrorMsg: '用户名不能为空',
       userNameInValid: false,
-      registSuccess: false
+      registSuccess: false,
+      btn_disabled: false
     }
   },
   computed: {
@@ -405,6 +422,7 @@ export default {
       }
     },
     async reloadGetCode() {
+      this.btn_disabled = true
       this.code_seconds = 60
       const { result, code } = await getUserCodeService({
         mobile: this.accountName.trim()
@@ -413,6 +431,7 @@ export default {
         this.code_timer = setInterval(() => {
           this.code_seconds -= 1
           if (this.code_seconds === 0) {
+            this.btn_disabled = false
             clearInterval(this.code_timer)
           }
         }, 1000)
@@ -450,6 +469,7 @@ export default {
       }
     },
     async submitReg() {
+      this.btn_disabled = true
       if (this.accountName === '') {
         this.accountNameErrorMsg = '手机号不能为空'
         this.userNameInValid = true
@@ -472,6 +492,7 @@ export default {
         gender: ''
       })
       if (result) {
+        this.btn_disabled = false
         this.registSuccess = true
         this.register_time = setInterval(() => {
           this.register_seconds -= 1
@@ -481,6 +502,7 @@ export default {
           }
         }, 1000)
       } else {
+        this.btn_disabled = false
         alert(errorInfo)
         this.register_show = 0
         this.accountName = ''
@@ -501,6 +523,7 @@ export default {
       if (!this.accept_checked) {
         return
       } else {
+        this.btn_disabled = true
         const { result } = await checkMobileExistService(this.accountName.trim())
         if (!result) {
           // this.accountNameErrorMsg = ''
@@ -509,6 +532,7 @@ export default {
             mobile: this.accountName.trim()
           })
           if (result) {
+            this.btn_disabled = false
             this.register_show = 1
             this.code_timer = setInterval(() => {
               this.code_seconds -= 1
@@ -521,6 +545,7 @@ export default {
         } else {
           this.accountNameErrorMsg = '此手机号已经注册过！'
           this.accountNameInValid = true
+          this.btn_disabled = false
         }
       }
     },
