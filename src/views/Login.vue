@@ -28,6 +28,9 @@
                 (accountCode = ''),
                 (code_seconds = 60),
                 (accountCodeInValid = false),
+                (userName = ''),
+                (userNameErrorMsg = '用户名不能为空'),
+                (userNameInValid = false),
                 (accountRegPwd = ''),
                 (accountRegConfirmPwd = ''),
                 (accountRegPwdInValid = false),
@@ -108,6 +111,25 @@
               </div>
               <div class="pwd_view">
                 <input
+                  class="form_input_usename"
+                  type="text"
+                  placeholder="请输入用户名"
+                  v-model.trim="userName"
+                  @keyup="validUserName($event)"
+                  v-if="register_show === 2"
+                />
+                <div :class="['error_msg', { error_msg_hidden: !userNameInValid }]" v-if="register_show === 2">
+                  {{ userNameErrorMsg }}
+                </div>
+                <img
+                  class="user_mobile_img"
+                  src="@a/imgs/user_mobile.png"
+                  alt=""
+                  srcset="@a/imgs/user_mobile@2x.png 2x"
+                  v-if="register_show === 2"
+                />
+
+                <input
                   class="form_input_pwd"
                   maxlength="20"
                   type="password"
@@ -115,7 +137,6 @@
                   v-model.trim="accountRegPwd"
                   @keyup="validRegPwd($event)"
                   v-if="register_show === 2"
-                  style="margin-top: .236111rem"
                 />
                 <img
                   v-if="register_show === 2"
@@ -123,7 +144,7 @@
                   src="@a/imgs/user_pwd.png"
                   alt=""
                   srcset="@a/imgs/user_pwd@2x.png 2x"
-                  style="top: 0.326389rem;"
+                  style="top: .791667rem;"
                 />
                 <div
                   v-if="register_show === 2"
@@ -250,7 +271,10 @@
                     (accountCode = ''),
                     (code_seconds = 60),
                     (accountRegPwd = ''),
-                    (accountRegConfirmPwd = '')
+                    (accountRegConfirmPwd = ''),
+                    (userName = ''),
+                    (userNameErrorMsg = ''),
+                    (userNameInValid = false)
                   )
                 "
                 >马上注册</span
@@ -314,6 +338,9 @@ export default {
       accountRegConfirmPwd: '',
       accountRegConfirmPwdInValid: false,
       accountRegConfirmPwdErrorMsg: '确认密码不能为空',
+      userName: '',
+      userNameErrorMsg: '用户名不能为空',
+      userNameInValid: false,
       registSuccess: false
     }
   },
@@ -348,9 +375,17 @@ export default {
         }
       }
     },
+    validUserName($event) {
+      if ($event.target.value === '') {
+        this.accountNameErrorMsg = '手机号不能为空'
+        this.userNameInValid = true
+      } else {
+        this.userNameInValid = false
+      }
+    },
     validRegPwd($event) {
       if ($event.target.value === '') {
-        this.accountRegPwdErrorMsg = '新密码不能为空'
+        this.userNameErrorMsg = '用户名不能为空'
         this.accountRegPwdInValid = true
       } else {
         this.accountRegPwdInValid = false
@@ -389,7 +424,7 @@ export default {
         this.accountCodeErrorMsg = '验证码不能为空'
         this.accountCodeInValid = true
       } else {
-        this.accountNameInValid = false
+        this.accountCodeInValid = false
       }
     },
     async submitCode() {
@@ -415,6 +450,10 @@ export default {
       }
     },
     async submitReg() {
+      if (this.accountName === '') {
+        this.accountNameErrorMsg = '手机号不能为空'
+        this.userNameInValid = true
+      }
       if (this.accountRegPwd === '') {
         this.accountRegPwdErrorMsg = '新密码不能为空'
         this.accountRegPwdInValid = true
@@ -423,10 +462,11 @@ export default {
         this.accountRegConfirmPwdErrorMsg = '确认密码不能为空'
         this.accountRegConfirmPwdInValid = true
       }
-      if (this.accountRegConfirmPwdInValid || this.accountRegPwdInValid) {
+      if (this.accountRegConfirmPwdInValid || this.accountRegPwdInValid || this.userNameInValid) {
         return
       }
       const { result, errorInfo } = await submitRegService({
+        name: this.userName.trim(),
         mobile: this.accountName.trim(),
         password: this.accountRegPwd,
         gender: ''
@@ -463,7 +503,7 @@ export default {
       } else {
         const { result } = await checkMobileExistService(this.accountName.trim())
         if (!result) {
-          this.accountNameErrorMsg = ''
+          // this.accountNameErrorMsg = ''
           this.accountNameInValid = false
           const { result, code } = await getUserCodeService({
             mobile: this.accountName.trim()
@@ -506,14 +546,14 @@ export default {
         const {
           result,
           token,
-          userInfo: { userName }
+          memberInfo: { memberName }
         } = await getUserInfoService({ accountName: that.accountName, accountPwd: that.accountPwd })
         if (result) {
           that.accountNameInValid = false
           that.accountPwdInValid = false
           const dateTime = new Date()
           dateTime.setHours(dateTime.getHours() + 2)
-          that.setUserInfoMutation({ userName: userName, token: token, expires: new Date(dateTime).getTime() })
+          that.setUserInfoMutation({ userName: memberName, token: token, expires: new Date(dateTime).getTime() })
           that.timer = setInterval(() => {
             that.seconds -= 1
             if (that.seconds === 0) {
@@ -666,6 +706,26 @@ export default {
           //写到这里
           box-sizing: border-box;
           position: relative;
+          .form_input_usename {
+            width: 2.222222rem;
+            height: 0.326389rem;
+            border: 1px solid $color4;
+            border-radius: 0.159722rem;
+            margin-top: 0.215278rem;
+            margin-left: 0.145833rem;
+            margin-right: 0.152778rem;
+            box-sizing: border-box;
+            padding-left: 0.416667rem;
+            font-size: $font_size16;
+            font-weight: 400;
+          }
+          .user_mobile_img {
+            width: 0.120347rem;
+            height: 0.083611rem;
+            position: absolute;
+            top: 0.326389rem;
+            left: 0.3125rem;
+          }
           .form_input_pwd {
             box-sizing: border-box;
             position: relative;
