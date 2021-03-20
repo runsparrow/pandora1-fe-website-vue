@@ -568,17 +568,20 @@ export default {
         return
       }
       try {
-        const {
-          result,
-          token,
-          memberInfo: { memberName }
-        } = await getUserInfoService({ accountName: that.accountName, accountPwd: that.accountPwd })
+        const { result, token, memberInfo } = await getUserInfoService({
+          accountName: that.accountName,
+          accountPwd: that.accountPwd
+        })
         if (result) {
           that.accountNameInValid = false
           that.accountPwdInValid = false
           const dateTime = new Date()
           dateTime.setHours(dateTime.getHours() + 2)
-          that.setUserInfoMutation({ userName: memberName, token: token, expires: new Date(dateTime).getTime() })
+          that.setUserInfoMutation({
+            userName: memberInfo?.memberName,
+            token: token,
+            expires: new Date(dateTime).getTime()
+          })
           that.timer = setInterval(() => {
             that.seconds -= 1
             if (that.seconds === 0) {
@@ -590,6 +593,7 @@ export default {
           alert('手机号或密码错误!')
         }
       } catch (err) {
+        alert(111)
         console.log(err)
       }
     },
