@@ -1,5 +1,6 @@
-'use strict'
 const path = require('path')
+const JavaScriptObfuscator = require('webpack-obfuscator')
+const encryption = true
 
 const resolve = dir => path.join(__dirname, dir)
 let proxy_target_url = ''
@@ -41,6 +42,47 @@ module.exports = {
   configureWebpack: config => {
     if (process.env.NODE_ENV === 'production') {
       config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
+    }
+    if (process.env.NODE_ENV === 'production' && encryption == true) {
+      return {
+        plugins: [
+          new JavaScriptObfuscator(
+            {
+              rotateUnicodeArray: true,
+              compact: true,
+              controlFlowFlattening: false,
+              controlFlowFlatteningThreshold: 0.8,
+              deadCodeInjection: true,
+              deadCodeInjectionThreshold: 0.5,
+              debugProtection: false,
+              debugProtectionInterval: false,
+              disableConsoleOutput: false,
+              domainLock: [],
+              identifierNamesGenerator: 'hexadecimal',
+              identifiersPrefix: '',
+              inputFileName: '',
+              log: false,
+              renameGlobals: false,
+              reservedNames: [],
+              reservedStrings: [],
+              rotateStringArray: true,
+              seed: 0,
+              selfDefending: false,
+              sourceMap: false,
+              sourceMapBaseUrl: '',
+              sourceMapFileName: '',
+              sourceMapMode: 'separate',
+              stringArray: true,
+              stringArrayEncoding: false,
+              stringArrayThreshold: 0.8,
+              target: 'browser',
+              transformObjectKeys: false,
+              unicodeEscapeSequence: true
+            },
+            ['abc.js']
+          )
+        ]
+      }
     }
   },
   pages: {
