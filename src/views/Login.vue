@@ -273,7 +273,7 @@
               <img class="user_pwd_img" src="@a/imgs/user_pwd.png" alt="" srcset="@a/imgs/user_pwd@2x.png 2x" />
             </div>
 
-            <button class="btn_submit" @click="loginSooYi">提交</button>
+            <button class="btn_submit" @click="loginSooYi" ref="loginRef">提交</button>
             <div class="dec_view">
               <span class="label01">没有账号?</span>
               <span
@@ -365,8 +365,21 @@ export default {
     ...mapState(['token', 'code']),
     ...mapGetters(['version'])
   },
+  mounted() {
+    document.addEventListener('keyup', e => {
+      if (this.$refs.loginRef) {
+        if (e.keyCode === 13) {
+          this.$refs.loginRef.click()
+        }
+      }
+    })
+  },
+  unmounted() {
+    document.removeEventListener('keyup')
+  },
   methods: {
     ...mapMutations(['setUserInfoMutation']),
+
     toForgotPage() {
       this.$router.push('/forgot')
     },
