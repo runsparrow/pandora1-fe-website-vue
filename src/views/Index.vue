@@ -27,7 +27,17 @@
             <div class="login_header_logo">
               头像
             </div>
-            <span class="username">{{ userName }}</span>
+            <div ref="popMenuRef">
+              <span class="username" @click="clickDropdown">{{ userName }}</span>
+              <div :class="['popMenu', { activePop: dropdownStatus }]">
+                <div class="item1" @click="goto(0)">我的信息</div>
+                <div class="item2" @click="goto(1)">我的作品</div>
+                <div class="item3" @click="goto(2)">我的订单</div>
+                <div class="item4" @click="goto(3)">充值中心</div>
+                <div class="item5" @click="goto(4)">帮助中心</div>
+                <div class="item6" @click="goto(5)">退出</div>
+              </div>
+            </div>
           </li>
         </ul>
       </div>
@@ -127,9 +137,36 @@ export default {
   computed: {
     ...mapState(['token', 'userName'])
   },
+  data() {
+    return {
+      dropdownStatus: false
+    }
+  },
+  mounted() {
+    document.addEventListener('click', e => {
+      if (this.$refs.popMenuRef) {
+        if (!this.$refs.popMenuRef.contains(e.target)) {
+          this.dropdownStatus = false
+        }
+      }
+    })
+  },
+  unmounted() {
+    document.removeEventListener('click')
+  },
   methods: {
     toDetail() {
       this.$router.push('search_detail')
+    },
+    clickDropdown() {
+      this.dropdownStatus = !this.dropdownStatus
+    },
+    goto(index) {
+      this.dropdownStatus = false
+      if (index === 5) {
+        this.$store.commit('clearStore')
+        this.$router.replace('/login')
+      }
     }
   }
 }
@@ -249,6 +286,75 @@ export default {
           justify-content: flex-end;
           box-sizing: border-box;
           padding-top: 0.076389rem;
+          position: relative;
+          .popMenu {
+            width: 1.125rem;
+            height: 2.006944rem;
+            border: 1px solid $color10;
+            position: absolute;
+            bottom: 0;
+            top: 0.597222rem;
+            left: 0.263889rem !important;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            background: $color9;
+            display: none;
+
+            .item1 {
+              height: 0.375rem;
+              font-size: $font_size16;
+              color: #354052;
+              padding-left: 0.229167rem;
+              line-height: 0.375rem;
+            }
+            .item2 {
+              height: 0.256944rem;
+              font-size: $font_size16;
+              color: #354052;
+              padding-left: 0.229167rem;
+              line-height: 0.256944rem;
+            }
+            .item3 {
+              height: 0.256944rem;
+              font-size: $font_size16;
+              color: #354052;
+              padding-left: 0.229167rem;
+              line-height: 0.256944rem;
+            }
+            .item4 {
+              height: 0.256944rem;
+              font-size: $font_size16;
+              color: #354052;
+              padding-left: 0.229167rem;
+              line-height: 0.256944rem;
+            }
+            .item5 {
+              height: 0.256944rem;
+              font-size: $font_size16;
+              padding-left: 0.229167rem;
+              line-height: 0.256944rem;
+              color: #354052;
+            }
+            .item6 {
+              height: 0.375rem;
+              font-size: $font_size16;
+              padding-left: 0.229167rem;
+              line-height: 0.375rem;
+              color: #354052;
+            }
+            > div {
+              cursor: pointer;
+              &:hover {
+                background: $color4;
+                color: $color9;
+              }
+            }
+          }
+          .activePop {
+            display: block;
+          }
           .btn1 {
             width: 0.555556rem;
             height: 0.277778rem;
@@ -292,6 +398,7 @@ export default {
             font-weight: 400;
             line-height: 0.465278rem;
             margin-left: 0.055556rem;
+            cursor: pointer;
           }
         }
       }
