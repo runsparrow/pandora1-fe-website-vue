@@ -48,3 +48,10 @@ export const checkMobileExistService = async payload => {
     data: payload
   })
 }
+
+export const checkUseNameExistService = async (usename, id = -1) => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.Unauthorized_MIS_CMS_Member_Row_ByName}/${usename}/${id}`,
+    method: 'GET'
+  })
+}

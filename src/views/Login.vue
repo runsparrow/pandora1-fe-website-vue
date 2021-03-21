@@ -325,7 +325,8 @@ import {
   getUserCodeService,
   submitUserCodeService,
   submitRegService,
-  checkMobileExistService
+  checkMobileExistService,
+  checkUseNameExistService
 } from '@s/login-service'
 export default {
   name: 'LoginView',
@@ -501,33 +502,42 @@ export default {
       if (this.accountRegConfirmPwdInValid || this.accountRegPwdInValid || this.userNameInValid) {
         return
       }
-      const { result, errorInfo } = await submitRegService({
-        mobile: this.accountName.trim(),
-        code: this.accountCode,
-        member: {
-          name: this.userName.trim(),
-          mobile: this.accountName.trim(),
-          password: this.accountRegPwd
-        }
-      })
+
+      const { result } = await checkUseNameExistService(this.userName)
       if (result) {
         this.btn_disabled = false
-        this.registSuccess = true
-        this.register_time = setInterval(() => {
-          this.register_seconds -= 1
-          if (this.register_seconds === 0) {
-            clearInterval(this.register_time)
-            this.tologinPage()
-          }
-        }, 1000)
+        this.userNameErrorMsg = '此用户名已被占用，请改用其他用户名!'
+        this.userNameInValid = true
       } else {
-        this.btn_disabled = false
-        alert(errorInfo)
-        this.register_show = 0
-        this.accountName = ''
-        this.accountRegPwd = ''
-        this.accountRegConfirmPwd = ''
-        this.accountCode = ''
+        this.userNameInValid = false
+        const { result, errorInfo } = await submitRegService({
+          mobile: this.accountName.trim(),
+          code: this.accountCode,
+          member: {
+            name: this.userName.trim(),
+            mobile: this.accountName.trim(),
+            password: this.accountRegPwd
+          }
+        })
+        if (result) {
+          this.btn_disabled = false
+          this.registSuccess = true
+          this.register_time = setInterval(() => {
+            this.register_seconds -= 1
+            if (this.register_seconds === 0) {
+              clearInterval(this.register_time)
+              this.tologinPage()
+            }
+          }, 1000)
+        } else {
+          this.btn_disabled = false
+          alert(errorInfo)
+          this.register_show = 0
+          this.accountName = ''
+          this.accountRegPwd = ''
+          this.accountRegConfirmPwd = ''
+          this.accountCode = ''
+        }
       }
     },
     async getCode() {
