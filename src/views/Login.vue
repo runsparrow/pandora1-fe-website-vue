@@ -289,7 +289,7 @@
                     (accountRegPwd = ''),
                     (accountRegConfirmPwd = ''),
                     (userName = ''),
-                    (userNameErrorMsg = ''),
+                    (userNameErrorMsg = '用户名不能为空!'),
                     (userNameInValid = false)
                   )
                 "
