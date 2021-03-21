@@ -381,7 +381,7 @@ export default {
     ...mapMutations(['setUserInfoMutation']),
 
     toForgotPage() {
-      this.$router.push('/forgot')
+      this.$router.replace('/forgot')
     },
     tologinPage() {
       this.activeTab = 1
@@ -407,7 +407,7 @@ export default {
     },
     validUserName($event) {
       if ($event.target.value === '') {
-        this.accountNameErrorMsg = '手机号不能为空'
+        this.userNameErrorMsg = '用户名不能为空'
         this.userNameInValid = true
       } else {
         this.userNameInValid = false
@@ -473,7 +473,10 @@ export default {
       }
       const { result } = await submitUserCodeService({
         mobile: this.accountName.trim(),
-        code: this.accountCode.trim()
+        code: this.accountCode.trim(),
+        member: {
+          mobile: this.accountName.trim()
+        }
       })
       if (result) {
         this.register_show = 2
@@ -483,8 +486,8 @@ export default {
     },
     async submitReg() {
       this.btn_disabled = true
-      if (this.accountName === '') {
-        this.accountNameErrorMsg = '手机号不能为空'
+      if (this.userName === '') {
+        this.userNameErrorMsg = '用户名不能为空'
         this.userNameInValid = true
       }
       if (this.accountRegPwd === '') {
@@ -495,14 +498,18 @@ export default {
         this.accountRegConfirmPwdErrorMsg = '确认密码不能为空'
         this.accountRegConfirmPwdInValid = true
       }
+      alert(this.accountRegConfirmPwdInValid + '||' + this.accountRegPwdInValid + '||' + this.userNameInValid)
       if (this.accountRegConfirmPwdInValid || this.accountRegPwdInValid || this.userNameInValid) {
         return
       }
       const { result, errorInfo } = await submitRegService({
-        name: this.userName.trim(),
         mobile: this.accountName.trim(),
-        password: this.accountRegPwd,
-        gender: ''
+        code: this.accountCode,
+        member: {
+          name: this.userName.trim(),
+          mobile: this.accountName.trim(),
+          password: this.accountRegPwd
+        }
       })
       if (result) {
         this.btn_disabled = false
@@ -541,7 +548,7 @@ export default {
         if (!result) {
           // this.accountNameErrorMsg = ''
           this.accountNameInValid = false
-          const { result, code } = await getUserCodeService({
+          const { result, code, message } = await getUserCodeService({
             mobile: this.accountName.trim()
           })
           if (result) {
@@ -554,6 +561,9 @@ export default {
               }
             }, 1000)
             alert('验证码已发送到你的手机!')
+          } else {
+            alert(message)
+            this.btn_disabled = false
           }
         } else {
           this.accountNameErrorMsg = '此手机号已经注册过！'

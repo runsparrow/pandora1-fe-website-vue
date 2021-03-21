@@ -209,9 +209,11 @@ export default {
       btn_disabled: false
     }
   },
+
   methods: {
     tologinPage() {
-      this.$router.push('/login')
+      clearInterval(this.register_time)
+      this.$router.replace('/login')
     },
     async submitReg() {
       if (this.accountRegPwd === '') {
@@ -228,8 +230,11 @@ export default {
       this.btn_disabled = true
       const { result, errorInfo } = await submitForgotPwdService({
         mobile: this.accountName.trim(),
-        password: this.accountRegPwd,
-        gender: ''
+        code: this.accountCode,
+        member: {
+          mobile: this.accountName.trim(),
+          password: this.accountRegPwd
+        }
       })
       if (result) {
         this.btn_disabled = false
@@ -243,7 +248,6 @@ export default {
         }, 1000)
       } else {
         this.btn_disabled = false
-        alert(errorInfo)
         this.register_show = 0
         this.accountName = ''
         this.accountRegPwd = ''
@@ -328,9 +332,11 @@ export default {
       this.btn_disabled = true
       const { result } = await checkMobileExistService(this.accountName.trim())
       if (result) {
-        const { result, code } = await getUserCodeService({
+        const { result, code, message } = await getUserCodeService({
           mobile: this.accountName.trim()
         })
+        alert(result)
+        alert(message)
         if (result) {
           this.accountNameErrorMsg = ''
           this.accountNameInValid = false
@@ -345,6 +351,9 @@ export default {
           alert('验证码已发送到你的手机!')
         }
       } else {
+        if (message) {
+          alert(message)
+        }
         this.btn_disabled = false
         this.accountNameErrorMsg = '此手机号未注册过！'
         this.accountNameInValid = true
