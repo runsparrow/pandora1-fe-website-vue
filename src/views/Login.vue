@@ -498,7 +498,6 @@ export default {
         this.accountRegConfirmPwdErrorMsg = '确认密码不能为空'
         this.accountRegConfirmPwdInValid = true
       }
-      alert(this.accountRegConfirmPwdInValid + '||' + this.accountRegPwdInValid + '||' + this.userNameInValid)
       if (this.accountRegConfirmPwdInValid || this.accountRegPwdInValid || this.userNameInValid) {
         return
       }
@@ -616,7 +615,6 @@ export default {
           alert('手机号或密码错误!')
         }
       } catch (err) {
-        alert(111)
         console.log(err)
       }
     },
