@@ -335,8 +335,6 @@ export default {
         const { result, code, message } = await getUserCodeService({
           mobile: this.accountName.trim()
         })
-        alert(result)
-        alert(message)
         if (result) {
           this.accountNameErrorMsg = ''
           this.accountNameInValid = false

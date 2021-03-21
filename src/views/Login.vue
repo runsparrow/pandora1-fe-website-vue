@@ -600,9 +600,9 @@ export default {
         return
       }
       try {
-        const { result, token, memberInfo } = await getUserInfoService({
-          accountName: that.accountName,
-          accountPwd: that.accountPwd
+        const { result, token, member } = await getUserInfoService({
+          name: that.accountName,
+          password: that.accountPwd
         })
         if (result) {
           that.accountNameInValid = false
@@ -610,7 +610,7 @@ export default {
           const dateTime = new Date()
           dateTime.setHours(dateTime.getHours() + 2)
           that.setUserInfoMutation({
-            userName: memberInfo?.memberName,
+            userName: member?.memberName,
             token: token,
             expires: new Date(dateTime).getTime()
           })
