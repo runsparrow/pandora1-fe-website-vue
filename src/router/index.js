@@ -16,24 +16,10 @@ router.beforeEach((to, from, next) => {
   const { token, expires } = $store.state
   const dateTime = new Date().getTime()
   to.meta && setDocumentTitle(to.meta.title)
-  if (to.path === '/forgot') {
-    next()
-  } else if (expires !== 0 && dateTime - expires >= 0) {
+  if (expires !== 0 && dateTime - expires >= 0) {
     $store.commit('clearStore')
-    next('/login')
-  } else if (to.path !== '/login') {
-    if (token) {
-      next()
-    } else {
-      next('/login')
-    }
-  } else {
-    if (token) {
-      next('/')
-    } else {
-      next()
-    }
   }
+  next()
 })
 
 export default router

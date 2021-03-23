@@ -19,7 +19,7 @@
             :class="['left_view', { activeLeftTab: activeTab === 0 }]"
             @click="
               () => (
-                (activeTab = 0),
+                $store.commit('setActiveTab', 0),
                 (accountName = ''),
                 (accountNameInValid = false),
                 (accountPwdInValid = false),
@@ -44,7 +44,7 @@
             :class="['right_view', { activeRightTab: activeTab === 1 }]"
             @click="
               () => (
-                (activeTab = 1),
+                $store.commit('setActiveTab', 1),
                 (accountName = ''),
                 (accountNameInValid = false),
                 (accountPwdInValid = false),
@@ -280,7 +280,7 @@
                 class="label02"
                 @click="
                   () => (
-                    (activeTab = 0),
+                    $store.commit('setActiveTab', 0),
                     (accountName = ''),
                     (accountNameInValid = false),
                     (register_show = 0),
@@ -341,7 +341,6 @@ export default {
       code_timer: null,
       register_time: null,
       seconds: 3,
-      activeTab: 1,
       accept_checked: false,
       accountCode: '',
       register_show: 0,
@@ -363,7 +362,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['token', 'code']),
+    ...mapState(['token', 'code', 'activeTab']),
     ...mapGetters(['version'])
   },
   mounted() {
@@ -385,7 +384,7 @@ export default {
       this.$router.replace('/forgot')
     },
     tologinPage() {
-      this.activeTab = 1
+      this.$store.commit('setActiveTab', 1)
       this.register_show = 0
       this.registSuccess = false
       this.accountName = ''
