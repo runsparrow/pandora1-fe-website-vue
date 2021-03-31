@@ -80,7 +80,15 @@
           </div>
         </div>
       </div>
-      <div class="right_view">right</div>
+      <div class="right_view">
+        <div class="row">
+          <div class="item active">我的信息</div>
+          <div class="item">我的作品</div>
+          <div class="item">我的订单</div>
+          <div class="item">我要充值</div>
+        </div>
+        <div class="content_row"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -98,7 +106,6 @@ export default {}
   margin-right: 0.736111rem;
   width: 8.548611rem;
   margin: 0 auto;
-  border: 1px solid blue;
   .header_view {
     display: flex;
     flex-direction: column;
@@ -326,11 +333,9 @@ export default {}
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
-    border: 1px solid yellow;
     .left_view {
       box-sizing: border-box;
       width: 2.597222rem;
-      border: 1px solid red;
       .top_view {
         box-sizing: border-box;
         width: 2.381944rem;
@@ -478,6 +483,39 @@ export default {}
       box-sizing: border-box;
       flex-grow: 1;
       border: 1px solid red;
+      .row {
+        height: 0.298611rem;
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+        padding-left: 0.076389rem;
+        .item {
+          width: 0.555556rem;
+          text-align: center;
+          line-height: 0.277778rem;
+          color: $color22;
+          font-size: $font_size20;
+          margin-right: 0.458333rem;
+          position: relative;
+          cursor: pointer;
+          &.active {
+            color: $color23;
+            &::before {
+              position: absolute;
+              right: 0;
+              left: 0;
+              bottom: 0;
+              height: 0.013889rem;
+              background: $color23;
+              content: '';
+            }
+          }
+        }
+      }
+      .content_row {
+        height: 5.513889rem;
+        background: $color34;
+      }
     }
   }
 }
