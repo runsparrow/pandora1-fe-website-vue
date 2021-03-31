@@ -30,6 +30,11 @@ export default [
     component: () => import(/* webpackChunkName: "search-view" */ '@v/SearchDetail.vue')
   },
   {
+    path: '/mine/info',
+    meta: { title: '我的信息' },
+    component: () => import(/* webpackChunkName: "my-info-view" */ '@v/mine/MyInfo.vue')
+  },
+  {
     path: '*',
     meta: { title: '404页' },
     component: () => import(/* webpackChunkName: "not-found-view" */ '@v/NotFound.vue')

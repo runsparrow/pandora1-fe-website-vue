@@ -171,7 +171,9 @@ export default {
     },
     goto(index) {
       this.dropdownStatus = false
-      if (index === 5) {
+      if (index === 0) {
+        this.$router.push('/mine/info')
+      } else if (index === 5) {
         this.$store.commit('clearStore')
       }
     }
