@@ -188,14 +188,15 @@ export default {
   box-sizing: border-box;
   margin-left: 0.715278rem;
   margin-right: 0.736111rem;
-  width: 8.548611rem;
+  width: 1231px;
+  height: 100%;
   margin: 0 auto;
   .header_view {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     .top_view {
-      height: 0.833333rem;
+      height: 97px;
       box-sizing: border-box;
       display: flex;
       flex-direction: row;
@@ -215,30 +216,30 @@ export default {
           align-items: flex-end;
           margin: 0;
           .logo_img {
-            width: 0.430625rem;
-            height: 0.242083rem;
+            width: 62.01px;
+            height: 46.16px;
           }
           .logo_title {
             color: $color4;
-            font-size: $font-size37;
-            line-height: 0.180556rem;
+            font-size: 37px;
+            line-height: 26px;
           }
         }
         .label {
           color: $color1;
-          font-size: $font_size16;
-          margin-top: 0.138889rem;
+          font-size: 16px;
+          margin-top: 20px;
           cursor: pointer;
         }
         .seperator {
           position: relative;
           &::before {
             position: absolute;
-            top: -0.034722rem;
+            top: -5px;
             right: 0;
             left: 0;
             bottom: 0;
-            height: 0.180556rem;
+            height: 26px;
             width: 0px;
             border: 1px solid $color2;
             content: '';
@@ -248,42 +249,42 @@ export default {
         .search_item {
           box-sizing: border-box;
           position: relative;
-          padding-top: 0.076389rem;
+          padding-top: 11px;
           position: relative;
 
           input {
-            width: 1.798611rem;
-            height: 0.277778rem;
+            width: 259.21px;
+            height: 40px;
             border: 1px solid $color3;
-            border-radius: 0.173611rem;
+            border-radius: 25px;
             box-sizing: border-box;
-            padding-left: 0.15625rem;
-            font-size: $font_size16;
+            padding-left: 22.5px;
+            font-size: 16px;
           }
 
           .search_right_bg_view {
             position: absolute;
             right: 0;
-            top: 0.076389rem;
-            width: 0.256944rem;
-            height: 0.277778rem;
+            top: 11px;
+            width: 37px;
+            height: 40px;
             background-image: url('../assets/imgs/search_right_bg.png');
             background-repeat: no-repeat;
-            background-size: 0.256944rem 0.277778rem;
+            background-size: 37px 40px;
             display: flex;
             justify-content: center;
             align-items: center;
             .search_clear {
-              width: 0.087361rem;
-              height: 0.0875rem;
+              width: 12.58px;
+              height: 12.6px;
               cursor: pointer;
             }
             .search_icon {
-              width: 0.132083rem;
-              height: 0.132083rem;
+              width: 19px;
+              height: 19px;
               position: absolute;
-              left: -0.236597rem;
-              top: 0.069444rem;
+              left: -34px;
+              top: 10px;
               cursor: pointer;
             }
           }
@@ -291,19 +292,19 @@ export default {
         .btn_view {
           display: flex;
           flex-direction: row;
-          width: 1.222222rem;
+          width: 176px;
           justify-content: flex-end;
           box-sizing: border-box;
-          padding-top: 0.076389rem;
+          padding-top: 11px;
           position: relative;
           .popMenu {
-            width: 1.125rem;
-            height: 2.006944rem;
+            width: 162px;
+            height: 289px;
             border: 1px solid $color10;
             position: absolute;
             bottom: 0;
-            top: 0.597222rem;
-            left: 0.263889rem !important;
+            top: 86px;
+            left: 38px !important;
             z-index: 10;
             display: flex;
             flex-direction: column;
@@ -312,45 +313,45 @@ export default {
             display: none;
 
             .item1 {
-              height: 0.375rem;
-              font-size: $font_size16;
+              height: 54px;
+              font-size: 16px;
               color: #354052;
-              padding-left: 0.229167rem;
-              line-height: 0.375rem;
+              padding-left: 33px;
+              line-height: 54px;
             }
             .item2 {
-              height: 0.256944rem;
-              font-size: $font_size16;
+              height: 37px;
+              font-size: 16px;
               color: #354052;
-              padding-left: 0.229167rem;
-              line-height: 0.256944rem;
+              padding-left: 33px;
+              line-height: 37px;
             }
             .item3 {
-              height: 0.256944rem;
-              font-size: $font_size16;
+              height: 37px;
+              font-size: 16px;
               color: #354052;
-              padding-left: 0.229167rem;
-              line-height: 0.256944rem;
+              padding-left: 33px;
+              line-height: 37px;
             }
             .item4 {
-              height: 0.256944rem;
-              font-size: $font_size16;
+              height: 37px;
+              font-size: 16px;
               color: #354052;
-              padding-left: 0.229167rem;
-              line-height: 0.256944rem;
+              padding-left: 33px;
+              line-height: 37px;
             }
             .item5 {
-              height: 0.256944rem;
-              font-size: $font_size16;
-              padding-left: 0.229167rem;
-              line-height: 0.256944rem;
+              height: 37px;
+              font-size: 16px;
+              padding-left: 33px;
+              line-height: 37px;
               color: #354052;
             }
             .item6 {
-              height: 0.375rem;
-              font-size: $font_size16;
-              padding-left: 0.229167rem;
-              line-height: 0.375rem;
+              height: 54px;
+              font-size: 16px;
+              padding-left: 33px;
+              line-height: 54px;
               color: #354052;
             }
             > div {
@@ -365,48 +366,48 @@ export default {
             display: block;
           }
           .btn1 {
-            width: 0.555556rem;
-            height: 0.277778rem;
+            width: 80px;
+            height: 40px;
             background: $color4;
             border-radius: 21px;
             display: block;
             color: $color9;
-            font-size: $font-size16;
+            font-size: 16px;
             text-align: center;
-            line-height: 0.277778rem;
-            margin-right: 0.041667rem;
+            line-height: 40px;
+            margin-right: 6px;
             cursor: pointer;
           }
           .btn2 {
-            width: 0.555556rem;
-            height: 0.277778rem;
+            width: 80px;
+            height: 40px;
             background: $color9;
             border: 1px solid $color6;
             border-radius: 21px;
             display: block;
             color: $color4;
-            font-size: $font-size16;
+            font-size: 16px;
             text-align: center;
-            line-height: 0.277778rem;
-            margin-left: 0.041667rem;
+            line-height: 40px;
+            margin-left: 6px;
             cursor: pointer;
           }
           .login_header_logo {
-            width: 0.465278rem;
-            height: 0.465278rem;
+            width: 67px;
+            height: 67px;
             border: 1px solid $color6;
             border-radius: 50%;
             text-align: center;
-            line-height: 0.465278rem;
-            font-size: $font_size16;
+            line-height: 67px;
+            font-size: 16px;
             font-weight: 400;
             color: $color1;
           }
           .username {
-            font-size: $font_size16;
+            font-size: 16px;
             font-weight: 400;
-            line-height: 0.465278rem;
-            margin-left: 0.055556rem;
+            line-height: 67px;
+            margin-left: 8px;
             cursor: pointer;
           }
         }
@@ -414,50 +415,50 @@ export default {
     }
     .logo_view {
       box-sizing: border-box;
-      height: 1.416667rem;
+      height: 204px;
       display: flex;
       color: $color1;
       justify-content: center;
       align-items: center;
-      font-size: $font_size17;
+      font-size: 17px;
       border: 1px solid $color6;
     }
   }
   .center_view {
     box-sizing: border-box;
-    height: 2.922847rem;
+    height: 421px;
     display: flex;
     flex-direction: row;
     .left_view {
-      width: 4.274306rem;
+      width: 615px;
       box-sizing: border-box;
-      padding-right: 0.197917rem;
-      padding-left: 0.430556rem;
-      padding-top: 0.506944rem;
+      padding-right: 28.5px;
+      padding-left: 62px;
+      padding-top: 73px;
       .point_title {
         color: $color1;
-        font-size: $font_size38;
-        line-height: 0.3rem;
+        font-size: 38px;
+        line-height: 43.2px;
         font-weight: bold;
         margin: 0;
         padding: 0;
       }
       .desc {
         line-height: 1.5;
-        font-size: font_size18;
+        font-size: 18px;
         color: $color5;
         margin: 0;
         padding: 0;
         display: block;
         &.maginTop {
-          margin-top: 0.090278rem;
+          margin-top: 13px;
         }
       }
       .btn_more {
         box-sizing: border-box;
-        width: 1.180556rem;
-        height: 0.347222rem;
-        margin-top: 0.076389rem;
+        width: 170px;
+        height: 50px;
+        margin-top: 11px;
         background: $color7;
         border-radius: 10px;
         display: flex;
@@ -465,29 +466,29 @@ export default {
         cursor: pointer;
         align-items: center;
         .label {
-          font-size: $font_size16;
+          font-size: 16px;
           font-weight: 400;
-          line-height: 0.1875rem;
+          line-height: 27px;
           color: $color9;
-          margin-left: 0.1875rem;
+          margin-left: 27px;
         }
         .label_img {
-          width: 0.118056rem;
-          height: 0.083333rem;
-          margin-right: 0.166667rem;
+          width: 17px;
+          height: 12px;
+          margin-right: 24px;
         }
       }
     }
     .right_view {
-      width: 4.274306rem;
+      width: 615px;
       box-sizing: border-box;
-      padding-top: 0.347222rem;
-      padding-right: 0.430556rem;
-      padding-left: 0.208333rem;
+      padding-top: 50px;
+      padding-right: 62px;
+      padding-left: 30px;
       .frame_view {
         box-sizing: border-box;
-        width: 3.758264rem;
-        height: 2.451389rem;
+        width: 541px;
+        height: 353px;
 
         background: #f5f5f5;
         display: flex;
@@ -497,27 +498,27 @@ export default {
         border-radius: 12px;
         position: relative;
         .frame_banner_img {
-          width: 3.393611rem;
-          height: 2.117986rem;
+          width: 488.68px;
+          height: 304.99px;
           position: absolute;
-          top: 0.166667rem;
-          left: 0.180556rem;
-          right: 0.180556rem;
+          top: 24px;
+          left: 26px;
+          right: 26px;
         }
         .opacity_view {
           position: absolute;
           bottom: 0;
           width: 3.722222rem;
-          height: 0.263889rem;
+          height: 38px;
           background: $color8;
           opacity: 0.05;
           border-radius: 0.333333rem;
         }
         .laptop_line {
           position: absolute;
-          width: 0.798611rem;
-          height: 0.020833rem;
-          bottom: 0.034722rem;
+          width: 115px;
+          height: 3px;
+          bottom: 5px;
           left: 40%;
           background: linear-gradient(
             90deg,
@@ -529,10 +530,10 @@ export default {
         }
         .laptop_bottom {
           position: absolute;
-          bottom: -0.055556rem;
+          bottom: -8px;
           left: -50px;
-          width: 4.465278rem;
-          height: 0.059444rem;
+          width: 643px;
+          height: 8.56px;
           background: linear-gradient(180deg, #ffffff 0%, #cdcbd5 100%);
         }
       }
@@ -540,57 +541,57 @@ export default {
   }
   .footer_view {
     box-sizing: border-box;
-    margin-bottom: 0.375rem;
+    margin-bottom: 54px;
     .row {
-      margin-top: 0.423611rem;
-      margin-left: 0.430556rem;
-      font-size: $font_size25;
+      margin-top: 61px;
+      margin-left: 62px;
+      font-size: 25px;
       font-family: Microsoft YaHei;
       font-weight: 400;
-      line-height: 0.3125rem;
+      line-height: 45px;
       color: $color1;
     }
     .list {
       display: flex;
       flex-direction: row;
-      width: 7.701389rem;
-      margin-top: 0.472222rem;
-      margin-left: 0.430556rem;
-      margin-right: 1.159722rem;
+      width: 1109px;
+      margin-top: 68px;
+      margin-left: 62px;
+      margin-right: 167px;
       box-sizing: border-box;
       justify-content: space-between;
       .item {
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        width: 1.641736rem;
-        height: 1.737986rem;
+        width: 236px;
+        height: 250.26px;
         background: $color9;
         border-radius: 30px;
         box-shadow: 0px 10px 46px rgba(0, 0, 0, 0.07);
         .hot_img {
-          width: 1.638889rem;
-          height: 1.104167rem;
+          width: 236px;
+          height: 159px;
           box-shadow: 0px 10px 46px rgba(0, 0, 0, 0.07);
           border-radius: 30px 30px 0 0;
           cursor: pointer;
         }
         .hot_title {
           color: $color1;
-          font-size: $font_size20;
+          font-size: 20px;
           display: inline-block;
           box-sizing: border-box;
-          padding-top: 0.083333rem;
-          padding-left: 0.215278rem;
-          padding-right: 0.1875rem;
+          padding-top: 12px;
+          padding-left: 31px;
+          padding-right: 27px;
           font-weight: bold;
         }
         .hot_more_view {
           box-sizing: border-box;
-          padding-top: 0.069444rem;
-          padding-left: 0.215278rem;
-          padding-right: 0.1875rem;
-          font-size: $font_size14;
+          padding-top: 10px;
+          padding-left: 31px;
+          padding-right: 27px;
+          font-size: 14px;
           color: $color7;
           display: flex;
           flex-direction: row;
@@ -600,9 +601,9 @@ export default {
             cursor: pointer;
           }
           .blue_direct_img {
-            width: 0.112361rem;
-            height: 0.076528rem;
-            margin-left: 0.270833rem;
+            width: 16.18px;
+            height: 11px;
+            margin-left: 39px;
             cursor: pointer;
           }
         }

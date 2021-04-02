@@ -73,7 +73,7 @@
             <div
               v-if="register_show === 1"
               :class="['error_msg', { error_msg_hidden: !accountCodeInValid }]"
-              style="margin-left:.569444rem"
+              style="margin-left:82px"
             >
               {{ accountCodeErrorMsg }}
             </div>
@@ -87,7 +87,7 @@
                 v-model.trim="accountRegPwd"
                 @keyup="validRegPwd($event)"
                 v-if="register_show === 2"
-                style="margin-top: .236111rem"
+                style="margin-top: 34px"
               />
               <img
                 v-if="register_show === 2"
@@ -99,7 +99,7 @@
               <div
                 v-if="register_show === 2"
                 :class="['error_msg', { error_msg_hidden: !accountRegPwdInValid }]"
-                style="margin-left:.569444rem"
+                style="margin-left:82px"
               >
                 {{ accountRegPwdErrorMsg }}
               </div>
@@ -118,7 +118,7 @@
               <img
                 v-if="register_show === 2"
                 class="user_pwd_img"
-                style="top:.097222rem"
+                style="top:14px"
                 src="@a/imgs/user_pwd.png"
                 alt=""
                 srcset="@a/imgs/user_pwd@2x.png 2x"
@@ -126,7 +126,7 @@
               <div
                 v-if="register_show === 2"
                 :class="['error_msg', { error_msg_hidden: !accountRegConfirmPwdInValid }]"
-                style="margin-left:.569444rem"
+                style="margin-left:82px"
               >
                 {{ accountRegConfirmPwdErrorMsg }}
               </div>
@@ -379,15 +379,16 @@ export default {
 @import '../assets/css/font_size';
 .loginContainer {
   box-sizing: border-box;
+  height: 100%;
   .container {
     box-sizing: border-box;
-    padding-left: 0.993056rem;
+    padding-left: 164px;
     .header_view {
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
       .top_view {
-        height: 0.673611rem;
+        height: 97px;
         box-sizing: border-box;
         display: flex;
         flex-direction: row;
@@ -407,13 +408,13 @@ export default {
             align-items: flex-end;
             margin: 0;
             .logo_img {
-              width: 0.430625rem;
-              height: 0.242083rem;
+              width: 62.01px;
+              height: 46.16px;
             }
             .logo_title {
               color: $color4;
-              font-size: $font-size37;
-              line-height: 0.180556rem;
+              font-size: 37px;
+              line-height: 26px;
             }
           }
         }
@@ -430,25 +431,25 @@ export default {
     align-items: center;
     box-sizing: border-box;
     .form_view {
-      width: 2.520833rem;
+      width: 363px;
       box-sizing: border-box;
-      height: 3.472222rem;
+      height: 500px;
       background: #ffffff;
-      margin-top: 1.229167rem;
-      margin-bottom: 1.736111rem;
+      margin-top: 177px;
+      margin-bottom: 250px;
       display: flex;
       flex-direction: column;
       position: relative;
       .login_icon {
-        width: 0.715694rem;
-        height: 0.402361rem;
+        width: 103px;
+        height: 58px;
         position: absolute;
-        bottom: 0.388889rem;
-        left: 0.902778rem;
-        right: 0.902778rem;
+        bottom: 56px;
+        left: 130px;
+        right: 130px;
       }
       .title_view {
-        height: 0.326389rem;
+        height: 47px;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -463,7 +464,7 @@ export default {
           justify-content: center;
           color: #000c20;
           opacity: 1;
-          font-size: $font_size20;
+          font-size: 20px;
           font-weight: bold;
         }
         .right_view {
@@ -473,14 +474,14 @@ export default {
           align-items: center;
           justify-content: center;
           box-sizing: border-box;
-          font-size: $font_size20;
+          font-size: 20px;
           font-weight: bold;
           cursor: pointer;
-          border-radius: 0px 0px 0.145833rem 0px;
+          border-radius: 0px 0px 21px 0px;
           background: #ffffff;
           color: #707070;
           border: 1px solid #707070;
-          border-radius: 0px 0px 0px 0.145833rem;
+          border-radius: 0px 0px 0px 21px;
           background: #ebebeb;
         }
       }
@@ -491,163 +492,163 @@ export default {
           box-sizing: border-box;
           position: relative;
           .form_input_pwd {
-            width: 2.222222rem;
-            height: 0.326389rem;
+            width: 320px;
+            height: 47px;
             border: 1px solid $color4;
-            border-radius: 0.159722rem;
-            margin-top: 0.034722rem;
-            margin-left: 0.145833rem;
-            margin-right: 0.152778rem;
+            border-radius: 23px;
+            margin-top: 5px;
+            margin-left: 21px;
+            margin-right: 22px;
             box-sizing: border-box;
-            padding-left: 0.388889rem;
-            font-size: $font_size16;
+            padding-left: 56px;
+            font-size: 16px;
             font-weight: 400;
           }
           .user_pwd_img {
-            width: 0.120347rem;
-            height: 0.134722rem;
+            width: 17.33px;
+            height: 19.4px;
             position: absolute;
-            top: 0.326389rem;
-            left: 0.3125rem;
+            top: 47px;
+            left: 45px;
           }
         }
         .form_input_mobile {
-          width: 2.222222rem;
-          height: 0.326389rem;
+          width: 320px;
+          height: 47px;
           border: 1px solid $color4;
-          border-radius: 0.159722rem;
-          margin-top: 0.215278rem;
-          margin-left: 0.145833rem;
-          margin-right: 0.152778rem;
+          border-radius: 23px;
+          margin-top: 31px;
+          margin-left: 21px;
+          margin-right: 22px;
           box-sizing: border-box;
-          padding-left: 0.631944rem;
-          font-size: $font_size16;
+          padding-left: 91px;
+          font-size: 16px;
           font-weight: 400;
         }
         .form_input_code {
-          width: 2.222222rem;
-          height: 0.326389rem;
+          width: 320px;
+          height: 47px;
           border: 1px solid $color4;
-          border-radius: 0.159722rem;
-          margin-top: 0.215278rem;
-          margin-left: 0.145833rem;
-          margin-right: 0.152778rem;
+          border-radius: 23px;
+          margin-top: 31px;
+          margin-left: 21px;
+          margin-right: 22px;
           box-sizing: border-box;
-          padding-left: 0.416667rem;
-          font-size: $font_size16;
+          padding-left: 60px;
+          font-size: 16px;
           font-weight: 400;
         }
         .register_email_img {
-          width: 0.120347rem;
-          height: 0.115764rem;
+          width: 17.33px;
+          height: 16.67px;
           position: absolute;
-          left: 0.347222rem;
-          top: 0.3125rem;
+          left: 50px;
+          top: 45px;
         }
         .code_line {
           width: 0px;
-          height: 0.180556rem;
+          height: 26px;
           border: 1px solid $color16;
           position: absolute;
-          right: 1.041667rem;
-          top: 0.284722rem;
-          line-height: 0.180556rem;
+          right: 150px;
+          top: 41px;
+          line-height: 26px;
         }
         .code_desc {
-          font-size: $font_size16;
+          font-size: 16px;
           font-weight: 400;
-          line-height: 0.180556rem;
+          line-height: 26px;
           color: $color16;
           position: absolute;
-          right: 0.25rem;
-          top: 0.284722rem;
+          right: 36px;
+          top: 41px;
         }
         .code_btn {
-          font-size: $font_size16;
+          font-size: 16px;
           font-weight: 400;
-          line-height: 0.180556rem;
+          line-height: 26px;
           color: $color8;
           position: absolute;
-          right: 0.347222rem;
-          top: 0.284722rem;
+          right: 50px;
+          top: 41px;
           display: inline-block;
           cursor: pointer;
         }
         .register_label {
           position: absolute;
-          left: 0.256944rem;
-          top: 0.298611rem;
+          left: 37px;
+          top: 43px;
 
-          font-size: $font_size16;
+          font-size: 16px;
           font-weight: 400;
           color: $color16;
         }
         .register_mobile_img {
-          width: 0.055556rem;
-          height: 0.0625rem;
+          width: 8px;
+          height: 9px;
           position: absolute;
-          left: 0.520833rem;
-          top: 0.354167rem;
+          left: 75px;
+          top: 51px;
         }
         .error_msg {
           color: $color15;
-          margin-left: 0.777778rem;
-          font-size: $font_size12;
+          margin-left: 112px;
+          font-size: 12px;
           visibility: visible;
         }
         .error_msg_hidden {
           visibility: hidden;
         }
         .btn_submit {
-          margin-left: 0.145833rem;
-          margin-right: 0.152778rem;
-          margin-top: 0.104167rem;
-          margin-bottom: 0.090278rem;
-          width: 2.222222rem;
-          height: 0.326389rem;
+          margin-left: 21px;
+          margin-right: 22px;
+          margin-top: 15px;
+          margin-bottom: 13px;
+          width: 320px;
+          height: 47px;
           background: $color4;
           box-shadow: 0px 3px 6px rgba(35, 97, 172, 0.38);
           opacity: 1;
-          border-radius: 0.159722rem;
+          border-radius: 23px;
 
-          font-size: $font_size16;
+          font-size: 16px;
           font-weight: 400;
-          line-height: 0.3125rem;
+          line-height: 45px;
           color: $color9;
         }
       }
       .btn_submit {
-        margin-left: 0.145833rem;
-        margin-right: 0.152778rem;
-        margin-top: 0.104167rem;
-        margin-bottom: 0.090278rem;
-        width: 2.222222rem;
-        height: 0.326389rem;
+        margin-left: 21px;
+        margin-right: 22px;
+        margin-top: 15px;
+        margin-bottom: 13px;
+        width: 320px;
+        height: 47px;
         background: $color4;
         box-shadow: 0px 3px 6px rgba(35, 97, 172, 0.38);
         opacity: 1;
-        border-radius: 0.159722rem;
+        border-radius: 23px;
 
-        font-size: $font_size16;
+        font-size: 16px;
         font-weight: 400;
-        line-height: 0.3125rem;
+        line-height: 45px;
         color: $color9;
       }
       .success_login_img {
-        width: 0.635208rem;
-        height: 0.635208rem;
-        margin-left: 0.9375rem;
-        margin-right: 0.951389rem;
-        margin-top: 0.291667rem;
+        width: 91.47px;
+        height: 91.47px;
+        margin-left: 135px;
+        margin-right: 137px;
+        margin-top: 42px;
       }
       .success_label {
         color: $color8;
-        font-size: $font_size16;
+        font-size: 16px;
         text-align: center;
-        margin-top: 0.0625rem;
+        margin-top: 9px;
         .success_label_return_index {
           color: $color4;
-          font-size: $font_size20;
+          font-size: 20px;
           cursor: pointer;
         }
       }
