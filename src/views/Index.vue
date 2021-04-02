@@ -186,8 +186,8 @@ export default {
 @import '../assets/css/font_size';
 .container {
   box-sizing: border-box;
-  margin-left: 0.715278rem;
-  margin-right: 0.736111rem;
+  margin-left: 103px;
+  margin-right: 106px;
   width: 1231px;
   height: 100%;
   margin: 0 auto;

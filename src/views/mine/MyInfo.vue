@@ -102,16 +102,16 @@ export default {}
 @import '../../assets/css/font_size';
 .container {
   box-sizing: border-box;
-  margin-left: 0.715278rem;
-  margin-right: 0.736111rem;
-  width: 8.548611rem;
+  margin-left: 103px;
+  margin-right: 106px;
+  width: 1231px;
   margin: 0 auto;
   .header_view {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     .top_view {
-      height: 0.833333rem;
+      height: 97px;
       box-sizing: border-box;
       display: flex;
       flex-direction: row;
@@ -131,30 +131,30 @@ export default {}
           align-items: flex-end;
           margin: 0;
           .logo_img {
-            width: 0.430625rem;
-            height: 0.242083rem;
+            width: 62.01px;
+            height: 46.16px;
           }
           .logo_title {
             color: $color4;
-            font-size: $font-size37;
-            line-height: 0.180556rem;
+            font-size: 37px;
+            line-height: 26px;
           }
         }
         .label {
           color: $color1;
-          font-size: $font_size16;
-          margin-top: 0.138889rem;
+          font-size: 16px;
+          margin-top: 20px;
           cursor: pointer;
         }
         .seperator {
           position: relative;
           &::before {
             position: absolute;
-            top: -0.034722rem;
+            top: -5px;
             right: 0;
             left: 0;
             bottom: 0;
-            height: 0.180556rem;
+            height: 26px;
             width: 0px;
             border: 1px solid $color2;
             content: '';
@@ -164,42 +164,42 @@ export default {}
         .search_item {
           box-sizing: border-box;
           position: relative;
-          padding-top: 0.076389rem;
+          padding-top: 11px;
           position: relative;
 
           input {
-            width: 1.798611rem;
-            height: 0.277778rem;
+            width: 259.21px;
+            height: 40px;
             border: 1px solid $color3;
-            border-radius: 0.173611rem;
+            border-radius: 25px;
             box-sizing: border-box;
-            padding-left: 0.15625rem;
-            font-size: $font_size16;
+            padding-left: 22.5px;
+            font-size: 16px;
           }
 
           .search_right_bg_view {
             position: absolute;
             right: 0;
-            top: 0.076389rem;
-            width: 0.256944rem;
-            height: 0.277778rem;
+            top: 11px;
+            width: 37px;
+            height: 40px;
             background-image: url('../../assets/imgs/search_right_bg.png');
             background-repeat: no-repeat;
-            background-size: 0.256944rem 0.277778rem;
+            background-size: 37px 40px;
             display: flex;
             justify-content: center;
             align-items: center;
             .search_clear {
-              width: 0.087361rem;
-              height: 0.0875rem;
+              width: 12.58px;
+              height: 12.6px;
               cursor: pointer;
             }
             .search_icon {
-              width: 0.132083rem;
-              height: 0.132083rem;
+              width: 19px;
+              height: 19px;
               position: absolute;
-              left: -0.236597rem;
-              top: 0.069444rem;
+              left: -34px;
+              top: 10px;
               cursor: pointer;
             }
           }
@@ -207,19 +207,19 @@ export default {}
         .btn_view {
           display: flex;
           flex-direction: row;
-          width: 1.222222rem;
+          width: 176px;
           justify-content: flex-end;
           box-sizing: border-box;
-          padding-top: 0.076389rem;
+          padding-top: 11px;
           position: relative;
           .popMenu {
-            width: 1.125rem;
-            height: 2.006944rem;
+            width: 162px;
+            height: 289px;
             border: 1px solid $color10;
             position: absolute;
             bottom: 0;
-            top: 0.597222rem;
-            left: 0.263889rem !important;
+            top: 86px;
+            left: 38px !important;
             z-index: 10;
             display: flex;
             flex-direction: column;
@@ -228,45 +228,45 @@ export default {}
             display: none;
 
             .item1 {
-              height: 0.375rem;
-              font-size: $font_size16;
+              height: 37px;
+              font-size: 16px;
               color: #354052;
-              padding-left: 0.229167rem;
-              line-height: 0.375rem;
+              padding-left: 33px;
+              line-height: 54px;
             }
             .item2 {
-              height: 0.256944rem;
-              font-size: $font_size16;
+              height: 37px;
+              font-size: 16px;
               color: #354052;
-              padding-left: 0.229167rem;
-              line-height: 0.256944rem;
+              padding-left: 33px;
+              line-height: 37px;
             }
             .item3 {
-              height: 0.256944rem;
-              font-size: $font_size16;
+              height: 37px;
+              font-size: 16px;
               color: #354052;
-              padding-left: 0.229167rem;
-              line-height: 0.256944rem;
+              padding-left: 33px;
+              line-height: 37px;
             }
             .item4 {
-              height: 0.256944rem;
-              font-size: $font_size16;
+              height: 37px;
+              font-size: 16px;
               color: #354052;
-              padding-left: 0.229167rem;
-              line-height: 0.256944rem;
+              padding-left: 33px;
+              line-height: 37px;
             }
             .item5 {
-              height: 0.256944rem;
-              font-size: $font_size16;
-              padding-left: 0.229167rem;
-              line-height: 0.256944rem;
+              height: 37px;
+              font-size: 16px;
+              padding-left: 33px;
+              line-height: 37px;
               color: #354052;
             }
             .item6 {
-              height: 0.375rem;
-              font-size: $font_size16;
-              padding-left: 0.229167rem;
-              line-height: 0.375rem;
+              height: 54px;
+              font-size: 16px;
+              padding-left: 33px;
+              line-height: 54px;
               color: #354052;
             }
             > div {
@@ -281,48 +281,48 @@ export default {}
             display: block;
           }
           .btn1 {
-            width: 0.555556rem;
-            height: 0.277778rem;
+            width: 80px;
+            height: 40px;
             background: $color4;
             border-radius: 21px;
             display: block;
             color: $color9;
-            font-size: $font-size16;
+            font-size: 16px;
             text-align: center;
-            line-height: 0.277778rem;
-            margin-right: 0.041667rem;
+            line-height: 40px;
+            margin-right: 6px;
             cursor: pointer;
           }
           .btn2 {
-            width: 0.555556rem;
-            height: 0.277778rem;
+            width: 80px;
+            height: 40px;
             background: $color9;
             border: 1px solid $color6;
             border-radius: 21px;
             display: block;
             color: $color4;
-            font-size: $font-size16;
+            font-size: 16px;
             text-align: center;
-            line-height: 0.277778rem;
-            margin-left: 0.041667rem;
+            line-height: 40px;
+            margin-left: 6px;
             cursor: pointer;
           }
           .login_header_logo {
-            width: 0.465278rem;
-            height: 0.465278rem;
+            width: 67px;
+            height: 67px;
             border: 1px solid $color6;
             border-radius: 50%;
             text-align: center;
-            line-height: 0.465278rem;
-            font-size: $font_size16;
+            line-height: 67px;
+            font-size: 16px;
             font-weight: 400;
             color: $color1;
           }
           .username {
-            font-size: $font_size16;
+            font-size: 16px;
             font-weight: 400;
-            line-height: 0.465278rem;
-            margin-left: 0.055556rem;
+            line-height: 67px;
+            margin-left: 8px;
             cursor: pointer;
           }
         }
@@ -335,41 +335,41 @@ export default {}
     flex-direction: row;
     .left_view {
       box-sizing: border-box;
-      width: 2.597222rem;
+      width: 374px;
       .top_view {
         box-sizing: border-box;
-        width: 2.381944rem;
-        height: 1.111111rem;
+        width: 343px;
+        height: 160px;
 
         box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.26);
         border-radius: 11px;
         margin: 0 auto;
         display: flex;
         flex-direction: row;
-        padding: 0.173611rem 0 0.194444rem 0.298611rem;
+        padding: 25px 0 28px 43px;
         .top_header_view {
-          width: 0.743056rem;
-          height: 0.743056rem;
+          width: 107px;
+          height: 107px;
           border-radius: 50%;
           border: 1px solid $color6;
           color: $color1;
-          font-size: $font_size25;
+          font-size: 25px;
           text-align: center;
-          line-height: 0.743056rem;
+          line-height: 107px;
         }
         .right_c {
           box-sizing: border-box;
           display: flex;
           flex-direction: column;
-          padding-left: 0.125rem;
-          padding-top: 0.090278rem;
+          padding-left: 18px;
+          padding-top: 13px;
           .label {
             color: $color1;
-            font-size: $font_size16;
+            font-size: 16px;
           }
           .label_id {
             color: $color20;
-            font-size: $font_size16;
+            font-size: 16px;
           }
           .img_row {
             box-sizing: border-box;
@@ -377,103 +377,103 @@ export default {}
             flex-direction: row;
             align-items: flex-end;
             justify-content: space-between;
-            margin-top: 0.097222rem;
+            margin-top: 14px;
             .value {
-              line-height: 0.069444rem;
+              line-height: 10px;
             }
             .huanguan_img {
-              width: 0.144583rem;
-              height: 0.106667rem;
-              margin-right: 0.027778rem;
+              width: 20.82px;
+              height: 15.36px;
+              margin-right: 4px;
             }
             .person_img {
-              width: 0.131944rem;
-              height: 0.135694rem;
-              margin-right: 0.027778rem;
+              width: 19px;
+              height: 19.54px;
+              margin-right: 4px;
             }
             .doctor_img {
-              width: 0.118542rem;
-              height: 0.137569rem;
+              width: 17px;
+              height: 19.8px;
             }
           }
         }
       }
       .bottom_view {
         box-sizing: border-box;
-        margin-top: 0.201389rem;
-        margin-left: 0.118056rem;
-        margin-right: 0.097222rem;
+        margin-top: 29px;
+        margin-left: 17px;
+        margin-right: 14px;
         border-top: 1px solid $color6;
         border-bottom: 1px solid $color6;
-        height: 1.875rem;
+        height: 270px;
         display: flex;
         flex-direction: row;
         .b_left_view {
           box-sizing: border-box;
-          width: 1.652778rem;
+          width: 238px;
           display: flex;
           flex-direction: column;
           align-items: center;
           .title {
             color: $color1;
-            font-size: $font_size25;
-            margin-top: 0.479167rem;
+            font-size: 25px;
+            margin-top: 69px;
           }
           .qcode_img {
-            width: 0.965278rem;
-            height: 0.972222rem;
-            margin-top: 0.027778rem;
+            width: 139px;
+            height: 140px;
+            margin-top: 4px;
           }
         }
         .b_right_view {
           box-sizing: border-box;
-          width: 1.756944rem;
+          width: 253px;
           display: flex;
           flex-direction: column;
           .line1 {
             display: flex;
             flex-direction: row;
             box-sizing: border-box;
-            padding-top: 0.222222rem;
+            padding-top: 32px;
             align-items: flex-end;
             .logo_img {
-              width: 0.625rem;
-              height: 0.479167rem;
-              margin-right: 0.055556rem;
+              width: 90px;
+              height: 69px;
+              margin-right: 8px;
             }
             .service_img {
-              width: 0.336875rem;
-              height: 0.303819rem;
+              width: 48.51px;
+              height: 43.75px;
             }
           }
           .line2 {
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
-            margin-top: 0.097222rem;
+            margin-top: 14px;
             .label_01 {
               font-weight: bold;
               color: $color20;
-              font-size: $font_size16;
+              font-size: 16px;
             }
             .label_02 {
               color: $color21;
-              font-size: $font_size16;
+              font-size: 16px;
             }
           }
           .line3 {
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
-            padding-top: 0.263889rem;
+            padding-top: 38px;
             .label_01 {
               color: $color20;
-              font-size: $font_size16;
+              font-size: 16px;
               font-weight: bold;
             }
             .label_02 {
               color: $color20;
-              font-size: $font_size16;
+              font-size: 16px;
             }
           }
         }
@@ -484,18 +484,18 @@ export default {}
       flex-grow: 1;
       border: 1px solid red;
       .row {
-        height: 0.298611rem;
+        height: 43px;
         display: flex;
         flex-direction: row;
         box-sizing: border-box;
-        padding-left: 0.076389rem;
+        padding-left: 11px;
         .item {
-          width: 0.555556rem;
+          width: 80px;
           text-align: center;
-          line-height: 0.277778rem;
+          line-height: 40px;
           color: $color22;
-          font-size: $font_size20;
-          margin-right: 0.458333rem;
+          font-size: 20px;
+          margin-right: 66px;
           position: relative;
           cursor: pointer;
           &.active {
@@ -505,7 +505,7 @@ export default {}
               right: 0;
               left: 0;
               bottom: 0;
-              height: 0.013889rem;
+              height: 2px;
               background: $color23;
               content: '';
             }
@@ -513,7 +513,7 @@ export default {}
         }
       }
       .content_row {
-        height: 5.513889rem;
+        height: 794px;
         background: $color34;
       }
     }
