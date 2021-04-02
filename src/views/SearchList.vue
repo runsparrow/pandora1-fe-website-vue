@@ -111,19 +111,18 @@ export default {
 @import '../assets/css/font_size';
 .searchListView {
   box-sizing: border-box;
-  width: 10rem;
   margin: 0 auto;
   .container {
     box-sizing: border-box;
-    margin-left: 0.715278rem;
-    margin-right: 0.736111rem;
-    width: 8.548611rem;
+    margin-left: 103px;
+    margin-right: 106px;
+    width: 1230px;
     .header_view {
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
       .top_view {
-        height: 0.833333rem;
+        height: 97px;
         box-sizing: border-box;
         display: flex;
         flex-direction: row;
@@ -143,29 +142,29 @@ export default {
             align-items: flex-end;
             margin: 0;
             .logo_img {
-              width: 0.430625rem;
-              height: 0.242083rem;
+              width: 62.01px;
+              height: 46.16px;
             }
             .logo_title {
               color: $color4;
-              font-size: $font-size37;
-              line-height: 0.180556rem;
+              font-size: 37px;
+              line-height: 26px;
             }
           }
           .label {
             color: $color1;
-            font-size: $font_size16;
-            margin-top: 0.138889rem;
+            font-size: 16px;
+            margin-top: 20px;
           }
           .seperator {
             position: relative;
             &::before {
               position: absolute;
-              top: -0.034722rem;
+              top: -5px;
               right: 0;
               left: 0;
               bottom: 0;
-              height: 0.180556rem;
+              height: 26px;
               width: 0px;
               border: 1px solid $color2;
               content: '';
@@ -175,42 +174,42 @@ export default {
           .search_item {
             box-sizing: border-box;
             position: relative;
-            padding-top: 0.076389rem;
+            padding-top: 11px;
             position: relative;
 
             input {
-              width: 1.798611rem;
-              height: 0.277778rem;
+              width: 259.21px;
+              height: 40px;
               border: 1px solid $color3;
-              border-radius: 0.173611rem;
+              border-radius: 25px;
               box-sizing: border-box;
-              padding-left: 0.15625rem;
-              font-size: $font_size16;
+              padding-left: 22.5px;
+              font-size: 16px;
             }
 
             .search_right_bg_view {
               position: absolute;
               right: 0;
-              top: 0.076389rem;
-              width: 0.256944rem;
-              height: 0.277778rem;
+              top: 11px;
+              width: 37px;
+              height: 40px;
               background-image: url('../assets/imgs/search_right_bg.png');
               background-repeat: no-repeat;
-              background-size: 0.256944rem 0.277778rem;
+              background-size: 37px 40px;
               display: flex;
               justify-content: center;
               align-items: center;
               .search_clear {
-                width: 0.087361rem;
-                height: 0.0875rem;
+                width: 12.58px;
+                height: 12.6px;
                 cursor: pointer;
               }
               .search_icon {
-                width: 0.132083rem;
-                height: 0.132083rem;
+                width: 19px;
+                height: 19px;
                 position: absolute;
-                left: -0.236597rem;
-                top: 0.069444rem;
+                left: -34px;
+                top: 10px;
                 cursor: pointer;
               }
             }
@@ -218,66 +217,66 @@ export default {
           .btn_view {
             display: flex;
             flex-direction: row;
-            width: 1.222222rem;
+            width: 176px;
             justify-content: flex-end;
             box-sizing: border-box;
-            padding-top: 0.076389rem;
+            padding-top: 11px;
             .btn1 {
-              width: 0.555556rem;
-              height: 0.277778rem;
+              width: 80px;
+              height: 40px;
               background: $color4;
               border-radius: 21px;
               display: block;
               color: $color9;
-              font-size: $font-size16;
+              font-size: 16px;
               text-align: center;
-              line-height: 0.277778rem;
-              margin-right: 0.041667rem;
+              line-height: 40px;
+              margin-right: 6px;
               cursor: pointer;
             }
             .btn2 {
-              width: 0.555556rem;
-              height: 0.277778rem;
+              width: 80px;
+              height: 40px;
               background: $color9;
               border: 1px solid $color6;
               border-radius: 21px;
               display: block;
               color: $color4;
-              font-size: $font-size16;
+              font-size: 16px;
               text-align: center;
-              line-height: 0.277778rem;
-              margin-left: 0.041667rem;
+              line-height: 40px;
+              margin-left: 6px;
               cursor: pointer;
             }
             .login_header_logo {
-              width: 0.465278rem;
-              height: 0.465278rem;
+              width: 67px;
+              height: 67px;
               border: 1px solid $color6;
               border-radius: 50%;
               text-align: center;
-              line-height: 0.465278rem;
-              font-size: $font_size16;
+              line-height: 67px;
+              font-size: 16px;
               font-weight: 400;
               color: $color1;
             }
             .username {
-              font-size: $font_size16;
+              font-size: 16px;
               font-family: Microsoft YaHei;
               font-weight: 400;
-              line-height: 0.465278rem;
-              margin-left: 0.055556rem;
+              line-height: 67px;
+              margin-left: 8px;
             }
           }
         }
       }
       .logo_view {
         box-sizing: border-box;
-        height: 1.416667rem;
+        height: 204px;
         display: flex;
         color: $color1;
         justify-content: center;
         align-items: center;
-        font-size: $font_size17;
+        font-size: 17px;
         border: 1px solid $color6;
       }
     }
@@ -285,27 +284,27 @@ export default {
   .content {
     box-sizing: border-box;
     background: $color11;
-    padding-left: 0.715278rem;
-    padding-right: 0.736111rem;
-    padding-top: 0.270833rem;
-    padding-bottom: 0.270833rem;
+    padding-left: 103px;
+    padding-right: 106px;
+    padding-top: 39px;
+    padding-bottom: 39px;
     .list {
       display: flex;
       flex-direction: row;
       list-style: none;
       box-sizing: border-box;
       .item {
-        width: 1.125rem;
-        height: 0.256944rem;
+        width: 162px;
+        height: 37px;
         background: $color9;
         border: 1px solid $color11;
         box-sizing: border-box;
         text-align: center;
-        line-height: 0.256944rem;
+        line-height: 37px;
         position: relative;
         .label {
           color: $color1;
-          font-size: $font_size16;
+          font-size: 16px;
           font-weight: 400;
         }
         .select_img {
@@ -315,11 +314,11 @@ export default {
           cursor: pointer;
         }
         .children_list {
-          width: 1.125rem;
+          width: 162px;
           list-style: none;
           box-sizing: border-box;
           position: absolute;
-          top: 0.256944rem;
+          top: 37px;
           z-index: 10;
           display: flex;
           flex-direction: column;
@@ -327,21 +326,21 @@ export default {
           align-items: center;
           .child_item {
             flex: 1;
-            width: 1.125rem;
+            width: 162px;
             background: $color9;
             cursor: pointer;
             &.top {
-              font-size: $font_size16;
+              font-size: 16px;
               font-weight: bold;
               color: $color4;
             }
             &.active {
-              font-size: $font_size16;
+              font-size: 16px;
               font-weight: 400;
               color: $color4;
             }
             &.label {
-              font-size: $font_size16;
+              font-size: 16px;
               font-weight: 400;
               color: $color10;
             }
@@ -350,14 +349,14 @@ export default {
       }
     }
     .result-view {
-      width: 8.402778rem;
-      margin-top: 0.319444rem;
+      width: 1210px;
+      margin-top: 46px;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       .lis_img {
-        width: 1.819444rem;
-        height: 1.736111rem;
+        width: 262px;
+        height: 250px;
       }
     }
   }

@@ -24,7 +24,7 @@ export default {}
 
 /* 404 Styling */
 .header {
-  font-size: 1.041667rem;
+  font-size: 150px;
   font-weight: 700;
   margin: 2% 0 2% 0;
   text-shadow: 0px 3px 0px $color7;
@@ -34,7 +34,7 @@ export default {}
 /* Error Styling */
 .error {
   margin: -70px 0 2% 0;
-  font-size: 1.041667rem;
+  font-size: 150px;
   text-shadow: 0px 3px 0px $color7;
   font-weight: 100;
   color: $color7;
