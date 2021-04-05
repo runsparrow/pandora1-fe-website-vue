@@ -87,7 +87,88 @@
           <div class="item">我的订单</div>
           <div class="item">我要充值</div>
         </div>
-        <div class="content_row"></div>
+        <div class="content_row">
+          <div class="my_info_tab_view">
+            <div class="title_view">
+              <span class="title active">身份认证</span>
+              <span class="title">设计师认证</span>
+            </div>
+            <div class="title_content_view">
+              <div class="left_view">
+                <div class="header_logo">头像</div>
+                <span class="label_user">用户名</span>
+                <span class="label_jifen">积分:999</span>
+                <div class="career_bg_view">
+                  <div class="c_name">医生</div>
+                  <div class="c_duty">主任医师</div>
+                </div>
+              </div>
+              <div class="right_view">
+                <div class="row">
+                  <span class="label">身份</span>
+                  <select class="select_view">
+                    <option value="">医生</option>
+                    <option value="">护士</option>
+                    <option value="">医院行政部门</option>
+                    <option value="">企业</option>
+                  </select>
+                </div>
+                <div class="row">
+                  <span class="label">省</span>
+                  <select class="select_view">
+                    <option value="">上海市</option>
+                  </select>
+                </div>
+                <div class="row">
+                  <span class="label">市</span>
+                  <select class="select_view">
+                    <option value="">上海市</option>
+                  </select>
+                </div>
+                <div class="row">
+                  <span class="label">区</span>
+                  <select class="select_view">
+                    <option value="">黄浦区</option>
+                  </select>
+                </div>
+                <div class="row">
+                  <span class="label">医院/单位</span>
+                  <select class="select_view">
+                    <option value="">XXXXXX</option>
+                  </select>
+                </div>
+                <div class="row">
+                  <span class="label">科室/部门</span>
+                  <select class="select_view">
+                    <option value="">XXXXXX</option>
+                  </select>
+                </div>
+                <div class="row">
+                  <span class="label">证件编码</span>
+                  <input type="text" class="select_view" />
+                </div>
+                <div class="row">
+                  <span class="label">证书上传</span>
+                  <div class="pic_view">
+                    <div class="upload_view"></div>
+                    <div class="pic_list">
+                      <div class="img_item"></div>
+                      <div class="img_item"></div>
+                      <div class="img_item"></div>
+                      <div class="img_item"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="footer_view">
+              <div class="left_view">
+                <input type="checkbox" class="chk_agree" />已阅读并同意《漫云搜医平台隐私及使用政策》
+              </div>
+              <div class="right_view">提交</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -482,7 +563,6 @@ export default {}
     .right_view {
       box-sizing: border-box;
       flex-grow: 1;
-      border: 1px solid red;
       .row {
         height: 43px;
         display: flex;
@@ -515,6 +595,194 @@ export default {}
       .content_row {
         height: 794px;
         background: $color34;
+        box-sizing: border-box;
+        padding: 26px 11px 26px 12px;
+        margin-bottom: 51px;
+        .my_info_tab_view {
+          width: 100%;
+          height: 742px;
+          background: #ffffff;
+          display: flex;
+          flex-direction: column;
+          .title_view {
+            height: 50px;
+            border-bottom: 2px solid #f5f5f5;
+            display: flex;
+            flex-direction: row;
+            .title {
+              width: 80px;
+              text-align: center;
+              line-height: 40px;
+              color: #5f6061;
+              font-size: 16px;
+              margin-left: 68px;
+              position: relative;
+              cursor: pointer;
+              &.active {
+                color: $color23;
+                &::before {
+                  position: absolute;
+                  right: 0;
+                  left: 0;
+                  bottom: 0;
+                  height: 2px;
+                  background: $color23;
+                  content: '';
+                }
+              }
+            }
+          }
+          .title_content_view {
+            height: 586px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            .left_view {
+              width: 198px;
+              box-sizing: border-box;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              .header_logo {
+                width: 67px;
+                height: 67px;
+                border-radius: 50%;
+                border: 1px solid #707070;
+                margin-top: 20px;
+                line-height: 67px;
+                text-align: center;
+                font-size: 16px;
+                color: #354052;
+              }
+              .label_user {
+                font-size: 12px;
+                color: #5f6061;
+                margin-top: 9px;
+              }
+              .label_jifen {
+                color: #d6d6d6;
+                font-size: 12px;
+                margin-top: 6px;
+              }
+              .career_bg_view {
+                width: 67px;
+                height: 45px;
+                background-image: url('../../assets/imgs/career_bg.png');
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+                margin-top: 17px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                box-sizing: border-box;
+                .c_name {
+                  font-size: 10px;
+                  color: #ffffff;
+                  margin-top: 10px;
+                }
+                .c_duty {
+                  font-size: 10px;
+                  color: #ffffff;
+                }
+              }
+            }
+            .right_view {
+              flex-grow: 1;
+              display: flex;
+              flex-direction: column;
+              box-sizing: border-box;
+              padding-top: 33px;
+              .row {
+                display: flex;
+                flex-direction: row;
+                box-sizing: border-box;
+                justify-content: space-between;
+                margin-bottom: 5px;
+
+                .label {
+                  color: #354052;
+                  font-size: 16px;
+                  line-height: 43px;
+                }
+                .select_view {
+                  width: 334px;
+                  height: 37px;
+                  padding: 0;
+                  outline: none;
+                  border: 1px solid #707070;
+                  border-radius: 6px;
+                  margin-right: 200px;
+                }
+                .pic_view {
+                  width: 334px;
+                  height: 174px;
+                  border: 1px solid #707070;
+                  overflow: auto;
+                  border-radius: 6px;
+                  margin-right: 200px;
+                  box-sizing: border-box;
+                  display: flex;
+                  flex-direction: column;
+                  .upload_view {
+                    width: 47px;
+                    height: 47px;
+                    border: 1px solid #d6d6d6;
+                    margin-left: 10px;
+                    margin-top: 18px;
+                    flex-shrink: 0;
+                  }
+                  .pic_list {
+                    box-sizing: border-box;
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    .img_item {
+                      width: 87px;
+                      height: 87px;
+                      background: #ffffff;
+                      border: 1px solid #d6d6d6;
+                      margin-left: 10px;
+                      margin-top: 5px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          .footer_view {
+            display: flex;
+            flex-direction: row;
+            box-sizing: border-box;
+            padding-top: 26px;
+            padding-left: 82px;
+            justify-content: space-between;
+            flex-grow: 1;
+            .left_view {
+              flex-direction: row;
+              flex: 1;
+              color: #5f6061;
+              font-size: 12px;
+              .chk_agree {
+                vertical-align: middle;
+                margin-right: 3px;
+              }
+            }
+            .right_view {
+              width: 91px;
+              height: 38px;
+              background: #dd3d29;
+              opacity: 0.86;
+              border-radius: 5px;
+              flex: none;
+              color: #ffffff;
+              font-size: 16px;
+              line-height: 38px;
+              text-align: center;
+              margin-right: 37px;
+            }
+          }
+        }
       }
     }
   }
