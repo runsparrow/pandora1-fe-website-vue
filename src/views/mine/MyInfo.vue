@@ -4,8 +4,8 @@
       <div class="top_view">
         <ul class="list">
           <li class="logo">
-            <img class="logo_img" src="@a/imgs/logo_01.png" alt="" srcset="@a/imgs/logo_01@2x.png 2x" />
-            <span class="logo_title">SooYi.CN</span>
+            <img class="logo_img" src="@a/imgs/logo_01.png" alt="" srcset="@a/imgs/logo_01@2x.png 2x" @click="toHome" />
+            <span class="logo_title" @click="toHome">SooYi.CN</span>
           </li>
           <li class="label">推广海报</li>
           <li class="label">新媒体配置</li>
@@ -175,7 +175,14 @@
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'MyInfoView',
+  methods: {
+    toHome() {
+      this.$router.push('/home')
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -214,11 +221,13 @@ export default {}
           .logo_img {
             width: 62.01px;
             height: 46.16px;
+            cursor: pointer;
           }
           .logo_title {
             color: $color4;
             font-size: 37px;
             line-height: 26px;
+            cursor: pointer;
           }
         }
         .label {
