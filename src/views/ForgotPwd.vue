@@ -177,6 +177,7 @@
           <button class="btn_submit" @click="tologinPage">立即登录</button>
         </template>
         <img class="login_icon" src="@a/imgs/login_bottom_img.png" alt="" srcset="@a/imgs/login_bottom_img@2x.png 2x" />
+        <span class="label_return" @click="toHome">返回首页</span>
       </div>
     </div>
   </div>
@@ -452,12 +453,19 @@ export default {
       flex-direction: column;
       position: relative;
       .login_icon {
-        width: 103px;
         height: 58px;
         position: absolute;
         bottom: 56px;
         left: 130px;
         right: 130px;
+      }
+      .label_return {
+        font-size: 16px;
+        position: absolute;
+        bottom: 30px;
+        left: 130px;
+        color: #2361ac;
+        cursor: pointer;
       }
       .title_view {
         height: 47px;
