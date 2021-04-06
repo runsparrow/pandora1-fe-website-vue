@@ -14,6 +14,10 @@
               />
               <span class="logo_title" @click="toHome">SooYi.CN</span>
             </li>
+            <li class="label">推广海报</li>
+            <li class="label">新媒体配置</li>
+            <li class="label">视频动画</li>
+            <li class="seperator"></li>
           </ul>
         </div>
       </div>
@@ -670,8 +674,8 @@ export default {
           flex-direction: row;
           box-sizing: border-box;
           align-items: center;
+          justify-content: flex-start;
           flex: 1;
-          justify-content: space-between;
           .logo {
             display: flex;
             flex-direction: row;
@@ -687,6 +691,28 @@ export default {
               font-size: 37px;
               line-height: 26px;
               cursor: pointer;
+            }
+          }
+          .label {
+            color: $color1;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-left: 65px;
+          }
+          .seperator {
+            position: relative;
+            margin-left: 62px;
+            &::before {
+              position: absolute;
+              top: -5px;
+              right: 0;
+              left: 0;
+              bottom: 0;
+              height: 26px;
+              width: 0px;
+              border: 1px solid $color2;
+              content: '';
+              background-color: red;
             }
           }
         }
