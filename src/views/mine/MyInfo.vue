@@ -150,12 +150,22 @@
                 <div class="row">
                   <span class="label">证书上传</span>
                   <div class="pic_view">
-                    <div class="upload_view"></div>
+                    <div class="upload_view">
+                         <img class="add_file_img" src="@a/imgs/add-file.png" alt="" srcset="@a/imgs/add-file@2x.png 2x" />
+                    </div>
                     <div class="pic_list">
-                      <div class="img_item"></div>
-                      <div class="img_item"></div>
-                      <div class="img_item"></div>
-                      <div class="img_item"></div>
+                      <div class="img_item">
+                        <img class="del_file_img" src="@a/imgs/del-file.png" alt="" srcset="@a/imgs/del-file@2x.png 2x" />
+                      </div>
+                      <div class="img_item">
+                        <img class="del_file_img" src="@a/imgs/del-file.png" alt="" srcset="@a/imgs/del-file@2x.png 2x" />
+                      </div>
+                      <div class="img_item">
+                        <img class="del_file_img" src="@a/imgs/del-file.png" alt="" srcset="@a/imgs/del-file@2x.png 2x" />
+                      </div>
+                      <div class="img_item">
+                        <img class="del_file_img" src="@a/imgs/del-file.png" alt="" srcset="@a/imgs/del-file@2x.png 2x" />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -740,6 +750,14 @@ export default {
                     margin-left: 10px;
                     margin-top: 18px;
                     flex-shrink: 0;
+                    position: relative;
+                    .add_file_img
+                    {
+                      top:50%;
+                      left: 50%;
+                     transform:translate(-50%,-50%);
+                      position::absolute;
+                    }
                   }
                   .pic_list {
                     box-sizing: border-box;
@@ -753,6 +771,13 @@ export default {
                       border: 1px solid #d6d6d6;
                       margin-left: 10px;
                       margin-top: 5px;
+                      position: relative;
+                      .del_file_img
+                      { 
+                        top: -10px;
+                        right: -8px;
+                        position: absolute;
+                      }
                     }
                   }
                 }
