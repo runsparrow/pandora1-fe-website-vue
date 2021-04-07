@@ -90,93 +90,234 @@
         <div class="content_row">
           <div class="my_info_tab_view">
             <div class="title_view">
-              <span class="title active">身份认证</span>
-              <span class="title">设计师认证</span>
+              <span :class="['title', { active: inner_tabIndex === 0 }]" @click="() => (inner_tabIndex = 0)"
+                >身份认证</span
+              >
+              <span :class="['title', { active: inner_tabIndex === 1 }]" @click="() => (inner_tabIndex = 1)"
+                >设计师认证</span
+              >
             </div>
-            <div class="title_content_view">
-              <div class="left_view">
-                <div class="header_logo">头像</div>
-                <span class="label_user">用户名</span>
-                <span class="label_jifen">积分:999</span>
-                <div class="career_bg_view">
-                  <div class="c_name">医生</div>
-                  <div class="c_duty">主任医师</div>
+            <template v-if="inner_tabIndex === 0">
+              <div class="title_content_view">
+                <div class="left_view">
+                  <div class="header_logo">头像</div>
+                  <span class="label_user">用户名</span>
+                  <span class="label_jifen">积分:999</span>
+                  <div class="career_bg_view">
+                    <div class="c_name">医生</div>
+                    <div class="c_duty">护士</div>
+                    <div class="c_duty">医院行政部门</div>
+                  </div>
                 </div>
-              </div>
-              <div class="right_view">
-                <div class="row">
-                  <span class="label">身份</span>
-                  <select class="select_view">
-                    <option value="">医生</option>
-                    <option value="">护士</option>
-                    <option value="">医院行政部门</option>
-                    <option value="">企业</option>
-                  </select>
-                </div>
-                <div class="row">
-                  <span class="label">省</span>
-                  <select class="select_view">
-                    <option value="">上海市</option>
-                  </select>
-                </div>
-                <div class="row">
-                  <span class="label">市</span>
-                  <select class="select_view">
-                    <option value="">上海市</option>
-                  </select>
-                </div>
-                <div class="row">
-                  <span class="label">区</span>
-                  <select class="select_view">
-                    <option value="">黄浦区</option>
-                  </select>
-                </div>
-                <div class="row">
-                  <span class="label">医院/单位</span>
-                  <select class="select_view">
-                    <option value="">XXXXXX</option>
-                  </select>
-                </div>
-                <div class="row">
-                  <span class="label">科室/部门</span>
-                  <select class="select_view">
-                    <option value="">XXXXXX</option>
-                  </select>
-                </div>
-                <div class="row">
-                  <span class="label">证件编码</span>
-                  <input type="text" class="select_view" />
-                </div>
-                <div class="row">
-                  <span class="label">证书上传</span>
-                  <div class="pic_view">
-                    <div class="upload_view">
-                         <img class="add_file_img" src="@a/imgs/add-file.png" alt="" srcset="@a/imgs/add-file@2x.png 2x" />
+                <div class="right_view">
+                  <div class="row">
+                    <span class="label">身份</span>
+                    <select class="select_view" @change="e => changeIdentity(e)">
+                      <option value="医生">医生</option>
+                      <option value="护士">护士</option>
+                      <option value="医院行政部门">医院行政部门</option>
+                      <option value="企业">企业</option>
+                    </select>
+                  </div>
+                  <div class="row">
+                    <span class="label">省</span>
+                    <select class="select_view">
+                      <option value="">上海市</option>
+                    </select>
+                  </div>
+                  <div class="row">
+                    <span class="label">市</span>
+                    <select class="select_view">
+                      <option value="">上海市</option>
+                    </select>
+                  </div>
+                  <div class="row">
+                    <span class="label">区</span>
+                    <select class="select_view">
+                      <option value="">黄浦区</option>
+                    </select>
+                  </div>
+                  <div class="row" v-if="personIdentity === '企业'">
+                    <span class="label">公司名称</span>
+                    <input type="text" class="select_view" />
+                  </div>
+                  <div class="row" v-if="personIdentity === '企业'">
+                    <span class="label">所属部门</span>
+                    <input type="text" class="select_view" />
+                  </div>
+                  <div class="row" v-if="personIdentity === '企业'">
+                    <span class="label">职位职务</span>
+                    <input type="text" class="select_view" />
+                  </div>
+                  <div class="row" v-if="personIdentity === '企业'">
+                    <span class="label">公司邮箱</span>
+                    <input type="text" class="select_view" />
+                  </div>
+                  <div
+                    class="row"
+                    v-if="personIdentity === '医生' || personIdentity === '护士' || personIdentity === '医院行政部门'"
+                  >
+                    <span class="label">医院/单位</span>
+                    <select class="select_view">
+                      <option value="">XXXXXX</option>
+                    </select>
+                  </div>
+                  <div
+                    class="row"
+                    v-if="personIdentity === '医生' || personIdentity === '护士' || personIdentity === '医院行政部门'"
+                  >
+                    <span class="label">科室/部门</span>
+                    <select class="select_view">
+                      <option value="">XXXXXX</option>
+                    </select>
+                  </div>
+                  <div class="row" v-if="personIdentity === '医生' || personIdentity === '护士'">
+                    <span class="label">证件编码</span>
+                    <input type="text" class="select_view" />
+                  </div>
+                  <div class="row" v-if="personIdentity === '医生' || personIdentity === '护士'">
+                    <span class="label">证书上传</span>
+                    <div class="pic_view">
+                      <div class="upload_view">
+                        <img
+                          class="add_file_img"
+                          src="@a/imgs/add-file.png"
+                          alt=""
+                          srcset="@a/imgs/add-file@2x.png 2x"
+                        />
+                      </div>
+                      <div class="pic_list">
+                        <div class="img_item">
+                          <img
+                            class="del_file_img"
+                            src="@a/imgs/del-file.png"
+                            alt=""
+                            srcset="@a/imgs/del-file@2x.png 2x"
+                          />
+                        </div>
+                        <div class="img_item">
+                          <img
+                            class="del_file_img"
+                            src="@a/imgs/del-file.png"
+                            alt=""
+                            srcset="@a/imgs/del-file@2x.png 2x"
+                          />
+                        </div>
+                        <div class="img_item">
+                          <img
+                            class="del_file_img"
+                            src="@a/imgs/del-file.png"
+                            alt=""
+                            srcset="@a/imgs/del-file@2x.png 2x"
+                          />
+                        </div>
+                        <div class="img_item">
+                          <img
+                            class="del_file_img"
+                            src="@a/imgs/del-file.png"
+                            alt=""
+                            srcset="@a/imgs/del-file@2x.png 2x"
+                          />
+                        </div>
+                      </div>
                     </div>
-                    <div class="pic_list">
-                      <div class="img_item">
-                        <img class="del_file_img" src="@a/imgs/del-file.png" alt="" srcset="@a/imgs/del-file@2x.png 2x" />
+                  </div>
+                  <div class="row" v-if="personIdentity === '医院行政部门'">
+                    <span class="label">工牌号上传</span>
+                    <div class="pic_view">
+                      <div class="upload_view">
+                        <img
+                          class="add_file_img"
+                          src="@a/imgs/add-file.png"
+                          alt=""
+                          srcset="@a/imgs/add-file@2x.png 2x"
+                        />
                       </div>
-                      <div class="img_item">
-                        <img class="del_file_img" src="@a/imgs/del-file.png" alt="" srcset="@a/imgs/del-file@2x.png 2x" />
-                      </div>
-                      <div class="img_item">
-                        <img class="del_file_img" src="@a/imgs/del-file.png" alt="" srcset="@a/imgs/del-file@2x.png 2x" />
-                      </div>
-                      <div class="img_item">
-                        <img class="del_file_img" src="@a/imgs/del-file.png" alt="" srcset="@a/imgs/del-file@2x.png 2x" />
+                      <div class="pic_list">
+                        <div class="img_item">
+                          <img
+                            class="del_file_img"
+                            src="@a/imgs/del-file.png"
+                            alt=""
+                            srcset="@a/imgs/del-file@2x.png 2x"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="footer_view">
-              <div class="left_view">
-                <input type="checkbox" class="chk_agree" />已阅读并同意《漫云搜医平台隐私及使用政策》
+              <div class="footer_view">
+                <div class="left_view">
+                  <input type="checkbox" class="chk_agree" />已阅读并同意《漫云搜医平台隐私及使用政策》
+                </div>
+                <div class="right_view">提交</div>
               </div>
-              <div class="right_view">提交</div>
-            </div>
+            </template>
+            <template v-if="inner_tabIndex === 1">
+              <div class="title_content_view">
+                <div class="left_view">
+                  <div class="header_logo">头像</div>
+                  <span class="label_user">用户名</span>
+                  <span class="label_jifen">积分:999</span>
+                  <div class="career_bg_view">
+                    <div class="c_name">Lv.1</div>
+                    <div class="c_duty">设计师</div>
+                  </div>
+                </div>
+                <div class="right_view">
+                  <div class="row">
+                    <span class="label">姓名</span>
+                    <input type="text" style="padding-left:26px" class="select_view" placeholder="请填写本人真实姓名" />
+                  </div>
+                  <div class="row">
+                    <span class="label">身份证</span>
+                    <input type="text" style="padding-left:26px" class="select_view" placeholder="请输入身份证号码" />
+                  </div>
+                  <div class="row">
+                    <span class="label">支付宝</span>
+                    <input type="text" style="padding-left:26px" class="select_view" placeholder="请输入支付宝账号" />
+                  </div>
+                  <div class="row">
+                    <span class="label">身份证照片</span>
+                    <div class="pic_view">
+                      <div class="upload_view">
+                        <img
+                          class="add_file_img"
+                          src="@a/imgs/add-file.png"
+                          alt=""
+                          srcset="@a/imgs/add-file@2x.png 2x"
+                        />
+                      </div>
+                      <div class="pic_list">
+                        <div class="img_item">
+                          <img
+                            class="del_file_img"
+                            src="@a/imgs/del-file.png"
+                            alt=""
+                            srcset="@a/imgs/del-file@2x.png 2x"
+                          />
+                        </div>
+                        <div class="img_item">
+                          <img
+                            class="del_file_img"
+                            src="@a/imgs/del-file.png"
+                            alt=""
+                            srcset="@a/imgs/del-file@2x.png 2x"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="footer_view">
+                <div class="left_view">
+                  <input type="checkbox" class="chk_agree" />已阅读并同意《漫云搜医平台隐私及使用政策》
+                </div>
+                <div class="right_view">提交</div>
+              </div>
+            </template>
           </div>
         </div>
       </div>
@@ -185,11 +326,28 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'MyInfoView',
+  data() {
+    return {
+      inner_tabIndex: 0,
+      personIdentity: '医生',
+      dropdownStatus: false
+    }
+  },
+  computed: {
+    ...mapState(['token', 'userName'])
+  },
   methods: {
     toHome() {
       this.$router.push('/home')
+    },
+    clickDropdown() {
+      this.dropdownStatus = !this.dropdownStatus
+    },
+    changeIdentity(e) {
+      this.personIdentity = e.target.value
     }
   }
 }
@@ -732,6 +890,8 @@ export default {
                   border: 1px solid #707070;
                   border-radius: 6px;
                   margin-right: 200px;
+                  box-sizing: border-box;
+                  padding-left: 15px;
                 }
                 .pic_view {
                   width: 334px;
@@ -773,7 +933,7 @@ export default {
                       margin-top: 5px;
                       position: relative;
                       .del_file_img
-                      { 
+                      {
                         top: -10px;
                         right: -8px;
                         position: absolute;
