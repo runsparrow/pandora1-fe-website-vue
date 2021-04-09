@@ -82,13 +82,15 @@
       </div>
       <div class="right_view">
         <div class="row">
-          <div class="item active">我的信息</div>
-          <div class="item">我的作品</div>
-          <div class="item">我的订单</div>
-          <div class="item">我要充值</div>
+          <div :class="['item', { active: outer_tabIndex === 0 }]" @click="() => (outer_tabIndex = 0)">
+            我的信息
+          </div>
+          <div :class="['item', { active: outer_tabIndex === 1 }]" @click="() => (outer_tabIndex = 1)">我的作品</div>
+          <div :class="['item', { active: outer_tabIndex === 2 }]" @click="() => (outer_tabIndex = 2)">我的订单</div>
+          <div :class="['item', { active: outer_tabIndex === 3 }]" @click="() => (outer_tabIndex = 3)">我要充值</div>
         </div>
         <div class="content_row">
-          <div class="my_info_tab_view">
+          <div v-if="outer_tabIndex === 0" class="my_info_tab_view">
             <div class="title_view">
               <span :class="['title', { active: inner_tabIndex === 0 }]" @click="() => (inner_tabIndex = 0)"
                 >身份认证</span
@@ -319,6 +321,138 @@
               </div>
             </template>
           </div>
+          <div v-else-if="outer_tabIndex === 1" class="my_sample_tab_view">
+            <div class="title_view">
+              <span
+                :class="['title', { active: inner_sample_tabIndex === 0 }]"
+                @click="() => (inner_sample_tabIndex = 0)"
+                >已上架(1)</span
+              >
+              <span
+                :class="['title', { active: inner_sample_tabIndex === 1 }]"
+                @click="() => (inner_sample_tabIndex = 1)"
+                >审核中(1)</span
+              >
+              <span
+                :class="['title', { active: inner_sample_tabIndex === 2 }]"
+                @click="() => (inner_sample_tabIndex = 2)"
+                >未通过(1)</span
+              >
+              <div class="uploadBtn">上传作品</div>
+            </div>
+            <template v-if="inner_sample_tabIndex === 0">
+              <div class="title_content_view">
+                <div class="table_header">
+                  <div class="title">时间</div>
+                  <div class="title">预览图</div>
+                  <div class="title">作品信息</div>
+                  <div class="title">操作</div>
+                </div>
+                <div class="table_row">
+                  <span class="column">
+                    2020-12-10
+                  </span>
+                  <span class="column">
+                    <img class="small_img" src="@a/imgs/small_pic@2x.png" alt="" srcset="@a/imgs/small_pic@2x.png 2x" />
+                  </span>
+                  <span
+                    class="column"
+                    style="display:flex;flex-direction:column;align-items:center;justify-content:center"
+                  >
+                    <span class="label">《作品名字》</span>
+                    <span class="label"
+                      ><span class="downloadColor">88</span><span class="focus">下载</span>
+                      <span class="collectColor">66</span><span class="focus">收藏</span></span
+                    >
+                  </span>
+                  <span class="column">
+                    <div class="delBtn">
+                      删除
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </template>
+            <template v-if="inner_sample_tabIndex === 1">
+              <div class="title_content_view">
+                <div class="table_header">
+                  <div class="title">时间</div>
+                  <div class="title">预览图</div>
+                  <div class="title">作品信息</div>
+                  <div class="title">操作</div>
+                </div>
+                <div class="table_row">
+                  <span class="column">
+                    2020-12-11
+                  </span>
+                  <span class="column">
+                    <img class="small_img" src="@a/imgs/small_pic@2x.png" alt="" srcset="@a/imgs/small_pic@2x.png 2x" />
+                  </span>
+                  <span
+                    class="column"
+                    style="display:flex;flex-direction:column;align-items:center;justify-content:center"
+                  >
+                    <span class="label">《作品名字》</span>
+                    <span class="label"
+                      ><span class="downloadColor">88</span><span class="focus">下载</span>
+                      <span class="collectColor">66</span><span class="focus">收藏</span></span
+                    >
+                  </span>
+                  <span class="column">
+                    <div class="delBtn">
+                      删除
+                    </div>
+                  </span>
+                </div>
+                <div class="label_row">
+                  审核会在10个工作日内完成
+                </div>
+              </div>
+            </template>
+            <template v-if="inner_sample_tabIndex === 2">
+              <div class="title_content_view">
+                <div class="table_header">
+                  <div class="title">时间</div>
+                  <div class="title">预览图</div>
+                  <div class="title">作品信息</div>
+                  <div class="title">操作</div>
+                </div>
+                <div class="table_row">
+                  <span class="column">
+                    2020-12-12
+                  </span>
+                  <span class="column">
+                    <img class="small_img" src="@a/imgs/small_pic@2x.png" alt="" srcset="@a/imgs/small_pic@2x.png 2x" />
+                  </span>
+                  <span
+                    class="column"
+                    style="display:flex;flex-direction:column;align-items:center;justify-content:center"
+                  >
+                    <span class="label">《作品名字》</span>
+                    <span class="label"
+                      ><span class="downloadColor">88</span><span class="focus">下载</span>
+                      <span class="collectColor">66</span><span class="focus">收藏</span></span
+                    >
+                  </span>
+                  <span class="column">
+                    <div class="delBtn">
+                      删除
+                    </div>
+                  </span>
+                </div>
+                <div class="label_row">
+                  请仔细阅读
+                  <div class="btn">上传必读</div>
+                </div>
+              </div>
+            </template>
+          </div>
+          <div v-else-if="outer_tabIndex === 2" class="my_voucher_tab_view">
+            3333
+          </div>
+          <div v-else-if="outer_tabIndex === 3" class="my_support_tab_view">
+            4444
+          </div>
         </div>
       </div>
     </div>
@@ -331,7 +465,9 @@ export default {
   name: 'MyInfoView',
   data() {
     return {
+      outer_tabIndex: 0,
       inner_tabIndex: 0,
+      inner_sample_tabIndex: 0,
       personIdentity: '医生',
       dropdownStatus: false
     }
@@ -974,6 +1110,239 @@ export default {
               line-height: 38px;
               text-align: center;
               margin-right: 37px;
+            }
+          }
+        }
+        .my_sample_tab_view
+        {
+          width: 100%;
+          height: 742px;
+          background: #ffffff;
+          display: flex;
+          flex-direction: column;
+          .title_view {
+            height: 50px;
+            border-bottom: 2px solid #f5f5f5;
+            display: flex;
+            flex-direction: row;
+            .uploadBtn
+            {
+              width: 121px;
+              height: 42px;
+              background: #4372B7;
+              border-radius: 9px;
+              font-size: 15px;
+              text-align: center;
+              line-height: 42px;
+              color: #FFFFFF;
+              margin-left: 210px;
+              margin-top: 3px;
+            }
+            .title {
+              width: 80px;
+              text-align: center;
+              line-height: 40px;
+              color: #5f6061;
+              font-size: 16px;
+              margin-left: 68px;
+              position: relative;
+              cursor: pointer;
+              &.active {
+                color: $color23;
+                &::before {
+                  position: absolute;
+                  right: 0;
+                  left: 0;
+                  bottom: 0;
+                  height: 2px;
+                  background: $color23;
+                  content: '';
+                }
+              }
+            }
+          }
+          .title_content_view
+          {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            padding: 11px 64px;
+            .table_header
+            {
+              width: 876px;
+              background: #F5F5F5;
+              height: 40px;
+              display: flex;
+              flex-direction: row;
+              .title
+              {
+                flex:0.25;
+                border: 1px soli blue;
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 40px;
+                text-align: center;
+                color: #5F6061;
+              }
+            }
+            .table_row
+            {
+               width: 876px;
+               height: 67px;
+               border-bottom: 2px solid #E7E7E7;
+               display: flex;
+               flex-direction: row;
+               .column
+               {
+                 width: 219px;
+                 height: 67px;
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 67px;
+                color: #5F6061;
+                text-align: center;
+                align-items: center;
+                justify-content: center;
+                display: flex;
+                .small_img
+                {
+                  vertical-align: middle;
+                  width: 54px;
+                  height: 51px;
+                }
+                .label
+                {
+                    font-size: 12px;
+                    font-weight: 400;
+                    color: #5F6061;
+                    width: 120px;
+                    height: 20px;
+                    line-height: 20px;
+                    .focus
+                    {
+                      color:#D6D6D6;
+                      margin-left: 3px;
+                    }
+                    .downloadColor
+                    {
+                      color:#E20000;
+                    }
+                    .collectColor
+                    {
+                       color:#5F6061;
+                       margin-left: 15px;
+                    }
+
+                }
+                .delBtn
+                {
+                  width: 46px;
+                  height: 23px;
+                  background: #DD422E;
+                  opacity: 1;
+                  border-radius: 18px;
+                  font-size: 12px;
+                  font-weight: 400;
+                  line-height: 23px;
+                  color: #FFFFFF;
+                }
+               }
+            }
+          }
+          .label_row
+          {
+            display: flex;
+            flex-direction: row;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 27px;
+            color: #2260AC;
+            margin-top: 24px;
+            line-height: 33px;
+            .btn
+            {
+              width: 91px;
+              height: 31px;
+              border: 1px solid #4372B7;
+              opacity: 1;
+              border-radius: 45px;
+              font-size: 16px;
+              line-height: 31px;
+              text-align: center;
+              color: #4372B7;
+              margin-left: 7px;
+            }
+          }
+        }
+        .my_voucher_tab_view
+        {
+          width: 100%;
+          height: 742px;
+          background: #ffffff;
+          display: flex;
+          flex-direction: column;
+          .title_view {
+            height: 50px;
+            border-bottom: 2px solid #f5f5f5;
+            display: flex;
+            flex-direction: row;
+            .title {
+              width: 80px;
+              text-align: center;
+              line-height: 40px;
+              color: #5f6061;
+              font-size: 16px;
+              margin-left: 68px;
+              position: relative;
+              cursor: pointer;
+              &.active {
+                color: $color23;
+                &::before {
+                  position: absolute;
+                  right: 0;
+                  left: 0;
+                  bottom: 0;
+                  height: 2px;
+                  background: $color23;
+                  content: '';
+                }
+              }
+            }
+          }
+        }
+        .my_support_tab_view
+        {
+          width: 100%;
+          height: 742px;
+          background: #ffffff;
+          display: flex;
+          flex-direction: column;
+          .title_view {
+            height: 50px;
+            border-bottom: 2px solid #f5f5f5;
+            display: flex;
+            flex-direction: row;
+            .title {
+              width: 80px;
+              text-align: center;
+              line-height: 40px;
+              color: #5f6061;
+              font-size: 16px;
+              margin-left: 68px;
+              position: relative;
+              cursor: pointer;
+              &.active {
+                color: $color23;
+                &::before {
+                  position: absolute;
+                  right: 0;
+                  left: 0;
+                  bottom: 0;
+                  height: 2px;
+                  background: $color23;
+                  content: '';
+                }
+              }
             }
           }
         }
