@@ -86,8 +86,9 @@
             我的信息
           </div>
           <div :class="['item', { active: outer_tabIndex === 1 }]" @click="() => (outer_tabIndex = 1)">我的作品</div>
-          <div :class="['item', { active: outer_tabIndex === 2 }]" @click="() => (outer_tabIndex = 2)">我的订单</div>
+          <div :class="['item', { active: outer_tabIndex === 2 }]" @click="() => (outer_tabIndex = 2)">我的资产</div>
           <div :class="['item', { active: outer_tabIndex === 3 }]" @click="() => (outer_tabIndex = 3)">我要充值</div>
+          <div :class="['item', { active: outer_tabIndex === 4 }]" @click="() => (outer_tabIndex = 4)">帮助中心</div>
         </div>
         <div class="content_row">
           <div v-if="outer_tabIndex === 0" class="my_info_tab_view">
@@ -448,10 +449,132 @@
             </template>
           </div>
           <div v-else-if="outer_tabIndex === 2" class="my_voucher_tab_view">
-            3333
+            <div class="title_view">
+              <span
+                :class="['title', { active: inner_voucher_tabIndex === 0 }]"
+                @click="() => (inner_voucher_tabIndex = 0)"
+                >已下载(1)</span
+              >
+              <span
+                :class="['title', { active: inner_voucher_tabIndex === 1 }]"
+                @click="() => (inner_voucher_tabIndex = 1)"
+                >已收藏(1)</span
+              >
+              <span
+                :class="['title', { active: inner_voucher_tabIndex === 2 }]"
+                @click="() => (inner_voucher_tabIndex = 2)"
+                >会员信息</span
+              >
+              <span
+                :class="['title', { active: inner_voucher_tabIndex === 3 }]"
+                @click="() => (inner_voucher_tabIndex = 3)"
+                >会员订单</span
+              >
+            </div>
+            <template v-if="inner_voucher_tabIndex === 0">
+              <div class="title_content_view">
+                <div class="table_header">
+                  <div class="title">购买时间</div>
+                  <div class="title">预览图</div>
+                  <div class="title">作品信息</div>
+                  <div class="title">有效时间</div>
+                </div>
+                <div class="table_row">
+                  <span class="column">
+                    2021-01-23 22:00:59
+                  </span>
+                  <span class="column">
+                    <img class="small_img" src="@a/imgs/small_pic@2x.png" alt="" srcset="@a/imgs/small_pic@2x.png 2x" />
+                  </span>
+                  <span
+                    class="column"
+                    style="display:flex;flex-direction:column;align-items:center;justify-content:center"
+                  >
+                    <span class="label">《作品名字》</span>
+                    <span class="label"
+                      ><span class="downloadColor">88</span><span class="focus">下载</span>
+                      <span class="collectColor">66</span><span class="focus">收藏</span></span
+                    >
+                  </span>
+                  <span class="column">
+                    2021-01-23 22:00:59
+                  </span>
+                </div>
+                <div class="table_row">
+                  <span class="column">
+                    2021-01-23 22:00:59
+                  </span>
+                  <span class="column">
+                    <img class="small_img" src="@a/imgs/small_pic@2x.png" alt="" srcset="@a/imgs/small_pic@2x.png 2x" />
+                  </span>
+                  <span
+                    class="column"
+                    style="display:flex;flex-direction:column;align-items:center;justify-content:center"
+                  >
+                    <span class="label">《作品名字》</span>
+                    <span class="label"
+                      ><span class="downloadColor">88</span><span class="focus">下载</span>
+                      <span class="collectColor">66</span><span class="focus">收藏</span></span
+                    >
+                  </span>
+                  <span class="column">
+                    已过期
+                  </span>
+                </div>
+              </div>
+            </template>
+            <template v-if="inner_voucher_tabIndex === 1">
+              <div class="title_content_view">
+                <div class="table_header">
+                  <div class="title">全部 86</div>
+                  <div class="title">无标签 10</div>
+                  <div class="title">标签一 66</div>
+                  <div class="title">标签二 10</div>
+                </div>
+                <div class="result-view">
+                  <div class="box">
+                    <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
+                    <div class="content">元旦牛气冲天海报</div>
+                  </div>
+                  <div class="box">
+                    <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
+                    <div class="content">元旦牛气冲天海报</div>
+                  </div>
+                  <div class="box">
+                    <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
+                    <div class="content">元旦牛气冲天海报</div>
+                  </div>
+                  <div class="box">
+                    <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
+                    <div class="content">元旦牛气冲天海报</div>
+                  </div>
+                </div>
+                <div class="result-view">
+                  <div class="box">
+                    <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
+                    <div class="content">元旦牛气冲天海报</div>
+                  </div>
+                  <div class="box">
+                    <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
+                    <div class="content">元旦牛气冲天海报</div>
+                  </div>
+                  <div class="box">
+                    <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
+                    <div class="content">元旦牛气冲天海报</div>
+                  </div>
+                  <div class="box">
+                    <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
+                    <div class="content">元旦牛气冲天海报</div>
+                  </div>
+                </div>
+              </div>
+            </template>
           </div>
-          <div v-else-if="outer_tabIndex === 3" class="my_support_tab_view">
+          <div v-else-if="outer_tabIndex === 3" class="my_payment_tab_view">
             4444
+          </div>
+          <div v-else-if="outer_tabIndex === 4" class="my_support_tab_view">
+            55555
           </div>
         </div>
       </div>
@@ -468,6 +591,7 @@ export default {
       outer_tabIndex: 0,
       inner_tabIndex: 0,
       inner_sample_tabIndex: 0,
+      inner_voucher_tabIndex: 0,
       personIdentity: '医生',
       dropdownStatus: false
     }
@@ -1275,6 +1399,161 @@ export default {
           }
         }
         .my_voucher_tab_view
+        {
+          width: 100%;
+          height: 742px;
+          background: #ffffff;
+          display: flex;
+          flex-direction: column;
+          .title_view {
+            height: 50px;
+            border-bottom: 2px solid #f5f5f5;
+            display: flex;
+            flex-direction: row;
+            .title {
+              width: 80px;
+              text-align: center;
+              line-height: 40px;
+              color: #5f6061;
+              font-size: 16px;
+              margin-left: 68px;
+              position: relative;
+              cursor: pointer;
+              &.active {
+                color: $color23;
+                &::before {
+                  position: absolute;
+                  right: 0;
+                  left: 0;
+                  bottom: 0;
+                  height: 2px;
+                  background: $color23;
+                  content: '';
+                }
+              }
+            }
+          }
+          .title_content_view
+          {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            padding: 11px 64px;
+            .table_header
+            {
+              width: 876px;
+              background: #F5F5F5;
+              height: 40px;
+              display: flex;
+              flex-direction: row;
+              .title
+              {
+                flex:0.25;
+                border: 1px soli blue;
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 40px;
+                text-align: center;
+                color: #5F6061;
+              }
+            }
+             .result-view {
+              width: 876px;
+              margin-top: 20px;
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              box-sizing: border-box;
+
+              .box
+              {
+                 box-sizing: border-box;
+                 display: flex;
+                flex-direction: column;
+                .lis_img {
+                  width: 205px;
+                  height: 219px;
+                  margin: 0 3px;
+                }
+                .content
+                {
+                   box-sizing: border-box;
+                   width: 205px;
+                   height: 50px;
+                   background: #F5F5F5;
+                   color:#5F6061;
+                   font-size: 12px;
+                   padding-left: 5px;
+                   padding-top: 12px;
+                }
+              }
+            }
+            .table_row
+            {
+               width: 876px;
+               height: 67px;
+               border-bottom: 2px solid #E7E7E7;
+               display: flex;
+               flex-direction: row;
+               .column
+               {
+                 width: 219px;
+                 height: 67px;
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 67px;
+                color: #5F6061;
+                text-align: center;
+                align-items: center;
+                justify-content: center;
+                display: flex;
+                .small_img
+                {
+                  vertical-align: middle;
+                  width: 54px;
+                  height: 51px;
+                }
+                .label
+                {
+                    font-size: 12px;
+                    font-weight: 400;
+                    color: #5F6061;
+                    width: 120px;
+                    height: 20px;
+                    line-height: 20px;
+                    .focus
+                    {
+                      color:#D6D6D6;
+                      margin-left: 3px;
+                    }
+                    .downloadColor
+                    {
+                      color:#E20000;
+                    }
+                    .collectColor
+                    {
+                       color:#5F6061;
+                       margin-left: 15px;
+                    }
+
+                }
+                .delBtn
+                {
+                  width: 46px;
+                  height: 23px;
+                  background: #DD422E;
+                  opacity: 1;
+                  border-radius: 18px;
+                  font-size: 12px;
+                  font-weight: 400;
+                  line-height: 23px;
+                  color: #FFFFFF;
+                }
+               }
+            }
+          }
+        }
+        .my_payment_tab_view
         {
           width: 100%;
           height: 742px;
