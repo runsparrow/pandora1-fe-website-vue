@@ -87,7 +87,7 @@
           </div>
           <div :class="['item', { active: outer_tabIndex === 1 }]" @click="() => (outer_tabIndex = 1)">我的作品</div>
           <div :class="['item', { active: outer_tabIndex === 2 }]" @click="() => (outer_tabIndex = 2)">我的资产</div>
-          <div :class="['item', { active: outer_tabIndex === 3 }]" @click="() => (outer_tabIndex = 4)">帮助中心</div>
+          <div :class="['item', { active: outer_tabIndex === 3 }]" @click="() => (outer_tabIndex = 3)">帮助中心</div>
         </div>
         <div class="content_row">
           <div v-if="outer_tabIndex === 0" class="my_info_tab_view">
@@ -669,7 +669,7 @@
             </template>
           </div>
           <div v-else-if="outer_tabIndex === 3" class="my_support_tab_view">
-            55555
+            <div class="help_view"></div>
           </div>
         </div>
       </div>
@@ -1982,33 +1982,13 @@ export default {
           background: #ffffff;
           display: flex;
           flex-direction: column;
-          .title_view {
-            height: 50px;
-            border-bottom: 2px solid #f5f5f5;
-            display: flex;
-            flex-direction: row;
-            .title {
-              width: 80px;
-              text-align: center;
-              line-height: 40px;
-              color: #5f6061;
-              font-size: 16px;
-              margin-left: 68px;
-              position: relative;
-              cursor: pointer;
-              &.active {
-                color: $color23;
-                &::before {
-                  position: absolute;
-                  right: 0;
-                  left: 0;
-                  bottom: 0;
-                  height: 2px;
-                  background: $color23;
-                  content: '';
-                }
-              }
-            }
+          .help_view
+          {
+              margin-top:58px;
+              height: 100%;
+              background-image: url('../../assets/imgs/help_desc@2x.png');
+              background-repeat: no-repeat;
+              background-size: contain;
           }
         }
       }
