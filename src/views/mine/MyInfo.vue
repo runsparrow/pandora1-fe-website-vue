@@ -569,6 +569,88 @@
                 </div>
               </div>
             </template>
+            <template v-if="inner_voucher_tabIndex === 2">
+              <div class="title_content_view">
+                <div class="table_head_row">
+                  <div class="item_left">
+                    <span class="mine_label">我的身份:</span>
+                    <div class="shenfen_img"></div>
+                    <span class="vip_level">普通VIP</span>
+                  </div>
+                  <div class="item_right">
+                    <span class="xieyi_label">VIP会员服务协议</span>
+                    <div class="btn_fapiao">我的发票</div>
+                  </div>
+                </div>
+                <div class="vip_nav">
+                  <div class="vip_icon"></div>
+                  <span class="title">我的VIP</span>
+                  <span class="effect_label">有效期至：2021-03-01</span>
+                </div>
+                <div class="month_nav">
+                  <div class="month_desc">
+                    缴费一个月
+                  </div>
+                  <div class="month_desc">
+                    缴费两个月
+                  </div>
+                  <div class="month_desc">
+                    缴费三个月
+                  </div>
+                </div>
+                <div class="select_pay_kind">
+                  <div :class="['nav', { active: payIndex === 0 }]" @click="selectPay(0)">
+                    <div class="zhekou_div"></div>
+                    <div class="amount_div">
+                      <span class="amount">9</span>
+                      <span class="unit">元</span>
+                    </div>
+                    <div class="uncheckd_pay">
+                      <div class="active_checked" v-if="payIndex === 0"></div>
+                    </div>
+                  </div>
+                  <div :class="['nav', { active: payIndex === 1 }]" @click="selectPay(1)">
+                    <div class="zhekou_div"></div>
+                    <div class="amount_div">
+                      <span class="amount">16</span>
+                      <span class="unit">元</span>
+                    </div>
+                    <div class="uncheckd_pay">
+                      <div class="active_checked" v-if="payIndex === 1"></div>
+                    </div>
+                  </div>
+                  <div :class="['nav', { active: payIndex === 2 }]" @click="selectPay(2)">
+                    <div class="zhekou_div"></div>
+                    <div class="amount_div">
+                      <span class="amount">21</span>
+                      <span class="unit">元</span>
+                    </div>
+                    <div class="uncheckd_pay">
+                      <div class="active_checked" v-if="payIndex === 2"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </template>
+            <template v-if="inner_voucher_tabIndex === 3">
+              <div class="title_content_view">
+                <div class="table_row">
+                  <span class="column">
+                    2021-01-23 22:00:59
+                  </span>
+                  <span class="column">
+                    <div class="vip_img"></div>
+                    <span class="vip_label">VIP开通</span>
+                  </span>
+                  <span class="column">
+                    16元
+                  </span>
+                  <span class="column">
+                    021-03-21 22:00:59
+                  </span>
+                </div>
+              </div>
+            </template>
           </div>
           <div v-else-if="outer_tabIndex === 3" class="my_payment_tab_view">
             4444
@@ -593,7 +675,8 @@ export default {
       inner_sample_tabIndex: 0,
       inner_voucher_tabIndex: 0,
       personIdentity: '医生',
-      dropdownStatus: false
+      dropdownStatus: false,
+      payIndex: 0
     }
   },
   computed: {
@@ -602,6 +685,9 @@ export default {
   methods: {
     toHome() {
       this.$router.push('/home')
+    },
+    selectPay(index) {
+      this.payIndex = index
     },
     clickDropdown() {
       this.dropdownStatus = !this.dropdownStatus
@@ -1301,7 +1387,6 @@ export default {
               .title
               {
                 flex:0.25;
-                border: 1px soli blue;
                 font-size: 12px;
                 font-weight: 400;
                 line-height: 40px;
@@ -1410,6 +1495,7 @@ export default {
             border-bottom: 2px solid #f5f5f5;
             display: flex;
             flex-direction: row;
+
             .title {
               width: 80px;
               text-align: center;
@@ -1439,6 +1525,201 @@ export default {
             display: flex;
             flex-direction: column;
             padding: 11px 64px;
+            .table_head_row
+            {
+              box-sizing: border-box;
+              width: 876px;
+              background: #F5F5F5;
+              height: 40px;
+              display: flex;
+              flex-direction: row;
+              .item_left
+              {
+                flex:1;
+                box-sizing: border-box;
+                text-align: center;
+                line-height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .mine_label
+                {
+                  font-size: 12px;
+                  height: 40px;
+                  line-height: 40px;
+                  color:#5F6061;
+                   display: inline-block;
+                }
+                .shenfen_img
+                {
+                  width:29px;
+                  height:29px;
+                  border-radius: 50%;
+                  background:#E20000;
+                   display: inline-block;
+                   margin-left: 10px;
+                }
+                .vip_level
+                {
+                  font-size: 12px;
+                  color:#E20000;
+                  margin-left: 4px;
+                }
+              }
+              .item_right
+              {
+                flex:1;
+                height: 40px;
+                 box-sizing: border-box;
+                line-height: 40px;
+                 text-align: left;
+                   display: inline-block;
+                 .xieyi_label
+                 {
+                   color:#2361AC;
+                   font-size: 12px;
+                   text-decoration: underline;
+                   margin-left: 20px;
+                   cursor: pointer;
+                   display: inline-block;
+                 }
+                 .btn_fapiao
+                 {
+                   width: 76px;
+                  height: 23px;
+                  background: #FFFFFF;
+                  border: 1px solid #707070;
+                  border-radius: 12px;
+                  color:#707070;
+                  text-align: center;
+                  line-height: 23px;
+                  font-size:12px;
+                  display: inline-block;
+                  margin-left: 8px;
+                 }
+              }
+            }
+            .vip_nav
+            {
+              width: 876px;
+              height: 72px;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              box-sizing: border-box;
+              .vip_icon
+              {
+                  width:29px;
+                  height:29px;
+                  border-radius: 50%;
+                  background:#E20000;
+              }
+              .title
+              {
+                color:#354052;
+                font-size: 26px;
+                letter-spacing: 5px;
+                margin-left: 7px;
+              }
+              .effect_label
+              {
+                color:#2361AC;
+                font-size: 12px;
+                margin-left: 22px;
+                margin-top: 10px;
+                letter-spacing: 3px;
+              }
+            }
+            .month_nav
+            {
+              width: 558px;
+              height: 40px;
+              background: #F5F5F5;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              box-sizing: border-box;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              padding:0 51px;
+              .month_desc{
+                flex:1;
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 27px;
+                color: #5F6061;
+              }
+            }
+            .select_pay_kind
+            {
+              width: 558px;
+              height: 181px;
+              margin-top: 8px;
+              display: flex;
+               box-sizing: border-box;
+              flex-direction: row;
+              .nav
+              {
+                flex:1;
+                box-sizing: border-box;
+                align-items: center;
+                display: flex;
+                flex-direction: column;
+                cursor: pointer;
+                &.active
+                {
+                  background: #EBEBEB;
+                }
+                .zhekou_div
+                {
+                  width: 59px;
+                  height: 22px;
+                  background: #E20000;
+                  margin-top: 28px;
+                }
+                .amount_div
+                {
+                   box-sizing: border-box;
+                  justify-content: center;
+                  display: flex;
+                  flex-direction: row;
+                  width: 100%;
+                   margin-top: 28px;
+                   .amount{
+                     color:#E20000;
+                     font-size:26px;
+                   }
+                   .unit
+                   {
+                     font-size:17px;
+                     color:#354052;
+                     font-weight: bold;
+                     margin-left: 10px;
+                     line-height: 39px;
+                   }
+                }
+                .uncheckd_pay
+                {
+                  width: 18px;
+                  height: 18px;
+                  border: 1px solid #004B91;
+                  border-radius: 50%;
+                  margin-top: 10px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  .active_checked
+                  {
+                    width: 14px;
+                    height: 14px;
+                    background: #004B91;
+                    border-radius: 50%;
+                  }
+                }
+
+              }
+            }
             .table_header
             {
               width: 876px;
@@ -1449,7 +1730,6 @@ export default {
               .title
               {
                 flex:0.25;
-                border: 1px soli blue;
                 font-size: 12px;
                 font-weight: 400;
                 line-height: 40px;
@@ -1495,6 +1775,19 @@ export default {
                border-bottom: 2px solid #E7E7E7;
                display: flex;
                flex-direction: row;
+               .vip_label
+               {
+                 font-size: 12px;
+                 color:#E20000;
+                  margin-left: 9px;
+               }
+               .vip_img
+               {
+                 width: 29px;
+                 height:29px;
+                 border-radius: 50%;
+                 background:#E20000;
+               }
                .column
                {
                  width: 219px;
