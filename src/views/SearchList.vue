@@ -50,43 +50,43 @@
     </div>
     <div class="content">
       <ul class="list">
-        <li class="item">
+        <li class="item" ref="selectNav01" @click="() => (show_select_index = 0)">
           <span class="label">免费作品</span>
           <img class="select_img" src="@a/imgs/jiantou_down.png" alt="" srcset="@a/imgs/jiantou_down@2x.png 2x" />
-          <ul class="children_list" v-if="false">
-            <li class="child_item top">全部作品</li>
-            <li class="child_item active">免费作品</li>
-            <li class="child_item label">收费作品</li>
+          <ul class="children_list" v-if="show_select_index === 0">
+            <li class="child_item top" @click.stop="chooseItem">全部作品</li>
+            <li class="child_item active" @click.stop="chooseItem">免费作品</li>
+            <li class="child_item label" @click.stop="chooseItem">收费作品</li>
           </ul>
         </li>
-        <li class="item">
+        <li class="item" ref="selectNav02" @click="() => (show_select_index = 1)">
           <span class="label">推广海报</span>
           <img class="select_img" src="@a/imgs/jiantou_down.png" alt="" srcset="@a/imgs/jiantou_down@2x.png 2x" />
-          <ul class="children_list" v-if="false">
-            <li class="child_item top">全部格式</li>
-            <li class="child_item active">推广海报</li>
-            <li class="child_item label">新媒体配图</li>
-            <li class="child_item label">视频动画</li>
+          <ul class="children_list" v-if="show_select_index === 1">
+            <li class="child_item top" @click.stop="chooseItem">全部格式</li>
+            <li class="child_item active" @click.stop="chooseItem">推广海报</li>
+            <li class="child_item label" @click.stop="chooseItem">新媒体配图</li>
+            <li class="child_item label" @click.stop="chooseItem">视频动画</li>
           </ul>
         </li>
-        <li class="item">
+        <li class="item" ref="selectNav03" @click="() => (show_select_index = 2)">
           <span class="label">PSD</span>
           <img class="select_img" src="@a/imgs/jiantou_down.png" alt="" srcset="@a/imgs/jiantou_down@2x.png 2x" />
-          <ul class="children_list" v-if="false">
-            <li class="child_item top">全部格式</li>
-            <li class="child_item active">PSD</li>
-            <li class="child_item label">AI</li>
-            <li class="child_item label">PNG</li>
-            <li class="child_item label">其他</li>
+          <ul class="children_list" v-if="show_select_index === 2">
+            <li class="child_item top" @click.stop="chooseItem">全部格式</li>
+            <li class="child_item active" @click.stop="chooseItem">PSD</li>
+            <li class="child_item label" @click.stop="chooseItem">AI</li>
+            <li class="child_item label" @click.stop="chooseItem">PNG</li>
+            <li class="child_item label" @click.stop="chooseItem">其他</li>
           </ul>
         </li>
-        <li class="item">
+        <li class="item" ref="selectNav04" @click="() => (show_select_index = 3)">
           <span class="label">热门下载</span>
           <img class="select_img" src="@a/imgs/jiantou_down.png" alt="" srcset="@a/imgs/jiantou_down@2x.png 2x" />
-          <ul class="children_list" v-if="true">
-            <li class="child_item top">全部排序</li>
-            <li class="child_item active">热门下载</li>
-            <li class="child_item label">最新上传</li>
+          <ul class="children_list" v-if="show_select_index === 3">
+            <li class="child_item top" @click.stop="chooseItem">全部排序</li>
+            <li class="child_item active" @click.stop="chooseItem">热门下载</li>
+            <li class="child_item label" @click.stop="chooseItem">最新上传</li>
           </ul>
         </li>
       </ul>
@@ -109,9 +109,44 @@
 <script>
 export default {
   name: 'SearchListView',
+  data() {
+    return {
+      show_select_index: -1
+    }
+  },
+  mounted() {
+    document.addEventListener('click', e => {
+      if (this.show_select_index === 0 && this.$refs.selectNav01) {
+        if (!this.$refs.selectNav01.contains(e.target)) {
+          this.show_select_index = -1
+        }
+      }
+      if (this.show_select_index === 1 && this.$refs.selectNav02) {
+        if (!this.$refs.selectNav02.contains(e.target)) {
+          this.show_select_index = -1
+        }
+      }
+      if (this.show_select_index === 2 && this.$refs.selectNav03) {
+        if (!this.$refs.selectNav03.contains(e.target)) {
+          this.show_select_index = -1
+        }
+      }
+      if (this.show_select_index === 3 && this.$refs.selectNav04) {
+        if (!this.$refs.selectNav04.contains(e.target)) {
+          this.show_select_index = -1
+        }
+      }
+    })
+  },
+  unmounted() {
+    document.removeEventListener('click')
+  },
   methods: {
     toHome() {
       this.$router.push('/home')
+    },
+    chooseItem() {
+      this.show_select_index = -1
     }
   }
 }
@@ -315,6 +350,7 @@ export default {
         text-align: center;
         line-height: 37px;
         position: relative;
+        cursor: pointer;
         .label {
           color: $color1;
           font-size: 16px;
