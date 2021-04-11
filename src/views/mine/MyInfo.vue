@@ -87,8 +87,7 @@
           </div>
           <div :class="['item', { active: outer_tabIndex === 1 }]" @click="() => (outer_tabIndex = 1)">我的作品</div>
           <div :class="['item', { active: outer_tabIndex === 2 }]" @click="() => (outer_tabIndex = 2)">我的资产</div>
-          <div :class="['item', { active: outer_tabIndex === 3 }]" @click="() => (outer_tabIndex = 3)">我要充值</div>
-          <div :class="['item', { active: outer_tabIndex === 4 }]" @click="() => (outer_tabIndex = 4)">帮助中心</div>
+          <div :class="['item', { active: outer_tabIndex === 3 }]" @click="() => (outer_tabIndex = 4)">帮助中心</div>
         </div>
         <div class="content_row">
           <div v-if="outer_tabIndex === 0" class="my_info_tab_view">
@@ -630,6 +629,23 @@
                     </div>
                   </div>
                 </div>
+                <div class="pay_title_view">
+                  <div class="top_label">支付方式</div>
+                  <div class="bottom_label">请选择支付方式</div>
+                </div>
+                <div class="nav_hr"></div>
+                <div class="pay_wx"></div>
+                <div class="agree_view">
+                  <div class="agree"></div>
+                  <span class="base_label">同意</span>
+                  <span class="base_label under_line">用户协议</span>
+                  <span class="base_label">与</span>
+                  <span class="base_label under_line">隐私政策</span>
+                </div>
+                <div class="error_msg_line">
+                  请阅读后点击同意以完成支付
+                </div>
+                <div class="btnSubmit">确定支付</div>
               </div>
             </template>
             <template v-if="inner_voucher_tabIndex === 3">
@@ -652,10 +668,7 @@
               </div>
             </template>
           </div>
-          <div v-else-if="outer_tabIndex === 3" class="my_payment_tab_view">
-            4444
-          </div>
-          <div v-else-if="outer_tabIndex === 4" class="my_support_tab_view">
+          <div v-else-if="outer_tabIndex === 3" class="my_support_tab_view">
             55555
           </div>
         </div>
@@ -676,7 +689,7 @@ export default {
       inner_voucher_tabIndex: 0,
       personIdentity: '医生',
       dropdownStatus: false,
-      payIndex: 0
+      payIndex: 1
     }
   },
   computed: {
@@ -1718,6 +1731,86 @@ export default {
                   }
                 }
 
+              }
+            }
+            .pay_title_view
+            {
+             width: 416px;
+             height: 51px;
+             display: flex;
+             flex-direction: column;
+             box-sizing: border-box;
+             margin-top: 20px;
+             padding-left:35px;
+             .top_label
+             {
+               font-size: 26px;
+               color:#354052;
+             }
+             .bottom_label
+             {
+               font-size: 12px;
+               color:#DD3D29;
+             }
+            }
+            .nav_hr
+            {
+              width: 416px;
+              height: 16px;
+              background: #F5F5F5;
+              margin-top: 9px;
+            }
+            .pay_wx
+            {
+              width: 163px;
+              height: 59px;
+              background: #DD3D29;
+              margin-top: 19px;
+              margin-left: 41px;
+            }
+            .error_msg_line
+            {
+              font-size: 12px;
+              color:#DD3D29;
+              box-sizing: border-box;
+              padding-left: 24px;
+            }
+            .btnSubmit
+            {
+              width: 258px;
+              height: 68px;
+              background: #2361AC;
+              border-radius: 18px;
+              text-align: center;
+              line-height: 68px;
+              font-size: 35px;
+              font-weight: 400;
+              color: #FFFFFF;
+              margin-top: 22px;
+            }
+            .agree_view
+            {
+              display: flex;
+              flex-direction: row;
+              box-sizing: border-box;
+              margin-top: 16px;
+              .agree
+              {
+                width: 18px;
+                height: 18px;
+                border-radius: 50%;
+                border: 1px solid #004B91;
+                margin-right: 3px;
+              }
+              .base_label
+              {
+                font-size: 16px;
+                color:#1E1E1E;
+                &.under_line
+                {
+                  text-decoration: underline;
+                  color:#2361AC;
+                }
               }
             }
             .table_header
