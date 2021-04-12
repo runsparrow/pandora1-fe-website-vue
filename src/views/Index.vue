@@ -30,7 +30,7 @@
             <div ref="popMenuRef">
               <span class="username" @click="clickDropdown">{{ userName }}</span>
               <div :class="['popMenu', { activePop: dropdownStatus }]">
-                <div class="item1" @click="goto(0)">我的信息</div>
+                <div class="item1" style="padding-bottom: 10px;" @click="goto(0)">我的信息</div>
                 <div class="item2" @click="goto(1)">我的作品</div>
                 <div class="item3" @click="goto(2)">我的资产</div>
                 <div class="item5" @click="goto(3)">帮助中心</div>
