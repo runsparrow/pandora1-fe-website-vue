@@ -31,15 +31,24 @@
                 />
               </div>
             </li>
-            <li class="btn_view" v-if="true">
-              <span class="btn1">注册</span>
-              <span class="btn2">登录</span>
-            </li>
+            <li class="btn_view" v-if="token === ''">
+            <span class="btn1" @click="toRegister">注册</span>
+            <span class="btn2" @click="toLogin">登录</span>
+          </li>
             <li v-else class="btn_view">
               <div class="login_header_logo">
                 头像
               </div>
-              <span class="username">徐升</span>
+              <div ref="popMenuRef">
+                <span class="username" @click="clickDropdown">{{ userName }}</span>
+                <div :class="['popMenu', { activePop: dropdownStatus }]">
+                   <div class="item1" style="height: 46px;" @click="goto(0)">我的信息</div>
+                  <div class="item2" @click="goto(1)">我的作品</div>
+                  <div class="item3" @click="goto(2)">我的资产</div>
+                  <div class="item5" @click="goto(3)">帮助中心</div>
+                  <div class="item6" @click="goto(4)">退出</div>
+                </div>
+              </div>
             </li>
           </ul>
         </div>
@@ -107,15 +116,26 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'SearchListView',
+  computed: {
+    ...mapState(['token', 'userName'])
+  },
   data() {
     return {
-      show_select_index: -1
+      show_select_index: -1,
+      dropdownStatus: false,
     }
   },
   mounted() {
     document.addEventListener('click', e => {
+      if (this.$refs.popMenuRef) {
+        if (!this.$refs.popMenuRef.contains(e.target)) {
+          this.dropdownStatus = false
+        }
+      }
+
       if (this.show_select_index === 0 && this.$refs.selectNav01) {
         if (!this.$refs.selectNav01.contains(e.target)) {
           this.show_select_index = -1
@@ -142,12 +162,32 @@ export default {
     document.removeEventListener('click')
   },
   methods: {
+    clickDropdown() {
+      this.dropdownStatus = !this.dropdownStatus
+    },
     toHome() {
       this.$router.push('/home')
     },
     chooseItem() {
       this.show_select_index = -1
-    }
+    },
+    goto(index) {
+      this.dropdownStatus = false
+      if (index <4) {
+        this.$router.push('/mine/info?index='+index)
+      } else if (index === 4) {
+        this.$store.commit('clearStore')
+          this.$router.push('/home')
+      }
+    },
+     toRegister() {
+      this.$store.commit('setActiveTab', 0)
+      this.$router.push('/login')
+    },
+    toLogin() {
+      this.$store.commit('setActiveTab', 1)
+      this.$router.push('/login')
+    },
   }
 }
 </script>
@@ -269,6 +309,75 @@ export default {
             justify-content: flex-end;
             box-sizing: border-box;
             padding-top: 11px;
+            position: relative;
+            .popMenu {
+            width: 162px;
+            height: 289px;
+            border: 1px solid $color10;
+            position: absolute;
+            bottom: 0;
+            top: 86px;
+            left: 38px !important;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            background: $color9;
+            display: none;
+
+            .item1 {
+              height: 54px;
+              font-size: 16px;
+              color: #354052;
+              padding-left: 33px;
+              line-height: 54px;
+            }
+            .item2 {
+              height: 37px;
+              font-size: 16px;
+              color: #354052;
+              padding-left: 33px;
+              line-height: 37px;
+            }
+            .item3 {
+              height: 37px;
+              font-size: 16px;
+              color: #354052;
+              padding-left: 33px;
+              line-height: 37px;
+            }
+            .item4 {
+              height: 37px;
+              font-size: 16px;
+              color: #354052;
+              padding-left: 33px;
+              line-height: 37px;
+            }
+            .item5 {
+              height: 37px;
+              font-size: 16px;
+              padding-left: 33px;
+              line-height: 37px;
+              color: #354052;
+            }
+            .item6 {
+              height: 54px;
+              font-size: 16px;
+              padding-left: 33px;
+              line-height: 54px;
+              color: #354052;
+            }
+            > div {
+              cursor: pointer;
+              &:hover {
+                background: $color4;
+                color: $color9;
+              }
+            }
+          }
+          .activePop {
+            display: block;
+          }
             .btn1 {
               width: 80px;
               height: 40px;
@@ -313,6 +422,7 @@ export default {
               font-weight: 400;
               line-height: 67px;
               margin-left: 8px;
+              cursor: pointer;
             }
           }
         }

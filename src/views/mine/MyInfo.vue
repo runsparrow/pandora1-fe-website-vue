@@ -30,11 +30,7 @@
             <div ref="popMenuRef">
               <span class="username" @click="clickDropdown">{{ userName }}</span>
               <div :class="['popMenu', { activePop: dropdownStatus }]">
-                <div class="item1" style="padding-bottom: 10px;" @click="goto(0)">我的信息</div>
-                <div class="item2" @click="goto(1)">我的作品</div>
-                <div class="item3" @click="goto(2)">我的资产</div>
-                <div class="item5" @click="goto(3)">帮助中心</div>
-                <div class="item6" @click="goto(4)">退出</div>
+                <div class="item6" style="padding-bottom: 10px;"  @click="goto(4)">退出</div>
               </div>
             </div>
           </li>
@@ -731,6 +727,14 @@ export default {
     ...mapState(['token', 'userName'])
   },
   methods: {
+     toRegister() {
+      this.$store.commit('setActiveTab', 0)
+      this.$router.push('/login')
+    },
+    toLogin() {
+      this.$store.commit('setActiveTab', 1)
+      this.$router.push('/login')
+    },
     toHome() {
       this.$router.push('/home')
     },
@@ -883,7 +887,7 @@ export default {
           position: relative;
           .popMenu {
             width: 162px;
-            height: 289px;
+            height: 54px;
             border: 1px solid $color10;
             position: absolute;
             bottom: 0;

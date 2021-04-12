@@ -39,7 +39,16 @@
               <div class="login_header_logo">
                 头像
               </div>
-              <span class="username">{{ userName }}</span>
+             <div ref="popMenuRef">
+                <span class="username" @click="clickDropdown">{{ userName }}</span>
+                <div :class="['popMenu', { activePop: dropdownStatus }]">
+                  <div class="item1" style="height: 46px;" @click="goto(0)">我的信息</div>
+                  <div class="item2" @click="goto(1)">我的作品</div>
+                  <div class="item3" @click="goto(2)">我的资产</div>
+                  <div class="item5" @click="goto(3)">帮助中心</div>
+                  <div class="item6" @click="goto(4)">退出</div>
+                </div>
+              </div>
             </li>
           </ul>
         </div>
@@ -101,10 +110,39 @@ export default {
   computed: {
     ...mapState(['token', 'userName'])
   },
+  data() {
+    return {
+      dropdownStatus: false,
+    }
+  },
+  mounted() {
+    document.addEventListener('click', e => {
+      if (this.$refs.popMenuRef) {
+        if (!this.$refs.popMenuRef.contains(e.target)) {
+          this.dropdownStatus = false
+        }
+      }
+    })
+  },
+  unmounted() {
+    document.removeEventListener('click')
+  },
   methods: {
+     clickDropdown() {
+      this.dropdownStatus = !this.dropdownStatus
+    },
     toHome() {
       this.$router.push('/home')
-    }
+    },
+    goto(index) {
+      this.dropdownStatus = false
+      if (index <4) {
+        this.$router.push('/mine/info?index='+index)
+      } else if (index === 4) {
+        this.$store.commit('clearStore')
+          this.$router.push('/home')
+      }
+    },
   }
 }
 </script>
@@ -226,6 +264,75 @@ export default {
             justify-content: flex-end;
             box-sizing: border-box;
             padding-top: 11px;
+            position: relative;
+            .popMenu {
+            width: 162px;
+            height: 289px;
+            border: 1px solid $color10;
+            position: absolute;
+            bottom: 0;
+            top: 86px;
+            left: 38px !important;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            background: $color9;
+            display: none;
+
+            .item1 {
+              height: 54px;
+              font-size: 16px;
+              color: #354052;
+              padding-left: 33px;
+              line-height: 54px;
+            }
+            .item2 {
+              height: 37px;
+              font-size: 16px;
+              color: #354052;
+              padding-left: 33px;
+              line-height: 37px;
+            }
+            .item3 {
+              height: 37px;
+              font-size: 16px;
+              color: #354052;
+              padding-left: 33px;
+              line-height: 37px;
+            }
+            .item4 {
+              height: 37px;
+              font-size: 16px;
+              color: #354052;
+              padding-left: 33px;
+              line-height: 37px;
+            }
+            .item5 {
+              height: 37px;
+              font-size: 16px;
+              padding-left: 33px;
+              line-height: 37px;
+              color: #354052;
+            }
+            .item6 {
+              height: 54px;
+              font-size: 16px;
+              padding-left: 33px;
+              line-height: 54px;
+              color: #354052;
+            }
+            > div {
+              cursor: pointer;
+              &:hover {
+                background: $color4;
+                color: $color9;
+              }
+            }
+          }
+          .activePop {
+            display: block;
+          }
             .btn1 {
               width: 80px;
               height: 40px;
@@ -270,6 +377,7 @@ export default {
               font-weight: 400;
               line-height: 67px;
               margin-left: 8px;
+              cursor: pointer;
             }
           }
         }
