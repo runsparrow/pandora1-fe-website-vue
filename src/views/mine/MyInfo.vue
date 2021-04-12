@@ -578,7 +578,7 @@
                 <div class="table_head_row">
                   <div class="item_left">
                     <span class="mine_label">我的身份:</span>
-                    <div class="shenfen_img"></div>
+                     <img class="shenfen_img" src="@a/imgs/account_img.png" alt="" srcset="@a/imgs/account_img@2x.png 2x" />
                     <span class="vip_level">普通VIP</span>
                   </div>
                   <div class="item_right">
@@ -587,7 +587,8 @@
                   </div>
                 </div>
                 <div class="vip_nav">
-                  <div class="vip_icon"></div>
+                  <img class="vip_icon" src="@a/imgs/account_img.png" alt="" srcset="@a/imgs/account_img@2x.png 2x" />
+                
                   <span class="title">我的VIP</span>
                   <span class="effect_label">有效期至：2021-03-01</span>
                 </div>
@@ -604,7 +605,7 @@
                 </div>
                 <div class="select_pay_kind">
                   <div :class="['nav', { active: payIndex === 0 }]" @click="selectPay(0)">
-                    <div class="zhekou_div"></div>
+                    <img class="zhekou_div" src="@a/imgs/sale_10_img.png" alt="" srcset="@a/imgs/sale_10_img@2x.png 2x" />
                     <div class="amount_div">
                       <span class="amount">9</span>
                       <span class="unit">元</span>
@@ -614,7 +615,7 @@
                     </div>
                   </div>
                   <div :class="['nav', { active: payIndex === 1 }]" @click="selectPay(1)">
-                    <div class="zhekou_div"></div>
+                    <img class="zhekou_div" src="@a/imgs/sale_10_img.png" alt="" srcset="@a/imgs/sale_10_img@2x.png 2x" />
                     <div class="amount_div">
                       <span class="amount">16</span>
                       <span class="unit">元</span>
@@ -624,7 +625,7 @@
                     </div>
                   </div>
                   <div :class="['nav', { active: payIndex === 2 }]" @click="selectPay(2)">
-                    <div class="zhekou_div"></div>
+                    <img class="zhekou_div" src="@a/imgs/sale_10_img.png" alt="" srcset="@a/imgs/sale_10_img@2x.png 2x" />
                     <div class="amount_div">
                       <span class="amount">21</span>
                       <span class="unit">元</span>
@@ -642,7 +643,8 @@
                 <img v-if="!wx_checked" @click="clickWx(true)" class="pay_wx" src="@a/imgs/wx_unchecked.png" alt="" srcset="@a/imgs/wx_unchecked@2x.png 2x" />
                 <img v-if="wx_checked" @click="clickWx(false)" class="pay_wx" src="@a/imgs/wx_checked.png" alt="" srcset="@a/imgs/wx_checked@2x.png 2x" />
                 <div class="agree_view">
-                  <div class="agree"></div>
+                  <img class="agree" @click="clickAgree(true)" v-if="!agree_checked" src="@a/imgs/pay_unchecked_img.png" alt="" srcset="@a/imgs/pay_unchecked_img@2x.png 2x" />
+                  <img class="agree" @click="clickAgree(false)" v-if="agree_checked" src="@a/imgs/pay_checked_img.png" alt="" srcset="@a/imgs/pay_checked_img@2x.png 2x" />
                   <span class="base_label">同意</span>
                   <span class="base_label under_line">用户协议</span>
                   <span class="base_label">与</span>
@@ -696,7 +698,8 @@ export default {
       personIdentity: '医生',
       dropdownStatus: false,
       payIndex: 1,
-      wx_checked:false
+      wx_checked:false,
+      agree_checked:false
     }
   },
     mounted() {
@@ -730,6 +733,10 @@ export default {
     clickWx(status)
     {
       this.wx_checked=status
+    },
+    clickAgree(status)
+    {
+      this.agree_checked=status
     },
     goto(index) {
       this.dropdownStatus = false
@@ -1600,9 +1607,8 @@ export default {
                   width:29px;
                   height:29px;
                   border-radius: 50%;
-                  background:#E20000;
-                   display: inline-block;
-                   margin-left: 10px;
+                  display: inline-block;
+                  margin-left: 10px;
                 }
                 .vip_level
                 {
@@ -1657,7 +1663,6 @@ export default {
                   width:29px;
                   height:29px;
                   border-radius: 50%;
-                  background:#E20000;
               }
               .title
               {
@@ -1721,7 +1726,6 @@ export default {
                 {
                   width: 59px;
                   height: 22px;
-                  background: #E20000;
                   margin-top: 28px;
                 }
                 .amount_div
@@ -1834,6 +1838,7 @@ export default {
                 border-radius: 50%;
                 border: 1px solid #004B91;
                 margin-right: 3px;
+                cursor: pointer;
               }
               .base_label
               {
