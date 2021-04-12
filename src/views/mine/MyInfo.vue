@@ -659,7 +659,7 @@
                     2021-01-23 22:00:59
                   </span>
                   <span class="column">
-                    <div class="vip_img"></div>
+                     <img class="vip_img" src="@a/imgs/account_img.png" alt="" srcset="@a/imgs/account_img@2x.png 2x" />
                     <span class="vip_label">VIP开通</span>
                   </span>
                   <span class="column">
@@ -1942,7 +1942,6 @@ export default {
                  width: 29px;
                  height:29px;
                  border-radius: 50%;
-                 background:#E20000;
                }
                .column
                {
