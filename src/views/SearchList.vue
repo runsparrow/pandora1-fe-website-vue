@@ -14,9 +14,9 @@
               />
               <span class="logo_title" @click="toHome">SooYi.CN</span>
             </li>
-            <li class="label" >推广海报</li>
-            <li class="label" >新媒体配置</li>
-            <li class="label" >视频动画</li>
+            <li class="label">推广海报</li>
+            <li class="label">新媒体配置</li>
+            <li class="label">视频动画</li>
             <li class="seperator"></li>
             <li class="search_item">
               <input type="text" placeholder="搜索素材" />
@@ -32,9 +32,9 @@
               </div>
             </li>
             <li class="btn_view" v-if="token === ''">
-            <span class="btn1" @click="toRegister">注册</span>
-            <span class="btn2" @click="toLogin">登录</span>
-          </li>
+              <span class="btn1" @click="toRegister">注册</span>
+              <span class="btn2" @click="toLogin">登录</span>
+            </li>
             <li v-else class="btn_view">
               <div class="login_header_logo">
                 头像
@@ -42,7 +42,7 @@
               <div ref="popMenuRef">
                 <span class="username" @click="clickDropdown">{{ userName }}</span>
                 <div :class="['popMenu', { activePop: dropdownStatus }]">
-                   <div class="item1" style="height: 46px;" @click="goto(0)">我的信息</div>
+                  <div class="item1" style="height: 46px;" @click="goto(0)">我的信息</div>
                   <div class="item2" @click="goto(1)">我的作品</div>
                   <div class="item3" @click="goto(2)">我的资产</div>
                   <div class="item5" @click="goto(3)">帮助中心</div>
@@ -125,7 +125,7 @@ export default {
   data() {
     return {
       show_select_index: -1,
-      dropdownStatus: false,
+      dropdownStatus: false
     }
   },
   mounted() {
@@ -173,21 +173,21 @@ export default {
     },
     goto(index) {
       this.dropdownStatus = false
-      if (index <4) {
-        this.$router.push('/mine/info?index='+index)
+      if (index < 4) {
+        this.$router.push('/mine/info?index=' + index)
       } else if (index === 4) {
         this.$store.commit('clearStore')
-          this.$router.push('/home')
+        this.$router.push('/home')
       }
     },
-     toRegister() {
+    toRegister() {
       this.$store.commit('setActiveTab', 0)
       this.$router.push('/login')
     },
     toLogin() {
       this.$store.commit('setActiveTab', 1)
       this.$router.push('/login')
-    },
+    }
   }
 }
 </script>
@@ -312,73 +312,73 @@ export default {
             padding-top: 11px;
             position: relative;
             .popMenu {
-            width: 162px;
-            height: 289px;
-            border: 1px solid $color10;
-            position: absolute;
-            bottom: 0;
-            top: 86px;
-            left: 38px !important;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            box-sizing: border-box;
-            background: $color9;
-            display: none;
+              width: 162px;
+              height: 289px;
+              border: 1px solid $color10;
+              position: absolute;
+              bottom: 0;
+              top: 86px;
+              left: 38px !important;
+              z-index: 10;
+              display: flex;
+              flex-direction: column;
+              box-sizing: border-box;
+              background: $color9;
+              display: none;
 
-            .item1 {
-              height: 54px;
-              font-size: 16px;
-              color: #354052;
-              padding-left: 33px;
-              line-height: 54px;
-            }
-            .item2 {
-              height: 37px;
-              font-size: 16px;
-              color: #354052;
-              padding-left: 33px;
-              line-height: 37px;
-            }
-            .item3 {
-              height: 37px;
-              font-size: 16px;
-              color: #354052;
-              padding-left: 33px;
-              line-height: 37px;
-            }
-            .item4 {
-              height: 37px;
-              font-size: 16px;
-              color: #354052;
-              padding-left: 33px;
-              line-height: 37px;
-            }
-            .item5 {
-              height: 37px;
-              font-size: 16px;
-              padding-left: 33px;
-              line-height: 37px;
-              color: #354052;
-            }
-            .item6 {
-              height: 54px;
-              font-size: 16px;
-              padding-left: 33px;
-              line-height: 54px;
-              color: #354052;
-            }
-            > div {
-              cursor: pointer;
-              &:hover {
-                background: $color4;
-                color: $color9;
+              .item1 {
+                height: 54px;
+                font-size: 16px;
+                color: #354052;
+                padding-left: 33px;
+                line-height: 54px;
+              }
+              .item2 {
+                height: 37px;
+                font-size: 16px;
+                color: #354052;
+                padding-left: 33px;
+                line-height: 37px;
+              }
+              .item3 {
+                height: 37px;
+                font-size: 16px;
+                color: #354052;
+                padding-left: 33px;
+                line-height: 37px;
+              }
+              .item4 {
+                height: 37px;
+                font-size: 16px;
+                color: #354052;
+                padding-left: 33px;
+                line-height: 37px;
+              }
+              .item5 {
+                height: 37px;
+                font-size: 16px;
+                padding-left: 33px;
+                line-height: 37px;
+                color: #354052;
+              }
+              .item6 {
+                height: 54px;
+                font-size: 16px;
+                padding-left: 33px;
+                line-height: 54px;
+                color: #354052;
+              }
+              > div {
+                cursor: pointer;
+                &:hover {
+                  background: $color4;
+                  color: $color9;
+                }
               }
             }
-          }
-          .activePop {
-            display: block;
-          }
+            .activePop {
+              display: block;
+            }
             .btn1 {
               width: 80px;
               height: 40px;
@@ -477,10 +477,12 @@ export default {
           width: 162px;
           list-style: none;
           box-sizing: border-box;
+          display: inline-block;
           position: absolute;
           top: 37px;
+          left: 0;
           z-index: 10;
-          display: flex;
+          // display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
