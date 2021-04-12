@@ -699,6 +699,18 @@ export default {
       wx_checked:false
     }
   },
+    mounted() {
+    document.addEventListener('click', e => {
+      if (this.$refs.popMenuRef) {
+        if (!this.$refs.popMenuRef.contains(e.target)) {
+          this.dropdownStatus = false
+        }
+      }
+    })
+  },
+  unmounted() {
+    document.removeEventListener('click')
+  },
   computed: {
     ...mapState(['token', 'userName'])
   },
