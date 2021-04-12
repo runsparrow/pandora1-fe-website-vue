@@ -712,6 +712,10 @@ export default {
     {
      this.inner_voucher_tabIndex=0;
     }
+     if(this.outer_tabIndex===2&&parseInt(this.$route.query.inner_index)===2)
+    {
+      this.inner_voucher_tabIndex=2;
+    }
     document.addEventListener('click', e => {
       if (this.$refs.popMenuRef) {
         if (!this.$refs.popMenuRef.contains(e.target)) {

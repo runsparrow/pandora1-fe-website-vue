@@ -75,7 +75,7 @@
         <span class="spec">颜色 | RGB</span>
         <span class="spec">大小 | 9.9 M</span>
         <div class="btn_view">
-          <div class="buy_vip">
+          <div class="buy_vip" @click="applyVIP">
             立即开通VIP
           </div>
           <div class="collect">
@@ -155,6 +155,17 @@ export default {
       this.$store.commit('setActiveTab', 1)
       this.$router.push('/login')
     },
+    applyVIP()
+    {
+      if(!this.$store.state.token)
+      {
+        this.$router.push('/login')
+      }
+      else
+      {
+        this.$router.push('/mine/info?index=2&inner_index=2')
+      }
+    }
   }
 }
 </script>
