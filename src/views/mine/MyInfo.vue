@@ -27,15 +27,15 @@
             <div class="login_header_logo">
               头像
             </div>
-            <div>
-              <span class="username">{{ userName }}</span>
-              <!-- <div :class="['popMenu', { activePop: dropdownStatus }]">
+            <div ref="popMenuRef">
+              <span class="username" @click="clickDropdown">{{ userName }}</span>
+              <div :class="['popMenu', { activePop: dropdownStatus }]">
                 <div class="item1" style="padding-bottom: 10px;" @click="goto(0)">我的信息</div>
                 <div class="item2" @click="goto(1)">我的作品</div>
                 <div class="item3" @click="goto(2)">我的资产</div>
                 <div class="item5" @click="goto(3)">帮助中心</div>
                 <div class="item6" @click="goto(4)">退出</div>
-              </div> -->
+              </div>
             </div>
           </li>
         </ul>
@@ -716,16 +716,16 @@ export default {
     {
      this.inner_voucher_tabIndex=0;
     }
-    // document.addEventListener('click', e => {
-    //   if (this.$refs.popMenuRef) {
-    //     if (!this.$refs.popMenuRef.contains(e.target)) {
-    //       this.dropdownStatus = false
-    //     }
-    //   }
-    // })
+    document.addEventListener('click', e => {
+      if (this.$refs.popMenuRef) {
+        if (!this.$refs.popMenuRef.contains(e.target)) {
+          this.dropdownStatus = false
+        }
+      }
+    })
   },
   unmounted() {
-    // document.removeEventListener('click')
+    document.removeEventListener('click')
   },
   computed: {
     ...mapState(['token', 'userName'])
@@ -753,11 +753,11 @@ export default {
     },
     goto(index) {
       this.dropdownStatus = false
-      if (index === 0) {
-        this.$router.push('/mine/info')
+      if (index <4) {
+        this.$router.push('/mine/info?index='+index)
       } else if (index === 4) {
         this.$store.commit('clearStore')
-        this.$router.push('/home')
+          this.$router.push('/home')
       }
     }
   }
