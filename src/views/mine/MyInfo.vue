@@ -1661,6 +1661,8 @@ export default {
                 font-weight: 400;
                 line-height: 27px;
                 color: #5F6061;
+                padding-left: 14px;
+                box-sizing: border-box;
               }
             }
             .select_pay_kind
