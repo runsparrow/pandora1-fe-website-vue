@@ -623,9 +623,9 @@
                   <div :class="['nav', { active: payIndex === 1 }]" @click="selectPay(1)">
                     <img
                       class="zhekou_div"
-                      src="@a/imgs/sale_10_img.png"
+                      src="@a/imgs/sale_20_img.png"
                       alt=""
-                      srcset="@a/imgs/sale_10_img@2x.png 2x"
+                      srcset="@a/imgs/sale_20_img@2x.png 2x"
                     />
                     <div class="amount_div">
                       <span class="amount">16</span>
@@ -638,9 +638,9 @@
                   <div :class="['nav', { active: payIndex === 2 }]" @click="selectPay(2)">
                     <img
                       class="zhekou_div"
-                      src="@a/imgs/sale_10_img.png"
+                      src="@a/imgs/sale_30_img.png"
                       alt=""
-                      srcset="@a/imgs/sale_10_img@2x.png 2x"
+                      srcset="@a/imgs/sale_30_img@2x.png 2x"
                     />
                     <div class="amount_div">
                       <span class="amount">21</span>
