@@ -1653,9 +1653,8 @@ export default {
               align-items: center;
               box-sizing: border-box;
               display: flex;
-              justify-content: center;
+              text-align: center;
               align-items: center;
-              padding:0 51px;
               .month_desc{
                 flex:1;
                 font-size: 16px;
