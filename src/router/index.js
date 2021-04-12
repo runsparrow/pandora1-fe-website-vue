@@ -19,7 +19,15 @@ router.beforeEach((to, from, next) => {
   if (expires !== 0 && dateTime - expires >= 0) {
     $store.commit('clearStore')
   }
-  next()
+  if (to.path === '/mine/info') {
+    if (!token) {
+      router.replace('/home')
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
 
 export default router
