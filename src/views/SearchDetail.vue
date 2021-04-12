@@ -32,8 +32,8 @@
               </div>
             </li>
             <li class="btn_view" v-if="token === ''">
-              <span class="btn1">注册</span>
-              <span class="btn2">登录</span>
+              <span class="btn1" @click="toRegister">注册</span>
+            <span class="btn2" @click="toLogin">登录</span>
             </li>
             <li v-else class="btn_view">
               <div class="login_header_logo">
@@ -142,6 +142,14 @@ export default {
         this.$store.commit('clearStore')
           this.$router.push('/home')
       }
+    },
+    toRegister() {
+      this.$store.commit('setActiveTab', 0)
+      this.$router.push('/login')
+    },
+    toLogin() {
+      this.$store.commit('setActiveTab', 1)
+      this.$router.push('/login')
     },
   }
 }
