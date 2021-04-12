@@ -7,9 +7,9 @@
             <img class="logo_img" src="@a/imgs/logo_01.png" alt="" srcset="@a/imgs/logo_01@2x.png 2x" @click="toHome" />
             <span class="logo_title" @click="toHome">SooYi.CN</span>
           </li>
-          <li class="label">推广海报</li>
-          <li class="label">新媒体配置</li>
-          <li class="label">视频动画</li>
+          <li class="label" @click="toSearch">推广海报</li>
+          <li class="label" @click="toSearch">新媒体配置</li>
+          <li class="label" @click="toSearch">视频动画</li>
           <li class="seperator"></li>
           <li class="search_item">
             <input type="text" placeholder="搜索素材" />
@@ -727,6 +727,10 @@ export default {
     ...mapState(['token', 'userName'])
   },
   methods: {
+    toSearch()
+    {
+      this.$router.push('/search')
+    },
      toRegister() {
       this.$store.commit('setActiveTab', 0)
       this.$router.push('/login')
