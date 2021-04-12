@@ -262,10 +262,16 @@
                   <div class="header_logo">头像</div>
                   <span class="label_user">用户名</span>
                   <span class="label_jifen">积分:999</span>
-                  <div class="career_bg_view">
+                  <!-- <div class="career_bg_view">
                     <div class="c_name">Lv.1</div>
                     <div class="c_duty">设计师</div>
-                  </div>
+                  </div> -->
+                  <img
+                          class="career_bg_view"
+                          src="@a/imgs/design_img.png"
+                          alt=""
+                          srcset="@a/imgs/design_img@2x.png 2x"
+                        />
                 </div>
                 <div class="right_view">
                   <div class="row">
@@ -634,7 +640,8 @@
                   <div class="bottom_label">请选择支付方式</div>
                 </div>
                 <div class="nav_hr"></div>
-                <div class="pay_wx"></div>
+                <img v-if="!wx_checked" @click="clickWx(true)" class="pay_wx" src="@a/imgs/wx_unchecked.png" alt="" srcset="@a/imgs/wx_unchecked@2x.png 2x" />
+                <img v-if="wx_checked" @click="clickWx(false)" class="pay_wx" src="@a/imgs/wx_checked.png" alt="" srcset="@a/imgs/wx_checked@2x.png 2x" />
                 <div class="agree_view">
                   <div class="agree"></div>
                   <span class="base_label">同意</span>
@@ -689,7 +696,8 @@ export default {
       inner_voucher_tabIndex: 0,
       personIdentity: '医生',
       dropdownStatus: false,
-      payIndex: 1
+      payIndex: 1,
+      wx_checked:false
     }
   },
   computed: {
@@ -707,6 +715,10 @@ export default {
     },
     changeIdentity(e) {
       this.personIdentity = e.target.value
+    },
+    clickWx(status)
+    {
+      this.wx_checked=status
     }
   }
 }
@@ -1765,9 +1777,9 @@ export default {
             {
               width: 163px;
               height: 59px;
-              background: #DD3D29;
               margin-top: 19px;
               margin-left: 41px;
+              cursor: pointer;
             }
             .error_msg_line
             {

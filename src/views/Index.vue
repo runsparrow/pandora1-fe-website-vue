@@ -32,10 +32,9 @@
               <div :class="['popMenu', { activePop: dropdownStatus }]">
                 <div class="item1" @click="goto(0)">我的信息</div>
                 <div class="item2" @click="goto(1)">我的作品</div>
-                <div class="item3" @click="goto(2)">我的订单</div>
-                <div class="item4" @click="goto(3)">充值中心</div>
-                <div class="item5" @click="goto(4)">帮助中心</div>
-                <div class="item6" @click="goto(5)">退出</div>
+                <div class="item3" @click="goto(2)">我的资产</div>
+                <div class="item5" @click="goto(3)">帮助中心</div>
+                <div class="item6" @click="goto(4)">退出</div>
               </div>
             </div>
           </li>
