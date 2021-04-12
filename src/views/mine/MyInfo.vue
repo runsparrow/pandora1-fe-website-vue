@@ -654,6 +654,12 @@
             </template>
             <template v-if="inner_voucher_tabIndex === 3">
               <div class="title_content_view">
+                 <div class="table_header">
+                  <div class="title">购买时间</div>
+                  <div class="title">支出</div>
+                  <div class="title">金额</div>
+                  <div class="title">有效时间</div>
+                </div>
                 <div class="table_row">
                   <span class="column">
                     2021-01-23 22:00:59
