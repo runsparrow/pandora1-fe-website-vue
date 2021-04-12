@@ -172,8 +172,9 @@ export default {
       this.dropdownStatus = false
       if (index === 0) {
         this.$router.push('/mine/info')
-      } else if (index === 5) {
+      } else if (index === 4) {
         this.$store.commit('clearStore')
+          this.$router.push('/home')
       }
     }
   }

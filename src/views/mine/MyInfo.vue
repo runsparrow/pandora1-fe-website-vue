@@ -730,6 +730,15 @@ export default {
     clickWx(status)
     {
       this.wx_checked=status
+    },
+    goto(index) {
+      this.dropdownStatus = false
+      if (index === 0) {
+        this.$router.push('/mine/info')
+      } else if (index === 4) {
+        this.$store.commit('clearStore')
+        this.$router.push('/home')
+      }
     }
   }
 }
