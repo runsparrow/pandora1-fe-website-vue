@@ -30,7 +30,7 @@
             <div ref="popMenuRef">
               <span class="username" @click="clickDropdown">{{ userName }}</span>
               <div :class="['popMenu', { activePop: dropdownStatus }]">
-                <div class="item6" style="padding-bottom: 10px;"  @click="goto(4)">退出</div>
+                <div class="item6" style="padding-bottom: 10px;" @click="goto(4)">退出</div>
               </div>
             </div>
           </li>
@@ -262,11 +262,11 @@
                     <div class="c_duty">设计师</div>
                   </div> -->
                   <img
-                          class="career_bg_view"
-                          src="@a/imgs/design_img.png"
-                          alt=""
-                          srcset="@a/imgs/design_img@2x.png 2x"
-                        />
+                    class="career_bg_view"
+                    src="@a/imgs/design_img.png"
+                    alt=""
+                    srcset="@a/imgs/design_img@2x.png 2x"
+                  />
                 </div>
                 <div class="right_view">
                   <div class="row">
@@ -574,7 +574,12 @@
                 <div class="table_head_row">
                   <div class="item_left">
                     <span class="mine_label">我的身份:</span>
-                     <img class="shenfen_img" src="@a/imgs/account_img.png" alt="" srcset="@a/imgs/account_img@2x.png 2x" />
+                    <img
+                      class="shenfen_img"
+                      src="@a/imgs/account_img.png"
+                      alt=""
+                      srcset="@a/imgs/account_img@2x.png 2x"
+                    />
                     <span class="vip_level">普通VIP</span>
                   </div>
                   <div class="item_right">
@@ -584,7 +589,7 @@
                 </div>
                 <div class="vip_nav">
                   <img class="vip_icon" src="@a/imgs/account_img.png" alt="" srcset="@a/imgs/account_img@2x.png 2x" />
-                
+
                   <span class="title">我的VIP</span>
                   <span class="effect_label">有效期至：2021-03-01</span>
                 </div>
@@ -601,7 +606,12 @@
                 </div>
                 <div class="select_pay_kind">
                   <div :class="['nav', { active: payIndex === 0 }]" @click="selectPay(0)">
-                    <img class="zhekou_div" src="@a/imgs/sale_10_img.png" alt="" srcset="@a/imgs/sale_10_img@2x.png 2x" />
+                    <img
+                      class="zhekou_div"
+                      src="@a/imgs/sale_10_img.png"
+                      alt=""
+                      srcset="@a/imgs/sale_10_img@2x.png 2x"
+                    />
                     <div class="amount_div">
                       <span class="amount">9</span>
                       <span class="unit">元</span>
@@ -611,7 +621,12 @@
                     </div>
                   </div>
                   <div :class="['nav', { active: payIndex === 1 }]" @click="selectPay(1)">
-                    <img class="zhekou_div" src="@a/imgs/sale_10_img.png" alt="" srcset="@a/imgs/sale_10_img@2x.png 2x" />
+                    <img
+                      class="zhekou_div"
+                      src="@a/imgs/sale_10_img.png"
+                      alt=""
+                      srcset="@a/imgs/sale_10_img@2x.png 2x"
+                    />
                     <div class="amount_div">
                       <span class="amount">16</span>
                       <span class="unit">元</span>
@@ -621,7 +636,12 @@
                     </div>
                   </div>
                   <div :class="['nav', { active: payIndex === 2 }]" @click="selectPay(2)">
-                    <img class="zhekou_div" src="@a/imgs/sale_10_img.png" alt="" srcset="@a/imgs/sale_10_img@2x.png 2x" />
+                    <img
+                      class="zhekou_div"
+                      src="@a/imgs/sale_10_img.png"
+                      alt=""
+                      srcset="@a/imgs/sale_10_img@2x.png 2x"
+                    />
                     <div class="amount_div">
                       <span class="amount">21</span>
                       <span class="unit">元</span>
@@ -636,11 +656,39 @@
                   <div class="bottom_label">请选择支付方式</div>
                 </div>
                 <div class="nav_hr"></div>
-                <img v-if="!wx_checked" @click="clickWx(true)" class="pay_wx" src="@a/imgs/wx_unchecked.png" alt="" srcset="@a/imgs/wx_unchecked@2x.png 2x" />
-                <img v-if="wx_checked" @click="clickWx(false)" class="pay_wx" src="@a/imgs/wx_checked.png" alt="" srcset="@a/imgs/wx_checked@2x.png 2x" />
+                <img
+                  v-if="!wx_checked"
+                  @click="clickWx(true)"
+                  class="pay_wx"
+                  src="@a/imgs/wx_unchecked.png"
+                  alt=""
+                  srcset="@a/imgs/wx_unchecked@2x.png 2x"
+                />
+                <img
+                  v-if="wx_checked"
+                  @click="clickWx(false)"
+                  class="pay_wx"
+                  src="@a/imgs/wx_checked.png"
+                  alt=""
+                  srcset="@a/imgs/wx_checked@2x.png 2x"
+                />
                 <div class="agree_view">
-                  <img class="agree" @click="clickAgree(true)" v-if="!agree_checked" src="@a/imgs/pay_unchecked_img.png" alt="" srcset="@a/imgs/pay_unchecked_img@2x.png 2x" />
-                  <img class="agree" @click="clickAgree(false)" v-if="agree_checked" src="@a/imgs/pay_checked_img.png" alt="" srcset="@a/imgs/pay_checked_img@2x.png 2x" />
+                  <img
+                    class="agree"
+                    @click="clickAgree(true)"
+                    v-if="!agree_checked"
+                    src="@a/imgs/pay_unchecked_img.png"
+                    alt=""
+                    srcset="@a/imgs/pay_unchecked_img@2x.png 2x"
+                  />
+                  <img
+                    class="agree"
+                    @click="clickAgree(false)"
+                    v-if="agree_checked"
+                    src="@a/imgs/pay_checked_img.png"
+                    alt=""
+                    srcset="@a/imgs/pay_checked_img@2x.png 2x"
+                  />
                   <span class="base_label">同意</span>
                   <span class="base_label under_line">用户协议</span>
                   <span class="base_label">与</span>
@@ -654,7 +702,7 @@
             </template>
             <template v-if="inner_voucher_tabIndex === 3">
               <div class="title_content_view">
-                 <div class="table_header">
+                <div class="table_header">
                   <div class="title">购买时间</div>
                   <div class="title">支出</div>
                   <div class="title">金额</div>
@@ -665,7 +713,7 @@
                     2021-01-23 22:00:59
                   </span>
                   <span class="column">
-                     <img class="vip_img" src="@a/imgs/account_img.png" alt="" srcset="@a/imgs/account_img@2x.png 2x" />
+                    <img class="vip_img" src="@a/imgs/account_img.png" alt="" srcset="@a/imgs/account_img@2x.png 2x" />
                     <span class="vip_label">VIP开通</span>
                   </span>
                   <span class="column">
@@ -700,27 +748,23 @@ export default {
       personIdentity: '医生',
       dropdownStatus: false,
       payIndex: 1,
-      wx_checked:false,
-      agree_checked:false
+      wx_checked: false,
+      agree_checked: false
     }
   },
-    mounted() {
-    this.outer_tabIndex=parseInt(this.$route.query.index);
-    if(this.outer_tabIndex===0)
-    {
-     this.inner_tabIndex=0;
+  mounted() {
+    this.outer_tabIndex = parseInt(this.$route.query.index)
+    if (this.outer_tabIndex === 0) {
+      this.inner_tabIndex = 0
     }
-    if(this.outer_tabIndex===1)
-    {
-     this.inner_sample_tabIndex=0;
+    if (this.outer_tabIndex === 1) {
+      this.inner_sample_tabIndex = 0
     }
-    if(this.outer_tabIndex===2)
-    {
-     this.inner_voucher_tabIndex=0;
+    if (this.outer_tabIndex === 2) {
+      this.inner_voucher_tabIndex = 0
     }
-     if(this.outer_tabIndex===2&&parseInt(this.$route.query.inner_index)===2)
-    {
-      this.inner_voucher_tabIndex=2;
+    if (this.outer_tabIndex === 2 && parseInt(this.$route.query.inner_index) === 2) {
+      this.inner_voucher_tabIndex = 2
     }
     document.addEventListener('click', e => {
       if (this.$refs.popMenuRef) {
@@ -737,11 +781,10 @@ export default {
     ...mapState(['token', 'userName'])
   },
   methods: {
-    toSearch()
-    {
+    toSearch() {
       this.$router.push('/search')
     },
-     toRegister() {
+    toRegister() {
       this.$store.commit('setActiveTab', 0)
       this.$router.push('/login')
     },
@@ -761,21 +804,19 @@ export default {
     changeIdentity(e) {
       this.personIdentity = e.target.value
     },
-    clickWx(status)
-    {
-      this.wx_checked=status
+    clickWx(status) {
+      this.wx_checked = status
     },
-    clickAgree(status)
-    {
-      this.agree_checked=status
+    clickAgree(status) {
+      this.agree_checked = status
     },
     goto(index) {
       this.dropdownStatus = false
-      if (index <4) {
-        this.$router.push('/mine/info?index='+index)
+      if (index < 4) {
+        this.$router.push('/mine/info?index=' + index)
       } else if (index === 4) {
         this.$store.commit('clearStore')
-          this.$router.push('/home')
+        this.$router.push('/home')
       }
     }
   }
@@ -1462,7 +1503,7 @@ export default {
             padding: 11px 64px;
             .table_header
             {
-              width: 876px;
+              width: 705px;
               background: #F5F5F5;
               height: 40px;
               display: flex;
@@ -1479,7 +1520,7 @@ export default {
             }
             .table_row
             {
-               width: 876px;
+               width: 705px;
                height: 67px;
                border-bottom: 2px solid #E7E7E7;
                display: flex;
@@ -1611,7 +1652,7 @@ export default {
             .table_head_row
             {
               box-sizing: border-box;
-              width: 876px;
+              width: 705px;
               background: #F5F5F5;
               height: 40px;
               display: flex;
@@ -1683,7 +1724,7 @@ export default {
             }
             .vip_nav
             {
-              width: 876px;
+              width: 705px;
               height: 72px;
               display: flex;
               flex-direction: row;
@@ -1884,7 +1925,7 @@ export default {
             }
             .table_header
             {
-              width: 876px;
+              width: 705px;
               background: #F5F5F5;
               height: 40px;
               display: flex;
@@ -1900,7 +1941,7 @@ export default {
               }
             }
              .result-view {
-              width: 876px;
+              width: 705px;
               margin-top: 20px;
               display: flex;
               flex-direction: row;
@@ -1913,14 +1954,14 @@ export default {
                  display: flex;
                 flex-direction: column;
                 .lis_img {
-                  width: 205px;
-                  height: 219px;
+                  width: 156px;
+                  height: 156px;
                   margin: 0 3px;
                 }
                 .content
                 {
                    box-sizing: border-box;
-                   width: 205px;
+                   width: 156px;
                    height: 50px;
                    background: #F5F5F5;
                    color:#5F6061;
@@ -1932,7 +1973,7 @@ export default {
             }
             .table_row
             {
-               width: 876px;
+               width: 705px;
                height: 67px;
                border-bottom: 2px solid #E7E7E7;
                display: flex;
