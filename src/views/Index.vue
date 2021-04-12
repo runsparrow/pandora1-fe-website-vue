@@ -170,8 +170,8 @@ export default {
     },
     goto(index) {
       this.dropdownStatus = false
-      if (index === 0) {
-        this.$router.push('/mine/info')
+      if (index <4) {
+        this.$router.push('/mine/info?index='+index)
       } else if (index === 4) {
         this.$store.commit('clearStore')
           this.$router.push('/home')
