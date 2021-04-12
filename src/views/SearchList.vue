@@ -14,9 +14,9 @@
               />
               <span class="logo_title" @click="toHome">SooYi.CN</span>
             </li>
-            <li class="label" @click="toSearch">推广海报</li>
-            <li class="label" @click="toSearch">新媒体配置</li>
-            <li class="label" @click="toSearch">视频动画</li>
+            <li class="label" >推广海报</li>
+            <li class="label" >新媒体配置</li>
+            <li class="label" >视频动画</li>
             <li class="seperator"></li>
             <li class="search_item">
               <input type="text" placeholder="搜索素材" />
@@ -162,10 +162,6 @@ export default {
     document.removeEventListener('click')
   },
   methods: {
-    toSearch()
-    {
-      this.$router.push('/search')
-    },
     clickDropdown() {
       this.dropdownStatus = !this.dropdownStatus
     },
