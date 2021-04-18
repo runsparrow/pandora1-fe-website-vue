@@ -2,19 +2,17 @@ import axios from 'axios'
 import store from '@x'
 
 let ajaxQueues = {}
-const ajax = axios.create({
+const ajaxFile = axios.create({
   baseURL: process.env.VUE_APP_BASE_API_URL,
-  timeout: 1000 * 5
+  timeout: 0
 })
 
-ajax.defaults.headers.common['Authorization'] = store.state.token === undefined ? '' : 'Bearer ' + store.state.token
+ajaxFile.defaults.headers.common['Authorization'] = store.state.token === undefined ? '' : 'Bearer ' + store.state.token
+ajaxFile.defaults.headers.common['Content-Type'] = 'multipart/form-data'
 
-ajax.interceptors.request.use(
+ajaxFile.interceptors.request.use(
   config => {
     const { cancelTimeout, url } = config
-    if (cancelTimeout) {
-      config.timeout = 0
-    }
     if (!Object.keys(url).length) {
       //开启Spin
     }
@@ -26,7 +24,7 @@ ajax.interceptors.request.use(
   }
 )
 
-ajax.interceptors.response.use(
+ajaxFile.interceptors.response.use(
   response => {
     const { config, status, data } = response
     delete ajaxQueues[config.url]
@@ -67,4 +65,4 @@ const errorHandler = res => {
   }
 }
 
-export default ajax
+export default ajaxFile

@@ -6,6 +6,9 @@ export default {
     MIS_CMS_Auth_Regist: '/MIS/CMS/Auth/Regist',
     MIS_CMS_Auth_Forget: '/MIS/CMS/Auth/Forget',
     Unauthorized_MIS_CMS_Member_Row_ByName: 'Unauthorized/MIS/CMS/Member/Row/ByName',
-    Unauthorized_MIS_CMS_Member_Row_ByMobile: '/Unauthorized/MIS/CMS/Member/Row/ByMobile'
+    Unauthorized_MIS_CMS_Member_Row_ByMobile: '/Unauthorized/MIS/CMS/Member/Row/ByMobile',
+
+    File_Base_URL: 'http://localhost:58002',
+    Upload_API_URL: '/v1/api/file/upload_single_file'
   }
 }
