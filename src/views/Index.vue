@@ -7,7 +7,7 @@
             <img class="logo_img" src="@a/imgs/logo_01.png" alt="" srcset="@a/imgs/logo_01@2x.png 2x" />
             <span class="logo_title">SooYi.CN</span>
           </li>
-          <li class="label" @click="toSearch">推广海报</li>
+          <li class="label" @click="toSearch">推广海报123</li>
           <li class="label" @click="toSearch">新媒体配置</li>
           <li class="label" @click="toSearch">视频动画</li>
           <li class="seperator"></li>
