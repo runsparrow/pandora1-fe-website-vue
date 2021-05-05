@@ -110,28 +110,25 @@
                   <div class="row">
                     <span class="label">身份</span>
                     <select class="select_view" @change="e => changeIdentity(e)">
-                      <option value="医生">医生</option>
-                      <option value="护士">护士</option>
-                      <option value="医院行政部门">医院行政部门</option>
-                      <option value="企业">企业</option>
+                      <option v-for="item in doctorsArr" :key="item.id" :value="item.id">{{ item.name }}</option>
                     </select>
                   </div>
                   <div class="row">
                     <span class="label">省</span>
-                    <select class="select_view">
-                      <option value="">上海市</option>
+                    <select class="select_view" @change="e => provinceChange(e)">
+                      <option v-for="item in provincesArrr" :key="item.code" :value="item.code">{{ item.name }}</option>
                     </select>
                   </div>
                   <div class="row">
                     <span class="label">市</span>
-                    <select class="select_view">
-                      <option value="">上海市</option>
+                    <select class="select_view" @change="e => cityChange(e)">
+                      <option v-for="item in citiesArr" :key="item.code" :value="item.code">{{ item.name }}</option>
                     </select>
                   </div>
                   <div class="row">
                     <span class="label">区</span>
                     <select class="select_view">
-                      <option value="">黄浦区</option>
+                      <option v-for="item in divisionArr" :key="item.code" :value="item.code">{{ item.name }}</option>
                     </select>
                   </div>
                   <div class="row" v-if="personIdentity === '企业'">
@@ -745,6 +742,7 @@
 <script>
 import { mapState } from 'vuex'
 import { uploadFileService } from '@s/upload-file-service'
+import { getDcotorsService, getAreaInfoService } from '@s/mine-info-service'
 export default {
   name: 'MyInfoView',
   data() {
@@ -758,7 +756,11 @@ export default {
       payIndex: 1,
       wx_checked: false,
       agree_checked: false,
-      certArr: []
+      certArr: [],
+      doctorsArr: [],
+      provincesArrr: [],
+      citiesArr: [],
+      divisionArr: []
     }
   },
   mounted() {
@@ -782,6 +784,8 @@ export default {
         }
       }
     })
+    this.loadDoctors()
+    this.loadProvinces()
   },
   unmounted() {
     document.removeEventListener('click')
@@ -842,6 +846,48 @@ export default {
     },
     toTouchUploadFile() {
       this.$refs.CertUploadFileRef.click()
+    },
+    async loadDoctors() {
+      const { result, rows, errorInfo } = await getDcotorsService()
+      if (result) {
+        this.doctorsArr = rows
+      }
+    },
+    async loadProvinces() {
+      const { result: proviceResult, rows: proviceRows, errorInfo: provinceErrorInfo } = await getAreaInfoService('0')
+      if (proviceResult) {
+        this.provincesArrr = proviceRows
+        const { result: cityResult, rows: cityRows, errorInfo: cityErrorInfo } = await getAreaInfoService(
+          proviceRows[0].code
+        )
+        if (cityResult) {
+          this.citiesArr = cityRows
+          const { result: divisionResult, rows: divisionRows, errorInfo: divisionErrorInfo } = await getAreaInfoService(
+            cityRows[0].code
+          )
+          if (divisionResult) {
+            this.divisionArr = divisionRows
+          }
+        }
+      }
+    },
+    async provinceChange(e) {
+      const { result, rows, errorInfo } = await getAreaInfoService(e.target.value)
+      if (result) {
+        this.citiesArr = rows
+        const { result: divisionResult, rows: divisionRows, errorInfo: divisionErrorInfo } = await getAreaInfoService(
+          rows[0].code
+        )
+        if (divisionResult) {
+          this.divisionArr = divisionRows
+        }
+      }
+    },
+    async cityChange(e) {
+      const { result, rows, errorInfo } = await getAreaInfoService(e.target.value)
+      if (result) {
+        this.divisionArr = rows
+      }
     }
   }
 }
