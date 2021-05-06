@@ -32,10 +32,10 @@ module.exports = {
       '/pandora1': {
         target: proxy_target_url,
         ws: true,
-        changeOrigin: true,
-        pathRewrite: {
-          '^/pandora1': '/pandora1'
-        }
+        changeOrigin: true
+        // pathRewrite: {
+        //   '^/pandora1': '/pandora1'
+        // }
       }
     }
   },

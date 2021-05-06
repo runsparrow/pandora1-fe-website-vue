@@ -5,8 +5,7 @@
   "scripts": {
     "start:dev-18": "env-cmd -e dev-18 vue-cli-service serve",
     "start:dev-41": "env-cmd -e dev-41 vue-cli-service serve",
-    "build:prod-18": "env-cmd -e prod-18 vue-cli-service build --report",
-    "build:prod-41": "env-cmd -e prod-41 vue-cli-service build --report",
+    "build": "env-cmd -e prod vue-cli-service build --report",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
