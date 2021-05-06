@@ -5,7 +5,7 @@ const encryption = true
 const resolve = dir => path.join(__dirname, dir)
 let proxy_target_url = ''
 if (process.env.NODE_ENV === 'development' && process.env.VUE_APP_ENV == 'dev-18') {
-  proxy_target_url = 'http://106.15.88.18'
+  proxy_target_url = 'https://webapi-xs.com'
 } else if (process.env.NODE_ENV === 'development' && process.env.VUE_APP_ENV == 'dev-41') {
   proxy_target_url = 'https://fourlifecode.com'
 }
