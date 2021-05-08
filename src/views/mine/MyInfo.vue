@@ -787,7 +787,7 @@ export default {
     setTimeout(() => {
       this.loadDoctors()
       this.loadProvinces()
-    }, 300)
+    }, 500)
   },
   unmounted() {
     document.removeEventListener('click')
