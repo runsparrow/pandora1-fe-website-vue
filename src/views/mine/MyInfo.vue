@@ -109,7 +109,7 @@
                 <div class="right_view">
                   <div class="row">
                     <span class="label">身份</span>
-                    <select class="select_view" @change="e => changeIdentity(e)">
+                    <select class="select_view" @change="e => changeIdentity(e)" v-model="personIdentity">
                       <option v-for="item in doctorsArr" :key="item.id" :value="item.id">{{ item.name }}</option>
                     </select>
                   </div>
@@ -131,45 +131,39 @@
                       <option v-for="item in divisionArr" :key="item.code" :value="item.code">{{ item.name }}</option>
                     </select>
                   </div>
-                  <div class="row" v-if="personIdentity === '企业'">
+                  <div class="row" v-if="personIdentity === '5'">
                     <span class="label">公司名称</span>
                     <input type="text" class="select_view" />
                   </div>
-                  <div class="row" v-if="personIdentity === '企业'">
+                  <div class="row" v-if="personIdentity === '5'">
                     <span class="label">所属部门</span>
                     <input type="text" class="select_view" />
                   </div>
-                  <div class="row" v-if="personIdentity === '企业'">
+                  <div class="row" v-if="personIdentity === '5'">
                     <span class="label">职位职务</span>
                     <input type="text" class="select_view" />
                   </div>
-                  <div class="row" v-if="personIdentity === '企业'">
+                  <div class="row" v-if="personIdentity === '5'">
                     <span class="label">公司邮箱</span>
                     <input type="text" class="select_view" />
                   </div>
-                  <div
-                    class="row"
-                    v-if="personIdentity === '医生' || personIdentity === '护士' || personIdentity === '医院行政部门'"
-                  >
+                  <div class="row" v-if="personIdentity === '2' || personIdentity === '3' || personIdentity === '4'">
                     <span class="label">医院/单位</span>
                     <select class="select_view">
                       <option value="">XXXXXX</option>
                     </select>
                   </div>
-                  <div
-                    class="row"
-                    v-if="personIdentity === '医生' || personIdentity === '护士' || personIdentity === '医院行政部门'"
-                  >
+                  <div class="row" v-if="personIdentity === '2' || personIdentity === '3' || personIdentity === '4'">
                     <span class="label">科室/部门</span>
                     <select class="select_view">
                       <option value="">XXXXXX</option>
                     </select>
                   </div>
-                  <div class="row" v-if="personIdentity === '医生' || personIdentity === '护士'">
+                  <div class="row" v-if="personIdentity === '2' || personIdentity === '3'">
                     <span class="label">证件编码</span>
                     <input type="text" class="select_view" />
                   </div>
-                  <div class="row" v-if="personIdentity === '医生' || personIdentity === '护士'">
+                  <div class="row" v-if="personIdentity === '2' || personIdentity === '3'">
                     <span class="label">证书上传</span>
                     <div class="pic_view">
                       <div class="upload_view" @click="toTouchUploadFile">
@@ -223,7 +217,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row" v-if="personIdentity === '医院行政部门'">
+                  <div class="row" v-if="personIdentity === '4'">
                     <span class="label">工牌号上传</span>
                     <div class="pic_view">
                       <div class="upload_view">
@@ -751,7 +745,7 @@ export default {
       inner_tabIndex: 0,
       inner_sample_tabIndex: 0,
       inner_voucher_tabIndex: 0,
-      personIdentity: '医生',
+      personIdentity: '2',
       dropdownStatus: false,
       payIndex: 1,
       wx_checked: false,
