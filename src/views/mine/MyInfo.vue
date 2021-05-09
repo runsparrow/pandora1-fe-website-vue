@@ -687,7 +687,7 @@
                     alt=""
                     srcset="@a/imgs/pay_checked_img@2x.png 2x"
                   />
-                  <span class="base_label">同意</span>
+                  <span class="base_label">同意2</span>
                   <span class="base_label under_line">用户协议</span>
                   <span class="base_label">与</span>
                   <span class="base_label under_line">隐私政策</span>
