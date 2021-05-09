@@ -32,7 +32,7 @@ ajax.interceptors.response.use(
     delete ajaxQueues[config.url]
     setTimeout(() => {
       store.commit('setLoading', false)
-    }, 1000)
+    }, 500)
 
     // 关闭Spin
     if (status === 200) {
