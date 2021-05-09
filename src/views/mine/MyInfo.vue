@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+    <div class="loading" v-show="loading">
+      <img class="loading_img" src="@a/imgs/loading.gif" alt="" />
+    </div>
     <div class="header_view">
       <div class="top_view">
         <ul class="list">
@@ -778,16 +781,14 @@ export default {
         }
       }
     })
-    setTimeout(() => {
-      this.loadDoctors()
-      this.loadProvinces()
-    }, 500)
+    this.loadDoctors()
+    this.loadProvinces()
   },
   unmounted() {
     document.removeEventListener('click')
   },
   computed: {
-    ...mapState(['token', 'userName'])
+    ...mapState(['token', 'userName', 'loading'])
   },
   methods: {
     toSearch() {
@@ -898,6 +899,18 @@ export default {
   margin-right: 106px;
   width: 1231px;
   margin: 0 auto;
+  .loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background: rgba(17, 17, 17, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .header_view {
     display: flex;
     flex-direction: column;

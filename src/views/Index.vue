@@ -154,8 +154,7 @@ export default {
     document.removeEventListener('click')
   },
   methods: {
-    toSearch()
-    {
+    toSearch() {
       this.$router.push('/search')
     },
     toRegister() {
@@ -174,11 +173,11 @@ export default {
     },
     goto(index) {
       this.dropdownStatus = false
-      if (index <4) {
-        this.$router.push('/mine/info?index='+index)
+      if (index < 4) {
+        this.$router.push('/mine/info?index=' + index)
       } else if (index === 4) {
         this.$store.commit('clearStore')
-          this.$router.push('/home')
+        this.$router.push('/home')
       }
     }
   }

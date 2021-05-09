@@ -7,6 +7,9 @@ export default {
   setActiveTab(state, payload) {
     state.activeTab = payload
   },
+  setLoading(state, payload) {
+    state.loading = payload
+  },
   clearStore(state, payload) {
     state.userName = ''
     state.token = ''

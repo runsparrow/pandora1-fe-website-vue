@@ -283,7 +283,14 @@
               <img class="user_pwd_img" src="@a/imgs/user_pwd.png" alt="" srcset="@a/imgs/user_pwd@2x.png 2x" />
             </div>
 
-            <button class="btn_submit" @click="loginSooYi" ref="loginRef">提交</button>
+            <button
+              :disabled="btnLoginLabel === '登录中...' ? true : false"
+              class="btn_submit"
+              @click="loginSooYi"
+              ref="loginRef"
+            >
+              {{ btnLoginLabel }}
+            </button>
             <div class="dec_view">
               <span class="label01">没有账号?</span>
               <span
@@ -369,7 +376,8 @@ export default {
       userNameErrorMsg: '用户名不能为空',
       userNameInValid: false,
       registSuccess: false,
-      btn_disabled: false
+      btn_disabled: false,
+      btnLoginLabel: '登录'
     }
   },
   computed: {
@@ -611,12 +619,14 @@ export default {
       if (that.accountNameInValid || that.accountPwdInValid) {
         return
       }
+      this.btnLoginLabel = '登录中...'
       try {
         const { result, token, member } = await getUserInfoService({
           name: that.accountName,
           password: that.accountPwd
         })
         if (result) {
+          this.btnLoginLabel = '登录'
           that.accountNameInValid = false
           that.accountPwdInValid = false
           const dateTime = new Date()

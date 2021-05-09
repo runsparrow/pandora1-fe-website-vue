@@ -7,11 +7,11 @@ const ajax = axios.create({
   timeout: 1000 * 5
 })
 
-ajax.defaults.headers.common['Authorization'] = store.state.token === undefined ? '' : 'Bearer ' + store.state.token
-
 ajax.interceptors.request.use(
   config => {
     const { cancelTimeout, url } = config
+    config.headers.Authorization = 'Bearer ' + store.state.token
+    store.commit('setLoading', true)
     if (cancelTimeout) {
       config.timeout = 0
     }
@@ -30,6 +30,10 @@ ajax.interceptors.response.use(
   response => {
     const { config, status, data } = response
     delete ajaxQueues[config.url]
+    setTimeout(() => {
+      store.commit('setLoading', false)
+    }, 1000)
+
     // 关闭Spin
     if (status === 200) {
       return data
