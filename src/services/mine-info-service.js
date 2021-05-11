@@ -14,3 +14,10 @@ export const getAreaInfoService = async payload => {
     method: 'GET'
   })
 }
+
+export const getHospitalsService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_ASM_Hospital_Rows_ByPid}/${payload}`,
+    method: 'GET'
+  })
+}

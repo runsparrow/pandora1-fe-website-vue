@@ -152,19 +152,19 @@
                   </div>
                   <div class="row" v-if="personIdentity === '2' || personIdentity === '3' || personIdentity === '4'">
                     <span class="label">医院/单位</span>
-                    <select class="select_view">
-                      <option value="">XXXXXX</option>
+                    <select class="select_view" @change="e => hospitalChange(e)">
+                      <option v-for="item in hospitalsArr" :key="item.id" :value="item.id">{{ item.name }}</option>
                     </select>
                   </div>
                   <div class="row" v-if="personIdentity === '2' || personIdentity === '3' || personIdentity === '4'">
                     <span class="label">科室/部门</span>
                     <select class="select_view">
-                      <option value="">XXXXXX</option>
+                      <option v-for="item in keshiArr" :key="item.id" :value="item.id">{{ item.name }}</option>
                     </select>
                   </div>
                   <div class="row" v-if="personIdentity === '2' || personIdentity === '3'">
                     <span class="label">证件编码</span>
-                    <input type="text" class="select_view" />
+                    <input type="text" class="select_view" v-model="certificateNo" />
                   </div>
                   <div class="row" v-if="personIdentity === '2' || personIdentity === '3'">
                     <span class="label">证书上传</span>
@@ -185,37 +185,19 @@
                         />
                       </div>
                       <div class="pic_list">
-                        <div class="img_item">
-                          <img
+                        <div
+                          class="img_item"
+                          :style="{
+                            backgroundSize: 'contain',
+                            backgroundImage: 'url(' + certificateUrl + ')'
+                          }"
+                        >
+                          <!-- <img
                             class="del_file_img"
                             src="@a/imgs/del-file.png"
                             alt=""
                             srcset="@a/imgs/del-file@2x.png 2x"
-                          />
-                        </div>
-                        <div class="img_item">
-                          <img
-                            class="del_file_img"
-                            src="@a/imgs/del-file.png"
-                            alt=""
-                            srcset="@a/imgs/del-file@2x.png 2x"
-                          />
-                        </div>
-                        <div class="img_item">
-                          <img
-                            class="del_file_img"
-                            src="@a/imgs/del-file.png"
-                            alt=""
-                            srcset="@a/imgs/del-file@2x.png 2x"
-                          />
-                        </div>
-                        <div class="img_item">
-                          <img
-                            class="del_file_img"
-                            src="@a/imgs/del-file.png"
-                            alt=""
-                            srcset="@a/imgs/del-file@2x.png 2x"
-                          />
+                          /> -->
                         </div>
                       </div>
                     </div>
@@ -739,7 +721,7 @@
 <script>
 import { mapState } from 'vuex'
 import { uploadFileService } from '@s/upload-file-service'
-import { getDcotorsService, getAreaInfoService } from '@s/mine-info-service'
+import { getDcotorsService, getAreaInfoService, getHospitalsService } from '@s/mine-info-service'
 export default {
   name: 'MyInfoView',
   data() {
@@ -757,7 +739,12 @@ export default {
       doctorsArr: [],
       provincesArrr: [],
       citiesArr: [],
-      divisionArr: []
+      divisionArr: [],
+      hospitalsArr: [],
+      keshiArr: [],
+
+      certificateNo: '',
+      certificateUrl: ''
     }
   },
   mounted() {
@@ -783,6 +770,7 @@ export default {
     })
     this.loadDoctors()
     this.loadProvinces()
+    this.loadHospitals(-1)
   },
   unmounted() {
     document.removeEventListener('click')
@@ -832,14 +820,18 @@ export default {
 
     async uploadCertFile() {
       let inputDOM = this.$refs.CertUploadFileRef
-      if (this.certArr.length > 2) {
-        alert('图片最多传2张!')
+      if (this.certArr.length > 1) {
+        alert('图片最多传1张!')
         return
       }
       let file = inputDOM.files[0]
       let param = new FormData()
       param.append('file', file)
-      const { result, errorInfo } = await uploadFileService(param)
+      const {
+        data: { fileName, relativePath },
+        errorInfo
+      } = await uploadFileService(param)
+      this.certificateUrl = relativePath
     },
     toTouchUploadFile() {
       this.$refs.CertUploadFileRef.click()
@@ -848,6 +840,20 @@ export default {
       const { result, rows, errorInfo } = await getDcotorsService()
       if (result) {
         this.doctorsArr = rows
+      }
+    },
+    async loadHospitals(pid) {
+      const { result, rows, errorInfo } = await getHospitalsService(pid)
+      if (result) {
+        this.hospitalsArr = rows
+        if (this.hospitalsArr.length > 0) {
+          const { result: keshiResult, rows: keshiRows, errorInfo: keshiErrorInfo } = await getHospitalsService(
+            this.hospitalsArr[0].id
+          )
+          if (keshiResult) {
+            this.keshiArr = keshiRows
+          }
+        }
       }
     },
     async loadProvinces() {
@@ -884,6 +890,12 @@ export default {
       const { result, rows, errorInfo } = await getAreaInfoService(e.target.value)
       if (result) {
         this.divisionArr = rows
+      }
+    },
+    async hospitalChange(e) {
+      const { result, rows, errorInfo } = await getHospitalsService(e.target.value)
+      if (result) {
+        this.keshiArr = rows
       }
     }
   }
