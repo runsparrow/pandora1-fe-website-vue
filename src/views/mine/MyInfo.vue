@@ -112,25 +112,36 @@
                 <div class="right_view">
                   <div class="row">
                     <span class="label">身份</span>
-                    <select class="select_view" @change="e => changeIdentity(e)" v-model="personIdentity">
+                    <select
+                      class="select_view"
+                      @change="e => changeIdentity(e)"
+                      v-model="myInfoIndentityModel.identityId"
+                    >
                       <option v-for="item in doctorsArr" :key="item.id" :value="item.id">{{ item.name }}</option>
                     </select>
                   </div>
                   <div class="row">
                     <span class="label">省</span>
-                    <select class="select_view" @change="e => provinceChange(e)">
+                    <select
+                      class="select_view"
+                      @change="e => provinceChange(e)"
+                      v-model="myInfoIndentityModel.provinceCode"
+                    >
+                      <option value="">-----请选择省-----</option>
                       <option v-for="item in provincesArrr" :key="item.code" :value="item.code">{{ item.name }}</option>
                     </select>
                   </div>
                   <div class="row">
                     <span class="label">市</span>
-                    <select class="select_view" @change="e => cityChange(e)">
+                    <select class="select_view" @change="e => cityChange(e)" v-model="myInfoIndentityModel.cityCode">
+                      <option value="">-----请选择市-----</option>
                       <option v-for="item in citiesArr" :key="item.code" :value="item.code">{{ item.name }}</option>
                     </select>
                   </div>
                   <div class="row">
                     <span class="label">区</span>
                     <select class="select_view">
+                      <option value="">-----请选择区-----</option>
                       <option v-for="item in divisionArr" :key="item.code" :value="item.code">{{ item.name }}</option>
                     </select>
                   </div>
@@ -164,7 +175,7 @@
                   </div>
                   <div class="row" v-if="personIdentity === '2' || personIdentity === '3'">
                     <span class="label">证件编码</span>
-                    <input type="text" class="select_view" v-model="certificateNo" />
+                    <input type="text" class="select_view" v-model="myInfoIndentityModel.certificateNo" />
                   </div>
                   <div class="row" v-if="personIdentity === '2' || personIdentity === '3'">
                     <span class="label">证书上传</span>
@@ -189,7 +200,7 @@
                           class="img_item"
                           :style="{
                             backgroundSize: 'contain',
-                            backgroundImage: 'url(' + certificateUrl + ')'
+                            backgroundImage: 'url(' + myInfoIndentityModel.certificateUrl + ')'
                           }"
                         >
                           <!-- <img
@@ -231,7 +242,7 @@
                 <div class="left_view">
                   <input type="checkbox" class="chk_agree" />已阅读并同意《漫云搜医平台隐私及使用政策》
                 </div>
-                <div class="right_view">提交</div>
+                <div class="right_view" style="cursor:pointer" @click="submitData">提交</div>
               </div>
             </template>
             <template v-if="inner_tabIndex === 1">
@@ -743,8 +754,139 @@ export default {
       hospitalsArr: [],
       keshiArr: [],
 
-      certificateNo: '',
-      certificateUrl: ''
+      myInfoIndentityModel: {
+        id: 0,
+        memberId: 45,
+        memberName: 'xusheng',
+
+        realName: '',
+        identityId: 2,
+        identityName: '医生',
+        nationCode: '',
+        nationName: '',
+        provinceCode: '',
+        provinceName: '',
+        cityCode: '',
+        cityName: '',
+        divisionCode: '',
+        divisionName: '',
+        unitId: 1,
+        unitName: '医生单位01',
+        officeId: 1,
+        officeName: '科室01',
+        dutyId: -1,
+        dutyName: '',
+        jobNo: '',
+        jobUrl: '',
+        certificateNo: '11111111111',
+        certificateUrl: '/1/1/1/1.jpg',
+        idCard: '',
+        idCardFUrl: '',
+        idCardBUrl: '',
+        mobile: '',
+        email: '',
+        alipay: '',
+        wechatPay: '',
+
+        applierId: 45,
+        applierName: 'xusheng',
+
+        applierDate: '2021-05-08T06:35:49.678Z',
+        approverId: -1,
+        approverName: '',
+        approverDate: '2021-05-08T06:35:49.678Z',
+        remark: '',
+        statusId: -1,
+        statusName: '',
+        statusValue: 0,
+        applier: {
+          id: 0,
+          name: '',
+          password: '',
+          email: '',
+          mobile: '',
+          realName: '',
+          avatarUrl: '/1/2/3/header.jpg',
+          idCard: '',
+          birthdate: '0001-01-01T00:00:00',
+          gender: '',
+          classifyId: -1,
+          classifyName: '',
+          level: 0,
+          levelDeadline: '2021-05-08T06:35:49.678Z',
+          downCount: 0,
+          buyCount: 0,
+          uploadCount: 0,
+          reDownCount: 0,
+          reBuyCount: 0,
+          reUploadCount: 0,
+          isAuthority: true,
+          remark: '',
+          registDateTime: '2021-05-08T06:35:49.678Z',
+          loginDateTime: '2021-05-08T06:35:49.678Z',
+          loginIPAddress: '',
+          statusId: -1,
+          statusName: '',
+          statusValue: 0,
+          status: {
+            id: 0,
+            pid: -1,
+            name: '',
+            key: '',
+            value: 0,
+            desc: '',
+            createDateTime: '2021-05-08T06:35:49.678Z',
+            createUserId: -1,
+            editDateTime: '2021-05-08T06:35:49.678Z',
+            editUserId: -1,
+            path: ''
+          }
+        },
+        approver: {
+          id: 0,
+          name: '',
+          password: '',
+          realName: '',
+          email: '',
+          mobile: '',
+          remark: '',
+          loginDateTime: '2021-05-08T06:35:49.678Z',
+          loginIPAddress: '',
+          createDateTime: '2021-05-08T06:35:49.678Z',
+          createUserId: -1,
+          editDateTime: '2021-05-08T06:35:49.678Z',
+          editUserId: -1,
+          statusId: 0,
+          statusName: '',
+          statusValue: 0,
+          status: {
+            id: 0,
+            pid: -1,
+            name: '',
+            key: '',
+            value: 0,
+            desc: '',
+            createDateTime: '2021-05-08T06:35:49.678Z',
+            createUserId: -1,
+            editDateTime: '2021-05-08T06:35:49.678Z',
+            editUserId: -1,
+            path: ''
+          }
+        },
+        status: {
+          id: 0,
+          pid: -1,
+          name: '',
+          key: '',
+          value: 0,
+          desc: '',
+          createDateTime: '2021-05-08T06:35:49.678Z',
+          createUserId: -1,
+          editDateTime: '2021-05-08T06:35:49.678Z',
+          editUserId: -1,
+          path: ''
+        }
+      }
     }
   },
   mounted() {
@@ -779,6 +921,18 @@ export default {
     ...mapState(['token', 'userName', 'loading'])
   },
   methods: {
+    submitData() {
+      this.myInfoIndentityModel.identityName = this.doctorsArr.filter(
+        f => f.id === this.myInfoIndentityModel.identityId
+      )[0].name
+      this.myInfoIndentityModel.provinceName = this.provincesArrr.filter(
+        f => f.code === this.myInfoIndentityModel.provinceCode
+      )[0].name
+      this.myInfoIndentityModel.cityName = this.citiesArr.filter(
+        f => f.code === this.myInfoIndentityModel.cityCode
+      )[0].name
+      alert(this.myInfoIndentityModel.cityName)
+    },
     toSearch() {
       this.$router.push('/search')
     },
@@ -860,30 +1014,17 @@ export default {
       const { result: proviceResult, rows: proviceRows, errorInfo: provinceErrorInfo } = await getAreaInfoService('0')
       if (proviceResult) {
         this.provincesArrr = proviceRows
-        const { result: cityResult, rows: cityRows, errorInfo: cityErrorInfo } = await getAreaInfoService(
-          proviceRows[0].code
-        )
-        if (cityResult) {
-          this.citiesArr = cityRows
-          const { result: divisionResult, rows: divisionRows, errorInfo: divisionErrorInfo } = await getAreaInfoService(
-            cityRows[0].code
-          )
-          if (divisionResult) {
-            this.divisionArr = divisionRows
-          }
-        }
       }
     },
     async provinceChange(e) {
       const { result, rows, errorInfo } = await getAreaInfoService(e.target.value)
       if (result) {
         this.citiesArr = rows
-        const { result: divisionResult, rows: divisionRows, errorInfo: divisionErrorInfo } = await getAreaInfoService(
-          rows[0].code
-        )
-        if (divisionResult) {
-          this.divisionArr = divisionRows
-        }
+        this.divisionArr = []
+        this.myInfoIndentityModel.cityCode = ''
+        this.myInfoIndentityModel.cityName = ''
+        this.myInfoIndentityModel.divisionCode = ''
+        this.myInfoIndentityModel.divisionName = ''
       }
     },
     async cityChange(e) {
