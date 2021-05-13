@@ -100,7 +100,24 @@
             <template v-if="inner_tabIndex === 0">
               <div class="title_content_view">
                 <div class="left_view">
-                  <div class="header_logo">头像</div>
+                  <div
+                    class="header_logo"
+                    v-if="myInfoIndentityModel.applier.avatarUrl === ''"
+                    @click="toTouchHeaderLogoUploadFile"
+                  >
+                    头像
+                  </div>
+                  <div class="header_logo" v-else @click="toTouchHeaderLogoUploadFile">
+                    <img class="header_logo_size" :src="myInfoIndentityModel.applier.avatarUrl" alt="" />
+                  </div>
+
+                  <input
+                    class="uploadCertFile"
+                    type="file"
+                    @change="uploadHeaderLogFile"
+                    ref="HeaderLogoUploadFileRef"
+                    accept="image/png,image/jpeg,image/gif,image/jpg"
+                  />
                   <span class="label_user">用户名</span>
                   <span class="label_jifen">积分:999</span>
                   <div class="career_bg_view">
@@ -117,6 +134,7 @@
                       @change="e => changeIdentity(e)"
                       v-model="myInfoIndentityModel.identityId"
                     >
+                      <option value="-1">-----请选择-----</option>
                       <option v-for="item in doctorsArr" :key="item.id" :value="item.id">{{ item.name }}</option>
                     </select>
                   </div>
@@ -127,21 +145,21 @@
                       @change="e => provinceChange(e)"
                       v-model="myInfoIndentityModel.provinceCode"
                     >
-                      <option value="">-----请选择省-----</option>
+                      <option value="">-----请选择-----</option>
                       <option v-for="item in provincesArrr" :key="item.code" :value="item.code">{{ item.name }}</option>
                     </select>
                   </div>
                   <div class="row">
                     <span class="label">市</span>
                     <select class="select_view" @change="e => cityChange(e)" v-model="myInfoIndentityModel.cityCode">
-                      <option value="">-----请选择市-----</option>
+                      <option value="">-----请选择-----</option>
                       <option v-for="item in citiesArr" :key="item.code" :value="item.code">{{ item.name }}</option>
                     </select>
                   </div>
                   <div class="row">
                     <span class="label">区</span>
-                    <select class="select_view">
-                      <option value="">-----请选择区-----</option>
+                    <select class="select_view" v-model="myInfoIndentityModel.divisionCode">
+                      <option value="">-----请选择-----</option>
                       <option v-for="item in divisionArr" :key="item.code" :value="item.code">{{ item.name }}</option>
                     </select>
                   </div>
@@ -163,13 +181,15 @@
                   </div>
                   <div class="row" v-if="personIdentity === '2' || personIdentity === '3' || personIdentity === '4'">
                     <span class="label">医院/单位</span>
-                    <select class="select_view" @change="e => hospitalChange(e)">
+                    <select class="select_view" @change="e => hospitalChange(e)" v-model="myInfoIndentityModel.unitId">
+                      <option value="-1">-----请选择-----</option>
                       <option v-for="item in hospitalsArr" :key="item.id" :value="item.id">{{ item.name }}</option>
                     </select>
                   </div>
                   <div class="row" v-if="personIdentity === '2' || personIdentity === '3' || personIdentity === '4'">
                     <span class="label">科室/部门</span>
-                    <select class="select_view">
+                    <select class="select_view" v-model="myInfoIndentityModel.officeId">
+                      <option value="-1">-----请选择-----</option>
                       <option v-for="item in keshiArr" :key="item.id" :value="item.id">{{ item.name }}</option>
                     </select>
                   </div>
@@ -756,12 +776,12 @@ export default {
 
       myInfoIndentityModel: {
         id: 0,
-        memberId: 45,
-        memberName: 'xusheng',
+        memberId: this.$store.state.memberId,
+        memberName: this.$store.state.userName,
 
         realName: '',
-        identityId: 2,
-        identityName: '医生',
+        identityId: -1,
+        identityName: '',
         nationCode: '',
         nationName: '',
         provinceCode: '',
@@ -770,16 +790,16 @@ export default {
         cityName: '',
         divisionCode: '',
         divisionName: '',
-        unitId: 1,
-        unitName: '医生单位01',
-        officeId: 1,
-        officeName: '科室01',
+        unitId: -1,
+        unitName: '',
+        officeId: -1,
+        officeName: '',
         dutyId: -1,
         dutyName: '',
         jobNo: '',
         jobUrl: '',
-        certificateNo: '11111111111',
-        certificateUrl: '/1/1/1/1.jpg',
+        certificateNo: '',
+        certificateUrl: '',
         idCard: '',
         idCardFUrl: '',
         idCardBUrl: '',
@@ -788,8 +808,8 @@ export default {
         alipay: '',
         wechatPay: '',
 
-        applierId: 45,
-        applierName: 'xusheng',
+        applierId: this.$store.state.memberId,
+        applierName: this.$store.state.userName,
 
         applierDate: '2021-05-08T06:35:49.678Z',
         approverId: -1,
@@ -806,7 +826,7 @@ export default {
           email: '',
           mobile: '',
           realName: '',
-          avatarUrl: '/1/2/3/header.jpg',
+          avatarUrl: '',
           idCard: '',
           birthdate: '0001-01-01T00:00:00',
           gender: '',
@@ -931,7 +951,16 @@ export default {
       this.myInfoIndentityModel.cityName = this.citiesArr.filter(
         f => f.code === this.myInfoIndentityModel.cityCode
       )[0].name
-      alert(this.myInfoIndentityModel.cityName)
+      this.myInfoIndentityModel.divisionName = this.divisionArr.filter(
+        f => f.code === this.myInfoIndentityModel.divisionCode
+      )[0].name
+      this.myInfoIndentityModel.unitName = this.hospitalsArr.filter(
+        f => f.id === this.myInfoIndentityModel.unitId
+      )[0].name
+      this.myInfoIndentityModel.officeName = this.keshiArr.filter(
+        f => f.id === this.myInfoIndentityModel.officeId
+      )[0].name
+      console.log(1111, this.myInfoIndentityModel)
     },
     toSearch() {
       this.$router.push('/search')
@@ -972,6 +1001,18 @@ export default {
       }
     },
 
+    async uploadHeaderLogFile() {
+      let inputDOM = this.$refs.HeaderLogoUploadFileRef
+      let file = inputDOM.files[0]
+      let param = new FormData()
+      param.append('file', file)
+      const {
+        data: { fileName, relativePath },
+        errorInfo
+      } = await uploadFileService(param)
+      this.myInfoIndentityModel.applier.avatarUrl = relativePath
+    },
+
     async uploadCertFile() {
       let inputDOM = this.$refs.CertUploadFileRef
       if (this.certArr.length > 1) {
@@ -985,10 +1026,13 @@ export default {
         data: { fileName, relativePath },
         errorInfo
       } = await uploadFileService(param)
-      this.certificateUrl = relativePath
+      this.myInfoIndentityModel.certificateUrl = relativePath
     },
     toTouchUploadFile() {
       this.$refs.CertUploadFileRef.click()
+    },
+    toTouchHeaderLogoUploadFile() {
+      this.$refs.HeaderLogoUploadFileRef.click()
     },
     async loadDoctors() {
       const { result, rows, errorInfo } = await getDcotorsService()
@@ -1000,14 +1044,7 @@ export default {
       const { result, rows, errorInfo } = await getHospitalsService(pid)
       if (result) {
         this.hospitalsArr = rows
-        if (this.hospitalsArr.length > 0) {
-          const { result: keshiResult, rows: keshiRows, errorInfo: keshiErrorInfo } = await getHospitalsService(
-            this.hospitalsArr[0].id
-          )
-          if (keshiResult) {
-            this.keshiArr = keshiRows
-          }
-        }
+        this.keshiArr = []
       }
     },
     async loadProvinces() {
@@ -1522,7 +1559,16 @@ export default {
               display: flex;
               flex-direction: column;
               align-items: center;
+              .uploadCertFile {
+                display: none;
+              }
+              .header_logo_size {
+                width: 67px;
+                height: 67px;
+                border-radius: 50%;
+              }
               .header_logo {
+                cursor: pointer;
                 width: 67px;
                 height: 67px;
                 border-radius: 50%;

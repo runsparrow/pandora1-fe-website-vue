@@ -631,8 +631,10 @@ export default {
           that.accountPwdInValid = false
           const dateTime = new Date()
           dateTime.setHours(dateTime.getHours() + 2)
+          console.log(member)
           that.setUserInfoMutation({
             userName: member?.memberName,
+            memberId: member?.memberId,
             token: token,
             expires: new Date(dateTime).getTime()
           })

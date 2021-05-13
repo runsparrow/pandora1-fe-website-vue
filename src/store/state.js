@@ -1,4 +1,5 @@
 export default {
+  memberId: '',
   userName: '',
   token: '',
   expires: 0,

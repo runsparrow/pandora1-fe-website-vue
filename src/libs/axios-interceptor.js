@@ -4,7 +4,7 @@ import store from '@x'
 let ajaxQueues = {}
 const ajax = axios.create({
   baseURL: process.env.VUE_APP_BASE_API_URL,
-  timeout: 1000 * 5
+  timeout: 1000 * 30
 })
 
 ajax.interceptors.request.use(

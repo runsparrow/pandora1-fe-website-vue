@@ -1,6 +1,7 @@
 export default {
   setUserInfoMutation(state, payload) {
     state.userName = payload.userName
+    state.memberId = payload.memberId
     state.token = payload.token
     state.expires = payload.expires
   },
