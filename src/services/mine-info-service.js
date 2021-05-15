@@ -21,3 +21,18 @@ export const getHospitalsService = async payload => {
     method: 'GET'
   })
 }
+
+export const submitMyInfoIndentityService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_CMS_Authority_Create_Single}`,
+    method: 'POST',
+    data: payload
+  })
+}
+
+export const getMyInfoByIdService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_CMS_Authority_Rows_ByApplierId}/${payload}`,
+    method: 'GET'
+  })
+}

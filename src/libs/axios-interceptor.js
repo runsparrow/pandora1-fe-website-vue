@@ -56,6 +56,10 @@ ajax.interceptors.response.use(
   }
 )
 
+export const mutipleAjax = requestArr => {
+  return Promise.all(requestArr)
+}
+
 const errorHandler = res => {
   switch (res.status) {
     case 401:

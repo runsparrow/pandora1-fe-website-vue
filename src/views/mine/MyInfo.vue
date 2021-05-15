@@ -107,8 +107,17 @@
                   >
                     头像
                   </div>
-                  <div class="header_logo" v-else @click="toTouchHeaderLogoUploadFile">
-                    <img class="header_logo_size" :src="myInfoIndentityModel.applier.avatarUrl" alt="" />
+                  <div
+                    class="header_logo"
+                    v-else
+                    @click="toTouchHeaderLogoUploadFile"
+                    :style="{
+                      backgroundSize: 'contain',
+                      backgroundImage: 'url(' + myInfoIndentityModel.applier.avatarUrl + ')',
+                      backgroundRepeat: 'no-repeat'
+                    }"
+                  >
+                    <!-- <img class="header_logo_size" :src="myInfoIndentityModel.applier.avatarUrl" alt="" /> -->
                   </div>
 
                   <input
@@ -195,7 +204,7 @@
                   </div>
                   <div class="row" v-if="personIdentity === '2' || personIdentity === '3'">
                     <span class="label">证件编码</span>
-                    <input type="text" class="select_view" v-model="myInfoIndentityModel.certificateNo" />
+                    <input type="text" class="select_view" v-model.trim="myInfoIndentityModel.certificateNo" />
                   </div>
                   <div class="row" v-if="personIdentity === '2' || personIdentity === '3'">
                     <span class="label">证书上传</span>
@@ -220,7 +229,8 @@
                           class="img_item"
                           :style="{
                             backgroundSize: 'contain',
-                            backgroundImage: 'url(' + myInfoIndentityModel.certificateUrl + ')'
+                            backgroundImage: 'url(' + myInfoIndentityModel.certificateUrl + ')',
+                            backgroundRepeat: 'no-repeat'
                           }"
                         >
                           <!-- <img
@@ -260,7 +270,11 @@
               </div>
               <div class="footer_view">
                 <div class="left_view">
-                  <input type="checkbox" class="chk_agree" />已阅读并同意《漫云搜医平台隐私及使用政策》
+                  <input
+                    type="checkbox"
+                    class="chk_agree"
+                    v-model="checkedAgree"
+                  />已阅读并同意《漫云搜医平台隐私及使用政策》
                 </div>
                 <div class="right_view" style="cursor:pointer" @click="submitData">提交</div>
               </div>
@@ -752,7 +766,14 @@
 <script>
 import { mapState } from 'vuex'
 import { uploadFileService } from '@s/upload-file-service'
-import { getDcotorsService, getAreaInfoService, getHospitalsService } from '@s/mine-info-service'
+import {
+  getDcotorsService,
+  getAreaInfoService,
+  getHospitalsService,
+  submitMyInfoIndentityService,
+  getMyInfoByIdService
+} from '@s/mine-info-service'
+import { mutipleAjax } from '@l/axios-interceptor'
 export default {
   name: 'MyInfoView',
   data() {
@@ -773,6 +794,7 @@ export default {
       divisionArr: [],
       hospitalsArr: [],
       keshiArr: [],
+      checkedAgree: false,
 
       myInfoIndentityModel: {
         id: 0,
@@ -930,9 +952,7 @@ export default {
         }
       }
     })
-    this.loadDoctors()
-    this.loadProvinces()
-    this.loadHospitals(-1)
+    this.loadInitialData()
   },
   unmounted() {
     document.removeEventListener('click')
@@ -941,7 +961,71 @@ export default {
     ...mapState(['token', 'userName', 'loading'])
   },
   methods: {
-    submitData() {
+    async loadInitialData() {
+      let promiseArr = [getDcotorsService(), getAreaInfoService('0'), getHospitalsService(-1)]
+      let result = await mutipleAjax(promiseArr)
+      this.doctorsArr = result[0].rows
+      this.provincesArrr = result[1].rows
+      this.hospitalsArr = result[2].rows
+      let { result: myInfoResult, rows, message } = await getMyInfoByIdService(this.$store.state.memberId)
+      if (myInfoResult) {
+        const myInfo = rows[0]
+        this.myInfoIndentityModel.identityId = myInfo.identityId
+        this.myInfoIndentityModel.identityName = myInfo.identityName
+        this.myInfoIndentityModel.provinceCode = myInfo.provinceCode
+        this.myInfoIndentityModel.provinceName = myInfo.provinceName
+        await this.loadCitiesByProvinceCode(this.myInfoIndentityModel.provinceCode)
+        this.myInfoIndentityModel.cityCode = myInfo.cityCode
+        this.myInfoIndentityModel.cityName = myInfo.cityName
+        await this.loadDivisionsByCityCode(this.myInfoIndentityModel.cityCode)
+        this.myInfoIndentityModel.divisionCode = myInfo.divisionCode
+        this.myInfoIndentityModel.divisionName = myInfo.divisionName
+        this.myInfoIndentityModel.unitId = myInfo.unitId
+        this.myInfoIndentityModel.unitName = myInfo.unitName
+        await this.loadKeshiList(this.myInfoIndentityModel.unitId)
+        this.myInfoIndentityModel.officeId = myInfo.officeId
+        this.myInfoIndentityModel.officeName = myInfo.officeName
+        this.myInfoIndentityModel.certificateNo = myInfo.certificateNo
+        this.myInfoIndentityModel.certificateUrl = myInfo.certificateUrl
+      }
+    },
+    async submitData() {
+      if (!this.checkedAgree) {
+        alert('请勾选已阅读并同意《漫云搜医平台隐私及使用政策》!')
+        return
+      }
+      if (this.myInfoIndentityModel.identityId === -1) {
+        alert('请选择身份!')
+        return
+      }
+      if (this.myInfoIndentityModel.provinceCode === '') {
+        alert('请选择省!')
+        return
+      }
+      if (this.myInfoIndentityModel.cityCode === '') {
+        alert('请选择市!')
+        return
+      }
+      if (this.myInfoIndentityModel.divisionCode === '') {
+        alert('请选择区!')
+        return
+      }
+      if (this.myInfoIndentityModel.unitId === -1) {
+        alert('请选择医院/单位!')
+        return
+      }
+      if (this.myInfoIndentityModel.officeId === -1) {
+        alert('请选择科室/部门!')
+        return
+      }
+      if (this.myInfoIndentityModel.certificateNo === '') {
+        alert('请填写证件编码!')
+        return
+      }
+      if (this.myInfoIndentityModel.certificateUrl === '') {
+        alert('请上传证件图!')
+        return
+      }
       this.myInfoIndentityModel.identityName = this.doctorsArr.filter(
         f => f.id === this.myInfoIndentityModel.identityId
       )[0].name
@@ -960,7 +1044,10 @@ export default {
       this.myInfoIndentityModel.officeName = this.keshiArr.filter(
         f => f.id === this.myInfoIndentityModel.officeId
       )[0].name
-      console.log(1111, this.myInfoIndentityModel)
+      const { result, errorInfo } = await submitMyInfoIndentityService(this.myInfoIndentityModel)
+      if (result) {
+        alert('提交成功!')
+      }
     },
     toSearch() {
       this.$router.push('/search')
@@ -1034,25 +1121,6 @@ export default {
     toTouchHeaderLogoUploadFile() {
       this.$refs.HeaderLogoUploadFileRef.click()
     },
-    async loadDoctors() {
-      const { result, rows, errorInfo } = await getDcotorsService()
-      if (result) {
-        this.doctorsArr = rows
-      }
-    },
-    async loadHospitals(pid) {
-      const { result, rows, errorInfo } = await getHospitalsService(pid)
-      if (result) {
-        this.hospitalsArr = rows
-        this.keshiArr = []
-      }
-    },
-    async loadProvinces() {
-      const { result: proviceResult, rows: proviceRows, errorInfo: provinceErrorInfo } = await getAreaInfoService('0')
-      if (proviceResult) {
-        this.provincesArrr = proviceRows
-      }
-    },
     async provinceChange(e) {
       const { result, rows, errorInfo } = await getAreaInfoService(e.target.value)
       if (result) {
@@ -1064,6 +1132,19 @@ export default {
         this.myInfoIndentityModel.divisionName = ''
       }
     },
+    async loadCitiesByProvinceCode(code) {
+      const { result, rows, errorInfo } = await getAreaInfoService(code)
+      if (result) {
+        this.citiesArr = rows
+      }
+    },
+    async loadDivisionsByCityCode(code) {
+      const { result, rows, errorInfo } = await getAreaInfoService(code)
+      if (result) {
+        this.divisionArr = rows
+      }
+    },
+
     async cityChange(e) {
       const { result, rows, errorInfo } = await getAreaInfoService(e.target.value)
       if (result) {
@@ -1072,6 +1153,12 @@ export default {
     },
     async hospitalChange(e) {
       const { result, rows, errorInfo } = await getHospitalsService(e.target.value)
+      if (result) {
+        this.keshiArr = rows
+      }
+    },
+    async loadKeshiList(pid) {
+      const { result, rows, errorInfo } = await getHospitalsService(pid)
       if (result) {
         this.keshiArr = rows
       }

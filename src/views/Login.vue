@@ -646,6 +646,7 @@ export default {
             }
           }, 1000)
         } else {
+          this.btnLoginLabel = '登录'
           alert('手机号或密码错误!')
         }
       } catch (err) {
