@@ -30,6 +30,14 @@ export const submitMyInfoIndentityService = async payload => {
   })
 }
 
+export const submitMyInfoDesignService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_CMS_Authority_Create_ToStatus}`,
+    method: 'POST',
+    data: payload
+  })
+}
+
 export const getMyInfoByIdService = async (memberId, authorityIndex) => {
   return await ajax({
     url: `${CONFIG.API_URLS.MIS_CMS_Authority_Row_ByMemberId}/${memberId}/${authorityIndex}`,

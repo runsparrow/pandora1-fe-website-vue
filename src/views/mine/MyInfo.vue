@@ -311,42 +311,90 @@
                 <div class="right_view">
                   <div class="row">
                     <span class="label">姓名</span>
-                    <input type="text" style="padding-left:26px" class="select_view" placeholder="请填写本人真实姓名" />
+                    <input
+                      type="text"
+                      style="padding-left:26px"
+                      class="select_view"
+                      placeholder="请填写本人真实姓名"
+                      v-model.trim="myInfoDesignModel.entity.realName"
+                    />
                   </div>
                   <div class="row">
                     <span class="label">身份证</span>
-                    <input type="text" style="padding-left:26px" class="select_view" placeholder="请输入身份证号码" />
+                    <input
+                      type="text"
+                      style="padding-left:26px"
+                      class="select_view"
+                      placeholder="请输入身份证号码"
+                      v-model.trim="myInfoDesignModel.entity.idCard"
+                    />
                   </div>
                   <div class="row">
                     <span class="label">支付宝</span>
-                    <input type="text" style="padding-left:26px" class="select_view" placeholder="请输入支付宝账号" />
+                    <input
+                      type="text"
+                      style="padding-left:26px"
+                      class="select_view"
+                      placeholder="请输入支付宝账号"
+                      v-model.trim="myInfoDesignModel.entity.alipay"
+                    />
                   </div>
                   <div class="row">
                     <span class="label">身份证照片</span>
                     <div class="pic_view">
-                      <div class="upload_view">
+                      <!-- <div class="upload_view">
                         <img
                           class="add_file_img"
                           src="@a/imgs/add-file.png"
                           alt=""
                           srcset="@a/imgs/add-file@2x.png 2x"
                         />
-                      </div>
+                      </div> -->
                       <div class="pic_list">
-                        <div class="img_item">
-                          <img
+                        <div
+                          class="img_item"
+                          :style="{
+                            backgroundSize: 'contain',
+                            backgroundImage: 'url(' + myInfoDesignModel.entity.idCardFUrl + ')',
+                            backgroundRepeat: 'no-repeat'
+                          }"
+                          @click="idFClick"
+                        >
+                          <!-- <img
                             class="del_file_img"
                             src="@a/imgs/del-file.png"
                             alt=""
                             srcset="@a/imgs/del-file@2x.png 2x"
+                          /> -->
+                          <input
+                            class="uploadCertFile"
+                            type="file"
+                            ref="idCardFFileRef"
+                            @change="uploadidCardFFile"
+                            accept="image/png,image/jpeg,image/gif,image/jpg"
                           />
                         </div>
-                        <div class="img_item">
-                          <img
+                        <div
+                          class="img_item"
+                          :style="{
+                            backgroundSize: 'contain',
+                            backgroundImage: 'url(' + myInfoDesignModel.entity.idCardBUrl + ')',
+                            backgroundRepeat: 'no-repeat'
+                          }"
+                          @click="idBClick"
+                        >
+                          <!-- <img
                             class="del_file_img"
                             src="@a/imgs/del-file.png"
                             alt=""
                             srcset="@a/imgs/del-file@2x.png 2x"
+                          /> -->
+                          <input
+                            class="uploadCertFile"
+                            type="file"
+                            ref="idCardBFileRef"
+                            @change="uploadidCardBFile"
+                            accept="image/png,image/jpeg,image/gif,image/jpg"
                           />
                         </div>
                       </div>
@@ -354,11 +402,15 @@
                   </div>
                 </div>
               </div>
-              <div class="footer_view">
+              <div class="footer_view" v-if="statusDesignValue === 0">
                 <div class="left_view">
-                  <input type="checkbox" class="chk_agree" />已阅读并同意《漫云搜医平台隐私及使用政策》
+                  <input
+                    type="checkbox"
+                    class="chk_agree"
+                    v-model="desingCheckedAgree"
+                  />已阅读并同意《漫云搜医平台隐私及使用政策》
                 </div>
-                <div class="right_view">提交</div>
+                <div class="right_view" @click="submitDesign">提交</div>
               </div>
             </template>
           </div>
@@ -784,7 +836,8 @@ import {
   getHospitalsService,
   submitMyInfoIndentityService,
   getMyInfoByIdService,
-  getHostpitalsService
+  getHostpitalsService,
+  submitMyInfoDesignService
 } from '@s/mine-info-service'
 import { mutipleAjax } from '@l/axios-interceptor'
 export default {
@@ -808,7 +861,9 @@ export default {
       hospitalsArr: [],
       keshiArr: [],
       checkedAgree: false,
+      desingCheckedAgree: false,
       statusValue: 0,
+      statusDesignValue: 0,
 
       myInfoIndentityModel: {
         entity: {
@@ -819,6 +874,144 @@ export default {
           realName: '',
           identityId: -1,
           identityName: '',
+          authorityIndex: 0,
+          nationCode: '',
+          nationName: '',
+          provinceCode: '',
+          provinceName: '',
+          cityCode: '',
+          cityName: '',
+          divisionCode: '',
+          divisionName: '',
+          unitId: -1,
+          unitName: '',
+          officeId: -1,
+          officeName: '',
+          dutyId: -1,
+          dutyName: '',
+          jobNo: '',
+          jobUrl: '',
+          certificateNo: '',
+          certificateUrl: '',
+          idCard: '',
+          idCardFUrl: '',
+          idCardBUrl: '',
+          mobile: '',
+          email: '',
+          alipay: '',
+          wechatPay: '',
+
+          applierId: this.$store.state.memberId,
+          applierName: this.$store.state.userName,
+
+          applierDate: '2021-05-08T06:35:49.678Z',
+          approverId: -1,
+          approverName: '',
+          approverDate: '2021-05-08T06:35:49.678Z',
+          remark: '',
+          statusId: -1,
+          statusName: '',
+          statusValue: 0,
+          applier: {
+            id: 0,
+            name: '',
+            password: '',
+            email: '',
+            mobile: '',
+            realName: '',
+            avatarUrl: '',
+            idCard: '',
+            birthdate: '0001-01-01T00:00:00',
+            gender: '',
+            classifyId: -1,
+            classifyName: '',
+            level: 0,
+            levelDeadline: '2021-05-08T06:35:49.678Z',
+            downCount: 0,
+            buyCount: 0,
+            uploadCount: 0,
+            reDownCount: 0,
+            reBuyCount: 0,
+            reUploadCount: 0,
+            isAuthority: true,
+            remark: '',
+            registDateTime: '2021-05-08T06:35:49.678Z',
+            loginDateTime: '2021-05-08T06:35:49.678Z',
+            loginIPAddress: '',
+            statusId: -1,
+            statusName: '',
+            statusValue: 0,
+            status: {
+              id: 0,
+              pid: -1,
+              name: '',
+              key: '',
+              value: 0,
+              desc: '',
+              createDateTime: '2021-05-08T06:35:49.678Z',
+              createUserId: -1,
+              editDateTime: '2021-05-08T06:35:49.678Z',
+              editUserId: -1,
+              path: ''
+            }
+          },
+          approver: {
+            id: 0,
+            name: '',
+            password: '',
+            realName: '',
+            email: '',
+            mobile: '',
+            remark: '',
+            loginDateTime: '2021-05-08T06:35:49.678Z',
+            loginIPAddress: '',
+            createDateTime: '2021-05-08T06:35:49.678Z',
+            createUserId: -1,
+            editDateTime: '2021-05-08T06:35:49.678Z',
+            editUserId: -1,
+            statusId: 0,
+            statusName: '',
+            statusValue: 0,
+            status: {
+              id: 0,
+              pid: -1,
+              name: '',
+              key: '',
+              value: 0,
+              desc: '',
+              createDateTime: '2021-05-08T06:35:49.678Z',
+              createUserId: -1,
+              editDateTime: '2021-05-08T06:35:49.678Z',
+              editUserId: -1,
+              path: ''
+            }
+          },
+          status: {
+            id: 0,
+            pid: -1,
+            name: '',
+            key: '',
+            value: 0,
+            desc: '',
+            createDateTime: '2021-05-08T06:35:49.678Z',
+            createUserId: -1,
+            editDateTime: '2021-05-08T06:35:49.678Z',
+            editUserId: -1,
+            path: ''
+          }
+        },
+        statusKey: 'cms.authority.open'
+      },
+      myInfoDesignModel: {
+        entity: {
+          id: 0,
+          memberId: this.$store.state.memberId,
+          memberName: this.$store.state.userName,
+
+          realName: '',
+          identityId: -1,
+          identityName: '',
+          authorityIndex: 1,
           nationCode: '',
           nationName: '',
           provinceCode: '',
@@ -1007,6 +1200,49 @@ export default {
         this.myInfoIndentityModel.entity.certificateNo = myInfo.certificateNo
         this.myInfoIndentityModel.entity.certificateUrl = myInfo.certificateUrl
       }
+      let { result: myInfoDesignResult, row: designRow, designMessage } = await getMyInfoByIdService(
+        this.$store.state.memberId,
+        1
+      )
+      if (myInfoDesignResult) {
+        this.myInfoDesignModel.entity.realName = designRow.realName
+        this.myInfoDesignModel.entity.idCard = designRow.idCard
+        this.myInfoDesignModel.entity.alipay = designRow.alipay
+        this.myInfoDesignModel.entity.alipay = designRow.alipay
+        this.myInfoDesignModel.entity.idCardFUrl = designRow.idCardFUrl
+        this.myInfoDesignModel.entity.idCardBUrl = designRow.idCardBUrl
+        this.statusDesignValue = designRow.statusValue
+      }
+    },
+    async submitDesign() {
+      if (!this.desingCheckedAgree) {
+        alert('请勾选已阅读并同意《漫云搜医平台隐私及使用政策》!')
+        return
+      }
+      if (this.myInfoDesignModel.entity.realName === '') {
+        alert('请填写姓名!')
+        return
+      }
+      if (this.myInfoDesignModel.entity.idCard === '') {
+        alert('请填写身份证号!')
+        return
+      }
+      if (this.myInfoDesignModel.entity.alipay === '') {
+        alert('请填写支付宝账号!')
+        return
+      }
+      if (this.myInfoDesignModel.entity.idCardFUrl === '') {
+        alert('请上传身份证正面照!')
+        return
+      }
+      if (this.myInfoDesignModel.entity.idCardBUr === '') {
+        alert('请上传身份证反面照!')
+        return
+      }
+      const { result, errorInfo } = await submitMyInfoDesignService(this.myInfoDesignModel)
+      if (result) {
+        alert('提交成功!')
+      }
     },
     async submitData() {
       if (!this.checkedAgree) {
@@ -1134,11 +1370,39 @@ export default {
       } = await uploadFileService(param)
       this.myInfoIndentityModel.entity.certificateUrl = relativePath
     },
+    async uploadidCardFFile() {
+      let inputDOM = this.$refs.idCardFFileRef
+      let file = inputDOM.files[0]
+      let param = new FormData()
+      param.append('file', file)
+      const {
+        data: { fileName, relativePath },
+        errorInfo
+      } = await uploadFileService(param)
+      this.myInfoDesignModel.entity.idCardFUrl = relativePath
+    },
+    async uploadidCardBFile() {
+      let inputDOM = this.$refs.idCardBFileRef
+      let file = inputDOM.files[0]
+      let param = new FormData()
+      param.append('file', file)
+      const {
+        data: { fileName, relativePath },
+        errorInfo
+      } = await uploadFileService(param)
+      this.myInfoDesignModel.entity.idCardBUrl = relativePath
+    },
     toTouchUploadFile() {
       this.$refs.CertUploadFileRef.click()
     },
     toTouchHeaderLogoUploadFile() {
       this.$refs.HeaderLogoUploadFileRef.click()
+    },
+    idFClick() {
+      this.$refs.idCardFFileRef.click()
+    },
+    idBClick() {
+      this.$refs.idCardBFileRef.click()
     },
     async provinceChange(e) {
       const { result, rows, errorInfo } = await getAreaInfoService(e.target.value)
@@ -1837,10 +2101,14 @@ export default {
                       margin-left: 10px;
                       margin-top: 5px;
                       position: relative;
+                      cursor: pointer;
                       .del_file_img {
                         top: -10px;
                         right: -8px;
                         position: absolute;
+                      }
+                      .uploadCertFile {
+                        display: none;
                       }
                     }
                   }
@@ -1878,6 +2146,7 @@ export default {
               line-height: 38px;
               text-align: center;
               margin-right: 37px;
+              cursor: pointer;
             }
           }
         }
