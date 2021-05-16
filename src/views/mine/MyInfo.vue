@@ -298,7 +298,7 @@
                     v-model="checkedAgree"
                   />已阅读并同意《漫云搜医平台隐私及使用政策》
                 </div>
-                <div class="right_view" style="cursor:pointer" @click="submitData">更新</div>
+                <div class="right_view" style="cursor:pointer" @click="submitDataUpdate">更新</div>
               </div>
             </template>
             <template v-if="inner_tabIndex === 1">
@@ -430,7 +430,7 @@
                     v-model="desingCheckedAgree"
                   />已阅读并同意《漫云搜医平台隐私及使用政策》
                 </div>
-                <div class="right_view" @click="submitDesign">更新</div>
+                <div class="right_view" @click="submitDesignUpdate">更新</div>
               </div>
             </template>
           </div>
@@ -855,6 +855,7 @@ import {
   getAreaInfoService,
   getHospitalsService,
   submitMyInfoIndentityService,
+  submitMyInfoIndentityUpdateService,
   getMyInfoByIdService,
   getHostpitalsService,
   submitMyInfoDesignService
@@ -1268,6 +1269,36 @@ export default {
         alert('提交成功!')
       }
     },
+    async submitDesignUpdate() {
+      if (!this.desingCheckedAgree) {
+        alert('请勾选已阅读并同意《漫云搜医平台隐私及使用政策》!')
+        return
+      }
+      if (this.myInfoDesignModel.entity.realName === '') {
+        alert('请填写姓名!')
+        return
+      }
+      if (this.myInfoDesignModel.entity.idCard === '') {
+        alert('请填写身份证号!')
+        return
+      }
+      if (this.myInfoDesignModel.entity.alipay === '') {
+        alert('请填写支付宝账号!')
+        return
+      }
+      if (this.myInfoDesignModel.entity.idCardFUrl === '') {
+        alert('请上传身份证正面照!')
+        return
+      }
+      if (this.myInfoDesignModel.entity.idCardBUr === '') {
+        alert('请上传身份证反面照!')
+        return
+      }
+      const { result, errorInfo } = await submitMyInfoIndentityUpdateService(this.myInfoDesignModel)
+      if (result) {
+        alert('提交成功!')
+      }
+    },
     async submitData() {
       if (!this.checkedAgree) {
         alert('请勾选已阅读并同意《漫云搜医平台隐私及使用政策》!')
@@ -1324,6 +1355,66 @@ export default {
         f => f.id === this.myInfoIndentityModel.entity.officeId
       )[0].name
       const { result, errorInfo } = await submitMyInfoIndentityService(this.myInfoIndentityModel)
+      if (result) {
+        alert('提交成功!')
+      }
+    },
+    async submitDataUpdate() {
+      if (!this.checkedAgree) {
+        alert('请勾选已阅读并同意《漫云搜医平台隐私及使用政策》!')
+        return
+      }
+      if (this.myInfoIndentityModel.entity.identityId === -1) {
+        alert('请选择身份!')
+        return
+      }
+      if (this.myInfoIndentityModel.entity.provinceCode === '') {
+        alert('请选择省!')
+        return
+      }
+      if (this.myInfoIndentityModel.entity.cityCode === '') {
+        alert('请选择市!')
+        return
+      }
+      if (this.myInfoIndentityModel.entity.divisionCode === '') {
+        alert('请选择区!')
+        return
+      }
+      if (this.myInfoIndentityModel.entity.unitId === -1) {
+        alert('请选择医院/单位!')
+        return
+      }
+      if (this.myInfoIndentityModel.entity.officeId === -1) {
+        alert('请选择科室/部门!')
+        return
+      }
+      if (this.myInfoIndentityModel.entity.certificateNo === '') {
+        alert('请填写证件编码!')
+        return
+      }
+      if (this.myInfoIndentityModel.entity.certificateUrl === '') {
+        alert('请上传证件图!')
+        return
+      }
+      this.myInfoIndentityModel.entity.identityName = this.doctorsArr.filter(
+        f => f.id === this.myInfoIndentityModel.entity.identityId
+      )[0].name
+      this.myInfoIndentityModel.entity.provinceName = this.provincesArrr.filter(
+        f => f.code === this.myInfoIndentityModel.entity.provinceCode
+      )[0].name
+      this.myInfoIndentityModel.entity.cityName = this.citiesArr.filter(
+        f => f.code === this.myInfoIndentityModel.entity.cityCode
+      )[0].name
+      this.myInfoIndentityModel.entity.divisionName = this.divisionArr.filter(
+        f => f.code === this.myInfoIndentityModel.entity.divisionCode
+      )[0].name
+      this.myInfoIndentityModel.entity.unitName = this.hospitalsArr.filter(
+        f => f.id === this.myInfoIndentityModel.entity.unitId
+      )[0].name
+      this.myInfoIndentityModel.entity.officeName = this.keshiArr.filter(
+        f => f.id === this.myInfoIndentityModel.entity.officeId
+      )[0].name
+      const { result, errorInfo } = await submitMyInfoIndentityUpdateService(this.myInfoIndentityModel)
       if (result) {
         alert('提交成功!')
       }

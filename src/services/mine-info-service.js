@@ -52,3 +52,11 @@ export const getHostpitalsService = async payload => {
     data: payload
   })
 }
+
+export const submitMyInfoIndentityUpdateService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_CMS_Authority_Update_ToStatus}`,
+    method: 'POST',
+    data: payload
+  })
+}
