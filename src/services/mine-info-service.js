@@ -30,9 +30,17 @@ export const submitMyInfoIndentityService = async payload => {
   })
 }
 
-export const getMyInfoByIdService = async payload => {
+export const getMyInfoByIdService = async (memberId, authorityIndex) => {
   return await ajax({
-    url: `${CONFIG.API_URLS.MIS_CMS_Authority_Rows_ByApplierId}/${payload}`,
+    url: `${CONFIG.API_URLS.MIS_CMS_Authority_Row_ByMemberId}/${memberId}/${authorityIndex}`,
     method: 'GET'
+  })
+}
+
+export const getHostpitalsService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_ASM_Hospital_Query_Page}`,
+    method: 'POST',
+    data: payload
   })
 }

@@ -102,7 +102,7 @@
                 <div class="left_view">
                   <div
                     class="header_logo"
-                    v-if="myInfoIndentityModel.applier.avatarUrl === ''"
+                    v-if="myInfoIndentityModel.entity.applier.avatarUrl === ''"
                     @click="toTouchHeaderLogoUploadFile"
                   >
                     头像
@@ -113,11 +113,11 @@
                     @click="toTouchHeaderLogoUploadFile"
                     :style="{
                       backgroundSize: 'contain',
-                      backgroundImage: 'url(' + myInfoIndentityModel.applier.avatarUrl + ')',
+                      backgroundImage: 'url(' + myInfoIndentityModel.entity.applier.avatarUrl + ')',
                       backgroundRepeat: 'no-repeat'
                     }"
                   >
-                    <!-- <img class="header_logo_size" :src="myInfoIndentityModel.applier.avatarUrl" alt="" /> -->
+                    <!-- <img class="header_logo_size" :src="myInfoIndentityModel.entity.applier.avatarUrl" alt="" /> -->
                   </div>
 
                   <input
@@ -141,7 +141,7 @@
                     <select
                       class="select_view"
                       @change="e => changeIdentity(e)"
-                      v-model="myInfoIndentityModel.identityId"
+                      v-model="myInfoIndentityModel.entity.identityId"
                     >
                       <option value="-1">-----请选择-----</option>
                       <option v-for="item in doctorsArr" :key="item.id" :value="item.id">{{ item.name }}</option>
@@ -152,7 +152,7 @@
                     <select
                       class="select_view"
                       @change="e => provinceChange(e)"
-                      v-model="myInfoIndentityModel.provinceCode"
+                      v-model="myInfoIndentityModel.entity.provinceCode"
                     >
                       <option value="">-----请选择-----</option>
                       <option v-for="item in provincesArrr" :key="item.code" :value="item.code">{{ item.name }}</option>
@@ -160,14 +160,22 @@
                   </div>
                   <div class="row">
                     <span class="label">市</span>
-                    <select class="select_view" @change="e => cityChange(e)" v-model="myInfoIndentityModel.cityCode">
+                    <select
+                      class="select_view"
+                      @change="e => cityChange(e)"
+                      v-model="myInfoIndentityModel.entity.cityCode"
+                    >
                       <option value="">-----请选择-----</option>
                       <option v-for="item in citiesArr" :key="item.code" :value="item.code">{{ item.name }}</option>
                     </select>
                   </div>
                   <div class="row">
                     <span class="label">区</span>
-                    <select class="select_view" v-model="myInfoIndentityModel.divisionCode">
+                    <select
+                      class="select_view"
+                      @change="e => divisionChange(e)"
+                      v-model="myInfoIndentityModel.entity.divisionCode"
+                    >
                       <option value="">-----请选择-----</option>
                       <option v-for="item in divisionArr" :key="item.code" :value="item.code">{{ item.name }}</option>
                     </select>
@@ -190,21 +198,25 @@
                   </div>
                   <div class="row" v-if="personIdentity === '2' || personIdentity === '3' || personIdentity === '4'">
                     <span class="label">医院/单位</span>
-                    <select class="select_view" @change="e => hospitalChange(e)" v-model="myInfoIndentityModel.unitId">
+                    <select
+                      class="select_view"
+                      @change="e => hospitalChange(e)"
+                      v-model="myInfoIndentityModel.entity.unitId"
+                    >
                       <option value="-1">-----请选择-----</option>
                       <option v-for="item in hospitalsArr" :key="item.id" :value="item.id">{{ item.name }}</option>
                     </select>
                   </div>
                   <div class="row" v-if="personIdentity === '2' || personIdentity === '3' || personIdentity === '4'">
                     <span class="label">科室/部门</span>
-                    <select class="select_view" v-model="myInfoIndentityModel.officeId">
+                    <select class="select_view" v-model="myInfoIndentityModel.entity.officeId">
                       <option value="-1">-----请选择-----</option>
                       <option v-for="item in keshiArr" :key="item.id" :value="item.id">{{ item.name }}</option>
                     </select>
                   </div>
                   <div class="row" v-if="personIdentity === '2' || personIdentity === '3'">
                     <span class="label">证件编码</span>
-                    <input type="text" class="select_view" v-model.trim="myInfoIndentityModel.certificateNo" />
+                    <input type="text" class="select_view" v-model.trim="myInfoIndentityModel.entity.certificateNo" />
                   </div>
                   <div class="row" v-if="personIdentity === '2' || personIdentity === '3'">
                     <span class="label">证书上传</span>
@@ -229,7 +241,7 @@
                           class="img_item"
                           :style="{
                             backgroundSize: 'contain',
-                            backgroundImage: 'url(' + myInfoIndentityModel.certificateUrl + ')',
+                            backgroundImage: 'url(' + myInfoIndentityModel.entity.certificateUrl + ')',
                             backgroundRepeat: 'no-repeat'
                           }"
                         >
@@ -771,7 +783,8 @@ import {
   getAreaInfoService,
   getHospitalsService,
   submitMyInfoIndentityService,
-  getMyInfoByIdService
+  getMyInfoByIdService,
+  getHostpitalsService
 } from '@s/mine-info-service'
 import { mutipleAjax } from '@l/axios-interceptor'
 export default {
@@ -797,79 +810,125 @@ export default {
       checkedAgree: false,
 
       myInfoIndentityModel: {
-        id: 0,
-        memberId: this.$store.state.memberId,
-        memberName: this.$store.state.userName,
-
-        realName: '',
-        identityId: -1,
-        identityName: '',
-        nationCode: '',
-        nationName: '',
-        provinceCode: '',
-        provinceName: '',
-        cityCode: '',
-        cityName: '',
-        divisionCode: '',
-        divisionName: '',
-        unitId: -1,
-        unitName: '',
-        officeId: -1,
-        officeName: '',
-        dutyId: -1,
-        dutyName: '',
-        jobNo: '',
-        jobUrl: '',
-        certificateNo: '',
-        certificateUrl: '',
-        idCard: '',
-        idCardFUrl: '',
-        idCardBUrl: '',
-        mobile: '',
-        email: '',
-        alipay: '',
-        wechatPay: '',
-
-        applierId: this.$store.state.memberId,
-        applierName: this.$store.state.userName,
-
-        applierDate: '2021-05-08T06:35:49.678Z',
-        approverId: -1,
-        approverName: '',
-        approverDate: '2021-05-08T06:35:49.678Z',
-        remark: '',
-        statusId: -1,
-        statusName: '',
-        statusValue: 0,
-        applier: {
+        entity: {
           id: 0,
-          name: '',
-          password: '',
-          email: '',
-          mobile: '',
+          memberId: this.$store.state.memberId,
+          memberName: this.$store.state.userName,
+
           realName: '',
-          avatarUrl: '',
+          identityId: -1,
+          identityName: '',
+          nationCode: '',
+          nationName: '',
+          provinceCode: '',
+          provinceName: '',
+          cityCode: '',
+          cityName: '',
+          divisionCode: '',
+          divisionName: '',
+          unitId: -1,
+          unitName: '',
+          officeId: -1,
+          officeName: '',
+          dutyId: -1,
+          dutyName: '',
+          jobNo: '',
+          jobUrl: '',
+          certificateNo: '',
+          certificateUrl: '',
           idCard: '',
-          birthdate: '0001-01-01T00:00:00',
-          gender: '',
-          classifyId: -1,
-          classifyName: '',
-          level: 0,
-          levelDeadline: '2021-05-08T06:35:49.678Z',
-          downCount: 0,
-          buyCount: 0,
-          uploadCount: 0,
-          reDownCount: 0,
-          reBuyCount: 0,
-          reUploadCount: 0,
-          isAuthority: true,
+          idCardFUrl: '',
+          idCardBUrl: '',
+          mobile: '',
+          email: '',
+          alipay: '',
+          wechatPay: '',
+
+          applierId: this.$store.state.memberId,
+          applierName: this.$store.state.userName,
+
+          applierDate: '2021-05-08T06:35:49.678Z',
+          approverId: -1,
+          approverName: '',
+          approverDate: '2021-05-08T06:35:49.678Z',
           remark: '',
-          registDateTime: '2021-05-08T06:35:49.678Z',
-          loginDateTime: '2021-05-08T06:35:49.678Z',
-          loginIPAddress: '',
           statusId: -1,
           statusName: '',
           statusValue: 0,
+          applier: {
+            id: 0,
+            name: '',
+            password: '',
+            email: '',
+            mobile: '',
+            realName: '',
+            avatarUrl: '',
+            idCard: '',
+            birthdate: '0001-01-01T00:00:00',
+            gender: '',
+            classifyId: -1,
+            classifyName: '',
+            level: 0,
+            levelDeadline: '2021-05-08T06:35:49.678Z',
+            downCount: 0,
+            buyCount: 0,
+            uploadCount: 0,
+            reDownCount: 0,
+            reBuyCount: 0,
+            reUploadCount: 0,
+            isAuthority: true,
+            remark: '',
+            registDateTime: '2021-05-08T06:35:49.678Z',
+            loginDateTime: '2021-05-08T06:35:49.678Z',
+            loginIPAddress: '',
+            statusId: -1,
+            statusName: '',
+            statusValue: 0,
+            status: {
+              id: 0,
+              pid: -1,
+              name: '',
+              key: '',
+              value: 0,
+              desc: '',
+              createDateTime: '2021-05-08T06:35:49.678Z',
+              createUserId: -1,
+              editDateTime: '2021-05-08T06:35:49.678Z',
+              editUserId: -1,
+              path: ''
+            }
+          },
+          approver: {
+            id: 0,
+            name: '',
+            password: '',
+            realName: '',
+            email: '',
+            mobile: '',
+            remark: '',
+            loginDateTime: '2021-05-08T06:35:49.678Z',
+            loginIPAddress: '',
+            createDateTime: '2021-05-08T06:35:49.678Z',
+            createUserId: -1,
+            editDateTime: '2021-05-08T06:35:49.678Z',
+            editUserId: -1,
+            statusId: 0,
+            statusName: '',
+            statusValue: 0,
+            status: {
+              id: 0,
+              pid: -1,
+              name: '',
+              key: '',
+              value: 0,
+              desc: '',
+              createDateTime: '2021-05-08T06:35:49.678Z',
+              createUserId: -1,
+              editDateTime: '2021-05-08T06:35:49.678Z',
+              editUserId: -1,
+              path: ''
+            }
+          },
           status: {
             id: 0,
             pid: -1,
@@ -882,51 +941,8 @@ export default {
             editDateTime: '2021-05-08T06:35:49.678Z',
             editUserId: -1,
             path: ''
-          }
-        },
-        approver: {
-          id: 0,
-          name: '',
-          password: '',
-          realName: '',
-          email: '',
-          mobile: '',
-          remark: '',
-          loginDateTime: '2021-05-08T06:35:49.678Z',
-          loginIPAddress: '',
-          createDateTime: '2021-05-08T06:35:49.678Z',
-          createUserId: -1,
-          editDateTime: '2021-05-08T06:35:49.678Z',
-          editUserId: -1,
-          statusId: 0,
-          statusName: '',
-          statusValue: 0,
-          status: {
-            id: 0,
-            pid: -1,
-            name: '',
-            key: '',
-            value: 0,
-            desc: '',
-            createDateTime: '2021-05-08T06:35:49.678Z',
-            createUserId: -1,
-            editDateTime: '2021-05-08T06:35:49.678Z',
-            editUserId: -1,
-            path: ''
-          }
-        },
-        status: {
-          id: 0,
-          pid: -1,
-          name: '',
-          key: '',
-          value: 0,
-          desc: '',
-          createDateTime: '2021-05-08T06:35:49.678Z',
-          createUserId: -1,
-          editDateTime: '2021-05-08T06:35:49.678Z',
-          editUserId: -1,
-          path: ''
+          },
+          statusKey: 'cms.authority.open'
         }
       }
     }
@@ -962,31 +978,32 @@ export default {
   },
   methods: {
     async loadInitialData() {
-      let promiseArr = [getDcotorsService(), getAreaInfoService('0'), getHospitalsService(-1)]
+      let promiseArr = [getDcotorsService(), getAreaInfoService('0')]
       let result = await mutipleAjax(promiseArr)
       this.doctorsArr = result[0].rows
       this.provincesArrr = result[1].rows
-      this.hospitalsArr = result[2].rows
-      let { result: myInfoResult, rows, message } = await getMyInfoByIdService(this.$store.state.memberId)
+      let { result: myInfoResult, row, message } = await getMyInfoByIdService(this.$store.state.memberId, 0)
       if (myInfoResult) {
-        const myInfo = rows[0]
-        this.myInfoIndentityModel.identityId = myInfo.identityId
-        this.myInfoIndentityModel.identityName = myInfo.identityName
-        this.myInfoIndentityModel.provinceCode = myInfo.provinceCode
-        this.myInfoIndentityModel.provinceName = myInfo.provinceName
-        await this.loadCitiesByProvinceCode(this.myInfoIndentityModel.provinceCode)
-        this.myInfoIndentityModel.cityCode = myInfo.cityCode
-        this.myInfoIndentityModel.cityName = myInfo.cityName
-        await this.loadDivisionsByCityCode(this.myInfoIndentityModel.cityCode)
-        this.myInfoIndentityModel.divisionCode = myInfo.divisionCode
-        this.myInfoIndentityModel.divisionName = myInfo.divisionName
-        this.myInfoIndentityModel.unitId = myInfo.unitId
-        this.myInfoIndentityModel.unitName = myInfo.unitName
-        await this.loadKeshiList(this.myInfoIndentityModel.unitId)
-        this.myInfoIndentityModel.officeId = myInfo.officeId
-        this.myInfoIndentityModel.officeName = myInfo.officeName
-        this.myInfoIndentityModel.certificateNo = myInfo.certificateNo
-        this.myInfoIndentityModel.certificateUrl = myInfo.certificateUrl
+        const myInfo = row
+        this.myInfoIndentityModel.entity.identityId = myInfo.identityId
+        this.myInfoIndentityModel.entity.identityName = myInfo.identityName
+        this.myInfoIndentityModel.entity.provinceCode = myInfo.provinceCode
+        this.myInfoIndentityModel.entity.provinceName = myInfo.provinceName
+        await this.loadCitiesByProvinceCode(this.myInfoIndentityModel.entity.provinceCode)
+        this.myInfoIndentityModel.entity.cityCode = myInfo.cityCode
+        this.myInfoIndentityModel.entity.cityName = myInfo.cityName
+        await this.loadDivisionsByCityCode(this.myInfoIndentityModel.entity.cityCode)
+        this.myInfoIndentityModel.entity.divisionCode = myInfo.divisionCode
+        this.myInfoIndentityModel.entity.divisionName = myInfo.divisionName
+
+        await this.loadHostpitalsByDivision(this.myInfoIndentityModel.entity.divisionCode)
+        this.myInfoIndentityModel.entity.unitId = myInfo.unitId
+        this.myInfoIndentityModel.entity.unitName = myInfo.unitName
+        await this.loadKeshiList(this.myInfoIndentityModel.entity.unitId, this.myInfoIndentityModel.entity.divisionCode)
+        this.myInfoIndentityModel.entity.officeId = myInfo.officeId
+        this.myInfoIndentityModel.entity.officeName = myInfo.officeName
+        this.myInfoIndentityModel.entity.certificateNo = myInfo.certificateNo
+        this.myInfoIndentityModel.entity.certificateUrl = myInfo.certificateUrl
       }
     },
     async submitData() {
@@ -994,57 +1011,57 @@ export default {
         alert('请勾选已阅读并同意《漫云搜医平台隐私及使用政策》!')
         return
       }
-      if (this.myInfoIndentityModel.identityId === -1) {
+      if (this.myInfoIndentityModel.entity.identityId === -1) {
         alert('请选择身份!')
         return
       }
-      if (this.myInfoIndentityModel.provinceCode === '') {
+      if (this.myInfoIndentityModel.entity.provinceCode === '') {
         alert('请选择省!')
         return
       }
-      if (this.myInfoIndentityModel.cityCode === '') {
+      if (this.myInfoIndentityModel.entity.cityCode === '') {
         alert('请选择市!')
         return
       }
-      if (this.myInfoIndentityModel.divisionCode === '') {
+      if (this.myInfoIndentityModel.entity.divisionCode === '') {
         alert('请选择区!')
         return
       }
-      if (this.myInfoIndentityModel.unitId === -1) {
+      if (this.myInfoIndentityModel.entity.unitId === -1) {
         alert('请选择医院/单位!')
         return
       }
-      if (this.myInfoIndentityModel.officeId === -1) {
+      if (this.myInfoIndentityModel.entity.officeId === -1) {
         alert('请选择科室/部门!')
         return
       }
-      if (this.myInfoIndentityModel.certificateNo === '') {
+      if (this.myInfoIndentityModel.entity.certificateNo === '') {
         alert('请填写证件编码!')
         return
       }
-      if (this.myInfoIndentityModel.certificateUrl === '') {
+      if (this.myInfoIndentityModel.entity.certificateUrl === '') {
         alert('请上传证件图!')
         return
       }
-      this.myInfoIndentityModel.identityName = this.doctorsArr.filter(
-        f => f.id === this.myInfoIndentityModel.identityId
+      this.myInfoIndentityModel.entity.identityName = this.doctorsArr.filter(
+        f => f.id === this.myInfoIndentityModel.entity.identityId
       )[0].name
-      this.myInfoIndentityModel.provinceName = this.provincesArrr.filter(
-        f => f.code === this.myInfoIndentityModel.provinceCode
+      this.myInfoIndentityModel.entity.provinceName = this.provincesArrr.filter(
+        f => f.code === this.myInfoIndentityModel.entity.provinceCode
       )[0].name
-      this.myInfoIndentityModel.cityName = this.citiesArr.filter(
-        f => f.code === this.myInfoIndentityModel.cityCode
+      this.myInfoIndentityModel.entity.cityName = this.citiesArr.filter(
+        f => f.code === this.myInfoIndentityModel.entity.cityCode
       )[0].name
-      this.myInfoIndentityModel.divisionName = this.divisionArr.filter(
-        f => f.code === this.myInfoIndentityModel.divisionCode
+      this.myInfoIndentityModel.entity.divisionName = this.divisionArr.filter(
+        f => f.code === this.myInfoIndentityModel.entity.divisionCode
       )[0].name
-      this.myInfoIndentityModel.unitName = this.hospitalsArr.filter(
-        f => f.id === this.myInfoIndentityModel.unitId
+      this.myInfoIndentityModel.entity.unitName = this.hospitalsArr.filter(
+        f => f.id === this.myInfoIndentityModel.entity.unitId
       )[0].name
-      this.myInfoIndentityModel.officeName = this.keshiArr.filter(
-        f => f.id === this.myInfoIndentityModel.officeId
+      this.myInfoIndentityModel.entity.officeName = this.keshiArr.filter(
+        f => f.id === this.myInfoIndentityModel.entity.officeId
       )[0].name
-      const { result, errorInfo } = await submitMyInfoIndentityService(this.myInfoIndentityModel)
+      const { result, errorInfo } = await submitMyInfoIndentityService(this.myInfoIndentityModel.entity)
       if (result) {
         alert('提交成功!')
       }
@@ -1097,7 +1114,7 @@ export default {
         data: { fileName, relativePath },
         errorInfo
       } = await uploadFileService(param)
-      this.myInfoIndentityModel.applier.avatarUrl = relativePath
+      this.myInfoIndentityModel.entity.applier.avatarUrl = relativePath
     },
 
     async uploadCertFile() {
@@ -1113,7 +1130,7 @@ export default {
         data: { fileName, relativePath },
         errorInfo
       } = await uploadFileService(param)
-      this.myInfoIndentityModel.certificateUrl = relativePath
+      this.myInfoIndentityModel.entity.certificateUrl = relativePath
     },
     toTouchUploadFile() {
       this.$refs.CertUploadFileRef.click()
@@ -1126,10 +1143,18 @@ export default {
       if (result) {
         this.citiesArr = rows
         this.divisionArr = []
-        this.myInfoIndentityModel.cityCode = ''
-        this.myInfoIndentityModel.cityName = ''
-        this.myInfoIndentityModel.divisionCode = ''
-        this.myInfoIndentityModel.divisionName = ''
+        this.keshiArr = []
+        this.hospitalsArr = []
+
+        this.myInfoIndentityModel.entity.unitId = -1
+        this.myInfoIndentityModel.entity.unitName = ''
+        this.myInfoIndentityModel.entity.officeId = -1
+        this.myInfoIndentityModel.entity.officeName = ''
+
+        this.myInfoIndentityModel.entity.cityCode = ''
+        this.myInfoIndentityModel.entity.cityName = ''
+        this.myInfoIndentityModel.entity.divisionCode = ''
+        this.myInfoIndentityModel.entity.divisionName = ''
       }
     },
     async loadCitiesByProvinceCode(code) {
@@ -1151,14 +1176,54 @@ export default {
         this.divisionArr = rows
       }
     },
+    async divisionChange(e) {
+      const request = {
+        keyWord: `^pid=-1^divisioncode=${e.target.value}`,
+        page: '1^50',
+        date: '',
+        sort: '',
+        status: [0, 1]
+      }
+      const { result, rows, errorInfo } = await getHostpitalsService(request)
+      if (result) {
+        this.hospitalsArr = rows
+      }
+    },
+    async loadHostpitalsByDivision(code) {
+      const request = {
+        keyWord: `^pid=-1^divisioncode=${code}`,
+        page: '1^50',
+        date: '',
+        sort: '',
+        status: [0, 1]
+      }
+      const { result, rows, errorInfo } = await getHostpitalsService(request)
+      if (result) {
+        this.hospitalsArr = rows
+      }
+    },
     async hospitalChange(e) {
-      const { result, rows, errorInfo } = await getHospitalsService(e.target.value)
+      const request = {
+        keyWord: `^pid=${e.target.value}^divisioncode=${this.myInfoIndentityModel.entity.divisionCode}`,
+        page: '1^50',
+        date: '',
+        sort: '',
+        status: [0, 1]
+      }
+      const { result, rows, errorInfo } = await getHostpitalsService(request)
       if (result) {
         this.keshiArr = rows
       }
     },
-    async loadKeshiList(pid) {
-      const { result, rows, errorInfo } = await getHospitalsService(pid)
+    async loadKeshiList(hospitalId, code) {
+      const request = {
+        keyWord: `^pid=${hospitalId}^divisioncode=${code}`,
+        page: '1^50',
+        date: '',
+        sort: '',
+        status: [0, 1]
+      }
+      const { result, rows, errorInfo } = await getHostpitalsService(request)
       if (result) {
         this.keshiArr = rows
       }
