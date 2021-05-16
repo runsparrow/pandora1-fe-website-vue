@@ -290,6 +290,16 @@
                 </div>
                 <div class="right_view" style="cursor:pointer" @click="submitData">提交</div>
               </div>
+              <div class="footer_view" v-if="statusValue === 1">
+                <div class="left_view">
+                  <input
+                    type="checkbox"
+                    class="chk_agree"
+                    v-model="checkedAgree"
+                  />已阅读并同意《漫云搜医平台隐私及使用政策》
+                </div>
+                <div class="right_view" style="cursor:pointer" @click="submitData">更新</div>
+              </div>
             </template>
             <template v-if="inner_tabIndex === 1">
               <div class="title_content_view">
@@ -411,6 +421,16 @@
                   />已阅读并同意《漫云搜医平台隐私及使用政策》
                 </div>
                 <div class="right_view" @click="submitDesign">提交</div>
+              </div>
+              <div class="footer_view" v-if="statusDesignValue === 1">
+                <div class="left_view">
+                  <input
+                    type="checkbox"
+                    class="chk_agree"
+                    v-model="desingCheckedAgree"
+                  />已阅读并同意《漫云搜医平台隐私及使用政策》
+                </div>
+                <div class="right_view" @click="submitDesign">更新</div>
               </div>
             </template>
           </div>
@@ -1190,6 +1210,8 @@ export default {
         await this.loadDivisionsByCityCode(this.myInfoIndentityModel.entity.cityCode)
         this.myInfoIndentityModel.entity.divisionCode = myInfo.divisionCode
         this.myInfoIndentityModel.entity.divisionName = myInfo.divisionName
+        this.myInfoIndentityModel.entity.id = myInfo.id
+        this.checkedAgree = true
 
         await this.loadHostpitalsByDivision(this.myInfoIndentityModel.entity.divisionCode)
         this.myInfoIndentityModel.entity.unitId = myInfo.unitId
@@ -1205,6 +1227,8 @@ export default {
         1
       )
       if (myInfoDesignResult) {
+        this.desingCheckedAgree = true
+        this.myInfoDesignModel.entity.id = designRow.id
         this.myInfoDesignModel.entity.realName = designRow.realName
         this.myInfoDesignModel.entity.idCard = designRow.idCard
         this.myInfoDesignModel.entity.alipay = designRow.alipay

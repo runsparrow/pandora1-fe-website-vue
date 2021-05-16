@@ -45,6 +45,7 @@ ajax.interceptors.response.use(
     // const errorObject = JSON.parse(JSON.stringify(error));
     // const {code,response,request,config} =errorObject;
     // 关闭Spin
+    store.commit('setLoading', false)
     const { response } = error
     ajaxQueues = {}
     if (response) {
