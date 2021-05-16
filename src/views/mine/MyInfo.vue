@@ -221,7 +221,7 @@
                   <div class="row" v-if="personIdentity === '2' || personIdentity === '3'">
                     <span class="label">证书上传</span>
                     <div class="pic_view">
-                      <div class="upload_view" @click="toTouchUploadFile">
+                      <div class="upload_view" @click="toTouchUploadFile" v-if="statusValue === 0">
                         <img
                           class="add_file_img"
                           src="@a/imgs/add-file.png"
@@ -280,7 +280,7 @@
                   </div>
                 </div>
               </div>
-              <div class="footer_view">
+              <div class="footer_view" v-if="statusValue === 0">
                 <div class="left_view">
                   <input
                     type="checkbox"
@@ -808,6 +808,7 @@ export default {
       hospitalsArr: [],
       keshiArr: [],
       checkedAgree: false,
+      statusValue: 0,
 
       myInfoIndentityModel: {
         entity: {
@@ -941,9 +942,9 @@ export default {
             editDateTime: '2021-05-08T06:35:49.678Z',
             editUserId: -1,
             path: ''
-          },
-          statusKey: 'cms.authority.open'
-        }
+          }
+        },
+        statusKey: 'cms.authority.open'
       }
     }
   },
@@ -985,6 +986,7 @@ export default {
       let { result: myInfoResult, row, message } = await getMyInfoByIdService(this.$store.state.memberId, 0)
       if (myInfoResult) {
         const myInfo = row
+        this.statusValue = myInfo.statusValue
         this.myInfoIndentityModel.entity.identityId = myInfo.identityId
         this.myInfoIndentityModel.entity.identityName = myInfo.identityName
         this.myInfoIndentityModel.entity.provinceCode = myInfo.provinceCode
@@ -1061,7 +1063,7 @@ export default {
       this.myInfoIndentityModel.entity.officeName = this.keshiArr.filter(
         f => f.id === this.myInfoIndentityModel.entity.officeId
       )[0].name
-      const { result, errorInfo } = await submitMyInfoIndentityService(this.myInfoIndentityModel.entity)
+      const { result, errorInfo } = await submitMyInfoIndentityService(this.myInfoIndentityModel)
       if (result) {
         alert('提交成功!')
       }

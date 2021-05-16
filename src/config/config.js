@@ -13,7 +13,7 @@ export default {
     MIS_ASM_Region_Rows_ByParentCode: '/MIS/ASM/Region/Rows/ByParentCode',
     MIS_ASM_Hospital_Rows_ByPid: '/MIS/ASM/Hospital/Rows/ByPid', //医院
     MIS_ASM_Hospital_Query_Page: '/MIS/ASM/Hospital/Query/Page', //医院/科室
-    MIS_CMS_Authority_Create_Single: '/MIS/CMS/Authority/Create/Single',
+    MIS_CMS_Authority_Create_ToStatus: '/MIS/CMS/Authority/Create/ToStatus',
     MIS_CMS_Authority_Row_ByMemberId: '/MIS/CMS/Authority/Row/ByMemberId'
   }
 }

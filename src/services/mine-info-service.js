@@ -24,7 +24,7 @@ export const getHospitalsService = async payload => {
 
 export const submitMyInfoIndentityService = async payload => {
   return await ajax({
-    url: `${CONFIG.API_URLS.MIS_CMS_Authority_Create_Single}`,
+    url: `${CONFIG.API_URLS.MIS_CMS_Authority_Create_ToStatus}`,
     method: 'POST',
     data: payload
   })
