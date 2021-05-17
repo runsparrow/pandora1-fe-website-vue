@@ -257,22 +257,35 @@
                   <div class="row" v-if="personIdentity === '4'">
                     <span class="label">工牌号上传</span>
                     <div class="pic_view">
-                      <div class="upload_view">
-                        <img
+                      <div class="pic_list">
+                        <div
+                          class="img_item"
+                          @click="toTouchUploadFile"
+                          :style="{
+                            backgroundSize: 'contain',
+                            backgroundImage: 'url(' + myInfoIndentityModel.entity.certificateUrl + ')',
+                            backgroundRepeat: 'no-repeat'
+                          }"
+                        >
+                         <img
                           class="add_file_img"
                           src="@a/imgs/add-file.png"
                           alt=""
                           srcset="@a/imgs/add-file@2x.png 2x"
                         />
-                      </div>
-                      <div class="pic_list">
-                        <div class="img_item">
-                          <img
+                        <input
+                          class="uploadCertFile"
+                          type="file"
+                          @change="uploadGongPaiFile"
+                          ref="GongPaiUploadFileRef"
+                          accept="image/png,image/jpeg,image/gif,image/jpg"
+                        />
+                          <!-- <img
                             class="del_file_img"
                             src="@a/imgs/del-file.png"
                             alt=""
                             srcset="@a/imgs/del-file@2x.png 2x"
-                          />
+                          /> -->
                         </div>
                       </div>
                     </div>
@@ -1356,6 +1369,7 @@ export default {
       const { result, errorInfo } = await submitMyInfoIndentityService(this.myInfoIndentityModel)
       if (result) {
         alert('提交成功!')
+        window.location.reload();
       }
     },
     async submitDataUpdate() {
@@ -1484,6 +1498,12 @@ export default {
       } = await uploadFileService(param)
       this.myInfoIndentityModel.entity.certificateUrl = relativePath
     },
+
+    async uploadGongPaiFile()
+    {
+
+    },
+
     async uploadidCardFFile() {
       let inputDOM = this.$refs.idCardFFileRef
       let file = inputDOM.files[0]
