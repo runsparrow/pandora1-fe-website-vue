@@ -221,8 +221,17 @@
                   <div class="row" v-if="personIdentity === '2' || personIdentity === '3'">
                     <span class="label">证书上传</span>
                     <div class="pic_view">
-                      <div class="upload_view" @click="toTouchUploadFile" v-if="statusValue === 0">
-                        <img
+                      <div class="pic_list">
+                        <div
+                          class="img_item"
+                          @click="toTouchUploadFile"
+                          :style="{
+                            backgroundSize: 'contain',
+                            backgroundImage: 'url(' + myInfoIndentityModel.entity.certificateUrl + ')',
+                            backgroundRepeat: 'no-repeat'
+                          }"
+                        >
+                         <img
                           class="add_file_img"
                           src="@a/imgs/add-file.png"
                           alt=""
@@ -235,16 +244,6 @@
                           ref="CertUploadFileRef"
                           accept="image/png,image/jpeg,image/gif,image/jpg"
                         />
-                      </div>
-                      <div class="pic_list">
-                        <div
-                          class="img_item"
-                          :style="{
-                            backgroundSize: 'contain',
-                            backgroundImage: 'url(' + myInfoIndentityModel.entity.certificateUrl + ')',
-                            backgroundRepeat: 'no-repeat'
-                          }"
-                        >
                           <!-- <img
                             class="del_file_img"
                             src="@a/imgs/del-file.png"
@@ -2217,6 +2216,12 @@ export default {
                       margin-top: 5px;
                       position: relative;
                       cursor: pointer;
+                      .add_file_img {
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        position: absolute;
+                      }
                       .del_file_img {
                         top: -10px;
                         right: -8px;
