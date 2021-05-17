@@ -182,19 +182,19 @@
                   </div>
                   <div class="row" v-if="personIdentity === '5'">
                     <span class="label">公司名称</span>
-                    <input type="text" class="select_view" />
+                    <input type="text" class="select_view" v-model.trim="myInfoIndentityModel.entity.unitName" />
                   </div>
                   <div class="row" v-if="personIdentity === '5'">
                     <span class="label">所属部门</span>
-                    <input type="text" class="select_view" />
+                    <input type="text" class="select_view" v-model.trim="myInfoIndentityModel.entity.officeName" />
                   </div>
                   <div class="row" v-if="personIdentity === '5'">
                     <span class="label">职位职务</span>
-                    <input type="text" class="select_view" />
+                    <input type="text" class="select_view" v-model.trim="myInfoIndentityModel.entity.dutyName" />
                   </div>
                   <div class="row" v-if="personIdentity === '5'">
                     <span class="label">公司邮箱</span>
-                    <input type="text" class="select_view" />
+                    <input type="text" class="select_view" v-model.trim="myInfoIndentityModel.entity.email" />
                   </div>
                   <div class="row" v-if="personIdentity === '2' || personIdentity === '3' || personIdentity === '4'">
                     <span class="label">医院/单位</span>
@@ -231,19 +231,19 @@
                             backgroundRepeat: 'no-repeat'
                           }"
                         >
-                         <img
-                          class="add_file_img"
-                          src="@a/imgs/add-file.png"
-                          alt=""
-                          srcset="@a/imgs/add-file@2x.png 2x"
-                        />
-                        <input
-                          class="uploadCertFile"
-                          type="file"
-                          @change="uploadCertFile"
-                          ref="CertUploadFileRef"
-                          accept="image/png,image/jpeg,image/gif,image/jpg"
-                        />
+                          <img
+                            class="add_file_img"
+                            src="@a/imgs/add-file.png"
+                            alt=""
+                            srcset="@a/imgs/add-file@2x.png 2x"
+                          />
+                          <input
+                            class="uploadCertFile"
+                            type="file"
+                            @change="uploadCertFile"
+                            ref="CertUploadFileRef"
+                            accept="image/png,image/jpeg,image/gif,image/jpg"
+                          />
                           <!-- <img
                             class="del_file_img"
                             src="@a/imgs/del-file.png"
@@ -260,26 +260,26 @@
                       <div class="pic_list">
                         <div
                           class="img_item"
-                          @click="toTouchUploadFile"
+                          @click="toTouchGongPaiUploadFile"
                           :style="{
                             backgroundSize: 'contain',
-                            backgroundImage: 'url(' + myInfoIndentityModel.entity.certificateUrl + ')',
+                            backgroundImage: 'url(' + myInfoIndentityModel.entity.jobUrl + ')',
                             backgroundRepeat: 'no-repeat'
                           }"
                         >
-                         <img
-                          class="add_file_img"
-                          src="@a/imgs/add-file.png"
-                          alt=""
-                          srcset="@a/imgs/add-file@2x.png 2x"
-                        />
-                        <input
-                          class="uploadCertFile"
-                          type="file"
-                          @change="uploadGongPaiFile"
-                          ref="GongPaiUploadFileRef"
-                          accept="image/png,image/jpeg,image/gif,image/jpg"
-                        />
+                          <img
+                            class="add_file_img"
+                            src="@a/imgs/add-file.png"
+                            alt=""
+                            srcset="@a/imgs/add-file@2x.png 2x"
+                          />
+                          <input
+                            class="uploadCertFile"
+                            type="file"
+                            @change="uploadGongPaiFile"
+                            ref="GongPaiUploadFileRef"
+                            accept="image/png,image/jpeg,image/gif,image/jpg"
+                          />
                           <!-- <img
                             class="del_file_img"
                             src="@a/imgs/del-file.png"
@@ -1214,6 +1214,8 @@ export default {
         const myInfo = row
         this.statusValue = myInfo.statusValue
         this.myInfoIndentityModel.entity.identityId = myInfo.identityId
+        this.personIdentity = myInfo.identityId + ''
+        this.myInfoIndentityModel.entity.jobUrl = myInfo.jobUrl
         this.myInfoIndentityModel.entity.identityName = myInfo.identityName
         this.myInfoIndentityModel.entity.provinceCode = myInfo.provinceCode
         this.myInfoIndentityModel.entity.provinceName = myInfo.provinceName
@@ -1224,6 +1226,8 @@ export default {
         this.myInfoIndentityModel.entity.divisionCode = myInfo.divisionCode
         this.myInfoIndentityModel.entity.divisionName = myInfo.divisionName
         this.myInfoIndentityModel.entity.id = myInfo.id
+        this.myInfoIndentityModel.entity.dutyName = myInfo.dutyName
+        this.myInfoIndentityModel.entity.email = myInfo.email
         this.checkedAgree = true
 
         await this.loadHostpitalsByDivision(this.myInfoIndentityModel.entity.divisionCode)
@@ -1332,22 +1336,54 @@ export default {
         alert('请选择区!')
         return
       }
-      if (this.myInfoIndentityModel.entity.unitId === -1) {
-        alert('请选择医院/单位!')
-        return
+      if (this.myInfoIndentityModel.entity.identityId === 2 || this.myInfoIndentityModel.entity.identityId === 3) {
+        if (this.myInfoIndentityModel.entity.unitId === -1) {
+          alert('请选择医院/单位!')
+          return
+        }
+        if (this.myInfoIndentityModel.entity.officeId === -1) {
+          alert('请选择科室/部门!')
+          return
+        }
       }
-      if (this.myInfoIndentityModel.entity.officeId === -1) {
-        alert('请选择科室/部门!')
-        return
+
+      if (this.myInfoIndentityModel.entity.identityId === 4) {
+        if (this.myInfoIndentityModel.entity.jobUrl === '') {
+          alert('请上传工牌照!')
+          return
+        }
       }
-      if (this.myInfoIndentityModel.entity.certificateNo === '') {
-        alert('请填写证件编码!')
-        return
+
+      if (this.myInfoIndentityModel.entity.identityId === 2 || this.myInfoIndentityModel.entity.identityId === 3) {
+        if (this.myInfoIndentityModel.entity.certificateNo === '') {
+          alert('请填写证件编码!')
+          return
+        }
+        if (this.myInfoIndentityModel.entity.certificateUrl === '') {
+          alert('请上传证件图!')
+          return
+        }
       }
-      if (this.myInfoIndentityModel.entity.certificateUrl === '') {
-        alert('请上传证件图!')
-        return
+
+      if (this.myInfoIndentityModel.entity.identityId === 5) {
+        if (this.myInfoIndentityModel.entity.unitName === '') {
+          alert('请填写公司名称!')
+          return
+        }
+        if (this.myInfoIndentityModel.entity.officeName === '') {
+          alert('请填写所属部门名称!')
+          return
+        }
+        if (this.myInfoIndentityModel.entity.dutyName === '') {
+          alert('请填写职位职务!')
+          return
+        }
+        if (this.myInfoIndentityModel.entity.email === '') {
+          alert('请填写邮箱!')
+          return
+        }
       }
+
       this.myInfoIndentityModel.entity.identityName = this.doctorsArr.filter(
         f => f.id === this.myInfoIndentityModel.entity.identityId
       )[0].name
@@ -1360,16 +1396,19 @@ export default {
       this.myInfoIndentityModel.entity.divisionName = this.divisionArr.filter(
         f => f.code === this.myInfoIndentityModel.entity.divisionCode
       )[0].name
-      this.myInfoIndentityModel.entity.unitName = this.hospitalsArr.filter(
-        f => f.id === this.myInfoIndentityModel.entity.unitId
-      )[0].name
-      this.myInfoIndentityModel.entity.officeName = this.keshiArr.filter(
-        f => f.id === this.myInfoIndentityModel.entity.officeId
-      )[0].name
+      if (this.myInfoIndentityModel.entity.identityId <= 4) {
+        this.myInfoIndentityModel.entity.unitName = this.hospitalsArr.filter(
+          f => f.id === this.myInfoIndentityModel.entity.unitId
+        )[0].name
+        this.myInfoIndentityModel.entity.officeName = this.keshiArr.filter(
+          f => f.id === this.myInfoIndentityModel.entity.officeId
+        )[0].name
+      }
+
       const { result, errorInfo } = await submitMyInfoIndentityService(this.myInfoIndentityModel)
       if (result) {
+        this.statusValue = 1
         alert('提交成功!')
-        window.location.reload();
       }
     },
     async submitDataUpdate() {
@@ -1393,22 +1432,54 @@ export default {
         alert('请选择区!')
         return
       }
-      if (this.myInfoIndentityModel.entity.unitId === -1) {
-        alert('请选择医院/单位!')
-        return
+      if (this.myInfoIndentityModel.entity.identityId === 2 || this.myInfoIndentityModel.entity.identityId === 3) {
+        if (this.myInfoIndentityModel.entity.unitId === -1) {
+          alert('请选择医院/单位!')
+          return
+        }
+        if (this.myInfoIndentityModel.entity.officeId === -1) {
+          alert('请选择科室/部门!')
+          return
+        }
       }
-      if (this.myInfoIndentityModel.entity.officeId === -1) {
-        alert('请选择科室/部门!')
-        return
+
+      if (this.myInfoIndentityModel.entity.identityId === 4) {
+        if (this.myInfoIndentityModel.entity.jobUrl === '') {
+          alert('请上传工牌照!')
+          return
+        }
       }
-      if (this.myInfoIndentityModel.entity.certificateNo === '') {
-        alert('请填写证件编码!')
-        return
+
+      if (this.myInfoIndentityModel.entity.identityId === 2 || this.myInfoIndentityModel.entity.identityId === 3) {
+        if (this.myInfoIndentityModel.entity.certificateNo === '') {
+          alert('请填写证件编码!')
+          return
+        }
+        if (this.myInfoIndentityModel.entity.certificateUrl === '') {
+          alert('请上传证件图!')
+          return
+        }
       }
-      if (this.myInfoIndentityModel.entity.certificateUrl === '') {
-        alert('请上传证件图!')
-        return
+
+      if (this.myInfoIndentityModel.entity.identityId === 5) {
+        if (this.myInfoIndentityModel.entity.unitName === '') {
+          alert('请填写公司名称!')
+          return
+        }
+        if (this.myInfoIndentityModel.entity.officeName === '') {
+          alert('请填写所属部门名称!')
+          return
+        }
+        if (this.myInfoIndentityModel.entity.dutyName === '') {
+          alert('请填写职位职务!')
+          return
+        }
+        if (this.myInfoIndentityModel.entity.email === '') {
+          alert('请填写邮箱!')
+          return
+        }
       }
+
       this.myInfoIndentityModel.entity.identityName = this.doctorsArr.filter(
         f => f.id === this.myInfoIndentityModel.entity.identityId
       )[0].name
@@ -1421,12 +1492,14 @@ export default {
       this.myInfoIndentityModel.entity.divisionName = this.divisionArr.filter(
         f => f.code === this.myInfoIndentityModel.entity.divisionCode
       )[0].name
-      this.myInfoIndentityModel.entity.unitName = this.hospitalsArr.filter(
-        f => f.id === this.myInfoIndentityModel.entity.unitId
-      )[0].name
-      this.myInfoIndentityModel.entity.officeName = this.keshiArr.filter(
-        f => f.id === this.myInfoIndentityModel.entity.officeId
-      )[0].name
+      if (this.myInfoIndentityModel.entity.identityId <= 4) {
+        this.myInfoIndentityModel.entity.unitName = this.hospitalsArr.filter(
+          f => f.id === this.myInfoIndentityModel.entity.unitId
+        )[0].name
+        this.myInfoIndentityModel.entity.officeName = this.keshiArr.filter(
+          f => f.id === this.myInfoIndentityModel.entity.officeId
+        )[0].name
+      }
       const { result, errorInfo } = await submitMyInfoIndentityUpdateService(this.myInfoIndentityModel)
       if (result) {
         alert('提交成功!')
@@ -1499,9 +1572,16 @@ export default {
       this.myInfoIndentityModel.entity.certificateUrl = relativePath
     },
 
-    async uploadGongPaiFile()
-    {
-
+    async uploadGongPaiFile() {
+      let inputDOM = this.$refs.GongPaiUploadFileRef
+      let file = inputDOM.files[0]
+      let param = new FormData()
+      param.append('file', file)
+      const {
+        data: { fileName, relativePath },
+        errorInfo
+      } = await uploadFileService(param)
+      this.myInfoIndentityModel.entity.jobUrl = relativePath
     },
 
     async uploadidCardFFile() {
@@ -1528,6 +1608,9 @@ export default {
     },
     toTouchUploadFile() {
       this.$refs.CertUploadFileRef.click()
+    },
+    toTouchGongPaiUploadFile() {
+      this.$refs.GongPaiUploadFileRef.click()
     },
     toTouchHeaderLogoUploadFile() {
       this.$refs.HeaderLogoUploadFileRef.click()
