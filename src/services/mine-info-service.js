@@ -60,3 +60,17 @@ export const submitMyInfoIndentityUpdateService = async payload => {
     data: payload
   })
 }
+
+export const getTagsService = async () => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_ASM_Dictionary_Rows_ByParentKey_tag}/cms.goods.tags`,
+    method: 'GET'
+  })
+}
+
+export const getProductClassifyService = async () => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_ASM_Dictionary_Tree_SubsetByKey}/cms.goods.classify`,
+    method: 'GET'
+  })
+}

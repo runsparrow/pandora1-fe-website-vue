@@ -11,8 +11,12 @@
           <input class="content" type="text" />
         </div>
         <div class="row">
-          <span class="label">分类</span>
+          <span class="label">标签</span>
           <vue-tags-input v-model="tag" :tags="tags" @tags-changed="newTags => (tags = newTags)" />
+        </div>
+        <div class="row">
+          <span class="label">分类</span>
+          <treeselect v-model="treeValue" :disable-branch-nodes="true" :show-count="true" :options="treeOptions" />
         </div>
         <div class="row">
           <span class="label">图片上传</span>
@@ -21,8 +25,8 @@
             <input
               class="uploadPicFile"
               type="file"
-              @change="uploadCertFile"
-              ref="CertUploadFileRef"
+              @change="uploadPicFile"
+              ref="uploadPicFileRef"
               accept="image/png,image/jpeg,image/gif,image/jpg"
             />
             <!-- <img
@@ -896,11 +900,14 @@
 </template>
 
 <script>
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import { mapState } from 'vuex'
 import { uploadFileService } from '@s/upload-file-service'
 import {
   getDcotorsService,
   getAreaInfoService,
+  getTagsService,
+  getProductClassifyService,
   getHospitalsService,
   submitMyInfoIndentityService,
   submitMyInfoIndentityUpdateService,
@@ -908,12 +915,15 @@ import {
   getHostpitalsService,
   submitMyInfoDesignService
 } from '@s/mine-info-service'
+import { gettreelist } from '@l/util'
 import { mutipleAjax } from '@l/axios-interceptor'
 import VueTagsInput from '@johmun/vue-tags-input'
+import Treeselect from '@riophae/vue-treeselect'
 export default {
   name: 'MyInfoView',
   components: {
-    VueTagsInput
+    VueTagsInput,
+    Treeselect
   },
   data() {
     return {
@@ -940,6 +950,8 @@ export default {
       modal_loading: true,
       tag: '',
       tags: [],
+      treeOptions: [],
+      treeValue: [],
 
       myInfoIndentityModel: {
         entity: {
@@ -1248,10 +1260,17 @@ export default {
   },
   methods: {
     async loadInitialData() {
-      let promiseArr = [getDcotorsService(), getAreaInfoService('0')]
+      let promiseArr = [getDcotorsService(), getAreaInfoService('0'), getTagsService(), getProductClassifyService()]
       let result = await mutipleAjax(promiseArr)
       this.doctorsArr = result[0].rows
       this.provincesArrr = result[1].rows
+      console.log(2222, result)
+      if (result[2].rows.length > 0) {
+        result[2].rows.map(m => {
+          this.tags.push({ text: m.name })
+        })
+      }
+      this.treeOptions = gettreelist(result[3].tree)
       let { result: myInfoResult, row, message } = await getMyInfoByIdService(this.$store.state.memberId, 0)
       if (myInfoResult) {
         const myInfo = row
@@ -1598,6 +1617,17 @@ export default {
       } = await uploadFileService(param)
       this.myInfoIndentityModel.entity.applier.avatarUrl = relativePath
     },
+    async uploadPicFile() {
+      let inputDOM = this.$refs.uploadPicFileRef
+      let file = inputDOM.files[0]
+      let param = new FormData()
+      param.append('file', file)
+      const {
+        data: { fileName, relativePath },
+        errorInfo
+      } = await uploadFileService(param)
+      this.myInfoIndentityModel.entity.applier.avatarUrl = relativePath
+    },
 
     async uploadCertFile() {
       let inputDOM = this.$refs.CertUploadFileRef
@@ -1820,6 +1850,11 @@ export default {
         display: flex;
         flex-direction: row;
         margin: 10px 0;
+        .vue-treeselect {
+          width: 411px;
+          margin-left: 10px;
+          flex: 0.8;
+        }
         .confirm_btn {
           width: 91px;
           height: 38px;
