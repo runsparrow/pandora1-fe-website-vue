@@ -3,6 +3,42 @@
     <div class="loading" v-show="loading">
       <img class="loading_img" src="@a/imgs/loading.gif" alt="" />
     </div>
+    <div class="modal" v-show="modal_loading">
+      <div class="modal_box">
+        <img class="close_img" :src="require('@a/imgs/close.png')" alt="" @click="closeModal" />
+        <div class="row">
+          <span class="label">作品名</span>
+          <input class="content" type="text" />
+        </div>
+        <div class="row">
+          <span class="label">分类</span>
+          <vue-tags-input v-model="tag" :tags="tags" @tags-changed="newTags => (tags = newTags)" />
+        </div>
+        <div class="row">
+          <span class="label">图片上传</span>
+          <div class="img_item" @click="toTouchUploadFile">
+            <img class="add_file_img" src="@a/imgs/add-file.png" alt="" srcset="@a/imgs/add-file@2x.png 2x" />
+            <input
+              class="uploadPicFile"
+              type="file"
+              @change="uploadCertFile"
+              ref="CertUploadFileRef"
+              accept="image/png,image/jpeg,image/gif,image/jpg"
+            />
+            <!-- <img
+                            class="del_file_img"
+                            src="@a/imgs/del-file.png"
+                            alt=""
+                            srcset="@a/imgs/del-file@2x.png 2x"
+                          /> -->
+          </div>
+        </div>
+        <div class="row" style="justify-content: flex-end;">
+          <div class="confirm_btn">提交</div>
+          <div class="cancel_btn">取消</div>
+        </div>
+      </div>
+    </div>
     <div class="header_view">
       <div class="top_view">
         <ul class="list">
@@ -463,7 +499,7 @@
                 @click="() => (inner_sample_tabIndex = 2)"
                 >未通过(1)</span
               >
-              <div class="uploadBtn">上传作品</div>
+              <div class="uploadBtn" @click="uploadPic">上传作品</div>
             </div>
             <template v-if="inner_sample_tabIndex === 0">
               <div class="title_content_view">
@@ -873,8 +909,12 @@ import {
   submitMyInfoDesignService
 } from '@s/mine-info-service'
 import { mutipleAjax } from '@l/axios-interceptor'
+import VueTagsInput from '@johmun/vue-tags-input'
 export default {
   name: 'MyInfoView',
+  components: {
+    VueTagsInput
+  },
   data() {
     return {
       outer_tabIndex: 0,
@@ -897,6 +937,9 @@ export default {
       desingCheckedAgree: false,
       statusValue: 0,
       statusDesignValue: 0,
+      modal_loading: true,
+      tag: '',
+      tags: [],
 
       myInfoIndentityModel: {
         entity: {
@@ -1710,6 +1753,12 @@ export default {
       if (result) {
         this.keshiArr = rows
       }
+    },
+    uploadPic() {
+      this.modal_loading = true
+    },
+    closeModal() {
+      this.modal_loading = false
     }
   }
 }
@@ -1735,6 +1784,128 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background: rgba(17, 17, 17, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .modal_box {
+      width: 600px;
+      height: 400px;
+      background: #ffffff;
+      border-radius: 10px;
+      position: relative;
+      margin: 0 auto;
+      box-sizing: border-box;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      .close_img {
+        width: 64px;
+        height: 64px;
+        position: absolute;
+        top: -30px;
+        right: -30px;
+        cursor: pointer;
+      }
+      .row {
+        display: flex;
+        flex-direction: row;
+        margin: 10px 0;
+        .confirm_btn {
+          width: 91px;
+          height: 38px;
+          background: #dd3d29;
+          opacity: 0.86;
+          border-radius: 5px;
+          -webkit-box-flex: 0;
+          -ms-flex: none;
+          flex: none;
+          color: #ffffff;
+          font-size: 16px;
+          line-height: 38px;
+          text-align: center;
+          margin-right: 10px;
+        }
+        .cancel_btn {
+          width: 91px;
+          height: 38px;
+          background: #dd3d29;
+          opacity: 0.86;
+          border-radius: 5px;
+          -webkit-box-flex: 0;
+          -ms-flex: none;
+          flex: none;
+          color: #ffffff;
+          font-size: 16px;
+          line-height: 38px;
+          text-align: center;
+        }
+        .label {
+          font-size: 14px;
+          flex: 0.2;
+        }
+        .content {
+          margin-left: 10px;
+          height: 37px;
+          padding: 0;
+          outline: none;
+          border: 1px solid #707070;
+          border-radius: 6px;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+          padding-left: 15px;
+          flex: 0.8;
+        }
+        .vue-tags-input {
+          margin-left: 10px;
+          width: 252px;
+          padding: 0;
+          outline: none;
+          border: 1px solid #707070;
+          border-radius: 6px;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+          padding-left: 15px;
+          flex: 0.8;
+        }
+        .ti-input {
+          border: none !important;
+        }
+        .img_item {
+          width: 87px;
+          height: 87px;
+          background: #ffffff;
+          border: 1px solid #d6d6d6;
+          margin-left: 10px;
+          margin-top: 5px;
+          position: relative;
+          cursor: pointer;
+          .add_file_img {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            position: absolute;
+          }
+          .del_file_img {
+            top: -10px;
+            right: -8px;
+            position: absolute;
+          }
+          .uploadPicFile {
+            display: none;
+          }
+        }
+      }
+    }
   }
   .header_view {
     display: flex;
@@ -2385,6 +2556,7 @@ export default {
             display: flex;
             flex-direction: row;
             .uploadBtn {
+              cursor: pointer;
               width: 121px;
               height: 42px;
               background: #4372b7;
