@@ -1937,7 +1937,6 @@ export default {
           flex: 0.8;
         }
         .vue-tags-input {
-          margin-left: 10px;
           width: 252px;
           padding: 0;
           outline: none;
