@@ -17,6 +17,7 @@ export default {
     MIS_CMS_Authority_Row_ByMemberId: '/MIS/CMS/Authority/Row/ByMemberId',
     MIS_CMS_Authority_Update_ToStatus: '/MIS/CMS/Authority/Update/ToStatus',
     MIS_ASM_Dictionary_Rows_ByParentKey_tag: '/MIS/ASM/Dictionary/Rows/ByParentKey',
-    MIS_ASM_Dictionary_Tree_SubsetByKey: '/MIS/ASM/Dictionary/Tree/SubsetByKey'
+    MIS_ASM_Dictionary_Tree_SubsetByKey: '/MIS/ASM/Dictionary/Tree/SubsetByKey',
+    Unauthorized_MIS_CMS_Navigation_Tree_SubsetById: '/Unauthorized/MIS/CMS/Navigation/Tree/SubsetById'
   }
 }

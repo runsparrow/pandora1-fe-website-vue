@@ -74,3 +74,10 @@ export const getProductClassifyService = async () => {
     method: 'GET'
   })
 }
+
+export const getNavigationTreeService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.Unauthorized_MIS_CMS_Navigation_Tree_SubsetById}/${payload}`,
+    method: 'GET'
+  })
+}

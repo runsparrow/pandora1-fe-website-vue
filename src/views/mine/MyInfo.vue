@@ -19,6 +19,21 @@
           <treeselect v-model="treeValue" :disable-branch-nodes="true" :show-count="true" :options="treeOptions" />
         </div>
         <div class="row">
+          <span class="label">所属导航</span>
+          <select class="select_view">
+            <option value="-1">-----请选择-----</option>
+            <option v-for="item in navigationArr" :key="item.id" :value="item.id">{{ item.name }}</option>
+          </select>
+        </div>
+        <div class="row">
+          <span class="label">收费状态</span>
+          <select class="select_view">
+            <option value="-1">-----请选择-----</option>
+            <option value="0">免费</option>
+            <option value="1">收费</option>
+          </select>
+        </div>
+        <div class="row">
           <span class="label">图片上传</span>
           <div class="img_item" @click="toTouchUploadFile">
             <img class="add_file_img" src="@a/imgs/add-file.png" alt="" srcset="@a/imgs/add-file@2x.png 2x" />
@@ -913,7 +928,8 @@ import {
   submitMyInfoIndentityUpdateService,
   getMyInfoByIdService,
   getHostpitalsService,
-  submitMyInfoDesignService
+  submitMyInfoDesignService,
+  getNavigationTreeService
 } from '@s/mine-info-service'
 import { gettreelist } from '@l/util'
 import { mutipleAjax } from '@l/axios-interceptor'
@@ -947,11 +963,12 @@ export default {
       desingCheckedAgree: false,
       statusValue: 0,
       statusDesignValue: 0,
-      modal_loading: true,
+      modal_loading: false,
       tag: '',
       tags: [],
       treeOptions: [],
       treeValue: [],
+      navigationArr: [],
 
       myInfoIndentityModel: {
         entity: {
@@ -1260,17 +1277,23 @@ export default {
   },
   methods: {
     async loadInitialData() {
-      let promiseArr = [getDcotorsService(), getAreaInfoService('0'), getTagsService(), getProductClassifyService()]
+      let promiseArr = [
+        getDcotorsService(),
+        getAreaInfoService('0'),
+        getProductClassifyService(),
+        getNavigationTreeService(10)
+      ]
       let result = await mutipleAjax(promiseArr)
       this.doctorsArr = result[0].rows
       this.provincesArrr = result[1].rows
-      console.log(2222, result)
-      if (result[2].rows.length > 0) {
-        result[2].rows.map(m => {
-          this.tags.push({ text: m.name })
+      console.log(2222, result[3].tree[0].children)
+      if (result[3].tree[0].children) {
+        result[3].tree[0].children.map(m => {
+          this.navigationArr.push({ id: m.id, name: m.title })
         })
       }
-      this.treeOptions = gettreelist(result[3].tree)
+
+      this.treeOptions = gettreelist(result[2].tree)
       let { result: myInfoResult, row, message } = await getMyInfoByIdService(this.$store.state.memberId, 0)
       if (myInfoResult) {
         const myInfo = row
@@ -1828,7 +1851,7 @@ export default {
     align-items: center;
     .modal_box {
       width: 600px;
-      height: 400px;
+      height: 550px;
       background: #ffffff;
       border-radius: 10px;
       position: relative;
@@ -1853,6 +1876,17 @@ export default {
         .vue-treeselect {
           width: 411px;
           margin-left: 10px;
+          flex: 0.8;
+        }
+        .select_view {
+          width: 334px;
+          height: 37px;
+          padding: 0;
+          outline: none;
+          border: 1px solid #cfcfcf;
+          border-radius: 6px;
+          box-sizing: border-box;
+          padding-left: 15px;
           flex: 0.8;
         }
         .confirm_btn {
@@ -1893,7 +1927,7 @@ export default {
           height: 37px;
           padding: 0;
           outline: none;
-          border: 1px solid #707070;
+          border: 1px solid #cfcfcf;
           border-radius: 6px;
           -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -1905,7 +1939,7 @@ export default {
           width: 252px;
           padding: 0;
           outline: none;
-          border: 1px solid #707070;
+          border: 1px solid #cfcfcf;
           border-radius: 6px;
           -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -2413,7 +2447,7 @@ export default {
                 width: 67px;
                 height: 67px;
                 border-radius: 50%;
-                border: 1px solid #707070;
+                border: 1px solid #cfcfcf;
                 margin-top: 20px;
                 line-height: 67px;
                 text-align: center;
@@ -2476,7 +2510,7 @@ export default {
                   height: 37px;
                   padding: 0;
                   outline: none;
-                  border: 1px solid #707070;
+                  border: 1px solid #cfcfcf;
                   border-radius: 6px;
                   margin-right: 200px;
                   box-sizing: border-box;
@@ -2485,7 +2519,7 @@ export default {
                 .pic_view {
                   width: 334px;
                   height: 174px;
-                  border: 1px solid #707070;
+                  border: 1px solid #cfcfcf;
                   overflow: auto;
                   border-radius: 6px;
                   margin-right: 200px;
@@ -2818,9 +2852,9 @@ export default {
                   width: 76px;
                   height: 23px;
                   background: #ffffff;
-                  border: 1px solid #707070;
+                  border: 1px solid #cfcfcf;
                   border-radius: 12px;
-                  color: #707070;
+                  color: #cfcfcf;
                   text-align: center;
                   line-height: 23px;
                   font-size: 12px;
