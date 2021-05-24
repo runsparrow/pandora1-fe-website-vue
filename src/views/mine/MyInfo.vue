@@ -1874,6 +1874,9 @@ export default {
         flex-direction: row;
         margin: 10px 0;
         .vue-treeselect {
+          margin-left: -6px !important;
+        }
+        .vue-treeselect {
           width: 411px;
           margin-left: 10px;
           flex: 0.8;
@@ -1923,7 +1926,6 @@ export default {
           flex: 0.2;
         }
         .content {
-          margin-left: 10px;
           height: 37px;
           padding: 0;
           outline: none;
