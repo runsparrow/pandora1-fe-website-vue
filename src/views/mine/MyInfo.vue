@@ -8,7 +8,7 @@
         <img class="close_img" :src="require('@a/imgs/close.png')" alt="" @click="closeModal" />
         <div class="row">
           <span class="label">作品名</span>
-          <input class="content" type="text" />
+          <input class="content" type="text" v-model.trim="zuopin_upload_obj.name"/>
         </div>
         <div class="row">
           <span class="label">标签</span>
@@ -969,6 +969,58 @@ export default {
       treeOptions: [],
       treeValue: [],
       navigationArr: [],
+      zuopin_upload_obj: {
+        id: 0,
+        name: '作品名字',
+        goodsNo: '',
+        tags: '',
+        desc: '',
+        authDesc: '',
+        classifyId: -1,
+        classifyName: '',
+        url: '/1/1/1.jpg',
+        ext: 'jpg',
+        dpi: '',
+        ratio: '',
+        rgb: '',
+        size: '',
+        level: 0,
+        isImage: 1,
+        price: 0,
+        quantity: 0,
+        maxStock: 0,
+        minStock: 0,
+        downCount: 0,
+        collectCount: 0,
+        buyCount: 0,
+        ownerId: 45,
+        ownerName: '',
+        publicDateTime: '2021-05-08T07:20:03.835Z',
+        finalDateTime: '2021-05-08T07:20:03.835Z',
+        remark: '',
+        statusId: -1,
+        statusName: '',
+        statusValue: 0,
+        createDateTime: '2021-05-08T07:20:03.835Z',
+        createUserId: -1,
+        editDateTime: '2021-05-08T07:20:03.835Z',
+        editUserId: -1,
+        status: {
+          id: 0,
+          pid: -1,
+          name: '',
+          key: '',
+          value: 0,
+          desc: '',
+          createDateTime: '2021-05-08T07:20:03.835Z',
+          createUserId: -1,
+          editDateTime: '2021-05-08T07:20:03.835Z',
+          editUserId: -1,
+          path: ''
+        },
+        memberId: -1,
+        memberName: ''
+      },
 
       myInfoIndentityModel: {
         entity: {
