@@ -81,3 +81,11 @@ export const getNavigationTreeService = async payload => {
     method: 'GET'
   })
 }
+
+export const submitZuoPinService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_CMS_MemberAction_Upload}`,
+    method: 'POST',
+    data: payload
+  })
+}

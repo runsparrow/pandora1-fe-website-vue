@@ -8,7 +8,7 @@
         <img class="close_img" :src="require('@a/imgs/close.png')" alt="" @click="closeModal" />
         <div class="row">
           <span class="label">作品名</span>
-          <input class="content" type="text" v-model.trim="zuopin_upload_obj.name"/>
+          <input class="content" type="text" v-model.trim="zuopin_upload_obj.name" />
         </div>
         <div class="row">
           <span class="label">标签</span>
@@ -16,18 +16,23 @@
         </div>
         <div class="row">
           <span class="label">分类</span>
-          <treeselect v-model="treeValue" :disable-branch-nodes="true" :show-count="true" :options="treeOptions" />
+          <treeselect
+            v-model="zuopin_upload_obj.classifyId"
+            :disable-branch-nodes="true"
+            :show-count="true"
+            :options="treeOptions"
+          />
         </div>
         <div class="row">
           <span class="label">所属导航</span>
-          <select class="select_view">
+          <select class="select_view" v-model="zuopin_upload_obj.navigationId">
             <option value="-1">-----请选择-----</option>
             <option v-for="item in navigationArr" :key="item.id" :value="item.id">{{ item.name }}</option>
           </select>
         </div>
         <div class="row">
           <span class="label">收费状态</span>
-          <select class="select_view">
+          <select class="select_view" v-model="zuopin_upload_obj.level">
             <option value="-1">-----请选择-----</option>
             <option value="0">免费</option>
             <option value="1">收费</option>
@@ -35,13 +40,21 @@
         </div>
         <div class="row">
           <span class="label">图片上传</span>
-          <div class="img_item" @click="toTouchUploadFile">
+          <div
+            class="img_item"
+            @click="toTouchUploadZuoPinPic"
+            :style="{
+              backgroundSize: 'contain',
+              backgroundImage: 'url(' + zuopin_upload_obj.url + ')',
+              backgroundRepeat: 'no-repeat'
+            }"
+          >
             <img class="add_file_img" src="@a/imgs/add-file.png" alt="" srcset="@a/imgs/add-file@2x.png 2x" />
             <input
               class="uploadPicFile"
               type="file"
-              @change="uploadPicFile"
-              ref="uploadPicFileRef"
+              @change="uploadZuoPinPicFile"
+              ref="uploadZuoPinFileRef"
               accept="image/png,image/jpeg,image/gif,image/jpg"
             />
             <!-- <img
@@ -53,8 +66,8 @@
           </div>
         </div>
         <div class="row" style="justify-content: flex-end;">
-          <div class="confirm_btn">提交</div>
-          <div class="cancel_btn">取消</div>
+          <div class="confirm_btn" @click="submitModal">提交</div>
+          <div class="cancel_btn" @click="closeModal">取消</div>
         </div>
       </div>
     </div>
@@ -929,7 +942,8 @@ import {
   getMyInfoByIdService,
   getHostpitalsService,
   submitMyInfoDesignService,
-  getNavigationTreeService
+  getNavigationTreeService,
+  submitZuoPinService
 } from '@s/mine-info-service'
 import { gettreelist } from '@l/util'
 import { mutipleAjax } from '@l/axios-interceptor'
@@ -971,20 +985,21 @@ export default {
       navigationArr: [],
       zuopin_upload_obj: {
         id: 0,
-        name: '作品名字',
+        name: '',
         goodsNo: '',
         tags: '',
         desc: '',
         authDesc: '',
-        classifyId: -1,
+        classifyId: '',
         classifyName: '',
-        url: '/1/1/1.jpg',
-        ext: 'jpg',
+        navigationId: -1,
+        url: '',
+        ext: '',
         dpi: '',
         ratio: '',
         rgb: '',
         size: '',
-        level: 0,
+        level: -1,
         isImage: 1,
         price: 0,
         quantity: 0,
@@ -1704,6 +1719,18 @@ export default {
       this.myInfoIndentityModel.entity.applier.avatarUrl = relativePath
     },
 
+    async uploadZuoPinPicFile() {
+      let inputDOM = this.$refs.uploadZuoPinFileRef
+      let file = inputDOM.files[0]
+      let param = new FormData()
+      param.append('file', file)
+      const {
+        data: { fileName, relativePath },
+        errorInfo
+      } = await uploadFileService(param)
+      this.zuopin_upload_obj.url = relativePath
+    },
+
     async uploadCertFile() {
       let inputDOM = this.$refs.CertUploadFileRef
       if (this.certArr.length > 1) {
@@ -1756,6 +1783,9 @@ export default {
     },
     toTouchUploadFile() {
       this.$refs.CertUploadFileRef.click()
+    },
+    toTouchUploadZuoPinPic() {
+      this.$refs.uploadZuoPinFileRef.click()
     },
     toTouchGongPaiUploadFile() {
       this.$refs.GongPaiUploadFileRef.click()
@@ -1864,6 +1894,52 @@ export default {
     },
     closeModal() {
       this.modal_loading = false
+    },
+    async submitModal() {
+      let tagsStr = ''
+      if (this.tags.length > 0) {
+        this.tags.forEach(m => {
+          tagsStr += ',' + m.text
+        })
+        if (tagsStr !== '') {
+          tagsStr = tagsStr.substring(1)
+        }
+      }
+
+      this.zuopin_upload_obj.tags = ',' + tagsStr + ','
+      if (this.zuopin_upload_obj.name === '') {
+        alert('作品名必填!')
+        return
+      }
+      if (this.zuopin_upload_obj.tags === ',,') {
+        alert('标签至少选一个!')
+        return
+      }
+      if (this.zuopin_upload_obj.classifyId === '') {
+        alert('分类必选!')
+        return
+      }
+      if (this.zuopin_upload_obj.navigationId == '-1') {
+        alert('所属导航必选!')
+        return
+      }
+      if (this.zuopin_upload_obj.level === -1) {
+        alert('收费状态必选!')
+        return
+      }
+      if (this.zuopin_upload_obj.url === '') {
+        alert('图片必须上传!')
+        return
+      }
+      this.modal_loading = false
+      const { result, message } = await submitZuoPinService(this.zuopin_upload_obj)
+      if (result) {
+        alert('提交成功!')
+        this.zuopin_upload_obj.tags = this.zuopin_upload_obj.name = this.zuopin_upload_obj.classifyId = ''
+        this.zuopin_upload_obj.navigationId = -1
+        this.zuopin_upload_obj.level = -1
+        this.zuopin_upload_obj.url = ''
+      }
     }
   }
 }
@@ -1945,6 +2021,7 @@ export default {
           flex: 0.8;
         }
         .confirm_btn {
+          cursor: pointer;
           width: 91px;
           height: 38px;
           background: #dd3d29;
@@ -1960,6 +2037,7 @@ export default {
           margin-right: 10px;
         }
         .cancel_btn {
+          cursor: pointer;
           width: 91px;
           height: 38px;
           background: #dd3d29;
