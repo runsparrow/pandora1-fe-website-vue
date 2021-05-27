@@ -1017,9 +1017,9 @@ export default {
         statusName: '',
         statusValue: 0,
         createDateTime: '2021-05-08T07:20:03.835Z',
-        createUserId: -1,
+        createUserId: this.$store.state.memberId,
         editDateTime: '2021-05-08T07:20:03.835Z',
-        editUserId: -1,
+        editUserId: this.$store.state.memberId,
         status: {
           id: 0,
           pid: -1,
@@ -1033,8 +1033,8 @@ export default {
           editUserId: -1,
           path: ''
         },
-        memberId: -1,
-        memberName: ''
+        memberId: this.$store.state.memberId,
+        memberName: this.$store.state.userNam
       },
 
       myInfoIndentityModel: {
