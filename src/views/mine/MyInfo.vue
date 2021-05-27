@@ -519,17 +519,17 @@
               <span
                 :class="['title', { active: inner_sample_tabIndex === 0 }]"
                 @click="() => (inner_sample_tabIndex = 0)"
-                >已上架(1)</span
+                >已上架({{ approvedZuoPinArr.length }})</span
               >
               <span
                 :class="['title', { active: inner_sample_tabIndex === 1 }]"
                 @click="() => (inner_sample_tabIndex = 1)"
-                >审核中(1)</span
+                >审核中({{ approveingZuoPinArr.length }})</span
               >
               <span
                 :class="['title', { active: inner_sample_tabIndex === 2 }]"
                 @click="() => (inner_sample_tabIndex = 2)"
-                >未通过(1)</span
+                >未通过({{ unApprovedZuoPinArr.length }})</span
               >
               <div class="uploadBtn" @click="uploadPic">上传作品</div>
             </div>
@@ -541,21 +541,22 @@
                   <div class="title">作品信息</div>
                   <div class="title">操作</div>
                 </div>
-                <div class="table_row">
+                <div class="table_row" v-for="(item, index) in approvedZuoPinArr" :key="index">
                   <span class="column">
-                    2020-12-10
+                    {{ item.publicDateTime }}
                   </span>
                   <span class="column">
-                    <img class="small_img" src="@a/imgs/small_pic@2x.png" alt="" srcset="@a/imgs/small_pic@2x.png 2x" />
+                    <img class="small_img" :src="item.url" alt="" srcset="@a/imgs/small_pic@2x.png 2x" />
                   </span>
                   <span
                     class="column"
                     style="display:flex;flex-direction:column;align-items:center;justify-content:center"
                   >
-                    <span class="label">《作品名字》</span>
+                    <span class="label">《{{ item.name }}》</span>
                     <span class="label"
-                      ><span class="downloadColor">88</span><span class="focus">下载</span>
-                      <span class="collectColor">66</span><span class="focus">收藏</span></span
+                      ><span class="downloadColor">{{ item.downCount }}</span
+                      ><span class="focus">下载</span> <span class="collectColor">{{ item.collectCount }}</span
+                      ><span class="focus">收藏</span></span
                     >
                   </span>
                   <span class="column">
@@ -574,21 +575,22 @@
                   <div class="title">作品信息</div>
                   <div class="title">操作</div>
                 </div>
-                <div class="table_row">
+                <div class="table_row" v-for="(item, index) in approveingZuoPinArr" :key="index">
                   <span class="column">
-                    2020-12-11
+                    {{ item.publicDateTime }}
                   </span>
                   <span class="column">
-                    <img class="small_img" src="@a/imgs/small_pic@2x.png" alt="" srcset="@a/imgs/small_pic@2x.png 2x" />
+                    <img class="small_img" :src="item.url" alt="" srcset="@a/imgs/small_pic@2x.png 2x" />
                   </span>
                   <span
                     class="column"
                     style="display:flex;flex-direction:column;align-items:center;justify-content:center"
                   >
-                    <span class="label">《作品名字》</span>
+                    <span class="label">《{{ item.name }}》</span>
                     <span class="label"
-                      ><span class="downloadColor">88</span><span class="focus">下载</span>
-                      <span class="collectColor">66</span><span class="focus">收藏</span></span
+                      ><span class="downloadColor">{{ item.downCount }}</span
+                      ><span class="focus">下载</span> <span class="collectColor">{{ item.collectCount }}</span
+                      ><span class="focus">收藏</span></span
                     >
                   </span>
                   <span class="column">
@@ -610,21 +612,22 @@
                   <div class="title">作品信息</div>
                   <div class="title">操作</div>
                 </div>
-                <div class="table_row">
+                <div class="table_row" v-for="(item, index) in unApprovedZuoPinArr" :key="index">
                   <span class="column">
-                    2020-12-12
+                    {{ item.publicDateTime }}
                   </span>
                   <span class="column">
-                    <img class="small_img" src="@a/imgs/small_pic@2x.png" alt="" srcset="@a/imgs/small_pic@2x.png 2x" />
+                    <img class="small_img" :src="item.url" alt="" srcset="@a/imgs/small_pic@2x.png 2x" />
                   </span>
                   <span
                     class="column"
                     style="display:flex;flex-direction:column;align-items:center;justify-content:center"
                   >
-                    <span class="label">《作品名字》</span>
+                    <span class="label">《{{ item.name }}》</span>
                     <span class="label"
-                      ><span class="downloadColor">88</span><span class="focus">下载</span>
-                      <span class="collectColor">66</span><span class="focus">收藏</span></span
+                      ><span class="downloadColor">{{ item.downCount }}</span
+                      ><span class="focus">下载</span> <span class="collectColor">{{ item.collectCount }}</span
+                      ><span class="focus">收藏</span></span
                     >
                   </span>
                   <span class="column">
@@ -943,6 +946,7 @@ import {
   getHostpitalsService,
   submitMyInfoDesignService,
   getNavigationTreeService,
+  mineZuoPinListService,
   submitZuoPinService
 } from '@s/mine-info-service'
 import { gettreelist } from '@l/util'
@@ -957,6 +961,10 @@ export default {
   },
   data() {
     return {
+      myZuoPinArr: [],
+      approvedZuoPinArr: [],
+      unApprovedZuoPinArr: [],
+      approveingZuoPinArr: [],
       outer_tabIndex: 0,
       inner_tabIndex: 0,
       inner_sample_tabIndex: 0,
@@ -1335,6 +1343,7 @@ export default {
       }
     })
     this.loadInitialData()
+    this.loadMyZuoPinLIst()
   },
   unmounted() {
     document.removeEventListener('click')
@@ -1343,6 +1352,21 @@ export default {
     ...mapState(['token', 'userName', 'loading'])
   },
   methods: {
+    async loadMyZuoPinLIst() {
+      const { rows, result } = await mineZuoPinListService({
+        keyWord: '',
+        page: '1^100',
+        date: '',
+        sort: '',
+        status: [1, 2]
+      })
+      if (result) {
+        this.myZuoPinArr = rows
+        this.approvedZuoPinArr = rows.filter(f => f.statusValue === 2)
+        this.unApprovedZuoPinArr = rows.filter(f => f.statusValue === -2)
+        this.approveingZuoPinArr = rows.filter(f => f.statusValue === 1)
+      }
+    },
     async loadInitialData() {
       let promiseArr = [
         getDcotorsService(),
@@ -1934,6 +1958,7 @@ export default {
       this.modal_loading = false
       const { result, message } = await submitZuoPinService(this.zuopin_upload_obj)
       if (result) {
+        this.loadMyZuoPinLIst()
         alert('提交成功!')
         this.zuopin_upload_obj.tags = this.zuopin_upload_obj.name = this.zuopin_upload_obj.classifyId = ''
         this.zuopin_upload_obj.navigationId = -1

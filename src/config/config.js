@@ -19,6 +19,7 @@ export default {
     MIS_ASM_Dictionary_Rows_ByParentKey_tag: '/MIS/ASM/Dictionary/Rows/ByParentKey',
     MIS_ASM_Dictionary_Tree_SubsetByKey: '/MIS/ASM/Dictionary/Tree/SubsetByKey',
     Unauthorized_MIS_CMS_Navigation_Tree_SubsetById: '/Unauthorized/MIS/CMS/Navigation/Tree/SubsetById',
-    MIS_CMS_MemberAction_Upload: '/MIS/CMS/MemberAction/Upload'
+    MIS_CMS_MemberAction_Upload: '/MIS/CMS/MemberAction/Upload',
+    MIS_CMS_Goods_Query_Page_URL: '/MIS/CMS/Goods/Query/Page'
   }
 }
