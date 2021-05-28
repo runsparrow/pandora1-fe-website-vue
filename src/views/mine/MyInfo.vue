@@ -1016,7 +1016,7 @@ export default {
         downCount: 0,
         collectCount: 0,
         buyCount: 0,
-        ownerId: 45,
+        ownerId: this.$store.state.memberId,
         ownerName: '',
         publicDateTime: '2021-05-08T07:20:03.835Z',
         finalDateTime: '2021-05-08T07:20:03.835Z',
