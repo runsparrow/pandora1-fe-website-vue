@@ -1354,7 +1354,7 @@ export default {
   methods: {
     async loadMyZuoPinLIst() {
       const { rows, result } = await mineZuoPinListService({
-        keyWord: '',
+        keyWord: '^MemberId='+this.$store.state.memberId,
         page: '1^100',
         date: '',
         sort: '',
