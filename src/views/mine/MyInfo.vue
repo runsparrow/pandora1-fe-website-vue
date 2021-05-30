@@ -12,7 +12,12 @@
         </div>
         <div class="row">
           <span class="label">标签</span>
-          <vue-tags-input v-model="tag" :tags="tags" @tags-changed="newTags => (tags = newTags)" />
+          <vue-tags-input
+            v-model="tag"
+            :tags="tags"
+            @tags-changed="newTags => (tags = newTags)"
+            placeholder="按回车键Enter创建标签"
+          />
         </div>
         <div class="row">
           <span class="label">分类</span>
@@ -892,7 +897,7 @@
                 <div class="error_msg_line">
                   请阅读后点击同意以完成支付
                 </div>
-                <div class="btnSubmit">确定支付</div>
+                <div class="btnSubmit" @click="payForMember">确定支付</div>
               </div>
             </template>
             <template v-if="inner_voucher_tabIndex === 3">
@@ -1352,6 +1357,9 @@ export default {
     ...mapState(['token', 'userName', 'loading'])
   },
   methods: {
+    async payForMember() {
+      alert(111)
+    },
     async loadMyZuoPinLIst() {
       const { rows, result } = await mineZuoPinListService({
         keyWord: '^ownerid=' + this.$store.state.memberId,
@@ -3162,6 +3170,7 @@ export default {
               padding-left: 24px;
             }
             .btnSubmit {
+              cursor: pointer;
               width: 258px;
               height: 68px;
               background: #2361ac;
