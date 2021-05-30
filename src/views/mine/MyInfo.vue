@@ -3,6 +3,11 @@
     <div class="loading" v-show="loading">
       <img class="loading_img" src="@a/imgs/loading.gif" alt="" />
     </div>
+    <div class="loading" v-show="payforImg_show">
+      <div class="qrcode_div">
+        <img :src="payImg" style="width:100%" />
+      </div>
+    </div>
     <div class="modal" v-show="modal_loading">
       <div class="modal_box">
         <img class="close_img" :src="require('@a/imgs/close.png')" alt="" @click="closeModal" />
@@ -956,8 +961,10 @@ import {
 } from '@s/mine-info-service'
 import { gettreelist } from '@l/util'
 import { mutipleAjax } from '@l/axios-interceptor'
+import ajaxPay from '@l/ajax-pay-interceptor'
 import VueTagsInput from '@johmun/vue-tags-input'
 import Treeselect from '@riophae/vue-treeselect'
+import CONFIG from '@/config/config'
 export default {
   name: 'MyInfoView',
   components: {
@@ -966,6 +973,8 @@ export default {
   },
   data() {
     return {
+      payforImg_show: false,
+      payImg: '',
       myZuoPinArr: [],
       approvedZuoPinArr: [],
       unApprovedZuoPinArr: [],
@@ -1357,8 +1366,17 @@ export default {
     ...mapState(['token', 'userName', 'loading'])
   },
   methods: {
-    async payForMember() {
-      alert(111)
+    payForMember() {
+      ajaxPay({
+        // 用axios发送post请求
+        method: 'post',
+        url: `${CONFIG.API_URLS.PAY_FOR_MEMBER_URL}?amount=10&content=开通会员`, // 请求地址
+        responseType: 'blob' // 表明返回服务器返回的数据类型
+      }).then(res => {
+        let url = window.URL.createObjectURL(res)
+        this.payImg = url
+        this.payforImg_show = true
+      })
     },
     async loadMyZuoPinLIst() {
       const { rows, result } = await mineZuoPinListService({
@@ -1998,6 +2016,11 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    .qrcode_div {
+      width: 250px;
+      height: 250px;
+      background: #ffffff;
+    }
   }
   .modal {
     position: absolute;
