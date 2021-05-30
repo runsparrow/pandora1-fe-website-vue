@@ -473,6 +473,7 @@
                             @change="uploadidCardFFile"
                             accept="image/png,image/jpeg,image/gif,image/jpg"
                           />
+                          <span style="color:#ccc;font-size:12px">身份证正面</span>
                         </div>
                         <div
                           class="img_item"
@@ -496,6 +497,7 @@
                             @change="uploadidCardBFile"
                             accept="image/png,image/jpeg,image/gif,image/jpg"
                           />
+                          <span style="color:#ccc;font-size:12px">身份证反面</span>
                         </div>
                       </div>
                     </div>
@@ -2738,6 +2740,9 @@ export default {
                     flex-direction: row;
                     flex-wrap: wrap;
                     .img_item {
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
                       width: 87px;
                       height: 87px;
                       background: #ffffff;
