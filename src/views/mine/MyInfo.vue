@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <div class="loading" v-show="loading">
+    <div class="loading" v-show="false">
       <img class="loading_img" src="@a/imgs/loading.gif" alt="" />
     </div>
-    <div class="loading" v-show="payforImg_show">
+    <div class="loading" v-show="false">
       <div class="qrcode_div">
         <img :src="payImg" style="width:100%" />
       </div>
