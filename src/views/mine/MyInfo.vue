@@ -1376,7 +1376,6 @@ export default {
         responseType: 'blob' // 表明返回服务器返回的数据类型
       }).then(res => {
         let url = window.URL.createObjectURL(res)
-        alert(url)
         this.payImg = url
         this.payforImg_show = true
       })
