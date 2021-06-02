@@ -3,7 +3,7 @@
     <div class="loading" v-show="false">
       <img class="loading_img" src="@a/imgs/loading.gif" alt="" />
     </div>
-    <div class="loading" v-show="false">
+    <div class="loading" v-show="payforImg_show">
       <div class="qrcode_div">
         <img :src="payImg" style="width:100%" />
       </div>
@@ -1372,10 +1372,11 @@ export default {
       ajaxPay({
         // 用axios发送post请求
         method: 'post',
-        url: `${CONFIG.API_URLS.PAY_FOR_MEMBER_URL}?amount=10&content=开通会员`, // 请求地址
+        url: `${CONFIG.API_URLS.PAY_FOR_MEMBER_URL}?amount=1&content=开通会员`, // 请求地址
         responseType: 'blob' // 表明返回服务器返回的数据类型
       }).then(res => {
         let url = window.URL.createObjectURL(res)
+        alert(url)
         this.payImg = url
         this.payforImg_show = true
       })
