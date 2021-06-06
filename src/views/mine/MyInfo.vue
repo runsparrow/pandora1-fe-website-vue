@@ -1369,10 +1369,26 @@ export default {
   },
   methods: {
     payForMember() {
+      let amount = 0
+      if (!this.wx_checked) {
+        alert('请选择支付方式!')
+        return
+      }
+      if (!this.agree_checked) {
+        alert('请同意同意用户协议与隐私政策!')
+        return
+      }
+      if (this.payIndex === 0) {
+        amount = 900
+      } else if (this.payIndex === 0) {
+        amount = 1600
+      } else if (this.payIndex === 0) {
+        amount = 2100
+      }
       ajaxPay({
         // 用axios发送post请求
         method: 'post',
-        url: `${CONFIG.API_URLS.PAY_FOR_MEMBER_URL}?amount=1&content=开通会员`, // 请求地址
+        url: `${CONFIG.API_URLS.PAY_FOR_MEMBER_URL}?amount=${amount}&content=开通会员`, // 请求地址
         responseType: 'blob' // 表明返回服务器返回的数据类型
       }).then(res => {
         let url = window.URL.createObjectURL(res)
