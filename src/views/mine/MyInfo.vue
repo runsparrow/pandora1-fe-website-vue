@@ -1379,11 +1379,11 @@ export default {
         return
       }
       if (this.payIndex === 0) {
-        amount = 900
+        amount = 1
       } else if (this.payIndex === 0) {
-        amount = 1600
+        amount = 2
       } else if (this.payIndex === 0) {
-        amount = 2100
+        amount = 3
       }
       ajaxPay({
         // 用axios发送post请求
