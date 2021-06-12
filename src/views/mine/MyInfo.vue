@@ -4,7 +4,7 @@
       <img class="loading_img" src="@a/imgs/loading.gif" alt="" />
     </div>
     <div class="loading" v-show="payforImg_show">
-      <div class="qrcode_div">
+      <div class="qrcode_div" ref="qrcode_div">
         <img :src="payImg" style="width:100%" />
       </div>
     </div>
@@ -1357,6 +1357,11 @@ export default {
           this.dropdownStatus = false
         }
       }
+      if (this.$refs.qrcode_div) {
+        if (!this.$refs.qrcode_div.contains(e.target)) {
+          this.payforImg_show = false
+        }
+      }
     })
     this.loadInitialData()
     this.loadMyZuoPinLIst()
@@ -1380,9 +1385,9 @@ export default {
       }
       if (this.payIndex === 0) {
         amount = 1
-      } else if (this.payIndex === 0) {
+      } else if (this.payIndex === 1) {
         amount = 2
-      } else if (this.payIndex === 0) {
+      } else if (this.payIndex === 2) {
         amount = 3
       }
       ajaxPay({
