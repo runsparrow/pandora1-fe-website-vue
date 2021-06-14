@@ -13,6 +13,7 @@ ajaxFile.defaults.headers.common['Content-Type'] = 'multipart/form-data'
 ajaxFile.interceptors.request.use(
   config => {
     const { cancelTimeout, url } = config
+    config.headers.Authorization = 'Bearer ' + store.state.token
     if (!Object.keys(url).length) {
       //开启Spin
     }
