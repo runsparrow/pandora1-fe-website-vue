@@ -69,7 +69,7 @@
       <div class="row">热门下载</div>
       <div class="list">
         <div class="item" v-for="(item, index) in navigationsMenus" :key="index">
-          <img class="hot_img" :src="item.firstUrl" alt="" />
+          <img class="hot_img" :src="item.firstUrl" alt="" @click="toDetail(item.ImgId)" />
           <span class="hot_title">{{ item.name }}</span>
           <div class="hot_more_view" @click="toSearch(item.id)">
             <span class="poionter">查看更多</span>
@@ -110,8 +110,10 @@ export default {
           })
           m.firstItem = Datas[0]
           m.firstUrl = Datas.length === 0 ? '' : Datas[0].fullUrl
+          m.ImgId = Datas.length === 0 ? '' : Datas[0].id
         }
       })
+      console.log(titles)
       setTimeout(() => {
         this.$store.commit('setNavigationMenus', titles)
       }, 1000)
@@ -148,8 +150,8 @@ export default {
       this.$store.commit('setActiveTab', 1)
       this.$router.push('/login')
     },
-    toDetail() {
-      this.$router.push('search_detail')
+    toDetail(id) {
+      this.$router.push('search_detail/' + id)
     },
     clickDropdown() {
       this.dropdownStatus = !this.dropdownStatus

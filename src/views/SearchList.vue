@@ -98,7 +98,14 @@
         </li>
       </ul>
       <div class="result-view">
-        <img class="lis_img" :src="item.fullUrl" alt="" v-for="(item, index) in tableDatas" :key="index" />
+        <img
+          class="lis_img"
+          :src="item.fullUrl"
+          alt=""
+          v-for="(item, index) in tableDatas"
+          :key="index"
+          @click="toDetail(item.id)"
+        />
       </div>
     </div>
   </div>
@@ -189,6 +196,9 @@ export default {
     toRegister() {
       this.$store.commit('setActiveTab', 0)
       this.$router.push('/login')
+    },
+    toDetail(id) {
+      this.$router.push('search_detail/' + id)
     },
     toLogin() {
       this.$store.commit('setActiveTab', 1)

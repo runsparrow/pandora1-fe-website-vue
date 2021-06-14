@@ -33,16 +33,14 @@
             </li>
             <li class="btn_view" v-if="token === ''">
               <span class="btn1" @click="toRegister">注册</span>
-            <span class="btn2" @click="toLogin">登录</span>
+              <span class="btn2" @click="toLogin">登录</span>
             </li>
             <li v-else class="btn_view">
-              <div class="login_header_logo">
-                头像
-              </div>
-             <div ref="popMenuRef">
+              <div class="login_header_logo">头像</div>
+              <div ref="popMenuRef">
                 <span class="username" @click="clickDropdown">{{ userName }}</span>
                 <div :class="['popMenu', { activePop: dropdownStatus }]">
-                  <div class="item1" style="height: 46px;" @click="goto(0)">我的信息</div>
+                  <div class="item1" style="height: 46px" @click="goto(0)">我的信息</div>
                   <div class="item2" @click="goto(1)">我的作品</div>
                   <div class="item3" @click="goto(2)">我的资产</div>
                   <div class="item5" @click="goto(3)">帮助中心</div>
@@ -52,20 +50,18 @@
             </li>
           </ul>
         </div>
-        <div class="logo_view">
-          BANNER(请给与尺寸范围)
-        </div>
+        <div class="logo_view">BANNER(请给与尺寸范围)</div>
       </div>
     </div>
     <div class="content">
-      <img class="big_img" src="@a/imgs/big_img.png" alt="" srcset="@a/imgs/big_img@2x.png 2x" />
+      <img class="big_img" :src="detail.fullUrl" alt="" />
       <div class="nav">
         <div class="top_view">
           <span class="label">首页</span>
           <span class="operator">></span>
           <span class="label">推广海报</span>
         </div>
-        <span class="title">元旦牛气冲天海报</span>
+        <span class="title">{{ detail.name }}</span>
         <span class="id_label">ID:yyyymmdd000000</span>
         <span class="sucai_desc">素材版权说明</span>
         <div class="line"></div>
@@ -75,18 +71,13 @@
         <span class="spec">颜色 | RGB</span>
         <span class="spec">大小 | 9.9 M</span>
         <div class="btn_view">
-          <div class="buy_vip" @click="applyVIP">
-            立即开通VIP
-          </div>
-          <div class="collect">
-            收藏
-          </div>
+          <div class="buy_vip" @click="applyVIP">立即开通VIP</div>
+          <div class="collect" v-if="token !== ''">收藏</div>
+          <div class="collect" v-if="token !== ''" @click="downloadFile">下载</div>
         </div>
         <div class="line"></div>
         <div class="author_view">
-          <div class="login_header_logo">
-            头像
-          </div>
+          <div class="login_header_logo">头像</div>
           <div class="right_view">
             <div class="level">
               <span>Lv.1</span>
@@ -94,7 +85,7 @@
             </div>
             <div class="username">
               <span>用户名</span>
-              <span class="author">徐升</span>
+              <span class="author">{{ detail.ownerName }}</span>
             </div>
           </div>
         </div>
@@ -105,6 +96,8 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import { getDetailByIdService } from '@s/detail-service'
+import axios from 'axios'
 export default {
   name: 'ProductDetail',
   computed: {
@@ -113,9 +106,14 @@ export default {
   data() {
     return {
       dropdownStatus: false,
+      detail: {}
     }
   },
-  mounted() {
+  async mounted() {
+    if (this.$route.params.id) {
+      const detailObj = await getDetailByIdService({ id: this.$route.params.id })
+      this.detail = detailObj.row
+    }
     document.addEventListener('click', e => {
       if (this.$refs.popMenuRef) {
         if (!this.$refs.popMenuRef.contains(e.target)) {
@@ -128,14 +126,16 @@ export default {
     document.removeEventListener('click')
   },
   methods: {
-    reloadTabl()
-    {
-    },
-    toSearch()
-    {
+    reloadTabl() {},
+    toSearch() {
       this.$router.push('/search')
     },
-     clickDropdown() {
+    downloadFile() {
+      // axios.get(this.detail.fullUrl).then(res => {
+      //   console.log(444444, res)
+      // })
+    },
+    clickDropdown() {
       this.dropdownStatus = !this.dropdownStatus
     },
     toHome() {
@@ -143,11 +143,11 @@ export default {
     },
     goto(index) {
       this.dropdownStatus = false
-      if (index <4) {
-        this.$router.push('/mine/info?index='+index)
+      if (index < 4) {
+        this.$router.push('/mine/info?index=' + index)
       } else if (index === 4) {
         this.$store.commit('clearStore')
-          this.$router.push('/home')
+        this.$router.push('/home')
       }
     },
     toRegister() {
@@ -158,14 +158,10 @@ export default {
       this.$store.commit('setActiveTab', 1)
       this.$router.push('/login')
     },
-    applyVIP()
-    {
-      if(!this.$store.state.token)
-      {
+    applyVIP() {
+      if (!this.$store.state.token) {
         this.$router.push('/login')
-      }
-      else
-      {
+      } else {
         this.$router.push('/mine/info?index=2&inner_index=2')
       }
     }
@@ -293,73 +289,73 @@ export default {
             padding-top: 11px;
             position: relative;
             .popMenu {
-            width: 162px;
-            height: 289px;
-            border: 1px solid $color10;
-            position: absolute;
-            bottom: 0;
-            top: 86px;
-            left: 38px !important;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            box-sizing: border-box;
-            background: $color9;
-            display: none;
+              width: 162px;
+              height: 289px;
+              border: 1px solid $color10;
+              position: absolute;
+              bottom: 0;
+              top: 86px;
+              left: 38px !important;
+              z-index: 10;
+              display: flex;
+              flex-direction: column;
+              box-sizing: border-box;
+              background: $color9;
+              display: none;
 
-            .item1 {
-              height: 54px;
-              font-size: 16px;
-              color: #354052;
-              padding-left: 33px;
-              line-height: 54px;
-            }
-            .item2 {
-              height: 37px;
-              font-size: 16px;
-              color: #354052;
-              padding-left: 33px;
-              line-height: 37px;
-            }
-            .item3 {
-              height: 37px;
-              font-size: 16px;
-              color: #354052;
-              padding-left: 33px;
-              line-height: 37px;
-            }
-            .item4 {
-              height: 37px;
-              font-size: 16px;
-              color: #354052;
-              padding-left: 33px;
-              line-height: 37px;
-            }
-            .item5 {
-              height: 37px;
-              font-size: 16px;
-              padding-left: 33px;
-              line-height: 37px;
-              color: #354052;
-            }
-            .item6 {
-              height: 54px;
-              font-size: 16px;
-              padding-left: 33px;
-              line-height: 54px;
-              color: #354052;
-            }
-            > div {
-              cursor: pointer;
-              &:hover {
-                background: $color4;
-                color: $color9;
+              .item1 {
+                height: 54px;
+                font-size: 16px;
+                color: #354052;
+                padding-left: 33px;
+                line-height: 54px;
+              }
+              .item2 {
+                height: 37px;
+                font-size: 16px;
+                color: #354052;
+                padding-left: 33px;
+                line-height: 37px;
+              }
+              .item3 {
+                height: 37px;
+                font-size: 16px;
+                color: #354052;
+                padding-left: 33px;
+                line-height: 37px;
+              }
+              .item4 {
+                height: 37px;
+                font-size: 16px;
+                color: #354052;
+                padding-left: 33px;
+                line-height: 37px;
+              }
+              .item5 {
+                height: 37px;
+                font-size: 16px;
+                padding-left: 33px;
+                line-height: 37px;
+                color: #354052;
+              }
+              .item6 {
+                height: 54px;
+                font-size: 16px;
+                padding-left: 33px;
+                line-height: 54px;
+                color: #354052;
+              }
+              > div {
+                cursor: pointer;
+                &:hover {
+                  background: $color4;
+                  color: $color9;
+                }
               }
             }
-          }
-          .activePop {
-            display: block;
-          }
+            .activePop {
+              display: block;
+            }
             .btn1 {
               width: 80px;
               height: 40px;
@@ -465,6 +461,7 @@ export default {
         }
       }
       .title {
+        overflow: hidden;
         box-sizing: border-box;
         color: $color1;
         font-size: 17px;
