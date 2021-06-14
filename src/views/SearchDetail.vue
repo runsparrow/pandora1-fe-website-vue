@@ -97,7 +97,8 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import { getDetailByIdService } from '@s/detail-service'
-import axios from 'axios'
+import ajaxFile from '@l/ajax-file-interceptor'
+import CONFIG from '@/config/config'
 export default {
   name: 'ProductDetail',
   computed: {
@@ -131,9 +132,26 @@ export default {
       this.$router.push('/search')
     },
     downloadFile() {
-      // axios.get(this.detail.fullUrl).then(res => {
-      //   console.log(444444, res)
-      // })
+      console.log(this.detail.fullUrl)
+      let relativePath = this.detail.fullUrl + ''
+      relativePath = relativePath.substring(relativePath.indexOf('uploadFiles'))
+      ajaxFile({
+        // 用axios发送post请求
+        method: 'post',
+        url: `${CONFIG.API_URLS.filedownload_URL}`, // 请求地址
+        data: { fileUrl: relativePath },
+        responseType: 'blob'
+      }).then(res => {
+        let url = window.URL.createObjectURL(res)
+        const link = document.createElement('a')
+        link.download = 'pic.jpg'
+        link.style.display = 'none'
+        link.href = url
+        document.body.appendChild(link)
+        link.click()
+        URL.revokeObjectURL(link.href)
+        document.body.removeChild(link)
+      })
     },
     clickDropdown() {
       this.dropdownStatus = !this.dropdownStatus

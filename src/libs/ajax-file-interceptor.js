@@ -3,7 +3,7 @@ import store from '@x'
 
 let ajaxQueues = {}
 const ajaxFile = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API_URL,
+  baseURL: process.env.VUE_APP_FILE_BASE_API_URL,
   timeout: 0
 })
 
