@@ -128,6 +128,9 @@ export default {
     document.removeEventListener('click')
   },
   methods: {
+    reloadTabl()
+    {
+    },
     toSearch()
     {
       this.$router.push('/search')

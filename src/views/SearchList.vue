@@ -14,9 +14,11 @@
               />
               <span class="logo_title" @click="toHome">SooYi.CN</span>
             </li>
-            <li class="label">推广海报</li>
-            <li class="label">新媒体配置</li>
-            <li class="label">视频动画</li>
+
+            <li class="label" v-for="(item, index) in navigationsMenus" :key="index" @click="toSearch(item.id)">
+              {{ item.name }}
+            </li>
+
             <li class="seperator"></li>
             <li class="search_item">
               <input type="text" placeholder="搜索素材" />
@@ -36,13 +38,11 @@
               <span class="btn2" @click="toLogin">登录</span>
             </li>
             <li v-else class="btn_view">
-              <div class="login_header_logo">
-                头像
-              </div>
+              <div class="login_header_logo">头像</div>
               <div ref="popMenuRef">
                 <span class="username" @click="clickDropdown">{{ userName }}</span>
                 <div :class="['popMenu', { activePop: dropdownStatus }]">
-                  <div class="item1" style="height: 46px;" @click="goto(0)">我的信息</div>
+                  <div class="item1" style="height: 46px" @click="goto(0)">我的信息</div>
                   <div class="item2" @click="goto(1)">我的作品</div>
                   <div class="item3" @click="goto(2)">我的资产</div>
                   <div class="item5" @click="goto(3)">帮助中心</div>
@@ -52,9 +52,7 @@
             </li>
           </ul>
         </div>
-        <div class="logo_view">
-          BANNER(请给与尺寸范围)
-        </div>
+        <div class="logo_view">BANNER(请给与尺寸范围)</div>
       </div>
     </div>
     <div class="content">
@@ -100,16 +98,7 @@
         </li>
       </ul>
       <div class="result-view">
-        <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-        <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-        <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-        <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-      </div>
-      <div class="result-view">
-        <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-        <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-        <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-        <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
+        <img class="lis_img" :src="item.fullUrl" alt="" v-for="(item, index) in tableDatas" :key="index" />
       </div>
     </div>
   </div>
@@ -117,15 +106,17 @@
 
 <script>
 import { mapState } from 'vuex'
+import { searchListService } from '@s/search-list-service'
 export default {
   name: 'SearchListView',
   computed: {
-    ...mapState(['token', 'userName'])
+    ...mapState(['token', 'userName', 'navigationsMenus'])
   },
   data() {
     return {
       show_select_index: -1,
-      dropdownStatus: false
+      dropdownStatus: false,
+      tableDatas: []
     }
   },
   mounted() {
@@ -157,11 +148,26 @@ export default {
         }
       }
     })
+    this.reloadTable()
   },
   unmounted() {
     document.removeEventListener('click')
   },
   methods: {
+    toSearch(navigationId) {
+      this.$store.commit('setNavigationId', navigationId)
+      this.reloadTable()
+    },
+    async reloadTable() {
+      const { rows } = await searchListService({
+        keyWord: `^navigationId=${this.$store.state.navigationId}`,
+        page: '1^1000',
+        date: '',
+        sort: '',
+        status: [2]
+      })
+      this.tableDatas = rows.filter(f => f.navigationName !== '')
+    },
     clickDropdown() {
       this.dropdownStatus = !this.dropdownStatus
     },
@@ -513,12 +519,15 @@ export default {
     .result-view {
       width: 1210px;
       margin-top: 46px;
-      display: flex;
+      /* display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: space-between; */
       .lis_img {
-        width: 262px;
-        height: 250px;
+        width: 230px;
+        height: 220px;
+        margin-left: 10px;
+        margin-top: 10px;
+        cursor: pointer;
       }
     }
   }

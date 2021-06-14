@@ -7,9 +7,9 @@
             <img class="logo_img" src="@a/imgs/logo_01.png" alt="" srcset="@a/imgs/logo_01@2x.png 2x" />
             <span class="logo_title">SooYi.CN</span>
           </li>
-          <li class="label" @click="toSearch">推广海报</li>
-          <li class="label" @click="toSearch">新媒体配置</li>
-          <li class="label" @click="toSearch">视频动画</li>
+          <li class="label" v-for="(item, index) in navigationsMenus" :key="index" @click="toSearch(item.id)">
+            {{ item.name }}
+          </li>
           <li class="seperator"></li>
           <li class="search_item">
             <input type="text" placeholder="搜索素材" />
@@ -24,13 +24,11 @@
             <span class="btn2" @click="toLogin">登录</span>
           </li>
           <li v-else class="btn_view">
-            <div class="login_header_logo">
-              头像
-            </div>
+            <div class="login_header_logo">头像</div>
             <div ref="popMenuRef">
               <span class="username" @click="clickDropdown">{{ userName }}</span>
               <div :class="['popMenu', { activePop: dropdownStatus }]">
-                <div class="item1" style="height: 46px;" @click="goto(0)">我的信息</div>
+                <div class="item1" style="height: 46px" @click="goto(0)">我的信息</div>
                 <div class="item2" @click="goto(1)">我的作品</div>
                 <div class="item3" @click="goto(2)">我的资产</div>
                 <div class="item5" @click="goto(3)">帮助中心</div>
@@ -40,9 +38,7 @@
           </li>
         </ul>
       </div>
-      <div class="logo_view">
-        BANNER(请给与尺寸范围)
-      </div>
+      <div class="logo_view">BANNER(请给与尺寸范围)</div>
     </div>
     <div class="center_view">
       <div class="left_view">
@@ -72,49 +68,10 @@
     <div class="footer_view">
       <div class="row">热门下载</div>
       <div class="list">
-        <div class="item" @click="toDetail">
-          <img class="hot_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-          <span class="hot_title">推广海报</span>
-          <div class="hot_more_view">
-            <span class="poionter">查看更多</span>
-            <img
-              class="blue_direct_img"
-              src="@a/imgs/arrow-pointing-to-right-blue.png"
-              alt=""
-              srcset="@a/imgs/arrow-pointing-to-right-blue@2x.png 2x"
-            />
-          </div>
-        </div>
-        <div class="item" @click="toDetail">
-          <img class="hot_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-          <span class="hot_title">新媒体配图</span>
-          <div class="hot_more_view">
-            <span class="poionter">查看更多</span>
-            <img
-              class="blue_direct_img"
-              src="@a/imgs/arrow-pointing-to-right-blue.png"
-              alt=""
-              srcset="@a/imgs/arrow-pointing-to-right-blue@2x.png 2x"
-            />
-          </div>
-        </div>
-        <div class="item" @click="toDetail">
-          <img class="hot_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-          <span class="hot_title">动画漫画</span>
-          <div class="hot_more_view">
-            <span class="poionter">查看更多</span>
-            <img
-              class="blue_direct_img"
-              src="@a/imgs/arrow-pointing-to-right-blue.png"
-              alt=""
-              srcset="@a/imgs/arrow-pointing-to-right-blue@2x.png 2x"
-            />
-          </div>
-        </div>
-        <div class="item" @click="toDetail">
-          <img class="hot_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-          <span class="hot_title">其他</span>
-          <div class="hot_more_view">
+        <div class="item" v-for="(item, index) in navigationsMenus" :key="index">
+          <img class="hot_img" :src="item.firstUrl" alt="" />
+          <span class="hot_title">{{ item.name }}</span>
+          <div class="hot_more_view" @click="toSearch(item.id)">
             <span class="poionter">查看更多</span>
             <img
               class="blue_direct_img"
@@ -131,14 +88,39 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import { getNavigationMenusService } from '@s/navigation-service'
+import { searchListService } from '@s/search-list-service'
 export default {
   name: 'IndexView',
   computed: {
-    ...mapState(['token', 'userName'])
+    ...mapState(['token', 'userName', 'navigationsMenus'])
+  },
+  async created() {
+    if (this.$store.state.navigationsMenus.length === 0) {
+      let { rows: rowDatas } = await getNavigationMenusService(10)
+      let titles = rowDatas.filter(f => f.name !== '首页')
+      titles.forEach(async m => {
+        if (m.name !== '首页') {
+          const { rows: Datas } = await searchListService({
+            keyWord: `^navigationId=${m.id}`,
+            page: '1^1000',
+            date: '',
+            sort: '',
+            status: [2]
+          })
+          m.firstItem = Datas[0]
+          m.firstUrl = Datas.length === 0 ? '' : Datas[0].fullUrl
+        }
+      })
+      setTimeout(() => {
+        this.$store.commit('setNavigationMenus', titles)
+      }, 1000)
+    }
   },
   data() {
     return {
-      dropdownStatus: false
+      dropdownStatus: false,
+      datas: []
     }
   },
   mounted() {
@@ -154,7 +136,8 @@ export default {
     document.removeEventListener('click')
   },
   methods: {
-    toSearch() {
+    toSearch(navigationId) {
+      this.$store.commit('setNavigationId', navigationId)
       this.$router.push('/search')
     },
     toRegister() {

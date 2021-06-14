@@ -11,6 +11,12 @@ export default {
   setLoading(state, payload) {
     state.loading = payload
   },
+  setNavigationId(state, payload) {
+    state.navigationId = payload
+  },
+  setNavigationMenus(state, payload) {
+    state.navigationsMenus = payload
+  },
   clearStore(state, payload) {
     state.userName = ''
     state.token = ''
