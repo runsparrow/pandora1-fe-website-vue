@@ -88,36 +88,10 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import { getNavigationMenusService } from '@s/navigation-service'
-import { searchListService } from '@s/search-list-service'
 export default {
   name: 'IndexView',
   computed: {
     ...mapState(['token', 'userName', 'navigationsMenus'])
-  },
-  async created() {
-    if (this.$store.state.navigationsMenus.length === 0) {
-      let { rows: rowDatas } = await getNavigationMenusService(10)
-      let titles = rowDatas.filter(f => f.name !== '首页')
-      titles.forEach(async m => {
-        if (m.name !== '首页') {
-          const { rows: Datas } = await searchListService({
-            keyWord: `^navigationId=${m.id}`,
-            page: '1^1000',
-            date: '',
-            sort: '',
-            status: [2]
-          })
-          m.firstItem = Datas[0]
-          m.firstUrl = Datas.length === 0 ? '' : Datas[0].fullUrl
-          m.ImgId = Datas.length === 0 ? '' : Datas[0].id
-        }
-      })
-      console.log(titles)
-      setTimeout(() => {
-        this.$store.commit('setNavigationMenus', titles)
-      }, 1000)
-    }
   },
   data() {
     return {
