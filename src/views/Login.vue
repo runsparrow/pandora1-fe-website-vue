@@ -523,7 +523,10 @@ export default {
         return
       }
 
-      const { result } = await checkUseNameExistService(this.userName)
+      const { result } = await checkUseNameExistService({
+        name: this.userName,
+        id: -1
+      })
       if (result) {
         this.btn_disabled = false
         this.userNameErrorMsg = '此用户名已被占用，请改用其他用户名!'
