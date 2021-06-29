@@ -2005,7 +2005,7 @@ export default {
         return
       }
       this.modal_loading = false
-      const { result, message } = await submitZuoPinService(this.zuopin_upload_obj)
+      const { result, message } = await submitZuoPinService({...this.zuopin_upload_obj,url:this.zuopin_upload_obj.url.substring(this.zuopin_upload_obj.url.indexOf('/uploadFiles'))})
       if (result) {
         this.loadMyZuoPinLIst()
         alert('提交成功!')
