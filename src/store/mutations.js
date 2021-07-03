@@ -17,6 +17,9 @@ export default {
   setNavigationMenus(state, payload) {
     state.navigationsMenus = payload
   },
+  setKeyWords(state, payload) {
+    state.keywords = payload
+  },
   clearStore(state, payload) {
     state.userName = ''
     state.token = ''

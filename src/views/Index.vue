@@ -12,11 +12,23 @@
           </li>
           <li class="seperator"></li>
           <li class="search_item">
-            <input type="text" placeholder="搜索素材" />
+            <input type="text" placeholder="搜索素材" v-model.trim="searchKeyword" />
 
             <div class="search_right_bg_view">
-              <img class="search_icon" src="@a/imgs/search.png" alt="" srcset="@a/imgs/search@2x.png 2x" />
-              <img class="search_clear" src="@a/imgs/search_clear.png" alt="" srcset="@a/imgs/search_clear@2x.png 2x" />
+              <img
+                class="search_icon"
+                src="@a/imgs/search.png"
+                alt=""
+                srcset="@a/imgs/search@2x.png 2x"
+                @click="searchByKeyword"
+              />
+              <img
+                class="search_clear"
+                src="@a/imgs/search_clear.png"
+                alt=""
+                srcset="@a/imgs/search_clear@2x.png 2x"
+                @click="clearKeyword"
+              />
             </div>
           </li>
           <li class="btn_view" v-if="token === ''">
@@ -96,6 +108,7 @@ export default {
   data() {
     return {
       dropdownStatus: false,
+      searchKeyword: '',
       datas: []
     }
   },
@@ -113,6 +126,8 @@ export default {
   },
   methods: {
     toSearch(navigationId) {
+      this.searchKeyword = ''
+      this.$store.commit('setKeyWords', '')
       this.$store.commit('setNavigationId', navigationId)
       this.$router.push('/search')
     },
@@ -138,6 +153,14 @@ export default {
         this.$store.commit('clearStore')
         this.$router.push('/home')
       }
+    },
+    async searchByKeyword() {
+      this.$store.commit('setKeyWords', this.searchKeyword)
+      this.$router.push('search')
+    },
+    clearKeyword() {
+      this.$store.commit('setKeyWords', '')
+      this.searchKeyword = ''
     }
   }
 }

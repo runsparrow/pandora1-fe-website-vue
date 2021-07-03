@@ -24,6 +24,7 @@ export default {
     MIS_CMS_Goods_Query_Page_URL: '/Unauthorized/MIS/CMS/Goods/Query/Page',
     MIS_CMS_Navigation_Rows_SubsetById_URL: '/Unauthorized/MIS/CMS/Navigation/Rows/SubsetById',
     Unauthorized_MIS_CMS_Goods_Single_ById_URL: '/Unauthorized/MIS/CMS/Goods/Single/ById',
-    filedownload_URL: '/v1/api/file/filedownload'
+    filedownload_URL: '/v1/api/file/filedownload',
+    MIS_CMS_Down_Create_Single_URL: '/MIS/CMS/Down/Create/Single'
   }
 }

@@ -21,15 +21,22 @@
 
             <li class="seperator"></li>
             <li class="search_item">
-              <input type="text" placeholder="搜索素材" />
+              <input type="text" placeholder="搜索素材" v-model.trim="searchKeyword" />
 
               <div class="search_right_bg_view">
-                <img class="search_icon" src="@a/imgs/search.png" alt="" srcset="@a/imgs/search@2x.png 2x" />
+                <img
+                  class="search_icon"
+                  src="@a/imgs/search.png"
+                  alt=""
+                  srcset="@a/imgs/search@2x.png 2x"
+                  @click="searchByKeyword"
+                />
                 <img
                   class="search_clear"
                   src="@a/imgs/search_clear.png"
                   alt=""
                   srcset="@a/imgs/search_clear@2x.png 2x"
+                  @click="clearKeyword"
                 />
               </div>
             </li>
@@ -101,6 +108,7 @@
         <img
           class="lis_img"
           :src="item.fullUrl"
+          :title="item.name"
           alt=""
           v-for="(item, index) in tableDatas"
           :key="index"
@@ -121,6 +129,7 @@ export default {
   },
   data() {
     return {
+      searchKeyword: '',
       show_select_index: -1,
       dropdownStatus: false,
       tableDatas: []
@@ -155,13 +164,21 @@ export default {
         }
       }
     })
-    this.reloadTable()
+    if (this.$store.state.keywords) {
+      this.searchKeyword = this.$store.state.keywords
+      this.searchByKeyword()
+    } else {
+      this.reloadTable()
+    }
   },
   unmounted() {
+    this.$store.commit('setKeyWords', '')
     document.removeEventListener('click')
   },
   methods: {
     toSearch(navigationId) {
+      this.searchKeyword = ''
+      this.$store.commit('setKeyWords', '')
       this.$store.commit('setNavigationId', navigationId)
       this.reloadTable()
     },
@@ -173,12 +190,13 @@ export default {
         sort: '',
         status: [2]
       })
-      this.tableDatas = rows.filter(f => f.navigationName !== '')
+      this.tableDatas = rows
     },
     clickDropdown() {
       this.dropdownStatus = !this.dropdownStatus
     },
     toHome() {
+      this.$store.commit('setKeyWords', '')
       this.$router.push('/home')
     },
     chooseItem() {
@@ -203,6 +221,21 @@ export default {
     toLogin() {
       this.$store.commit('setActiveTab', 1)
       this.$router.push('/login')
+    },
+    async searchByKeyword() {
+      this.$store.commit('setKeyWords', this.searchKeyword)
+      const { rows } = await searchListService({
+        keyWord: this.searchKeyword,
+        page: '1^100',
+        date: '',
+        sort: '',
+        status: [2]
+      })
+      this.tableDatas = rows
+    },
+    clearKeyword() {
+      this.$store.commit('setKeyWords', '')
+      this.searchKeyword = ''
     }
   }
 }

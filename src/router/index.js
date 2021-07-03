@@ -24,7 +24,7 @@ router.beforeEach(async (to, from, next) => {
       if (m.name !== '首页') {
         const { rows: Datas } = await searchListService({
           keyWord: `^navigationId=${m.id}`,
-          page: '1^1000',
+          page: '1^100',
           date: '',
           sort: '',
           status: [2]

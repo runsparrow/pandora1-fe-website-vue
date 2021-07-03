@@ -19,15 +19,22 @@
             <li class="label" @click="toSearch">视频动画</li>
             <li class="seperator"></li>
             <li class="search_item">
-              <input type="text" placeholder="搜索素材" />
+              <input type="text" placeholder="搜索素材" v-model.trim="searchKeyword" />
 
               <div class="search_right_bg_view">
-                <img class="search_icon" src="@a/imgs/search.png" alt="" srcset="@a/imgs/search@2x.png 2x" />
+                <img
+                  class="search_icon"
+                  src="@a/imgs/search.png"
+                  alt=""
+                  srcset="@a/imgs/search@2x.png 2x"
+                  @click="searchByKeyword"
+                />
                 <img
                   class="search_clear"
                   src="@a/imgs/search_clear.png"
                   alt=""
                   srcset="@a/imgs/search_clear@2x.png 2x"
+                  @click="clearKeyword"
                 />
               </div>
             </li>
@@ -98,6 +105,7 @@
 import { mapState, mapMutations } from 'vuex'
 import { getDetailByIdService } from '@s/detail-service'
 import ajaxFile from '@l/ajax-file-interceptor'
+import ajaxRequest from '@l/ajax-service'
 import CONFIG from '@/config/config'
 export default {
   name: 'ProductDetail',
@@ -107,7 +115,8 @@ export default {
   data() {
     return {
       dropdownStatus: false,
-      detail: {}
+      detail: {},
+      searchKeyword: ''
     }
   },
   async mounted() {
@@ -129,28 +138,54 @@ export default {
   methods: {
     reloadTabl() {},
     toSearch() {
+      this.searchKeyword = ''
+      this.$store.commit('setKeyWords', '')
+      this.$store.commit('setNavigationId', navigationId)
       this.$router.push('/search')
     },
     downloadFile() {
-      console.log(this.detail.fullUrl)
       let relativePath = this.detail.fullUrl + ''
-      relativePath = relativePath.substring(relativePath.indexOf('uploadFiles'))
-      ajaxFile({
-        // 用axios发送post请求
+      const fileName = this.detail.fullUrl.substring(this.detail.fullUrl.lastIndexOf('/') + 1)
+      relativePath = relativePath.substring(relativePath.indexOf('uploadFiles') - 1)
+      const fileDto = {
+        memberId: this.$store.state.memberId,
+        memberName: this.$store.state.userName,
+        goodsId: this.detail.id,
+        goodsName: this.detail.name,
+        goodsUrl: relativePath,
+        ownerId: this.detail.ownerId,
+        ownerName: this.detail.ownerName,
+        downDateTime: '0001/1/1 0:00:00',
+        downResult: true,
+        createDateTime: new Date(),
+        createUserId: -1,
+        editDateTime: new Date(),
+        editUserId: -1
+      }
+      ajaxRequest({
         method: 'post',
-        url: `${CONFIG.API_URLS.filedownload_URL}`, // 请求地址
-        data: { fileUrl: relativePath },
-        responseType: 'blob'
+        url: `${CONFIG.API_URLS.MIS_CMS_Down_Create_Single_URL}`, // 请求地址
+        data: fileDto
       }).then(res => {
-        let url = window.URL.createObjectURL(res)
-        const link = document.createElement('a')
-        link.download = 'pic.jpg'
-        link.style.display = 'none'
-        link.href = url
-        document.body.appendChild(link)
-        link.click()
-        URL.revokeObjectURL(link.href)
-        document.body.removeChild(link)
+        if (res.result) {
+          ajaxFile({
+            // 用axios发送post请求
+            method: 'post',
+            url: `${CONFIG.API_URLS.filedownload_URL}`, // 请求地址
+            data: { fileUrl: relativePath },
+            responseType: 'blob'
+          }).then(res => {
+            let url = window.URL.createObjectURL(res)
+            const link = document.createElement('a')
+            link.download = fileName
+            link.style.display = 'none'
+            link.href = url
+            document.body.appendChild(link)
+            link.click()
+            URL.revokeObjectURL(link.href)
+            document.body.removeChild(link)
+          })
+        }
       })
     },
     clickDropdown() {
@@ -182,6 +217,14 @@ export default {
       } else {
         this.$router.push('/mine/info?index=2&inner_index=2')
       }
+    },
+    async searchByKeyword() {
+      this.$store.commit('setKeyWords', this.searchKeyword)
+      this.$router.push('/search')
+    },
+    clearKeyword() {
+      this.$store.commit('setKeyWords', '')
+      this.searchKeyword = ''
     }
   }
 }

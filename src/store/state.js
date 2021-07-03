@@ -1,6 +1,7 @@
 export default {
   memberId: '',
   userName: '',
+  keywords: '',
   token: '',
   expires: 0,
   version: '1.0',
