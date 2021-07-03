@@ -2,6 +2,7 @@ export default {
   memberId: '',
   userName: '',
   keywords: '',
+  vipList: [],
   token: '',
   expires: 0,
   version: '1.0',

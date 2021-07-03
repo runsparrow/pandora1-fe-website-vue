@@ -4,6 +4,7 @@ import routes from './router'
 import { setDocumentTitle } from '@l/util'
 import $store from '../store'
 import { getNavigationMenusService } from '@s/navigation-service'
+import { getVIPListService } from '@s/login-service'
 import { searchListService } from '@s/search-list-service'
 
 Vue.use(VueRouter)
@@ -39,6 +40,14 @@ router.beforeEach(async (to, from, next) => {
       $store.commit('setNavigationMenus', titles)
     }, 1000)
   }
+  let { rows } = await getVIPListService({
+    keyWord: '',
+    page: '1^20',
+    date: '',
+    sort: 'id^asc',
+    status: [1]
+  })
+  $store.commit('setVipList', rows)
 
   const dateTime = new Date().getTime()
   to.meta && setDocumentTitle(to.meta.title)

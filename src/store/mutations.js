@@ -20,6 +20,9 @@ export default {
   setKeyWords(state, payload) {
     state.keywords = payload
   },
+  setVipList(state, payload) {
+    state.vipList = payload
+  },
   clearStore(state, payload) {
     state.userName = ''
     state.token = ''

@@ -56,3 +56,10 @@ export const checkUseNameExistService = async payload => {
     data: payload
   })
 }
+export const getVIPListService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.Unauthorized_MIS_CMS_MemberPower_Query_Page_URL}`,
+    method: 'POST',
+    data: payload
+  })
+}

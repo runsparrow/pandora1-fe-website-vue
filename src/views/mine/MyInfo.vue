@@ -5,7 +5,7 @@
     </div>
     <div class="loading" v-show="payforImg_show">
       <div class="qrcode_div" ref="qrcode_div">
-        <img :src="payImg" style="width:100%" />
+        <img :src="payImg" style="width: 100%" />
       </div>
     </div>
     <div class="modal" v-show="modal_loading">
@@ -75,7 +75,7 @@
                           /> -->
           </div>
         </div>
-        <div class="row" style="justify-content: flex-end;">
+        <div class="row" style="justify-content: flex-end">
           <div class="confirm_btn" @click="submitModal">提交</div>
           <div class="cancel_btn" @click="closeModal">取消</div>
         </div>
@@ -105,13 +105,11 @@
             <span class="btn2" @click="toLogin">登录</span>
           </li>
           <li v-else class="btn_view">
-            <div class="login_header_logo">
-              头像
-            </div>
+            <div class="login_header_logo">头像</div>
             <div ref="popMenuRef">
               <span class="username" @click="clickDropdown">{{ userName }}</span>
               <div :class="['popMenu', { activePop: dropdownStatus }]">
-                <div class="item6" style="padding-bottom: 10px;" @click="goto(4)">退出</div>
+                <div class="item6" style="padding-bottom: 10px" @click="goto(4)">退出</div>
               </div>
             </div>
           </li>
@@ -158,9 +156,7 @@
       </div>
       <div class="right_view">
         <div class="row">
-          <div :class="['item', { active: outer_tabIndex === 0 }]" @click="() => (outer_tabIndex = 0)">
-            我的信息
-          </div>
+          <div :class="['item', { active: outer_tabIndex === 0 }]" @click="() => (outer_tabIndex = 0)">我的信息</div>
           <div :class="['item', { active: outer_tabIndex === 1 }]" @click="() => (outer_tabIndex = 1)">我的作品</div>
           <div :class="['item', { active: outer_tabIndex === 2 }]" @click="() => (outer_tabIndex = 2)">我的资产</div>
           <div :class="['item', { active: outer_tabIndex === 3 }]" @click="() => (outer_tabIndex = 3)">帮助中心</div>
@@ -378,7 +374,7 @@
                     v-model="checkedAgree"
                   />已阅读并同意《漫云搜医平台隐私及使用政策》
                 </div>
-                <div class="right_view" style="cursor:pointer" @click="submitData">提交</div>
+                <div class="right_view" style="cursor: pointer" @click="submitData">提交</div>
               </div>
               <div class="footer_view" v-if="statusValue === 1">
                 <div class="left_view">
@@ -388,7 +384,7 @@
                     v-model="checkedAgree"
                   />已阅读并同意《漫云搜医平台隐私及使用政策》
                 </div>
-                <div class="right_view" style="cursor:pointer" @click="submitDataUpdate">更新</div>
+                <div class="right_view" style="cursor: pointer" @click="submitDataUpdate">更新</div>
               </div>
             </template>
             <template v-if="inner_tabIndex === 1">
@@ -413,7 +409,7 @@
                     <span class="label">姓名</span>
                     <input
                       type="text"
-                      style="padding-left:26px"
+                      style="padding-left: 26px"
                       class="select_view"
                       placeholder="请填写本人真实姓名"
                       v-model.trim="myInfoDesignModel.entity.realName"
@@ -423,7 +419,7 @@
                     <span class="label">身份证</span>
                     <input
                       type="text"
-                      style="padding-left:26px"
+                      style="padding-left: 26px"
                       class="select_view"
                       placeholder="请输入身份证号码"
                       v-model.trim="myInfoDesignModel.entity.idCard"
@@ -433,7 +429,7 @@
                     <span class="label">支付宝</span>
                     <input
                       type="text"
-                      style="padding-left:26px"
+                      style="padding-left: 26px"
                       class="select_view"
                       placeholder="请输入支付宝账号"
                       v-model.trim="myInfoDesignModel.entity.alipay"
@@ -473,7 +469,7 @@
                             @change="uploadidCardFFile"
                             accept="image/png,image/jpeg,image/gif,image/jpg"
                           />
-                          <span style="color:#ccc;font-size:12px">身份证正面</span>
+                          <span style="color: #ccc; font-size: 12px">身份证正面</span>
                         </div>
                         <div
                           class="img_item"
@@ -497,7 +493,7 @@
                             @change="uploadidCardBFile"
                             accept="image/png,image/jpeg,image/gif,image/jpg"
                           />
-                          <span style="color:#ccc;font-size:12px">身份证反面</span>
+                          <span style="color: #ccc; font-size: 12px">身份证反面</span>
                         </div>
                       </div>
                     </div>
@@ -562,7 +558,7 @@
                   </span>
                   <span
                     class="column"
-                    style="display:flex;flex-direction:column;align-items:center;justify-content:center"
+                    style="display: flex; flex-direction: column; align-items: center; justify-content: center"
                   >
                     <span class="label">《{{ item.name }}》</span>
                     <span class="label"
@@ -572,9 +568,7 @@
                     >
                   </span>
                   <span class="column">
-                    <div class="delBtn">
-                      删除
-                    </div>
+                    <div class="delBtn">删除</div>
                   </span>
                 </div>
               </div>
@@ -596,7 +590,7 @@
                   </span>
                   <span
                     class="column"
-                    style="display:flex;flex-direction:column;align-items:center;justify-content:center"
+                    style="display: flex; flex-direction: column; align-items: center; justify-content: center"
                   >
                     <span class="label">《{{ item.name }}》</span>
                     <span class="label"
@@ -606,14 +600,10 @@
                     >
                   </span>
                   <span class="column">
-                    <div class="delBtn">
-                      删除
-                    </div>
+                    <div class="delBtn">删除</div>
                   </span>
                 </div>
-                <div class="label_row">
-                  审核会在10个工作日内完成
-                </div>
+                <div class="label_row">审核会在10个工作日内完成</div>
               </div>
             </template>
             <template v-if="inner_sample_tabIndex === 2">
@@ -633,7 +623,7 @@
                   </span>
                   <span
                     class="column"
-                    style="display:flex;flex-direction:column;align-items:center;justify-content:center"
+                    style="display: flex; flex-direction: column; align-items: center; justify-content: center"
                   >
                     <span class="label">《{{ item.name }}》</span>
                     <span class="label"
@@ -643,9 +633,7 @@
                     >
                   </span>
                   <span class="column">
-                    <div class="delBtn">
-                      删除
-                    </div>
+                    <div class="delBtn">删除</div>
                   </span>
                 </div>
                 <div class="label_row">
@@ -687,15 +675,13 @@
                   <div class="title">有效时间</div>
                 </div>
                 <div class="table_row">
-                  <span class="column">
-                    2021-01-23 22:00:59
-                  </span>
+                  <span class="column"> 2021-01-23 22:00:59 </span>
                   <span class="column">
                     <img class="small_img" src="@a/imgs/small_pic@2x.png" alt="" srcset="@a/imgs/small_pic@2x.png 2x" />
                   </span>
                   <span
                     class="column"
-                    style="display:flex;flex-direction:column;align-items:center;justify-content:center"
+                    style="display: flex; flex-direction: column; align-items: center; justify-content: center"
                   >
                     <span class="label">《作品名字》</span>
                     <span class="label"
@@ -703,20 +689,16 @@
                       <span class="collectColor">66</span><span class="focus">收藏</span></span
                     >
                   </span>
-                  <span class="column">
-                    2021-01-23 22:00:59
-                  </span>
+                  <span class="column"> 2021-01-23 22:00:59 </span>
                 </div>
                 <div class="table_row">
-                  <span class="column">
-                    2021-01-23 22:00:59
-                  </span>
+                  <span class="column"> 2021-01-23 22:00:59 </span>
                   <span class="column">
                     <img class="small_img" src="@a/imgs/small_pic@2x.png" alt="" srcset="@a/imgs/small_pic@2x.png 2x" />
                   </span>
                   <span
                     class="column"
-                    style="display:flex;flex-direction:column;align-items:center;justify-content:center"
+                    style="display: flex; flex-direction: column; align-items: center; justify-content: center"
                   >
                     <span class="label">《作品名字》</span>
                     <span class="label"
@@ -724,9 +706,7 @@
                       <span class="collectColor">66</span><span class="focus">收藏</span></span
                     >
                   </span>
-                  <span class="column">
-                    已过期
-                  </span>
+                  <span class="column"> 已过期 </span>
                 </div>
               </div>
             </template>
@@ -801,18 +781,15 @@
                   <span class="effect_label">有效期至：2021-03-01</span>
                 </div>
                 <div class="month_nav">
-                  <div class="month_desc">
-                    缴费一个月
-                  </div>
-                  <div class="month_desc">
-                    缴费两个月
-                  </div>
-                  <div class="month_desc">
-                    缴费三个月
-                  </div>
+                  <div class="month_desc" v-for="(item, index) in vipList" :key="index">缴费{{ item.name }}</div>
                 </div>
                 <div class="select_pay_kind">
-                  <div :class="['nav', { active: payIndex === 0 }]" @click="selectPay(0)">
+                  <div
+                    :class="['nav', { active: payIndex ===index }]"
+                    v-for="(item, index) in vipList"
+                    :key="index"
+                    @click="selectPay(index)"
+                  >
                     <img
                       class="zhekou_div"
                       src="@a/imgs/sale_10_img.png"
@@ -820,41 +797,11 @@
                       srcset="@a/imgs/sale_10_img@2x.png 2x"
                     />
                     <div class="amount_div">
-                      <span class="amount">9</span>
+                      <span class="amount">{{ item.price }}</span>
                       <span class="unit">元</span>
                     </div>
                     <div class="uncheckd_pay">
-                      <div class="active_checked" v-if="payIndex === 0"></div>
-                    </div>
-                  </div>
-                  <div :class="['nav', { active: payIndex === 1 }]" @click="selectPay(1)">
-                    <img
-                      class="zhekou_div"
-                      src="@a/imgs/sale_20_img.png"
-                      alt=""
-                      srcset="@a/imgs/sale_20_img@2x.png 2x"
-                    />
-                    <div class="amount_div">
-                      <span class="amount">16</span>
-                      <span class="unit">元</span>
-                    </div>
-                    <div class="uncheckd_pay">
-                      <div class="active_checked" v-if="payIndex === 1"></div>
-                    </div>
-                  </div>
-                  <div :class="['nav', { active: payIndex === 2 }]" @click="selectPay(2)">
-                    <img
-                      class="zhekou_div"
-                      src="@a/imgs/sale_30_img.png"
-                      alt=""
-                      srcset="@a/imgs/sale_30_img@2x.png 2x"
-                    />
-                    <div class="amount_div">
-                      <span class="amount">21</span>
-                      <span class="unit">元</span>
-                    </div>
-                    <div class="uncheckd_pay">
-                      <div class="active_checked" v-if="payIndex === 2"></div>
+                      <div class="active_checked" v-if="payIndex === index"></div>
                     </div>
                   </div>
                 </div>
@@ -901,9 +848,7 @@
                   <span class="base_label">与</span>
                   <span class="base_label under_line">隐私政策</span>
                 </div>
-                <div class="error_msg_line">
-                  请阅读后点击同意以完成支付
-                </div>
+                <div class="error_msg_line">请阅读后点击同意以完成支付</div>
                 <div class="btnSubmit" @click="payForMember">确定支付</div>
               </div>
             </template>
@@ -916,19 +861,13 @@
                   <div class="title">有效时间</div>
                 </div>
                 <div class="table_row">
-                  <span class="column">
-                    2021-01-23 22:00:59
-                  </span>
+                  <span class="column"> 2021-01-23 22:00:59 </span>
                   <span class="column">
                     <img class="vip_img" src="@a/imgs/account_img.png" alt="" srcset="@a/imgs/account_img@2x.png 2x" />
                     <span class="vip_label">VIP开通</span>
                   </span>
-                  <span class="column">
-                    16元
-                  </span>
-                  <span class="column">
-                    021-03-21 22:00:59
-                  </span>
+                  <span class="column"> 16元 </span>
+                  <span class="column"> 021-03-21 22:00:59 </span>
                 </div>
               </div>
             </template>
@@ -1370,7 +1309,7 @@ export default {
     document.removeEventListener('click')
   },
   computed: {
-    ...mapState(['token', 'userName', 'loading'])
+    ...mapState(['token', 'userName', 'loading', 'vipList'])
   },
   methods: {
     payForMember() {
@@ -1464,10 +1403,11 @@ export default {
         this.myInfoIndentityModel.entity.certificateNo = myInfo.certificateNo
         this.myInfoIndentityModel.entity.certificateUrl = myInfo.certificateUrl
       }
-      let { result: myInfoDesignResult, row: designRow, designMessage } = await getMyInfoByIdService(
-        this.$store.state.memberId,
-        1
-      )
+      let {
+        result: myInfoDesignResult,
+        row: designRow,
+        designMessage
+      } = await getMyInfoByIdService(this.$store.state.memberId, 1)
       if (myInfoDesignResult) {
         this.desingCheckedAgree = true
         this.myInfoDesignModel.entity.id = designRow.id
@@ -2005,7 +1945,10 @@ export default {
         return
       }
       this.modal_loading = false
-      const { result, message } = await submitZuoPinService({...this.zuopin_upload_obj,url:this.zuopin_upload_obj.url.substring(this.zuopin_upload_obj.url.indexOf('/uploadFiles'))})
+      const { result, message } = await submitZuoPinService({
+        ...this.zuopin_upload_obj,
+        url: this.zuopin_upload_obj.url.substring(this.zuopin_upload_obj.url.indexOf('/uploadFiles'))
+      })
       if (result) {
         this.loadMyZuoPinLIst()
         alert('提交成功!')
