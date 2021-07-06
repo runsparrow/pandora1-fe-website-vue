@@ -185,7 +185,7 @@ export default {
     async reloadTable() {
       const { rows } = await searchListService({
         keyWord: `^navigationId=${this.$store.state.navigationId}`,
-        page: '1^1000',
+        page: '1^100',
         date: '',
         sort: '',
         status: [2]
@@ -231,6 +231,7 @@ export default {
         sort: '',
         status: [2]
       })
+      console.log(rows)
       this.tableDatas = rows
     },
     clearKeyword() {

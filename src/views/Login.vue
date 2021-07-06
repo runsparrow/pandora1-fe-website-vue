@@ -259,7 +259,7 @@
               <input
                 class="form_input_mobile"
                 type="text"
-                placeholder="请输入手机号"
+                placeholder="请输入手机号|用户名|邮箱"
                 v-model.trim="accountName"
                 @keyup="validAccountName($event)"
               />
@@ -418,12 +418,13 @@ export default {
         this.accountNameErrorMsg = '手机号不能为空'
         this.accountNameInValid = true
       } else {
-        if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test($event.target.value)) {
-          this.accountNameErrorMsg = '手机号码有误，请重填'
-          this.accountNameInValid = true
-        } else {
-          this.accountNameInValid = false
-        }
+        // if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test($event.target.value)) {
+        //   this.accountNameErrorMsg = '手机号码有误，请重填'
+        //   this.accountNameInValid = true
+        // } else {
+        //   this.accountNameInValid = false
+        // }
+        this.accountNameInValid = false
       }
     },
     validUserName($event) {
