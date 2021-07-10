@@ -119,7 +119,7 @@
               <div
                 v-if="register_show === 1"
                 :class="['error_msg', { error_msg_hidden: !accountCodeInValid }]"
-                style="margin-left:82px"
+                style="margin-left: 82px"
               >
                 {{ accountCodeErrorMsg }}
               </div>
@@ -158,12 +158,12 @@
                   src="@a/imgs/user_pwd.png"
                   alt=""
                   srcset="@a/imgs/user_pwd@2x.png 2x"
-                  style="top: 114px;"
+                  style="top: 114px"
                 />
                 <div
                   v-if="register_show === 2"
                   :class="['error_msg', { error_msg_hidden: !accountRegPwdInValid }]"
-                  style="margin-left:82px"
+                  style="margin-left: 82px"
                 >
                   {{ accountRegPwdErrorMsg }}
                 </div>
@@ -171,7 +171,7 @@
               <div class="pwd_view">
                 <input
                   class="form_input_pwd"
-                  style="margin-top:0"
+                  style="margin-top: 0"
                   maxlength="20"
                   type="password"
                   placeholder="请再次输入密码"
@@ -185,12 +185,12 @@
                   src="@a/imgs/user_pwd.png"
                   alt=""
                   srcset="@a/imgs/user_pwd@2x.png 2x"
-                  style="top:13px"
+                  style="top: 13px"
                 />
                 <div
                   v-if="register_show === 2"
                   :class="['error_msg', { error_msg_hidden: !accountRegConfirmPwdInValid }]"
-                  style="margin-left:82px"
+                  style="margin-left: 82px"
                 >
                   {{ accountRegConfirmPwdErrorMsg }}
                 </div>
@@ -200,19 +200,19 @@
                 class="btn_submit"
                 v-if="register_show === 0"
                 @click="getCode"
-                style="margin-top:0px;"
+                style="margin-top: 0px"
                 :disabled="btn_disabled"
               >
                 获取验证码
               </button>
-              <button class="btn_submit" v-if="register_show === 1" @click="submitCode" style="margin-top:0px;">
+              <button class="btn_submit" v-if="register_show === 1" @click="submitCode" style="margin-top: 0px">
                 提交
               </button>
               <button
                 class="btn_submit"
                 v-if="register_show === 2"
                 @click="submitReg"
-                style="margin-top:0px;"
+                style="margin-top: 0px"
                 :disabled="btn_disabled"
               >
                 提交
@@ -330,7 +330,8 @@
           </template>
         </template>
         <img class="login_icon" src="@a/imgs/login_bottom_img.png" alt="" srcset="@a/imgs/login_bottom_img@2x.png 2x" />
-        <span class="label_return" @click="toHomePage">返回首页</span>
+        <span class="label_return" @click="toHomePage">首页</span>
+        <span class="card_login" @click="toCardActivatePage">邀请码</span>
       </div>
     </div>
   </div>
@@ -660,6 +661,9 @@ export default {
     toHomePage() {
       clearInterval(this.timer)
       this.$router.push('/')
+    },
+    toCardActivatePage() {
+      this.$router.push('/card_activate')
     }
   }
 }
@@ -998,6 +1002,14 @@ export default {
         position: absolute;
         bottom: 30px;
         left: 130px;
+        color: #2361ac;
+        cursor: pointer;
+      }
+      .card_login {
+        font-size: 16px;
+        position: absolute;
+        bottom: 30px;
+        left: 170px;
         color: #2361ac;
         cursor: pointer;
       }

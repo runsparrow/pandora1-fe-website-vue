@@ -14,6 +14,11 @@ export default [
     component: () => import(/* webpackChunkName: "login-view" */ '@v/Login.vue')
   },
   {
+    path: '/card_activate',
+    meta: { title: '邀请码登录' },
+    component: () => import(/* webpackChunkName: "card-activate-view" */ '@v/CardActivate.vue')
+  },
+  {
     path: '/forgot',
     meta: { title: '找回密码' },
     component: () => import(/* webpackChunkName: "login-view" */ '@v/ForgotPwd.vue')

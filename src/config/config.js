@@ -29,6 +29,7 @@ export default {
     Unauthorized_MIS_CMS_MemberPower_Query_Page_URL: '/Unauthorized/MIS/CMS/MemberPower/Query/Page',
     MIS_CMS_Down_Query_Page_URL: '/MIS/CMS/Down/Query/Page',
     MIS_CMS_Collect_Query_Page_URL: '/MIS/CMS/Collect/Query/Page',
-    MIS_CMS_Recharge_Query_Page_URL: '/MIS/CMS/Recharge/Query/Page'
+    MIS_CMS_Recharge_Query_Page_URL: '/MIS/CMS/Recharge/Query/Page',
+    MIS_CMS_Auth_ActivateCard_URL: '/MIS/CMS/Auth/ActivateCard'
   }
 }

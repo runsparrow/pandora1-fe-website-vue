@@ -63,3 +63,10 @@ export const getVIPListService = async payload => {
     data: payload
   })
 }
+export const loginByCardService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_CMS_Auth_ActivateCard_URL}`,
+    method: 'POST',
+    data: payload
+  })
+}
