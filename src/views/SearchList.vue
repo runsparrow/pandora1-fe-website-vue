@@ -68,39 +68,42 @@
           <span class="label">免费作品</span>
           <img class="select_img" src="@a/imgs/jiantou_down.png" alt="" srcset="@a/imgs/jiantou_down@2x.png 2x" />
           <ul class="children_list" v-if="show_select_index === 0">
-            <li class="child_item top" @click.stop="chooseItem">全部作品</li>
-            <li class="child_item active" @click.stop="chooseItem">免费作品</li>
-            <li class="child_item label" @click.stop="chooseItem">收费作品</li>
+            <li class="child_item top" @click.stop="chooseItemLevel('')">全部作品</li>
+            <li class="child_item active" @click.stop="chooseItemLevel(0)">免费作品</li>
+            <li class="child_item label" @click.stop="chooseItemLevel(1)">收费作品</li>
           </ul>
         </li>
         <li class="item" ref="selectNav02" @click="() => (show_select_index = 1)">
           <span class="label">推广海报</span>
           <img class="select_img" src="@a/imgs/jiantou_down.png" alt="" srcset="@a/imgs/jiantou_down@2x.png 2x" />
           <ul class="children_list" v-if="show_select_index === 1">
-            <li class="child_item top" @click.stop="chooseItem">全部格式</li>
-            <li class="child_item active" @click.stop="chooseItem">推广海报</li>
-            <li class="child_item label" @click.stop="chooseItem">新媒体配图</li>
-            <li class="child_item label" @click.stop="chooseItem">视频动画</li>
+            <li class="child_item top" @click.stop="chooseItemByNavigationId('')">全部格式</li>
+            <li
+              class="child_item active"
+              v-for="(item, index) in navigationsMenus"
+              :key="index"
+              @click.stop="chooseItemByNavigationId(item.id)"
+            >
+              {{ item.name }}
+            </li>
           </ul>
         </li>
         <li class="item" ref="selectNav03" @click="() => (show_select_index = 2)">
           <span class="label">PSD</span>
           <img class="select_img" src="@a/imgs/jiantou_down.png" alt="" srcset="@a/imgs/jiantou_down@2x.png 2x" />
           <ul class="children_list" v-if="show_select_index === 2">
-            <li class="child_item top" @click.stop="chooseItem">全部格式</li>
-            <li class="child_item active" @click.stop="chooseItem">PSD</li>
-            <li class="child_item label" @click.stop="chooseItem">AI</li>
-            <li class="child_item label" @click.stop="chooseItem">PNG</li>
-            <li class="child_item label" @click.stop="chooseItem">其他</li>
+            <li class="child_item top" @click.stop="chooseItemByExt('')">全部格式</li>
+            <li class="child_item active" @click.stop="chooseItemByExt('psd')">PSD</li>
+            <li class="child_item label" @click.stop="chooseItemByExt('ai')">AI</li>
+            <li class="child_item label" @click.stop="chooseItemByExt('png')">PNG</li>
           </ul>
         </li>
         <li class="item" ref="selectNav04" @click="() => (show_select_index = 3)">
           <span class="label">热门下载</span>
           <img class="select_img" src="@a/imgs/jiantou_down.png" alt="" srcset="@a/imgs/jiantou_down@2x.png 2x" />
           <ul class="children_list" v-if="show_select_index === 3">
-            <li class="child_item top" @click.stop="chooseItem">全部排序</li>
-            <li class="child_item active" @click.stop="chooseItem">热门下载</li>
-            <li class="child_item label" @click.stop="chooseItem">最新上传</li>
+            <li class="child_item active" @click.stop="chooseItemBySort('downCount')">热门下载</li>
+            <li class="child_item label" @click.stop="chooseItemBySort('createDateTime')">最新上传</li>
           </ul>
         </li>
       </ul>
@@ -132,7 +135,9 @@ export default {
       searchKeyword: '',
       show_select_index: -1,
       dropdownStatus: false,
-      tableDatas: []
+      tableDatas: [],
+      keywords: '',
+      sortStr: ''
     }
   },
   mounted() {
@@ -180,14 +185,16 @@ export default {
       this.searchKeyword = ''
       this.$store.commit('setKeyWords', '')
       this.$store.commit('setNavigationId', navigationId)
+      this.keywords = `^navigationId=${navigationId}`
       this.reloadTable()
     },
     async reloadTable() {
+      let conditionStr = ''
       const { rows } = await searchListService({
-        keyWord: `^navigationId=${this.$store.state.navigationId}`,
+        keyWord: this.keywords,
         page: '1^100',
         date: '',
-        sort: '',
+        sort: this.sortStr,
         status: [2]
       })
       this.tableDatas = rows
@@ -199,8 +206,41 @@ export default {
       this.$store.commit('setKeyWords', '')
       this.$router.push('/home')
     },
-    chooseItem() {
+    chooseItemByNavigationId(navigationId) {
       this.show_select_index = -1
+      if (id === '') {
+        this.keywords = ''
+      } else {
+        this.keywords = `^navigationId=${navigationId}`
+      }
+      this.reloadTable()
+    },
+    chooseItemLevel(level) {
+      this.show_select_index = -1
+      if (level === '') {
+        this.keywords = ''
+      } else {
+        this.keywords = `^level=${level}`
+      }
+      this.reloadTable()
+    },
+    chooseItemByExt(ext) {
+      this.show_select_index = -1
+      if (ext === '') {
+        this.keywords = ''
+      } else {
+        this.keywords = `^ext=${ext}`
+      }
+      this.reloadTable()
+    },
+    chooseItemBySort(sort) {
+      this.show_select_index = -1
+      if (sort === '') {
+        this.sortStr = ''
+      } else {
+        this.sortStr = `${sort}^DESC`
+      }
+      this.reloadTable()
     },
     goto(index) {
       this.dropdownStatus = false

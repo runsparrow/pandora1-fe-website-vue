@@ -14,9 +14,9 @@
               />
               <span class="logo_title" @click="toHome">SooYi.CN</span>
             </li>
-            <li class="label" @click="toSearch">推广海报</li>
-            <li class="label" @click="toSearch">新媒体配置</li>
-            <li class="label" @click="toSearch">视频动画</li>
+            <li class="label" v-for="(item, index) in navigationsMenus" :key="index" @click="toSearch(item.id)">
+              {{ item.name }}
+            </li>
             <li class="seperator"></li>
             <li class="search_item">
               <input type="text" placeholder="搜索素材" v-model.trim="searchKeyword" />
@@ -72,11 +72,11 @@
         <span class="id_label">ID:yyyymmdd000000</span>
         <span class="sucai_desc">素材版权说明</span>
         <div class="line"></div>
-        <span class="spec">格式 | PSD</span>
-        <span class="spec">分辨率 | 300DPI</span>
-        <span class="spec">尺寸 | 1080 x 2200 PX</span>
-        <span class="spec">颜色 | RGB</span>
-        <span class="spec">大小 | 9.9 M</span>
+        <span class="spec">格式 | {{ detail.ext }}</span>
+        <span class="spec">分辨率 | {{ detail.dpi === '' ? '' : detail.dpi + 'PI' }}</span>
+        <span class="spec">尺寸 | {{ detail.size }}</span>
+        <span class="spec">颜色 | </span>
+        <span class="spec">大小 | </span>
         <div class="btn_view">
           <div class="buy_vip" @click="applyVIP">立即开通VIP</div>
           <div class="collect" v-if="token !== ''">收藏</div>
@@ -110,7 +110,7 @@ import CONFIG from '@/config/config'
 export default {
   name: 'ProductDetail',
   computed: {
-    ...mapState(['token', 'userName'])
+    ...mapState(['token', 'userName', 'navigationsMenus'])
   },
   data() {
     return {
@@ -137,7 +137,7 @@ export default {
   },
   methods: {
     reloadTabl() {},
-    toSearch() {
+    toSearch(navigationId) {
       this.searchKeyword = ''
       this.$store.commit('setKeyWords', '')
       this.$store.commit('setNavigationId', navigationId)
