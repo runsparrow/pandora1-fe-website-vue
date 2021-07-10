@@ -785,7 +785,7 @@
                 </div>
                 <div class="select_pay_kind">
                   <div
-                    :class="['nav', { active: payIndex ===index }]"
+                    :class="['nav', { active: payIndex === index }]"
                     v-for="(item, index) in vipList"
                     :key="index"
                     @click="selectPay(index)"
@@ -1944,6 +1944,7 @@ export default {
         alert('图片必须上传!')
         return
       }
+      this.zuopin_upload_obj.ext = this.zuopin_upload_obj.url.substring(this.zuopin_upload_obj.url.lastIndexOf('.') + 1)
       this.modal_loading = false
       const { result, message } = await submitZuoPinService({
         ...this.zuopin_upload_obj,
