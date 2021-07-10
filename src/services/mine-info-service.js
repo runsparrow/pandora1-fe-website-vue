@@ -97,3 +97,24 @@ export const mineZuoPinListService = async payload => {
     data: payload
   })
 }
+export const mineDownRecoredsService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_CMS_Down_Query_Page_URL}`,
+    method: 'POST',
+    data: payload
+  })
+}
+export const mineCollectRecoredsService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_CMS_Collect_Query_Page_URL}`,
+    method: 'POST',
+    data: payload
+  })
+}
+export const mineRechargeRecoredsService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_CMS_Recharge_Query_Page_URL}`,
+    method: 'POST',
+    data: payload
+  })
+}

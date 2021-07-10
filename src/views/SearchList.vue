@@ -208,7 +208,7 @@ export default {
     },
     chooseItemByNavigationId(navigationId) {
       this.show_select_index = -1
-      if (id === '') {
+      if (navigationId === '') {
         this.keywords = ''
       } else {
         this.keywords = `^navigationId=${navigationId}`

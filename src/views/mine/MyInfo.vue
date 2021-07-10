@@ -669,49 +669,45 @@
             <template v-if="inner_voucher_tabIndex === 0">
               <div class="title_content_view">
                 <div class="table_header">
-                  <div class="title">购买时间</div>
+                  <div class="title">下载时间</div>
                   <div class="title">预览图</div>
                   <div class="title">作品信息</div>
-                  <div class="title">有效时间</div>
                 </div>
-                <div class="table_row">
-                  <span class="column"> 2021-01-23 22:00:59 </span>
+                <div class="table_row" v-for="(item, index) in downRecords" :key="index">
+                  <span class="column">{{ item.downDateTime }} </span>
                   <span class="column">
-                    <img class="small_img" src="@a/imgs/small_pic@2x.png" alt="" srcset="@a/imgs/small_pic@2x.png 2x" />
+                    <img class="small_img" :src="item.goodsUrl" alt="" />
                   </span>
                   <span
                     class="column"
                     style="display: flex; flex-direction: column; align-items: center; justify-content: center"
                   >
-                    <span class="label">《作品名字》</span>
-                    <span class="label"
-                      ><span class="downloadColor">88</span><span class="focus">下载</span>
-                      <span class="collectColor">66</span><span class="focus">收藏</span></span
-                    >
+                    <span class="label">《{{ item.goodsName }}》</span>
                   </span>
-                  <span class="column"> 2021-01-23 22:00:59 </span>
-                </div>
-                <div class="table_row">
-                  <span class="column"> 2021-01-23 22:00:59 </span>
-                  <span class="column">
-                    <img class="small_img" src="@a/imgs/small_pic@2x.png" alt="" srcset="@a/imgs/small_pic@2x.png 2x" />
-                  </span>
-                  <span
-                    class="column"
-                    style="display: flex; flex-direction: column; align-items: center; justify-content: center"
-                  >
-                    <span class="label">《作品名字》</span>
-                    <span class="label"
-                      ><span class="downloadColor">88</span><span class="focus">下载</span>
-                      <span class="collectColor">66</span><span class="focus">收藏</span></span
-                    >
-                  </span>
-                  <span class="column"> 已过期 </span>
                 </div>
               </div>
             </template>
             <template v-if="inner_voucher_tabIndex === 1">
               <div class="title_content_view">
+                <div class="table_header">
+                  <div class="title">已收藏时间</div>
+                  <div class="title">预览图</div>
+                  <div class="title">作品信息</div>
+                </div>
+                <div class="table_row" v-for="(item, index) in collectRecords" :key="index">
+                  <span class="column">{{ item.downDateTime }} </span>
+                  <span class="column">
+                    <img class="small_img" :src="item.goodsUrl" alt="" />
+                  </span>
+                  <span
+                    class="column"
+                    style="display: flex; flex-direction: column; align-items: center; justify-content: center"
+                  >
+                    <span class="label">《{{ item.goodsName }}》</span>
+                  </span>
+                </div>
+              </div>
+              <!-- <div class="title_content_view">
                 <div class="table_header">
                   <div class="title">全部 86</div>
                   <div class="title">无标签 10</div>
@@ -719,42 +715,12 @@
                   <div class="title">标签二 10</div>
                 </div>
                 <div class="result-view">
-                  <div class="box">
-                    <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-                    <div class="content">元旦牛气冲天海报</div>
-                  </div>
-                  <div class="box">
-                    <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-                    <div class="content">元旦牛气冲天海报</div>
-                  </div>
-                  <div class="box">
-                    <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-                    <div class="content">元旦牛气冲天海报</div>
-                  </div>
-                  <div class="box">
-                    <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-                    <div class="content">元旦牛气冲天海报</div>
+                  <div class="box" v-for="(item, index) in collectRecords" :key="index">
+                    <img class="lis_img" :src="item.goodsUrl" alt="" />
+                    <div class="content">{{ item.goodsName }}</div>
                   </div>
                 </div>
-                <div class="result-view">
-                  <div class="box">
-                    <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-                    <div class="content">元旦牛气冲天海报</div>
-                  </div>
-                  <div class="box">
-                    <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-                    <div class="content">元旦牛气冲天海报</div>
-                  </div>
-                  <div class="box">
-                    <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-                    <div class="content">元旦牛气冲天海报</div>
-                  </div>
-                  <div class="box">
-                    <img class="lis_img" src="@a/imgs/hot_img.png" alt="" srcset="@a/imgs/hot_img@2x.png 2x" />
-                    <div class="content">元旦牛气冲天海报</div>
-                  </div>
-                </div>
-              </div>
+              </div> -->
             </template>
             <template v-if="inner_voucher_tabIndex === 2">
               <div class="title_content_view">
@@ -858,16 +824,14 @@
                   <div class="title">购买时间</div>
                   <div class="title">支出</div>
                   <div class="title">金额</div>
-                  <div class="title">有效时间</div>
                 </div>
-                <div class="table_row">
-                  <span class="column"> 2021-01-23 22:00:59 </span>
+                <div class="table_row" v-for="(item, index) in rechargeList" :key="index">
+                  <span class="column"> {{ item.dealDateTime }} </span>
                   <span class="column">
                     <img class="vip_img" src="@a/imgs/account_img.png" alt="" srcset="@a/imgs/account_img@2x.png 2x" />
                     <span class="vip_label">VIP开通</span>
                   </span>
-                  <span class="column"> 16元 </span>
-                  <span class="column"> 021-03-21 22:00:59 </span>
+                  <span class="column"> {{ item.dealAmount }} 元 </span>
                 </div>
               </div>
             </template>
@@ -898,7 +862,10 @@ import {
   submitMyInfoDesignService,
   getNavigationTreeService,
   mineZuoPinListService,
-  submitZuoPinService
+  submitZuoPinService,
+  mineDownRecoredsService,
+  mineCollectRecoredsService,
+  mineRechargeRecoredsService
 } from '@s/mine-info-service'
 import { gettreelist } from '@l/util'
 import { mutipleAjax } from '@l/axios-interceptor'
@@ -946,6 +913,9 @@ export default {
       treeOptions: [],
       treeValue: [],
       navigationArr: [],
+      downRecords: [],
+      collectRecords: [],
+      rechargeList: [],
       zuopin_upload_obj: {
         id: 0,
         name: '',
@@ -1304,6 +1274,9 @@ export default {
     })
     this.loadInitialData()
     this.loadMyZuoPinLIst()
+    this.loadDownRecordList()
+    this.loadCollectRecordList()
+    this.loadRechargeRecordList()
   },
   unmounted() {
     document.removeEventListener('click')
@@ -1339,6 +1312,46 @@ export default {
         this.payImg = url
         this.payforImg_show = true
       })
+    },
+    async loadDownRecordList() {
+      const { rows, result } = await mineDownRecoredsService({
+        keyWord: '^memberId=' + this.$store.state.memberId,
+        page: '1^100',
+        date: '',
+        sort: '',
+        status: [1]
+      })
+      this.$nextTick(() => {
+        rows.forEach(m => {
+          m.goodsUrl = process.env.VUE_APP_FE_FILE_URL + m.goodsUrl
+        })
+        this.downRecords = rows
+      })
+    },
+    async loadCollectRecordList() {
+      const { rows, result } = await mineCollectRecoredsService({
+        keyWord: '^memberId=' + this.$store.state.memberId,
+        page: '1^100',
+        date: '',
+        sort: '',
+        status: [1]
+      })
+
+      rows.forEach(m => {
+        m.goodsUrl = process.env.VUE_APP_FE_FILE_URL + m.goodsUrl
+      })
+      this.collectRecords = rows
+    },
+    async loadRechargeRecordList() {
+      const { rows, result } = await mineRechargeRecoredsService({
+        keyWord: '^memberId=' + this.$store.state.memberId,
+        page: '1^100',
+        date: '',
+        sort: '',
+        status: [1]
+      })
+      alert(rows.length)
+      this.rechargeList = rows
     },
     async loadMyZuoPinLIst() {
       const { rows, result } = await mineZuoPinListService({
@@ -3258,7 +3271,7 @@ export default {
                 border-radius: 50%;
               }
               .column {
-                width: 219px;
+                width: 180px;
                 height: 67px;
                 font-size: 12px;
                 font-weight: 400;
