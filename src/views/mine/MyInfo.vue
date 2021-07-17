@@ -376,7 +376,7 @@
                 </div>
                 <div class="right_view" style="cursor: pointer" @click="submitData">提交</div>
               </div>
-              <div class="footer_view" v-if="statusValue === 1">
+              <div class="footer_view">
                 <div class="left_view">
                   <input
                     type="checkbox"
@@ -1444,11 +1444,10 @@ export default {
         this.myInfoIndentityModel.entity.certificateNo = myInfo.certificateNo
         this.myInfoIndentityModel.entity.certificateUrl = myInfo.certificateUrl
       }
-      let {
-        result: myInfoDesignResult,
-        row: designRow,
-        designMessage
-      } = await getMyInfoByIdService(this.$store.state.memberId, 1)
+      let { result: myInfoDesignResult, row: designRow, designMessage } = await getMyInfoByIdService(
+        this.$store.state.memberId,
+        1
+      )
       if (myInfoDesignResult) {
         this.desingCheckedAgree = true
         this.myInfoDesignModel.entity.id = designRow.id
@@ -2863,6 +2862,7 @@ export default {
             display: flex;
             flex-direction: column;
             padding: 11px 64px;
+            overflow-y: auto;
             .table_header {
               width: 705px;
               background: #f5f5f5;
