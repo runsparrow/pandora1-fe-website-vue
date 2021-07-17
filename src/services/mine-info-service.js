@@ -118,3 +118,9 @@ export const mineRechargeRecoredsService = async payload => {
     data: payload
   })
 }
+export const mineCMSRowByIdService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_CMS_Member_Row_ById_URL}/${payload}`,
+    method: 'GET'
+  })
+}

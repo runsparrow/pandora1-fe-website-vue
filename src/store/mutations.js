@@ -4,6 +4,7 @@ export default {
     state.memberId = payload.memberId
     state.token = payload.token
     state.expires = payload.expires
+    state.levelDeadline = payload.levelDeadline
   },
   setActiveTab(state, payload) {
     state.activeTab = payload

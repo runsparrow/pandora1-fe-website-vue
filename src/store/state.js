@@ -3,6 +3,7 @@ export default {
   userName: '',
   keywords: '',
   vipList: [],
+  levelDeadline: '',
   token: '',
   expires: 0,
   version: '1.0',

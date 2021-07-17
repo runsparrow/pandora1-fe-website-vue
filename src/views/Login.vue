@@ -347,6 +347,7 @@ import {
   checkMobileExistService,
   checkUseNameExistService
 } from '@s/login-service'
+import { mineCMSRowByIdService } from '@s/mine-info-service'
 export default {
   name: 'LoginView',
   data() {
@@ -630,18 +631,28 @@ export default {
           name: that.accountName,
           password: that.accountPwd
         })
+
         if (result) {
           this.btnLoginLabel = '登录'
           that.accountNameInValid = false
           that.accountPwdInValid = false
           const dateTime = new Date()
           dateTime.setHours(dateTime.getHours() + 2)
-          console.log(member)
           that.setUserInfoMutation({
             userName: member?.memberName,
             memberId: member?.memberId,
             token: token,
-            expires: new Date(dateTime).getTime()
+            expires: new Date(dateTime).getTime(),
+            levelDeadline: ''
+          })
+          const result2 = await mineCMSRowByIdService(member.memberId)
+
+          that.setUserInfoMutation({
+            userName: member?.memberName,
+            memberId: member?.memberId,
+            token: token,
+            expires: new Date(dateTime).getTime(),
+            levelDeadline: result2.row.levelDeadline
           })
           that.timer = setInterval(() => {
             that.seconds -= 1

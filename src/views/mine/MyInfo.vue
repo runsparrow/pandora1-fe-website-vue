@@ -122,7 +122,7 @@
           <div class="top_header_view">头像</div>
           <div class="right_c">
             <span class="label">用户名</span>
-            <span class="label_id">ID：0000001</span>
+            <span class="label_id">ID：{{ userName }}</span>
             <div class="img_row">
               <span class="value">1</span>
               <img class="huanguan_img" src="@a/imgs/huang_guan.png" alt="" srcset="@a/imgs/huang_guan@2x.png 2x" />
@@ -744,7 +744,7 @@
                   <img class="vip_icon" src="@a/imgs/account_img.png" alt="" srcset="@a/imgs/account_img@2x.png 2x" />
 
                   <span class="title">我的VIP</span>
-                  <span class="effect_label">有效期至：2021-03-01</span>
+                  <span class="effect_label">有效期至：{{ this.$store.state.levelDeadline }}</span>
                 </div>
                 <div class="month_nav">
                   <div class="month_desc" v-for="(item, index) in vipList" :key="index">缴费{{ item.name }}</div>
@@ -1350,7 +1350,6 @@ export default {
         sort: '',
         status: [1]
       })
-      alert(rows.length)
       this.rechargeList = rows
     },
     async loadMyZuoPinLIst() {
@@ -1364,8 +1363,17 @@ export default {
       if (result) {
         this.myZuoPinArr = rows
         this.approvedZuoPinArr = rows.filter(f => f.statusValue === 2)
+        this.approvedZuoPinArr.forEach(m => {
+          m.url = process.env.VUE_APP_FE_FILE_URL + m.url
+        })
         this.unApprovedZuoPinArr = rows.filter(f => f.statusValue === -2)
+        this.unApprovedZuoPinArr.forEach(m => {
+          m.url = process.env.VUE_APP_FE_FILE_URL + m.url
+        })
         this.approveingZuoPinArr = rows.filter(f => f.statusValue === 1)
+        this.approveingZuoPinArr.forEach(m => {
+          m.url = process.env.VUE_APP_FE_FILE_URL + m.url
+        })
       }
     },
     async loadInitialData() {

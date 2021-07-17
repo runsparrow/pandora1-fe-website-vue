@@ -1,6 +1,8 @@
 <template>
   <transition name="router">
-    <router-view />
+    <div @contextmenu.prevent="">
+      <router-view />
+    </div>
   </transition>
 </template>
 
