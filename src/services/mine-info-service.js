@@ -124,3 +124,9 @@ export const mineCMSRowByIdService = async payload => {
     method: 'GET'
   })
 }
+export const mineGetPayStatusService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.GET_PAYSTATUS_URL}`,
+    method: 'POST'
+  })
+}

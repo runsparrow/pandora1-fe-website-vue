@@ -9,6 +9,9 @@ export default {
   setActiveTab(state, payload) {
     state.activeTab = payload
   },
+  setlevelDeadline(state, payload) {
+    state.levelDeadline = payload
+  },
   setLoading(state, payload) {
     state.loading = payload
   },

@@ -865,7 +865,8 @@ import {
   submitZuoPinService,
   mineDownRecoredsService,
   mineCollectRecoredsService,
-  mineRechargeRecoredsService
+  mineRechargeRecoredsService,
+  mineGetPayStatusService
 } from '@s/mine-info-service'
 import { gettreelist } from '@l/util'
 import { mutipleAjax } from '@l/axios-interceptor'
@@ -881,6 +882,7 @@ export default {
   },
   data() {
     return {
+      payTimer: null,
       payforImg_show: false,
       payImg: '',
       myZuoPinArr: [],
@@ -1279,6 +1281,7 @@ export default {
     this.loadRechargeRecordList()
   },
   unmounted() {
+    clearInterval(this.payTimer)
     document.removeEventListener('click')
   },
   computed: {
@@ -1311,6 +1314,21 @@ export default {
         let url = window.URL.createObjectURL(res)
         this.payImg = url
         this.payforImg_show = true
+        this.payTimer = setInterval(async () => {
+          ajaxPay({
+            // 用axios发送post请求
+            method: 'post',
+            url: `${CONFIG.API_URLS.GET_PAYSTATUS_URL}`
+          }).then(async res => {
+            if (res) {
+              const result2 = await mineCMSRowByIdService(this.$store.state.memberId)
+              this.$store.commit('setlevelDeadline', result2.row.levelDeadline)
+              this.payforImg_show = false
+              clearInterval(this.payTimer)
+              alert("支付成功!");
+            }
+          })
+        }, 3000)
       })
     },
     async loadDownRecordList() {
