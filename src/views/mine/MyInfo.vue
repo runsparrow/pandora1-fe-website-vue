@@ -1321,7 +1321,7 @@ export default {
             url: `${CONFIG.API_URLS.GET_PAYSTATUS_URL}`
           }).then(async res => {
             if (res) {
-              const result2 = await mineCMSRowByIdService(this.$store.state.memberId)
+              const result2 = await mineGetPayStatusService(this.$store.state.memberId)
               this.$store.commit('setlevelDeadline', result2.row.levelDeadline)
               this.payforImg_show = false
               clearInterval(this.payTimer)
