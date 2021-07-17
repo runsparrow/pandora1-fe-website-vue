@@ -866,7 +866,7 @@ import {
   mineDownRecoredsService,
   mineCollectRecoredsService,
   mineRechargeRecoredsService,
-  mineGetPayStatusService
+  mineCMSRowByIdService
 } from '@s/mine-info-service'
 import { gettreelist } from '@l/util'
 import { mutipleAjax } from '@l/axios-interceptor'
@@ -1321,14 +1321,16 @@ export default {
             url: `${CONFIG.API_URLS.GET_PAYSTATUS_URL}`
           }).then(async res => {
             if (res) {
-              const result2 = await mineGetPayStatusService(this.$store.state.memberId)
+              const result2 = await mineCMSRowByIdService(this.$store.state.memberId)
               this.$store.commit('setlevelDeadline', result2.row.levelDeadline)
               this.payforImg_show = false
               clearInterval(this.payTimer)
-              alert("支付成功!");
+              setTimeout(() => {
+                alert('支付成功!')
+              }, 500)
             }
           })
-        }, 3000)
+        }, 5000)
       })
     },
     async loadDownRecordList() {

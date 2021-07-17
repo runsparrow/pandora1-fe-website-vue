@@ -43,47 +43,6 @@ module.exports = {
     if (process.env.NODE_ENV === 'production') {
       config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
     }
-    if (process.env.NODE_ENV === 'production' && encryption == true) {
-      return {
-        plugins: [
-          new JavaScriptObfuscator(
-            {
-              rotateUnicodeArray: true,
-              compact: true,
-              controlFlowFlattening: true,
-              controlFlowFlatteningThreshold: 0.8,
-              deadCodeInjection: true,
-              deadCodeInjectionThreshold: 0.5,
-              debugProtection: true,
-              debugProtectionInterval: true,
-              disableConsoleOutput: true,
-              domainLock: [],
-              identifierNamesGenerator: 'hexadecimal',
-              identifiersPrefix: '',
-              inputFileName: '',
-              log: true,
-              renameGlobals: false,
-              reservedNames: [],
-              reservedStrings: [],
-              rotateStringArray: true,
-              seed: 0,
-              selfDefending: false,
-              sourceMap: false,
-              sourceMapBaseUrl: '',
-              sourceMapFileName: '',
-              sourceMapMode: 'separate',
-              stringArray: true,
-              stringArrayEncoding: false,
-              stringArrayThreshold: 0.8,
-              target: 'browser',
-              transformObjectKeys: false,
-              unicodeEscapeSequence: true
-            },
-            ['abc.js']
-          )
-        ]
-      }
-    }
   },
   pages: {
     index: {
