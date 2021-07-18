@@ -55,24 +55,18 @@
           </select>
         </div>
         <div class="row">
-          <span class="label">图片上传</span>
+          <span class="label">图片/视频上传</span>
           <div
             class="img_item"
             @click="toTouchUploadZuoPinPic"
             :style="{
               backgroundSize: 'contain',
-              backgroundImage: 'url(' + zuopin_upload_obj.url + ')',
+              backgroundImage: 'url(' + zuopin_upload_obj.previewurl + ')',
               backgroundRepeat: 'no-repeat'
             }"
           >
             <img class="add_file_img" src="@a/imgs/add-file.png" alt="" srcset="@a/imgs/add-file@2x.png 2x" />
-            <input
-              class="uploadPicFile"
-              type="file"
-              @change="uploadZuoPinPicFile"
-              ref="uploadZuoPinFileRef"
-              accept="image/png,image/jpeg,image/gif,image/jpg"
-            />
+            <input class="uploadPicFile" type="file" @change="uploadZuoPinPicFile" ref="uploadZuoPinFileRef" />
             <!-- <img
                             class="del_file_img"
                             src="@a/imgs/del-file.png"
@@ -943,6 +937,7 @@ export default {
         classifyName: '',
         navigationId: -1,
         url: '',
+        previewurl: '',
         ext: '',
         dpi: '',
         ratio: '',
@@ -1815,7 +1810,22 @@ export default {
         data: { fileName, relativePath },
         errorInfo
       } = await uploadFileService(param)
-      this.zuopin_upload_obj.url = relativePath
+
+      if (
+        relativePath.indexOf('mp4') !== -1 ||
+        relativePath.indexOf('mkv') !== -1 ||
+        relativePath.indexOf('mov') !== -1 ||
+        relativePath.indexOf('m4v') !== -1 ||
+        relativePath.indexOf('wmv') !== -1 ||
+        relativePath.indexOf('avi') !== -1 ||
+        relativePath.indexOf('flv') !== -1
+      ) {
+        this.zuopin_upload_obj.url = relativePath
+        this.zuopin_upload_obj.previewurl = '../assets/imgs/play.png'
+      } else {
+        this.zuopin_upload_obj.url = relativePath
+        m.previewurl = relativePath
+      }
     },
 
     async uploadCertFile() {
