@@ -8,6 +8,12 @@
         <img :src="payImg" style="width: 100%" />
       </div>
     </div>
+    <div class="loading" v-if="video_show">
+      <div class="video_div" ref="video_div">
+        <img class="close_img" :src="require('@a/imgs/close.png')" alt="" @click="closeVidowModal" />
+        <video :src="videoUrl" width="450" height="450" ref="videoRef" controls="true"></video>
+      </div>
+    </div>
     <div class="modal" v-show="modal_loading">
       <div class="modal_box">
         <img class="close_img" :src="require('@a/imgs/close.png')" alt="" @click="closeModal" />
@@ -554,7 +560,13 @@
                     {{ item.publicDateTime }}
                   </span>
                   <span class="column">
-                    <img class="small_img" :src="item.url" alt="" srcset="@a/imgs/small_pic@2x.png 2x" />
+                    <img
+                      class="small_img"
+                      @click="picVidoe(item.url, item.realPath)"
+                      :src="item.url"
+                      alt=""
+                      srcset="@a/imgs/small_pic@2x.png 2x"
+                    />
                   </span>
                   <span
                     class="column"
@@ -884,6 +896,8 @@ export default {
     return {
       payTimer: null,
       payforImg_show: false,
+      video_show: false,
+      videoUrl: '',
       payImg: '',
       myZuoPinArr: [],
       approvedZuoPinArr: [],
@@ -1288,6 +1302,12 @@ export default {
     ...mapState(['token', 'userName', 'loading', 'vipList'])
   },
   methods: {
+    picVidoe(url, realPath) {
+      if (url !== realPath) {
+        this.video_show = true
+        this.videoUrl = realPath
+      }
+    },
     payForMember() {
       let amount = 0
       if (!this.wx_checked) {
@@ -1384,7 +1404,21 @@ export default {
         this.myZuoPinArr = rows
         this.approvedZuoPinArr = rows.filter(f => f.statusValue === 2)
         this.approvedZuoPinArr.forEach(m => {
-          m.url = process.env.VUE_APP_FE_FILE_URL + m.url
+          if (
+            m.ext === 'mp4' ||
+            m.ext === 'mkv' ||
+            m.ext === 'mov' ||
+            m.ext === 'm4v' ||
+            m.ext === 'wmv' ||
+            m.ext === 'avi' ||
+            m.ext === 'flv'
+          ) {
+            m.realPath = process.env.VUE_APP_FE_FILE_URL + m.url
+            m.url = '../assets/imgs/play.png'
+          } else {
+            m.url = process.env.VUE_APP_FE_FILE_URL + m.url
+            m.realPath = m.url
+          }
         })
         this.unApprovedZuoPinArr = rows.filter(f => f.statusValue === -2)
         this.unApprovedZuoPinArr.forEach(m => {
@@ -1948,6 +1982,9 @@ export default {
     closeModal() {
       this.modal_loading = false
     },
+    closeVidowModal() {
+      this.video_show = false
+    },
     async submitModal() {
       let tagsStr = ''
       if (this.tags.length > 0) {
@@ -2027,6 +2064,20 @@ export default {
       width: 250px;
       height: 250px;
       background: #ffffff;
+    }
+    .video_div {
+      width: 450px;
+      height: 450px;
+      background: #ffffff;
+      position: relative;
+      .close_img {
+        width: 64px;
+        height: 64px;
+        position: absolute;
+        top: -30px;
+        right: -30px;
+        cursor: pointer;
+      }
     }
   }
   .modal {
@@ -2899,6 +2950,7 @@ export default {
                   vertical-align: middle;
                   width: 54px;
                   height: 51px;
+                  cursor: pointer;
                 }
                 .label {
                   font-size: 12px;
