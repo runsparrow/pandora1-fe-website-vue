@@ -44,7 +44,7 @@
             </li>
             <li v-else class="btn_view">
               <div class="login_header_logo">头像</div>
-              <div ref="popMenuRef">
+              <div ref="popMenuRef" style="width: 100px; text-overflow: ellipsis; overflow: hidden">
                 <span class="username" @click="clickDropdown">{{ userName }}</span>
                 <div :class="['popMenu', { activePop: dropdownStatus }]">
                   <div class="item1" style="height: 46px" @click="goto(0)">我的信息</div>

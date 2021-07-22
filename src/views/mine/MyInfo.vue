@@ -14,6 +14,26 @@
         <video :src="videoUrl" width="450" height="450" ref="videoRef" controls="true"></video>
       </div>
     </div>
+    <div class="loading" v-if="pic_show">
+      <div class="video_div" style="width: 1010px; height: 650px" ref="video_div">
+        <img class="close_img" :src="require('@a/imgs/close.png')" alt="" @click="closePicwModal" />
+        <div class="content">
+          <img class="big_img" :src="detalPic.url" alt="" />
+          <div class="nav">
+            <span class="title">{{ detalPic.name }}</span>
+            <span class="id_label">ID:yyyymmdd000000</span>
+            <span class="sucai_desc">素材版权说明</span>
+            <div class="line"></div>
+            <span class="spec">格式 | {{ detalPic.suffix }}</span>
+            <span class="spec">分辨率 | </span>
+            <span class="spec">尺寸 | </span>
+            <span class="spec">颜色 | </span>
+            <span class="spec">大小 | </span>
+            <div class="line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="modal" v-show="modal_loading">
       <div class="modal_box">
         <img class="close_img" :src="require('@a/imgs/close.png')" alt="" @click="closeModal" />
@@ -106,10 +126,12 @@
           </li>
           <li v-else class="btn_view">
             <div class="login_header_logo">头像</div>
-            <div ref="popMenuRef">
+            <div ref="popMenuRef" style="width: 100px; text-overflow: ellipsis; overflow: hidden">
               <span class="username" @click="clickDropdown">{{ userName }}</span>
-              <div :class="['popMenu', { activePop: dropdownStatus }]">
-                <div class="item6" style="padding-bottom: 10px" @click="goto(4)">退出</div>
+              <div :class="['popMenu', { activePop: dropdownStatus }]" style="height: 140px">
+                <div class="item1" style="padding-bottom: 10px" @click="goto(10)">修改个人信息</div>
+                <div class="item2" style="padding-bottom: 10px" @click="goto(9)">修改密码</div>
+                <div class="item3" style="padding-bottom: 10px" @click="goto(4)">退出</div>
               </div>
             </div>
           </li>
@@ -891,6 +913,12 @@ export default {
       payTimer: null,
       payforImg_show: false,
       video_show: false,
+      pic_show: false,
+      detalPic: {
+        url: '',
+        name: '',
+        suffix: ''
+      },
       videoUrl: '',
       payImg: '',
       myZuoPinArr: [],
@@ -1302,6 +1330,12 @@ export default {
         this.video_show = true
         this.videoUrl = realPath
       }
+      if (url.indexOf('play.png') === -1) {
+        this.pic_show = true
+        this.detalPic.url = url
+        this.detalPic.name = url.substring(url.lastIndexOf('/') + 1)
+        this.detalPic.suffix = url.substring(url.lastIndexOf('.') + 1)
+      }
     },
     payForMember() {
       let amount = 0
@@ -1473,10 +1507,11 @@ export default {
         this.myInfoIndentityModel.entity.certificateNo = myInfo.certificateNo
         this.myInfoIndentityModel.entity.certificateUrl = myInfo.certificateUrl
       }
-      let { result: myInfoDesignResult, row: designRow, designMessage } = await getMyInfoByIdService(
-        this.$store.state.memberId,
-        1
-      )
+      let {
+        result: myInfoDesignResult,
+        row: designRow,
+        designMessage
+      } = await getMyInfoByIdService(this.$store.state.memberId, 1)
       if (myInfoDesignResult) {
         this.desingCheckedAgree = true
         this.myInfoDesignModel.entity.id = designRow.id
@@ -1995,6 +2030,9 @@ export default {
     closeVidowModal() {
       this.video_show = false
     },
+    closePicwModal() {
+      this.pic_show = false
+    },
     async submitModal() {
       let tagsStr = ''
       if (this.tags.length > 0) {
@@ -2087,6 +2125,159 @@ export default {
         top: -30px;
         right: -30px;
         cursor: pointer;
+      }
+      .content {
+        box-sizing: border-box;
+        background: $color11;
+        display: flex;
+        flex-direction: row;
+        .big_img {
+          box-sizing: border-box;
+          width: 680px;
+          height: 650px;
+        }
+        .nav {
+          width: 325px;
+          height: 650px;
+          background: $color9;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          .top_view {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            padding-top: 16px;
+            padding-left: 22px;
+            .label {
+              box-sizing: border-box;
+              font-size: 12px;
+              font-weight: 400;
+              color: $color19;
+            }
+            .operator {
+              box-sizing: border-box;
+              font-size: 12px;
+              color: red;
+              margin-left: 2px;
+              margin-right: 2px;
+            }
+          }
+          .title {
+            overflow: hidden;
+            box-sizing: border-box;
+            color: $color1;
+            font-size: 17px;
+            padding-left: 22px;
+            margin-top: 39px;
+            font-weight: bold;
+          }
+          .id_label {
+            box-sizing: border-box;
+            padding-left: 22px;
+            margin-top: 5px;
+            color: $color19;
+            font-size: 12px;
+          }
+          .sucai_desc {
+            box-sizing: border-box;
+            padding-left: 22px;
+            margin-top: 3px;
+            color: $color4;
+            font-size: 12px;
+          }
+          .line {
+            width: 298px;
+            height: 0px;
+            border: 1px solid $color6;
+            box-sizing: border-box;
+            margin-top: 10px;
+            margin-left: 15px;
+            margin-right: 15px;
+            margin-bottom: 10px;
+          }
+          .spec {
+            box-sizing: border-box;
+            color: $color19;
+            margin-bottom: 13px;
+            padding-left: 22px;
+          }
+          .btn_view {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            padding-left: 22px;
+            .buy_vip {
+              box-sizing: border-box;
+              width: 144px;
+              height: 35px;
+              background: $color4;
+              border-radius: 18px;
+              font-size: 14px;
+              text-align: center;
+              line-height: 35px;
+              font-weight: 400;
+              color: $color9;
+              cursor: pointer;
+            }
+            .collect {
+              box-sizing: border-box;
+              width: 53px;
+              height: 35px;
+              border: 1px solid $color4;
+              border-radius: 18px;
+              font-size: 14px;
+              text-align: center;
+              line-height: 35px;
+              font-weight: 400;
+              color: $color4;
+              margin-left: 9px;
+              cursor: pointer;
+            }
+          }
+          .author_view {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            padding-top: 10px;
+            padding-left: 22px;
+            .login_header_logo {
+              width: 67px;
+              height: 67px;
+              border: 1px solid $color6;
+              border-radius: 50%;
+              text-align: center;
+              line-height: 67px;
+              font-size: 16px;
+              font-weight: 400;
+              color: $color1;
+            }
+            .right_view {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              box-sizing: border-box;
+              padding-left: 9px;
+              .level {
+                box-sizing: border-box;
+                color: $color4;
+                font-size: 16px;
+                .author_type {
+                  margin-left: 22px;
+                }
+              }
+              .username {
+                box-sizing: border-box;
+                font-size: 16px;
+                color: $color1;
+                font-weight: 400;
+                .author {
+                  margin-left: 4px;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
