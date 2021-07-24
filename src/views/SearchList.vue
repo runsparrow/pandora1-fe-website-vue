@@ -45,7 +45,16 @@
               <span class="btn2" @click="toLogin">登录</span>
             </li>
             <li v-else class="btn_view">
-              <div class="login_header_logo">头像</div>
+              <div class="login_header_logo" v-if="avatarUrl === ''">头像</div>
+              <div
+                class="login_header_logo"
+                v-else
+                :style="{
+                  backgroundSize: 'contain',
+                  backgroundImage: 'url(' + avatarUrl + ')',
+                  backgroundRepeat: 'no-repeat'
+                }"
+              ></div>
               <div ref="popMenuRef" style="width: 100px; text-overflow: ellipsis; overflow: hidden">
                 <span class="username" @click="clickDropdown">{{ userName }}</span>
                 <div :class="['popMenu', { activePop: dropdownStatus }]">
@@ -128,7 +137,7 @@ import { searchListService } from '@s/search-list-service'
 export default {
   name: 'SearchListView',
   computed: {
-    ...mapState(['token', 'userName', 'navigationsMenus'])
+    ...mapState(['token', 'userName', 'navigationsMenus', 'avatarUrl'])
   },
   data() {
     return {

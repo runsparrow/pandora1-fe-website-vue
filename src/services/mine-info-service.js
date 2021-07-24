@@ -137,3 +137,17 @@ export const mineDelProductService = async payload => {
     data: payload
   })
 }
+export const mineUpdateMemberService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_CMS_Member_Update_Single_URL}`,
+    method: 'POST',
+    data: payload
+  })
+}
+export const mineUpdatePwdService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_AVM_Auth_ChangePassword_URL}`,
+    method: 'POST',
+    data: payload
+  })
+}

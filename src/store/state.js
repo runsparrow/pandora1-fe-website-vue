@@ -5,6 +5,7 @@ export default {
   vipList: [],
   levelDeadline: '',
   token: '',
+  avatarUrl: '',
   expires: 0,
   version: '1.0',
   activeTab: 1,

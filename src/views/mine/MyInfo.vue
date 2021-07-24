@@ -14,6 +14,67 @@
         <video :src="videoUrl" width="450" height="450" ref="videoRef" controls="true"></video>
       </div>
     </div>
+
+    <div class="loading" v-if="person_info_show">
+      <div class="person_info_div" ref="person_info_div">
+        <img class="close_img" :src="require('@a/imgs/close.png')" alt="" @click="closePersonInfoModal" />
+        <div class="content" style="display: flex; flex-direction: column">
+          <div class="row">
+            <span class="label">邮箱</span>
+            <input type="text" class="select_view" v-model.trim="mine_person_info.email" />
+          </div>
+          <div class="row" style="justify-content: flex-start">
+            <span class="label">头像</span>
+            <div class="header_logo" v-if="mine_person_info.avatarUrl === ''" @click="toTouchHeaderLogoUploadFile">
+              头像
+            </div>
+            <div
+              class="header_logo"
+              v-else
+              @click="toTouchHeaderLogoUploadFile"
+              :style="{
+                backgroundSize: 'contain',
+                backgroundImage: 'url(' + mine_person_info.avatarUrl + ')',
+                backgroundRepeat: 'no-repeat'
+              }"
+            >
+              <!-- <img class="header_logo_size" :src="myInfoIndentityModel.entity.applier.avatarUrl" alt="" /> -->
+            </div>
+
+            <input
+              class="uploadCertFile"
+              type="file"
+              @change="uploadHeaderLogFile"
+              ref="HeaderLogoUploadFileRef"
+              accept="image/png,image/jpeg,image/gif,image/jpg"
+            />
+          </div>
+        </div>
+        <div class="right_view" style="cursor: pointer" @click="updateMemberInfo">保存</div>
+      </div>
+    </div>
+
+    <div class="loading" v-if="person_pwd_info_show">
+      <div class="person_pwd_info_div" ref="person_pwd_info_div">
+        <img class="close_img" :src="require('@a/imgs/close.png')" alt="" @click="closePersonInfoModal" />
+        <div class="content" style="display: flex; flex-direction: column">
+          <div class="row">
+            <span class="label">旧密码</span>
+            <input type="password" class="select_view" v-model.trim="mine_person_pwd.oldPassword" />
+          </div>
+          <div class="row">
+            <span class="label">新密码</span>
+            <input type="password" class="select_view" v-model.trim="mine_person_pwd.newPassword" />
+          </div>
+          <div class="row">
+            <span class="label">确认密码</span>
+            <input type="password" class="select_view" v-model.trim="mine_person_pwd.reNewPassword" />
+          </div>
+        </div>
+        <div class="right_view" style="cursor: pointer" @click="updateMemberPwd">保存</div>
+      </div>
+    </div>
+
     <div class="loading" v-if="pic_show">
       <div class="video_div" style="width: 1010px; height: 650px" ref="video_div">
         <img class="close_img" :src="require('@a/imgs/close.png')" alt="" @click="closePicwModal" />
@@ -125,7 +186,16 @@
             <span class="btn2" @click="toLogin">登录</span>
           </li>
           <li v-else class="btn_view">
-            <div class="login_header_logo">头像</div>
+            <div class="login_header_logo" v-if="avatarUrl === ''">头像</div>
+            <div
+              class="login_header_logo"
+              v-else
+              :style="{
+                backgroundSize: 'contain',
+                backgroundImage: 'url(' + avatarUrl + ')',
+                backgroundRepeat: 'no-repeat'
+              }"
+            ></div>
             <div ref="popMenuRef" style="width: 100px; text-overflow: ellipsis; overflow: hidden">
               <span class="username" @click="clickDropdown">{{ userName }}</span>
               <div :class="['popMenu', { activePop: dropdownStatus }]" style="height: 140px">
@@ -141,7 +211,10 @@
     <div class="content">
       <div class="left_view">
         <div class="top_view">
-          <div class="top_header_view">头像</div>
+          <div class="top_header_view" v-if="avatarUrl === ''">头像</div>
+          <div class="top_header_view" v-else>
+            <img class="top_header_view_avatarUrl" :src="avatarUrl" alt="" />
+          </div>
           <div class="right_c">
             <span class="label">用户名</span>
             <span class="label_id">ID：{{ userName }}</span>
@@ -196,33 +269,19 @@
             <template v-if="inner_tabIndex === 0">
               <div class="title_content_view">
                 <div class="left_view">
-                  <div
-                    class="header_logo"
-                    v-if="myInfoIndentityModel.entity.applier.avatarUrl === ''"
-                    @click="toTouchHeaderLogoUploadFile"
-                  >
-                    头像
-                  </div>
+                  <div class="header_logo" v-if="avatarUrl === ''">头像</div>
                   <div
                     class="header_logo"
                     v-else
-                    @click="toTouchHeaderLogoUploadFile"
                     :style="{
                       backgroundSize: 'contain',
-                      backgroundImage: 'url(' + myInfoIndentityModel.entity.applier.avatarUrl + ')',
+                      backgroundImage: 'url(' + avatarUrl + ')',
                       backgroundRepeat: 'no-repeat'
                     }"
                   >
                     <!-- <img class="header_logo_size" :src="myInfoIndentityModel.entity.applier.avatarUrl" alt="" /> -->
                   </div>
 
-                  <input
-                    class="uploadCertFile"
-                    type="file"
-                    @change="uploadHeaderLogFile"
-                    ref="HeaderLogoUploadFileRef"
-                    accept="image/png,image/jpeg,image/gif,image/jpg"
-                  />
                   <span class="label_user">用户名</span>
                   <span class="label_jifen">积分:999</span>
                   <div class="career_bg_view">
@@ -895,7 +954,9 @@ import {
   mineCollectRecoredsService,
   mineRechargeRecoredsService,
   mineCMSRowByIdService,
-  mineDelProductService
+  mineDelProductService,
+  mineUpdateMemberService,
+  mineUpdatePwdService
 } from '@s/mine-info-service'
 import { gettreelist } from '@l/util'
 import { mutipleAjax } from '@l/axios-interceptor'
@@ -914,6 +975,8 @@ export default {
       payTimer: null,
       payforImg_show: false,
       video_show: false,
+      person_info_show: false,
+      person_pwd_info_show: false,
       pic_show: false,
       detalPic: {
         url: '',
@@ -955,6 +1018,17 @@ export default {
       downRecords: [],
       collectRecords: [],
       rechargeList: [],
+      mine_person_info: {
+        id: this.$store.state.memberId,
+        email: '',
+        avatarUrl: ''
+      },
+      mine_person_pwd: {
+        memberName: this.$store.state.userName,
+        oldPassword: '',
+        newPassword: '',
+        reNewPassword: ''
+      },
       zuopin_upload_obj: {
         id: 0,
         name: '',
@@ -1323,7 +1397,7 @@ export default {
     document.removeEventListener('click')
   },
   computed: {
-    ...mapState(['token', 'userName', 'loading', 'vipList'])
+    ...mapState(['token', 'userName', 'loading', 'vipList', 'avatarUrl'])
   },
   methods: {
     picVidoe(url, realPath) {
@@ -1443,6 +1517,46 @@ export default {
         })
         this.downRecords = rows
       })
+    },
+    async updateMemberInfo() {
+      if (this.mine_person_info.email === '' || this.mine_person_info.avatarUrl === '') {
+        alert('邮箱或者头像不能为空!')
+        return
+      }
+      this.mine_person_info.avatarUrl = this.mine_person_info.avatarUrl.substring(
+        this.mine_person_info.avatarUrl.indexOf('/uploadFiles')
+      )
+      const { result } = await mineUpdateMemberService(this.mine_person_info)
+      if (result) {
+        this.person_info_show = false
+        this.$store.commit('setAvatarUrl', process.env.VUE_APP_FE_FILE_URL + this.mine_person_info.avatarUrl)
+        alert('修改个人信息成功!')
+      }
+    },
+
+    async updateMemberPwd() {
+      if (this.mine_person_pwd.oldPassword === '') {
+        alert('旧密码不能为空!')
+        return
+      }
+      if (this.mine_person_pwd.newPassword === '') {
+        alert('新密码不能为空!')
+        return
+      }
+      if (this.mine_person_pwd.reNewPassword === '') {
+        alert('确认密码不能为空!')
+        return
+      }
+      if (this.mine_person_pwd.newPassword !== this.mine_person_pwd.reNewPassword) {
+        alert('新密码与确认密码不一致!')
+        return
+      }
+      const { result } = await mineUpdatePwdService(this.mine_person_pwd)
+      if (result) {
+        this.$store.commit('clearStore')
+        alert('修改密码成功!')
+        this.$router.push('/login')
+      }
     },
     async loadCollectRecordList() {
       const { rows, result } = await mineCollectRecoredsService({
@@ -1851,12 +1965,18 @@ export default {
       this.agree_checked = status
     },
     goto(index) {
-      this.dropdownStatus = false
-      if (index < 4) {
-        this.$router.push('/mine/info?index=' + index)
-      } else if (index === 4) {
-        this.$store.commit('clearStore')
-        this.$router.push('/home')
+      if (index === 9) {
+        this.person_pwd_info_show = true
+      } else if (index === 10) {
+        this.person_info_show = true
+      } else {
+        this.dropdownStatus = false
+        if (index < 4) {
+          this.$router.push('/mine/info?index=' + index)
+        } else if (index === 4) {
+          this.$store.commit('clearStore')
+          this.$router.push('/home')
+        }
       }
     },
 
@@ -1870,6 +1990,7 @@ export default {
         errorInfo
       } = await uploadFileService(param)
       this.myInfoIndentityModel.entity.applier.avatarUrl = relativePath
+      this.mine_person_info.avatarUrl = relativePath
     },
     async uploadPicFile() {
       let inputDOM = this.$refs.uploadPicFileRef
@@ -2077,6 +2198,9 @@ export default {
     closeVidowModal() {
       this.video_show = false
     },
+    closePersonInfoModal() {
+      this.person_info_show = false
+    },
     closePicwModal() {
       this.pic_show = false
     },
@@ -2160,6 +2284,302 @@ export default {
       height: 250px;
       background: #ffffff;
     }
+    .person_info_div {
+      width: 650px;
+      height: 450px;
+      background: #ffffff;
+      position: relative;
+      .right_view {
+        width: 91px;
+        height: 38px;
+        background: #dd3d29;
+        opacity: 0.86;
+        border-radius: 5px;
+        flex: none;
+        color: #ffffff;
+        font-size: 16px;
+        line-height: 38px;
+        text-align: center;
+        margin-right: 37px;
+        cursor: pointer;
+        position: absolute;
+        bottom: 20px;
+        right: 0;
+      }
+      .content {
+        box-sizing: border-box;
+        padding: 20px;
+        padding-top: 40px;
+        position: relative;
+
+        .row {
+          display: flex;
+          flex-direction: row;
+          box-sizing: border-box;
+          justify-content: space-between;
+          margin-bottom: 5px;
+
+          .uploadCertFile {
+            display: none;
+          }
+          .header_logo_size {
+            width: 67px;
+            height: 67px;
+            border-radius: 50%;
+          }
+          .header_logo {
+            cursor: pointer;
+            width: 67px;
+            height: 67px;
+            border-radius: 50%;
+            border: 1px solid #cfcfcf;
+            margin-top: 20px;
+            line-height: 67px;
+            text-align: center;
+            font-size: 16px;
+            color: #354052;
+          }
+
+          .label {
+            color: #354052;
+            font-size: 16px;
+            line-height: 43px;
+            width: 80px;
+          }
+          .select_view {
+            width: 334px;
+            height: 37px;
+            padding: 0;
+            outline: none;
+            border: 1px solid #cfcfcf;
+            border-radius: 6px;
+            margin-right: 200px;
+            box-sizing: border-box;
+            padding-left: 15px;
+          }
+          .pic_view {
+            width: 334px;
+            height: 174px;
+            border: 1px solid #cfcfcf;
+            overflow: auto;
+            border-radius: 6px;
+            margin-right: 200px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            .upload_view {
+              width: 47px;
+              height: 47px;
+              border: 1px solid #d6d6d6;
+              margin-left: 10px;
+              margin-top: 18px;
+              flex-shrink: 0;
+              position: relative;
+              cursor: pointer;
+              .add_file_img {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                position: absolute;
+              }
+              .uploadCertFile {
+                display: none;
+              }
+            }
+            .pic_list {
+              box-sizing: border-box;
+              display: flex;
+              flex-direction: row;
+              flex-wrap: wrap;
+              .img_item {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 87px;
+                height: 87px;
+                background: #ffffff;
+                border: 1px solid #d6d6d6;
+                margin-left: 10px;
+                margin-top: 5px;
+                position: relative;
+                cursor: pointer;
+                .add_file_img {
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  position: absolute;
+                }
+                .del_file_img {
+                  top: -10px;
+                  right: -8px;
+                  position: absolute;
+                }
+                .uploadCertFile {
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+      }
+      .close_img {
+        width: 64px;
+        height: 64px;
+        position: absolute;
+        top: -30px;
+        right: -30px;
+        cursor: pointer;
+      }
+    }
+
+    .person_pwd_info_div {
+      width: 650px;
+      height: 450px;
+      background: #ffffff;
+      position: relative;
+      .right_view {
+        width: 91px;
+        height: 38px;
+        background: #dd3d29;
+        opacity: 0.86;
+        border-radius: 5px;
+        flex: none;
+        color: #ffffff;
+        font-size: 16px;
+        line-height: 38px;
+        text-align: center;
+        margin-right: 37px;
+        cursor: pointer;
+        position: absolute;
+        bottom: 20px;
+        right: 0;
+      }
+      .content {
+        box-sizing: border-box;
+        padding: 20px;
+        padding-top: 40px;
+        position: relative;
+
+        .row {
+          display: flex;
+          flex-direction: row;
+          box-sizing: border-box;
+          justify-content: space-between;
+          margin-bottom: 5px;
+
+          .uploadCertFile {
+            display: none;
+          }
+          .header_logo_size {
+            width: 67px;
+            height: 67px;
+            border-radius: 50%;
+          }
+          .header_logo {
+            cursor: pointer;
+            width: 67px;
+            height: 67px;
+            border-radius: 50%;
+            border: 1px solid #cfcfcf;
+            margin-top: 20px;
+            line-height: 67px;
+            text-align: center;
+            font-size: 16px;
+            color: #354052;
+          }
+
+          .label {
+            color: #354052;
+            font-size: 16px;
+            line-height: 43px;
+            width: 80px;
+          }
+          .select_view {
+            width: 334px;
+            height: 37px;
+            padding: 0;
+            outline: none;
+            border: 1px solid #cfcfcf;
+            border-radius: 6px;
+            margin-right: 200px;
+            box-sizing: border-box;
+            padding-left: 15px;
+          }
+          .pic_view {
+            width: 334px;
+            height: 174px;
+            border: 1px solid #cfcfcf;
+            overflow: auto;
+            border-radius: 6px;
+            margin-right: 200px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            .upload_view {
+              width: 47px;
+              height: 47px;
+              border: 1px solid #d6d6d6;
+              margin-left: 10px;
+              margin-top: 18px;
+              flex-shrink: 0;
+              position: relative;
+              cursor: pointer;
+              .add_file_img {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                position: absolute;
+              }
+              .uploadCertFile {
+                display: none;
+              }
+            }
+            .pic_list {
+              box-sizing: border-box;
+              display: flex;
+              flex-direction: row;
+              flex-wrap: wrap;
+              .img_item {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 87px;
+                height: 87px;
+                background: #ffffff;
+                border: 1px solid #d6d6d6;
+                margin-left: 10px;
+                margin-top: 5px;
+                position: relative;
+                cursor: pointer;
+                .add_file_img {
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  position: absolute;
+                }
+                .del_file_img {
+                  top: -10px;
+                  right: -8px;
+                  position: absolute;
+                }
+                .uploadCertFile {
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+      }
+      .close_img {
+        width: 64px;
+        height: 64px;
+        position: absolute;
+        top: -30px;
+        right: -30px;
+        cursor: pointer;
+      }
+    }
+
     .video_div {
       width: 450px;
       height: 450px;
@@ -2713,6 +3133,16 @@ export default {
         flex-direction: row;
         padding: 25px 0 28px 43px;
         .top_header_view {
+          width: 107px;
+          height: 107px;
+          border-radius: 50%;
+          border: 1px solid $color6;
+          color: $color1;
+          font-size: 25px;
+          text-align: center;
+          line-height: 107px;
+        }
+        .top_header_view_avatarUrl {
           width: 107px;
           height: 107px;
           border-radius: 50%;

@@ -4,6 +4,7 @@ export default {
     state.memberId = payload.memberId
     state.token = payload.token
     state.expires = payload.expires
+    state.avatarUrl = payload.avatarUrl
     state.levelDeadline = payload.levelDeadline
   },
   setActiveTab(state, payload) {
@@ -11,6 +12,9 @@ export default {
   },
   setlevelDeadline(state, payload) {
     state.levelDeadline = payload
+  },
+  setAvatarUrl(state, payload) {
+    state.avatarUrl = payload
   },
   setLoading(state, payload) {
     state.loading = payload

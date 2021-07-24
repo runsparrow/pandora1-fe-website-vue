@@ -652,7 +652,8 @@ export default {
             memberId: member?.memberId,
             token: token,
             expires: new Date(dateTime).getTime(),
-            levelDeadline: result2.row.levelDeadline
+            levelDeadline: result2.row.levelDeadline,
+            avatarUrl:process.env.VUE_APP_FE_FILE_URL +member?.avatarUrl
           })
           that.timer = setInterval(() => {
             that.seconds -= 1
