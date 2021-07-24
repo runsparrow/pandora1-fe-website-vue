@@ -1,3 +1,5 @@
+import $store from '../store'
+import $router from './index'
 export default [
   {
     path: '/',
@@ -36,6 +38,12 @@ export default [
   },
   {
     path: '/mine/info',
+    beforeEnter: (to, from, next) => {
+      if ($store.state.token === '') {
+        $router.replace('/home')
+      }
+      next()
+    },
     meta: { title: '我的信息' },
     component: () => import(/* webpackChunkName: "my-info-view" */ '@v/mine/MyInfo.vue')
   },

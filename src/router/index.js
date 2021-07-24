@@ -6,6 +6,7 @@ import $store from '../store'
 import { getNavigationMenusService } from '@s/navigation-service'
 import { getVIPListService } from '@s/login-service'
 import { searchListService } from '@s/search-list-service'
+import Cookies from 'js-cookie'
 
 Vue.use(VueRouter)
 
@@ -16,7 +17,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  const { token, expires } = $store.state
+  const { token } = $store.state
 
   if ($store.state.navigationsMenus.length === 0) {
     let { rows: rowDatas } = await getNavigationMenusService(10)
@@ -48,21 +49,7 @@ router.beforeEach(async (to, from, next) => {
     status: [1]
   })
   $store.commit('setVipList', rows)
-
-  const dateTime = new Date().getTime()
-  to.meta && setDocumentTitle(to.meta.title)
-  if (expires !== 0 && dateTime - expires >= 0) {
-    $store.commit('clearStore')
-  }
-  if (to.path === '/mine/info') {
-    if (!token) {
-      router.replace('/home')
-    } else {
-      next()
-    }
-  } else {
-    next()
-  }
+  next()
 })
 
 const originalPush = VueRouter.prototype.push
