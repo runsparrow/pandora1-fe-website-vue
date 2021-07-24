@@ -596,7 +596,7 @@
                     >
                   </span>
                   <span class="column">
-                    <div class="delBtn">删除</div>
+                    <div class="delBtn" @click="delZuopin(item)">删除</div>
                   </span>
                 </div>
               </div>
@@ -628,7 +628,7 @@
                     >
                   </span>
                   <span class="column">
-                    <div class="delBtn">删除</div>
+                    <div class="delBtn" @click="delZuopin(item)">删除</div>
                   </span>
                 </div>
                 <div class="label_row">审核会在10个工作日内完成</div>
@@ -661,7 +661,7 @@
                     >
                   </span>
                   <span class="column">
-                    <div class="delBtn">删除</div>
+                    <div class="delBtn" @click="delZuopin(item)">删除</div>
                   </span>
                 </div>
                 <div class="label_row">
@@ -894,7 +894,8 @@ import {
   mineDownRecoredsService,
   mineCollectRecoredsService,
   mineRechargeRecoredsService,
-  mineCMSRowByIdService
+  mineCMSRowByIdService,
+  mineDelProductService
 } from '@s/mine-info-service'
 import { gettreelist } from '@l/util'
 import { mutipleAjax } from '@l/axios-interceptor'
@@ -1335,6 +1336,52 @@ export default {
         this.detalPic.url = url
         this.detalPic.name = url.substring(url.lastIndexOf('/') + 1)
         this.detalPic.suffix = url.substring(url.lastIndexOf('.') + 1)
+      }
+    },
+    async delZuopin(item) {
+      const { result } = await mineDelProductService({
+        entity: {
+          id: item.id,
+          name: '',
+          goodsNo: '',
+          tags: '',
+          desc: '',
+          authDesc: '',
+          classifyId: -1,
+          classifyName: '',
+          url: '',
+          coverUrl: '',
+          ext: '',
+          dpi: '',
+          ratio: '',
+          rgb: '',
+          size: '',
+          level: 0,
+          isImage: 0,
+          isOriginal: 0,
+          navigationId: -1,
+          navigationName: '',
+          price: 0,
+          quantity: 0,
+          maxStock: 0,
+          minStock: 0,
+          downCount: 0,
+          collectCount: 0,
+          buyCount: 0,
+          ownerId: -1,
+          ownerName: '',
+          remark: '',
+          createUserId: -1,
+          editUserId: -1,
+          statusId: -1,
+          statusName: '',
+          statusValue: 0
+        },
+        statusKey: 'cms.goods.close'
+      })
+      if (result) {
+        this.loadMyZuoPinLIst()
+        alert('删除成功')
       }
     },
     payForMember() {
@@ -3182,6 +3229,7 @@ export default {
                   font-weight: 400;
                   line-height: 23px;
                   color: #ffffff;
+                  cursor: pointer;
                 }
               }
             }

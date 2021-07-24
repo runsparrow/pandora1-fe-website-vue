@@ -32,6 +32,7 @@ export default {
     MIS_CMS_Collect_Query_Page_URL: '/MIS/CMS/Collect/Query/Page',
     MIS_CMS_Recharge_Query_Page_URL: '/MIS/CMS/Recharge/Query/Page',
     MIS_CMS_Auth_ActivateCard_URL: '/MIS/CMS/Auth/ActivateCard',
-    MIS_CMS_Member_Row_ById_URL: '/MIS/CMS/Member/Row/ById'
+    MIS_CMS_Member_Row_ById_URL: '/MIS/CMS/Member/Row/ById',
+    MIS_CMS_Goods_Update_ToStatus_URL: '/MIS/CMS/Goods/Update/ToStatus'
   }
 }

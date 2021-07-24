@@ -130,3 +130,10 @@ export const mineGetPayStatusService = async payload => {
     method: 'POST'
   })
 }
+export const mineDelProductService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_CMS_Goods_Update_ToStatus_URL}`,
+    method: 'POST',
+    data: payload
+  })
+}
