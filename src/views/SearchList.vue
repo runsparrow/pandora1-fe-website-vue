@@ -265,7 +265,10 @@ export default {
       this.$router.push('/login')
     },
     toDetail(id) {
-      this.$router.push('search_detail/' + id)
+      let newUrl = this.$router.resolve({
+        path: 'search_detail/' + id
+      })
+      window.open(newUrl.href, '_blank')
     },
     toLogin() {
       this.$store.commit('setActiveTab', 1)
