@@ -735,12 +735,12 @@
               <span
                 :class="['title', { active: inner_voucher_tabIndex === 0 }]"
                 @click="() => (inner_voucher_tabIndex = 0)"
-                >已下载(1)</span
+                >已下载({{ downRecords.length }})</span
               >
               <span
                 :class="['title', { active: inner_voucher_tabIndex === 1 }]"
                 @click="() => (inner_voucher_tabIndex = 1)"
-                >已收藏(1)</span
+                >已收藏({{ collectRecords.length }})</span
               >
               <span
                 :class="['title', { active: inner_voucher_tabIndex === 2 }]"
@@ -1668,11 +1668,10 @@ export default {
         this.myInfoIndentityModel.entity.certificateNo = myInfo.certificateNo
         this.myInfoIndentityModel.entity.certificateUrl = myInfo.certificateUrl
       }
-      let {
-        result: myInfoDesignResult,
-        row: designRow,
-        designMessage
-      } = await getMyInfoByIdService(this.$store.state.memberId, 1)
+      let { result: myInfoDesignResult, row: designRow, designMessage } = await getMyInfoByIdService(
+        this.$store.state.memberId,
+        1
+      )
       if (myInfoDesignResult) {
         this.desingCheckedAgree = true
         this.myInfoDesignModel.entity.id = designRow.id
