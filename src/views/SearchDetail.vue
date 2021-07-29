@@ -131,6 +131,9 @@ export default {
   async mounted() {
     if (this.$route.params.id) {
       const detailObj = await getDetailByIdService({ id: this.$route.params.id })
+      if (!detailObj.row.isImage) {
+        detailObj.row.fullUrl = '../assets/imgs/play.png'
+      }
       this.detail = detailObj.row
     }
     document.addEventListener('click', e => {

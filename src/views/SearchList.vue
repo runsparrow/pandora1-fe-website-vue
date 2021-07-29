@@ -206,6 +206,12 @@ export default {
         sort: this.sortStr,
         status: [2]
       })
+      rows.forEach(m => {
+        console.log(m)
+        if (!m.isImage) {
+          m.fullUrl = '../assets/imgs/play.png'
+        }
+      })
       this.tableDatas = rows
     },
     clickDropdown() {
