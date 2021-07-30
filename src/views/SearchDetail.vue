@@ -1,5 +1,11 @@
 <template>
   <div class="searchDetailView">
+    <div class="loading" v-if="video_show">
+      <div class="video_div" ref="video_div">
+        <img class="close_img" :src="require('@a/imgs/close.png')" alt="" @click="closeVidowModal" />
+        <video :src="videoUrl" width="450" height="450" ref="videoRef" controls="true"></video>
+      </div>
+    </div>
     <div class="container">
       <div class="header_view">
         <div class="top_view">
@@ -70,7 +76,7 @@
       </div>
     </div>
     <div class="content">
-      <img class="big_img" :src="detail.fullUrl" alt="" />
+      <img class="big_img" @click="playVidoe" style="cursor:pointer" :src="detail.fullUrl" alt="" />
       <div class="nav">
         <div class="top_view">
           <span class="label">首页</span>
@@ -125,7 +131,9 @@ export default {
     return {
       dropdownStatus: false,
       detail: {},
-      searchKeyword: ''
+      searchKeyword: '',
+      video_show: false,
+      videoUrl: ''
     }
   },
   async mounted() {
@@ -154,6 +162,15 @@ export default {
       this.$store.commit('setKeyWords', '')
       this.$store.commit('setNavigationId', navigationId)
       this.$router.push('/search')
+    },
+    closeVidowModal() {
+      this.video_show = false
+    },
+    playVidoe() {
+      if (this.detail.fullUrl.indexOf('play') !== -1) {
+        this.video_show = true
+        this.videoUrl = process.env.VUE_APP_FE_FILE_URL + this.detail.url
+      }
     },
     downloadFile() {
       let relativePath = this.detail.fullUrl + ''
@@ -246,6 +263,188 @@ export default {
 .searchDetailView {
   box-sizing: border-box;
   margin: 0 auto;
+  .loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background: rgba(17, 17, 17, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .video_div {
+      width: 450px;
+      height: 450px;
+      background: #ffffff;
+      position: relative;
+      z-index: 99;
+      .close_img {
+        width: 64px;
+        height: 64px;
+        position: absolute;
+        top: -30px;
+        right: -30px;
+        cursor: pointer;
+        z-index: 99;
+      }
+      .content {
+        box-sizing: border-box;
+        background: $color11;
+        display: flex;
+        flex-direction: row;
+        .big_img {
+          box-sizing: border-box;
+          width: 680px;
+          height: 650px;
+          cursor: pointer;
+        }
+        .nav {
+          width: 325px;
+          height: 650px;
+          background: $color9;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          .top_view {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            padding-top: 16px;
+            padding-left: 22px;
+            .label {
+              box-sizing: border-box;
+              font-size: 12px;
+              font-weight: 400;
+              color: $color19;
+            }
+            .operator {
+              box-sizing: border-box;
+              font-size: 12px;
+              color: red;
+              margin-left: 2px;
+              margin-right: 2px;
+            }
+          }
+          .title {
+            overflow: hidden;
+            box-sizing: border-box;
+            color: $color1;
+            font-size: 17px;
+            padding-left: 22px;
+            margin-top: 39px;
+            font-weight: bold;
+          }
+          .id_label {
+            box-sizing: border-box;
+            padding-left: 22px;
+            margin-top: 5px;
+            color: $color19;
+            font-size: 12px;
+          }
+          .sucai_desc {
+            box-sizing: border-box;
+            padding-left: 22px;
+            margin-top: 3px;
+            color: $color4;
+            font-size: 12px;
+          }
+          .line {
+            width: 298px;
+            height: 0px;
+            border: 1px solid $color6;
+            box-sizing: border-box;
+            margin-top: 10px;
+            margin-left: 15px;
+            margin-right: 15px;
+            margin-bottom: 10px;
+          }
+          .spec {
+            box-sizing: border-box;
+            color: $color19;
+            margin-bottom: 13px;
+            padding-left: 22px;
+          }
+          .btn_view {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            padding-left: 22px;
+            .buy_vip {
+              box-sizing: border-box;
+              width: 144px;
+              height: 35px;
+              background: $color4;
+              border-radius: 18px;
+              font-size: 14px;
+              text-align: center;
+              line-height: 35px;
+              font-weight: 400;
+              color: $color9;
+              cursor: pointer;
+            }
+            .collect {
+              box-sizing: border-box;
+              width: 53px;
+              height: 35px;
+              border: 1px solid $color4;
+              border-radius: 18px;
+              font-size: 14px;
+              text-align: center;
+              line-height: 35px;
+              font-weight: 400;
+              color: $color4;
+              margin-left: 9px;
+              cursor: pointer;
+            }
+          }
+          .author_view {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            padding-top: 10px;
+            padding-left: 22px;
+            .login_header_logo {
+              width: 67px;
+              height: 67px;
+              border: 1px solid $color6;
+              border-radius: 50%;
+              text-align: center;
+              line-height: 67px;
+              font-size: 16px;
+              font-weight: 400;
+              color: $color1;
+            }
+            .right_view {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              box-sizing: border-box;
+              padding-left: 9px;
+              .level {
+                box-sizing: border-box;
+                color: $color4;
+                font-size: 16px;
+                .author_type {
+                  margin-left: 22px;
+                }
+              }
+              .username {
+                box-sizing: border-box;
+                font-size: 16px;
+                color: $color1;
+                font-weight: 400;
+                .author {
+                  margin-left: 4px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   .container {
     box-sizing: border-box;
     margin-left: 103px;
