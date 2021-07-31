@@ -173,8 +173,13 @@ export default {
       }
     },
     downloadFile() {
-      let relativePath = this.detail.fullUrl + ''
-      const fileName = this.detail.fullUrl.substring(this.detail.fullUrl.lastIndexOf('/') + 1)
+      let relativePath = ''
+      if (this.detail.fullUrl.indexOf('play') !== -1) {
+        relativePath = this.detail.url + ''
+      } else {
+        relativePath = this.detail.fullUrl + ''
+      }
+      const fileName = relativePath.substring(relativePath.lastIndexOf('/') + 1)
       relativePath = relativePath.substring(relativePath.indexOf('uploadFiles') - 1)
       const fileDto = {
         memberId: this.$store.state.memberId,
