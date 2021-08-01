@@ -95,7 +95,7 @@
         <div class="btn_view">
           <div class="buy_vip" @click="applyVIP">立即开通VIP</div>
           <div class="collect" v-if="token !== ''">收藏</div>
-          <div class="collect" v-if="token !== ''" @click="downloadFile">下载</div>
+          <div class="collect" @click="downloadFile">下载</div>
         </div>
         <div class="line"></div>
         <div class="author_view">
@@ -173,14 +173,21 @@ export default {
       }
     },
     downloadFile() {
+      if (!this.$store.state.token) {
+        this.$router.push({
+          path: '/Login',
+          query: { redirect: this.$router.currentRoute.fullPath }
+        })
+        return
+      }
       let relativePath = ''
       if (this.detail.fullUrl.indexOf('play') !== -1) {
         relativePath = this.detail.url + ''
       } else {
         relativePath = this.detail.fullUrl + ''
       }
-      const fileName = relativePath.substring(relativePath.lastIndexOf('/') + 1)
-      relativePath = relativePath.substring(relativePath.indexOf('uploadFiles') - 1)
+      const fileName = this.detail.fullUrl.substring(relativePath.lastIndexOf('/') + 1)
+      relativePath = relativePath.substring(relativePath.indexOf('uploadFiles'))
       const fileDto = {
         memberId: this.$store.state.memberId,
         memberName: this.$store.state.userName,

@@ -61,7 +61,7 @@
       </div>
       <div class="logo_view">BANNER(请给与尺寸范围)</div>
     </div>
-    <div class="center_view">
+    <div class="center_view" @click="gotoSearch">
       <div class="left_view">
         <p class="point_title">It is a long established</p>
         <p class="point_title">fact that areader</p>
@@ -170,6 +170,10 @@ export default {
     clearKeyword() {
       this.$store.commit('setKeyWords', '')
       this.searchKeyword = ''
+    },
+    gotoSearch() {
+      this.$store.commit('setKeyWords', '')
+      this.$router.push('/search')
     }
   }
 }
@@ -553,13 +557,14 @@ export default {
       margin-left: 62px;
       margin-right: 167px;
       box-sizing: border-box;
-      justify-content: space-between;
+      justify-content: flex-start;
       .item {
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
         width: 236px;
         height: 250.26px;
+        margin: 0 15px;
         background: $color9;
         border-radius: 30px;
         box-shadow: 0px 10px 46px rgba(0, 0, 0, 0.07);

@@ -14,9 +14,9 @@
               />
               <span class="logo_title" @click="toHome">SooYi.CN</span>
             </li>
-            <li class="label">推广海报</li>
-            <li class="label">新媒体配置</li>
-            <li class="label">视频动画</li>
+            <li class="label" v-for="(item, index) in navigationsMenus" :key="index" @click="toSearch(item.id)">
+              {{ item.name }}
+            </li>
             <li class="seperator"></li>
           </ul>
         </div>
@@ -158,7 +158,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['token', 'code', 'activeTab']),
+    ...mapState(['token', 'code', 'activeTab', 'navigationsMenus']),
     ...mapGetters(['version'])
   },
   mounted() {
@@ -267,6 +267,12 @@ export default {
           this.accountRegConfirmPwdInValid = false
         }
       }
+    },
+    toSearch(navigationId) {
+      this.searchKeyword = ''
+      this.$store.commit('setKeyWords', '')
+      this.$store.commit('setNavigationId', navigationId)
+      this.$router.push('/search')
     },
     async loginSooYi() {
       let that = this

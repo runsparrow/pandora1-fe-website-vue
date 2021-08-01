@@ -50,9 +50,11 @@ router.beforeEach(async (to, from, next) => {
         m.ImgId = Datas.length === 0 ? '' : Datas[0].id
       }
     })
-    console.log(titles)
     setTimeout(() => {
-      $store.commit('setNavigationMenus', titles)
+      $store.commit(
+        'setNavigationMenus',
+        titles.filter(f => f.name !== '其他' && f.name !== '视频动画')
+      )
     }, 1000)
   }
   let { rows } = await getVIPListService({

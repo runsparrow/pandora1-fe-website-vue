@@ -14,9 +14,9 @@
               />
               <span class="logo_title" @click="toHome">SooYi.CN</span>
             </li>
-            <li class="label">推广海报</li>
-            <li class="label">新媒体配置</li>
-            <li class="label">视频动画</li>
+            <li class="label" v-for="(item, index) in navigationsMenus" :key="index" @click="toSearch(item.id)">
+              {{ item.name }}
+            </li>
             <li class="seperator"></li>
           </ul>
         </div>
@@ -383,7 +383,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['token', 'code', 'activeTab']),
+    ...mapState(['token', 'code', 'activeTab', 'navigationsMenus']),
     ...mapGetters(['version'])
   },
   mounted() {
@@ -474,6 +474,12 @@ export default {
         }, 1000)
         alert('短信已发送!')
       }
+    },
+    toSearch(navigationId) {
+      this.searchKeyword = ''
+      this.$store.commit('setKeyWords', '')
+      this.$store.commit('setNavigationId', navigationId)
+      this.$router.push('/search')
     },
     validCode($event) {
       if ($event.target.value === '') {
@@ -653,13 +659,17 @@ export default {
             token: token,
             expires: new Date(dateTime).getTime(),
             levelDeadline: result2.row.levelDeadline,
-            avatarUrl:process.env.VUE_APP_FE_FILE_URL +member?.avatarUrl
+            avatarUrl: process.env.VUE_APP_FE_FILE_URL + member?.avatarUrl
           })
           that.timer = setInterval(() => {
             that.seconds -= 1
             if (that.seconds === 0) {
               clearInterval(that.timer)
-              that.$router.push('/')
+              if (this.$router.currentRoute.query.redirect !== '') {
+                that.$router.push(this.$router.currentRoute.query.redirect)
+              } else {
+                that.$router.push('/')
+              }
             }
           }, 1000)
         } else {
@@ -672,7 +682,11 @@ export default {
     },
     toHomePage() {
       clearInterval(this.timer)
-      this.$router.push('/')
+      if (this.$router.currentRoute.query.redirect !== '') {
+        this.$router.push(this.$router.currentRoute.query.redirect)
+      } else {
+        this.$router.push('/')
+      }
     },
     toCardActivatePage() {
       this.$router.push('/card_activate')
