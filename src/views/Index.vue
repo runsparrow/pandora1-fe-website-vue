@@ -63,11 +63,11 @@
     </div>
     <div class="center_view" @click="gotoSearch">
       <div class="left_view">
-        <p class="point_title">It is a long established</p>
+        <p class="point_title">Initiate  Professional  Rapid  Original</p>
         <p class="point_title">fact that areader</p>
-        <p class="desc maginTop">医云直击医圈人群的痛点，提升视觉编辑相关的工作</p>
-        <p class="desc">我们有全球独家的医学漫画素材</p>
-        <p class="desc">更有志同道合的伙伴...</p>
+        <p class="desc maginTop">我们网站为医疗圈提供专业医学配图，作品全部原创，下载版权无忧。</p>
+        <p class="desc">医疗卫生领域作为一个专业性极强的领域，所需要的专业配图市面上极为稀少，我们网站聘</p>
+        <p class="desc">用大量专业手绘人员，从今往后，将源源不断地提供大量专业级医学配图。</p>
         <div class="btn_more">
           <span class="label">了解更多</span>
           <img
