@@ -167,7 +167,7 @@
         <ul class="list">
           <li class="logo">
             <img class="logo_img" src="@a/imgs/logo_01.png" alt="" srcset="@a/imgs/logo_01@2x.png 2x" @click="toHome" />
-            <span class="logo_title" @click="toHome">SooYi.CN</span>
+            <span class="logo_title" @click="toHome">T-pic</span>
           </li>
           <li class="label" @click="toSearch">推广海报</li>
           <li class="label" @click="toSearch">新媒体配置</li>

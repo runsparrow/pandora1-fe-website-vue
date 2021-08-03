@@ -5,7 +5,7 @@
         <ul class="list">
           <li class="logo">
             <img class="logo_img" src="@a/imgs/logo_01.png" alt="" srcset="@a/imgs/logo_01@2x.png 2x" />
-            <span class="logo_title">SooYi.CN</span>
+            <span class="logo_title">T-pic</span>
           </li>
           <li class="label" v-for="(item, index) in navigationsMenus" :key="index" @click="toSearch(item.id)">
             {{ item.name }}
@@ -66,8 +66,8 @@
         <p class="point_title">Initiate  Professional  Rapid  Original</p>
         <p class="point_title">fact that areader</p>
         <p class="desc maginTop">我们网站为医疗圈提供专业医学配图，作品全部原创，下载版权无忧。</p>
-        <p class="desc">医疗卫生领域作为一个专业性极强的领域，所需要的专业配图市面上极为稀少，我们网站聘</p>
-        <p class="desc">用大量专业手绘人员，从今往后，将源源不断地提供大量专业级医学配图。</p>
+        <p class="desc">医疗卫生领域作为一个专业性极强的领域，所需要的专业配图市面上极为稀少，我们网站聘用大量专业手绘人员，从今往后，将源源不断地提供大量专业级医学配图。</p>
+        <p class="desc"></p>
         <div class="btn_more">
           <span class="label">了解更多</span>
           <img

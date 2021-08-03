@@ -12,7 +12,7 @@
                 srcset="@a/imgs/logo_01@2x.png 2x"
                 @click="toHome"
               />
-              <span class="logo_title" @click="toHome">SooYi.CN</span>
+              <span class="logo_title" @click="toHome">T-pic</span>
             </li>
           </ul>
         </div>

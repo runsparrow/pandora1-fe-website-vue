@@ -91,7 +91,7 @@ module.exports = {
       entry: 'src/main.js',
       template: 'public/index.html',
       filename: 'index.html',
-      title: 'SooYi.CN',
+      title: 'T-pic',
       chunks: ['chunk-vendors', 'chunk-common', 'index']
     }
   },
