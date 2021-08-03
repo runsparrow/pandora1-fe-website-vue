@@ -12,7 +12,7 @@
                 srcset="@a/imgs/logo_01@2x.png 2x"
                 @click="toHome"
               />
-              <span class="logo_title" @click="toHome">T-pic/span>
+              <span class="logo_title" @click="toHome">T-pic</span>
             </li>
             <li class="label" v-for="(item, index) in navigationsMenus" :key="index" @click="toSearch(item.id)">
               {{ item.name }}
