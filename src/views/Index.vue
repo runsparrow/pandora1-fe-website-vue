@@ -59,14 +59,16 @@
           </li>
         </ul>
       </div>
-      <div class="logo_view">BANNER(请给与尺寸范围)</div>
+      <div class="logo_view"><img class="logo_view_img" src="@a/imgs/home_banner.jpg" alt="" /></div>
     </div>
     <div class="center_view" @click="gotoSearch">
       <div class="left_view">
-        <p class="point_title">Initiate  Professional  Rapid  Original</p>
-        <p class="point_title">fact that areader</p>
-        <p class="desc maginTop">我们网站为医疗圈提供专业医学配图，作品全部原创，下载版权无忧。</p>
-        <p class="desc">医疗卫生领域作为一个专业性极强的领域，所需要的专业配图市面上极为稀少，我们网站聘用大量专业手绘人员，从今往后，将源源不断地提供大量专业级医学配图。</p>
+        <p class="point_title">Initiate Professional</p>
+        <p class="point_title">Rapid Original</p>
+        <p class="desc maginTop">
+          我们网站为医疗圈提供专业医学配图，作品全部原创，下载版权无忧。医疗卫生领域作为一个专业性极强的领域，所需要的专业配图市面上极为稀少，我们网站聘用大量专业手绘人员，从今往后，将源源不断地提供大量专业级医学配图。
+        </p>
+
         <p class="desc"></p>
         <div class="btn_more">
           <span class="label">了解更多</span>
@@ -80,7 +82,14 @@
       </div>
       <div class="right_view">
         <div class="frame_view">
-          <img class="frame_banner_img" src="@a/imgs/index_banner.png" alt="" />
+          <!-- <img class="frame_banner_img" src="@a/imgs/index_banner.png" alt="" /> -->
+          <video
+            src="https://webapi-xs.com:8003/assets/videos/site_animation_player.mp4"
+            width="489"
+            height="305"
+            controls="controls"
+            autoplay
+          ></video>
           <div class="laptop_line"></div>
           <div class="laptop_bottom"></div>
         </div>
@@ -420,6 +429,10 @@ export default {
       align-items: center;
       font-size: 17px;
       border: 1px solid $color6;
+      .logo_view_img {
+        width: 1230px;
+        height: 204px;
+      }
     }
   }
   .center_view {

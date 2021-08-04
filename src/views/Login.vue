@@ -665,7 +665,10 @@ export default {
             that.seconds -= 1
             if (that.seconds === 0) {
               clearInterval(that.timer)
-              if (this.$router.currentRoute.query.redirect !== '') {
+              if (
+                this.$router.currentRoute.query.redirect !== undefined &&
+                this.$router.currentRoute.query.redirect !== ''
+              ) {
                 that.$router.push(this.$router.currentRoute.query.redirect)
               } else {
                 that.$router.push('/')
@@ -682,7 +685,7 @@ export default {
     },
     toHomePage() {
       clearInterval(this.timer)
-      if (this.$router.currentRoute.query.redirect !== '') {
+      if (this.$router.currentRoute.query.redirect !== undefined && this.$router.currentRoute.query.redirect !== '') {
         this.$router.push(this.$router.currentRoute.query.redirect)
       } else {
         this.$router.push('/')

@@ -15,7 +15,7 @@
               <span class="logo_title" @click="toHome">T-pic</span>
             </li>
 
-            <li class="label" v-for="(item, index) in navigationsMenus" :key="index" @click="toSearch(item.id)">
+            <li class="label" v-for="(item, index) in navigationsMenus" :key="index" @click="toSearch(item.id, index)">
               {{ item.name }}
             </li>
 
@@ -68,7 +68,11 @@
             </li>
           </ul>
         </div>
-        <div class="logo_view">BANNER(请给与尺寸范围)</div>
+        <div class="logo_view">
+          <img class="logo_view_img" v-if="imgIndex === 0" src="@a/imgs/miaoshou_banner.jpg" alt="" />
+          <img class="logo_view_img" v-if="imgIndex === 1" src="@a/imgs/wanqian_banner.jpg" alt="" />
+          <img class="logo_view_img" v-if="imgIndex === 2" src="@a/imgs/shengsheng_banner.png" alt="" />
+        </div>
       </div>
     </div>
     <div class="content">
@@ -146,7 +150,8 @@ export default {
       dropdownStatus: false,
       tableDatas: [],
       keywords: '',
-      sortStr: ''
+      sortStr: '',
+      imgIndex: 0
     }
   },
   mounted() {
@@ -190,7 +195,8 @@ export default {
     document.removeEventListener('click')
   },
   methods: {
-    toSearch(navigationId) {
+    toSearch(navigationId, index) {
+      this.imgIndex = index
       this.searchKeyword = ''
       this.$store.commit('setKeyWords', '')
       this.$store.commit('setNavigationId', navigationId)
@@ -545,6 +551,10 @@ export default {
         align-items: center;
         font-size: 17px;
         border: 1px solid $color6;
+        .logo_view_img {
+          width: 1230px;
+          height: 204px;
+        }
       }
     }
   }

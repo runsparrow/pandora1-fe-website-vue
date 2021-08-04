@@ -2239,7 +2239,21 @@ export default {
         alert('图片必须上传!')
         return
       }
+
       this.zuopin_upload_obj.ext = this.zuopin_upload_obj.url.substring(this.zuopin_upload_obj.url.lastIndexOf('.') + 1)
+      if (
+        this.zuopin_upload_obj.ext === 'mp4' ||
+        this.zuopin_upload_obj.ext === 'mkv' ||
+        this.zuopin_upload_obj.ext === 'mov' ||
+        this.zuopin_upload_obj.ext === 'm4v' ||
+        this.zuopin_upload_obj.ext === 'wmv' ||
+        this.zuopin_upload_obj.ext === 'avi' ||
+        this.zuopin_upload_obj.ext === 'flv'
+      ) {
+        this.zuopin_upload_obj.isImage = 0
+      } else {
+        this.zuopin_upload_obj.isImage = 1
+      }
       this.modal_loading = false
       const { result, message } = await submitZuoPinService({
         ...this.zuopin_upload_obj,

@@ -22,6 +22,7 @@ router.beforeEach(async (to, from, next) => {
   if ($store.state.navigationsMenus.length === 0) {
     let { rows: rowDatas } = await getNavigationMenusService(10)
     let titles = rowDatas.filter(f => f.name !== '首页')
+    console.log(45, titles)
     titles.forEach(async m => {
       if (m.name !== '首页') {
         const { rows: Datas } = await searchListService({
