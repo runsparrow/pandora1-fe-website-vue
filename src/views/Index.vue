@@ -59,7 +59,9 @@
           </li>
         </ul>
       </div>
-      <div class="logo_view"><img class="logo_view_img" src="@a/imgs/home_banner.jpg" alt="" /></div>
+      <div class="logo_view">
+        <img class="logo_view_img" src="@a/imgs/home_banner.jpg" alt="" style="object-fit: cover" />
+      </div>
     </div>
     <div class="center_view" @click="gotoSearch">
       <div class="left_view">
@@ -96,10 +98,10 @@
       </div>
     </div>
     <div class="footer_view">
-      <div class="row">热门下载</div>
+      <div class="row">板块展示</div>
       <div class="list">
         <div class="item" v-for="(item, index) in navigationsMenus" :key="index">
-          <img class="hot_img" :src="item.firstUrl" alt="" @click="toDetail(item.ImgId)" />
+          <img class="hot_img" :src="item.firstUrl" alt="" @click="toSearch(item.id)" />
           <span class="hot_title">{{ item.name }}</span>
           <div class="hot_more_view" @click="toSearch(item.id)">
             <span class="poionter">查看更多</span>

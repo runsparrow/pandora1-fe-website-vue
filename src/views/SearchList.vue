@@ -69,9 +69,27 @@
           </ul>
         </div>
         <div class="logo_view">
-          <img class="logo_view_img" v-if="imgIndex === 0" src="@a/imgs/miaoshou_banner.jpg" alt="" />
-          <img class="logo_view_img" v-if="imgIndex === 1" src="@a/imgs/wanqian_banner.jpg" alt="" />
-          <img class="logo_view_img" v-if="imgIndex === 2" src="@a/imgs/shengsheng_banner.png" alt="" />
+          <img
+            class="logo_view_img"
+            v-if="imgIndex === 0"
+            src="@a/imgs/miaoshou_banner.jpg"
+            alt=""
+            style="object-fit: cover"
+          />
+          <img
+            class="logo_view_img"
+            v-if="imgIndex === 1"
+            src="@a/imgs/wanqian_banner.jpg"
+            alt=""
+            style="object-fit: cover"
+          />
+          <img
+            class="logo_view_img"
+            v-if="imgIndex === 2"
+            src="@a/imgs/shengsheng_banner.png"
+            alt=""
+            style="object-fit: cover"
+          />
         </div>
       </div>
     </div>
@@ -83,10 +101,10 @@
           <ul class="children_list" v-if="show_select_index === 0">
             <li class="child_item top" @click.stop="chooseItemLevel('')">全部作品</li>
             <li class="child_item active" @click.stop="chooseItemLevel(0)">免费作品</li>
-            <li class="child_item label" @click.stop="chooseItemLevel(1)">收费作品</li>
+            <!-- <li class="child_item label" @click.stop="chooseItemLevel(1)">收费作品</li> -->
           </ul>
         </li>
-        <li class="item" ref="selectNav02" @click="() => (show_select_index = 1)">
+        <!-- <li class="item" ref="selectNav02" @click="() => (show_select_index = 1)">
           <span class="label">推广海报</span>
           <img class="select_img" src="@a/imgs/jiantou_down.png" alt="" srcset="@a/imgs/jiantou_down@2x.png 2x" />
           <ul class="children_list" v-if="show_select_index === 1">
@@ -118,7 +136,7 @@
             <li class="child_item active" @click.stop="chooseItemBySort('downCount')">热门下载</li>
             <li class="child_item label" @click.stop="chooseItemBySort('createDateTime')">最新上传</li>
           </ul>
-        </li>
+        </li> -->
       </ul>
       <div class="result-view">
         <img

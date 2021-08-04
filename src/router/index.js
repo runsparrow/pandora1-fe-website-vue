@@ -32,6 +32,7 @@ router.beforeEach(async (to, from, next) => {
           sort: '',
           status: [2]
         })
+        console.log(111111111, Datas)
         m.firstItem = Datas[0]
 
         if (
