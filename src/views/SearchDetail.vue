@@ -76,7 +76,7 @@
       </div>
     </div>
     <div class="content">
-      <img class="big_img" @click="playVidoe" style="cursor:pointer" :src="detail.fullUrl" alt="" />
+      <img class="big_img" @click="playVidoe" :src="detail.fullUrl" alt="" style="cursor:pointer;object-fit: cover" />
       <div class="nav">
         <div class="top_view">
           <span class="label">首页</span>

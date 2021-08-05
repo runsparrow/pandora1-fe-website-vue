@@ -173,6 +173,10 @@ export default {
     }
   },
   mounted() {
+    if (this.$store.state.navigationId !== '') {
+      this.keywords = `^navigationId=${this.$store.state.navigationId}`
+    }
+
     document.addEventListener('click', e => {
       if (this.$refs.popMenuRef) {
         if (!this.$refs.popMenuRef.contains(e.target)) {
@@ -210,6 +214,7 @@ export default {
   },
   unmounted() {
     this.$store.commit('setKeyWords', '')
+    this.$store.commit('setNavigationId', '')
     document.removeEventListener('click')
   },
   methods: {
