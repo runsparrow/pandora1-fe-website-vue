@@ -126,6 +126,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import { getNavigationMenusService } from '@s/navigation-service'
 export default {
   name: 'IndexView',
   computed: {
@@ -138,7 +139,42 @@ export default {
       datas: []
     }
   },
-  mounted() {
+  async mounted() {
+    let { rows: rowDatas } = await getNavigationMenusService(10)
+    let titles = rowDatas.filter(f => f.name !== '首页')
+    titles.forEach(async m => {
+      if (m.name !== '首页') {
+        const { rows: Datas } = await searchListService({
+          keyWord: `^navigationId=${m.id}`,
+          page: '1^100',
+          date: '',
+          sort: '',
+          status: [2]
+        })
+        m.firstItem = Datas[0]
+
+        if (
+          m.firstItem.fullUrl.indexOf('mp4') !== -1 ||
+          m.firstItem.fullUrl.indexOf('mkv') !== -1 ||
+          m.firstItem.fullUrl.indexOf('mov') !== -1 ||
+          m.firstItem.fullUrl.indexOf('m4v') !== -1 ||
+          m.firstItem.fullUrl.indexOf('wmv') !== -1 ||
+          m.firstItem.fullUrl.indexOf('avi') !== -1 ||
+          m.firstItem.fullUrl.indexOf('flv') !== -1
+        ) {
+          m.firstUrl = '../assets/imgs/play.png'
+        } else {
+          m.firstUrl = Datas.length === 0 ? '' : Datas[0].fullUrl
+        }
+
+        m.ImgId = Datas.length === 0 ? '' : Datas[0].id
+      }
+    })
+    $store.commit(
+      'setNavigationMenus',
+      titles.filter(f => f.name !== '其他' && f.name !== '视频动画')
+    )
+
     document.addEventListener('click', e => {
       if (this.$refs.popMenuRef) {
         if (!this.$refs.popMenuRef.contains(e.target)) {
