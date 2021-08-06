@@ -71,21 +71,21 @@
         <div class="logo_view">
           <img
             class="logo_view_img"
-            v-if="imgIndex === 0"
+            v-if="imgIndex == 0"
             src="@a/imgs/miaoshou_banner.jpg"
             alt=""
             style="object-fit: cover"
           />
           <img
             class="logo_view_img"
-            v-if="imgIndex === 1"
+            v-if="imgIndex == 1"
             src="@a/imgs/wanqian_banner.jpg"
             alt=""
             style="object-fit: cover"
           />
           <img
             class="logo_view_img"
-            v-if="imgIndex === 2"
+            v-if="imgIndex == 2"
             src="@a/imgs/shengsheng_banner.png"
             alt=""
             style="object-fit: cover"
@@ -145,6 +145,7 @@
           :title="item.name"
           alt=""
           v-for="(item, index) in tableDatas"
+          style="cursor:pointer;object-fit: contain"
           :key="index"
           @click="toDetail(item.id)"
         />
@@ -173,6 +174,9 @@ export default {
     }
   },
   mounted() {
+    if (this.$route.query.index !== undefined) {
+      this.imgIndex = this.$route.query.index
+    }
     if (this.$store.state.navigationId !== '') {
       this.keywords = `^navigationId=${this.$store.state.navigationId}`
     }

@@ -101,9 +101,15 @@
       <div class="row">板块展示</div>
       <div class="list">
         <div class="item" v-for="(item, index) in navigationsMenus" :key="index">
-          <img class="hot_img" :src="item.firstUrl" alt="" @click="toSearch(item.id)" />
+          <img
+            class="hot_img"
+            :src="item.firstUrl"
+            alt=""
+            @click="toSearch(item.id, index)"
+            style="cursor:pointer;object-fit: contain"
+          />
           <span class="hot_title">{{ item.name }}</span>
-          <div class="hot_more_view" @click="toSearch(item.id)">
+          <div class="hot_more_view" @click="toSearch(item.id, index)">
             <span class="poionter">查看更多</span>
             <img
               class="blue_direct_img"
@@ -145,11 +151,11 @@ export default {
     document.removeEventListener('click')
   },
   methods: {
-    toSearch(navigationId) {
+    toSearch(navigationId, index) {
       this.searchKeyword = ''
       this.$store.commit('setKeyWords', '')
       this.$store.commit('setNavigationId', navigationId)
-      this.$router.push('/search')
+      this.$router.push('/search?index=' + index)
     },
     toRegister() {
       this.$store.commit('setActiveTab', 0)
