@@ -10,5 +10,6 @@ export default {
   activeTab: 1,
   navigationId: -1,
   navigationsMenus: [],
+  imgIndex: -1,
   loading: false
 }

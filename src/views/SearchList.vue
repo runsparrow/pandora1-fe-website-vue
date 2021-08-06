@@ -160,7 +160,7 @@ import { searchListService } from '@s/search-list-service'
 export default {
   name: 'SearchListView',
   computed: {
-    ...mapState(['token', 'userName', 'navigationsMenus', 'avatarUrl'])
+    ...mapState(['token', 'userName', 'navigationsMenus', 'avatarUrl', 'imgIndex'])
   },
   data() {
     return {
@@ -169,14 +169,10 @@ export default {
       dropdownStatus: false,
       tableDatas: [],
       keywords: '',
-      sortStr: '',
-      imgIndex: 0
+      sortStr: ''
     }
   },
   mounted() {
-    if (this.$route.query.index !== undefined) {
-      this.imgIndex = this.$route.query.index
-    }
     if (this.$store.state.navigationId !== '') {
       this.keywords = `^navigationId=${this.$store.state.navigationId}`
     }
@@ -223,7 +219,7 @@ export default {
   },
   methods: {
     toSearch(navigationId, index) {
-      this.imgIndex = index
+      this.$store.commit('setimgIndex', index)
       this.searchKeyword = ''
       this.$store.commit('setKeyWords', '')
       this.$store.commit('setNavigationId', navigationId)

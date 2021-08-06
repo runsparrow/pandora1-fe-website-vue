@@ -28,6 +28,9 @@ export default {
   setKeyWords(state, payload) {
     state.keywords = payload
   },
+  setimgIndex(state, payload) {
+    state.imgIndex = payload
+  },
   setVipList(state, payload) {
     state.vipList = payload
   },

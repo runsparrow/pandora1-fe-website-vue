@@ -7,7 +7,7 @@
             <img class="logo_img" src="@a/imgs/logo_01.png" alt="" srcset="@a/imgs/logo_01@2x.png 2x" />
             <span class="logo_title">T-pic</span>
           </li>
-          <li class="label" v-for="(item, index) in navigationsMenus" :key="index" @click="toSearch(item.id)">
+          <li class="label" v-for="(item, index) in navigationsMenus" :key="index" @click="toSearch(item.id, index)">
             {{ item.name }}
           </li>
           <li class="seperator"></li>
@@ -155,7 +155,9 @@ export default {
       this.searchKeyword = ''
       this.$store.commit('setKeyWords', '')
       this.$store.commit('setNavigationId', navigationId)
-      this.$router.push('/search?index=' + index)
+      this.$store.commit('setimgIndex', index)
+
+      this.$router.push('/search')
     },
     toRegister() {
       this.$store.commit('setActiveTab', 0)

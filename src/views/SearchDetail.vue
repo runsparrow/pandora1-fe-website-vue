@@ -20,7 +20,7 @@
               />
               <span class="logo_title" @click="toHome">Yi.CN</span>
             </li>
-            <li class="label" v-for="(item, index) in navigationsMenus" :key="index" @click="toSearch(item.id)">
+            <li class="label" v-for="(item, index) in navigationsMenus" :key="index" @click="toSearch(item.id, index)">
               {{ item.name }}
             </li>
             <li class="seperator"></li>
@@ -72,7 +72,29 @@
             </li>
           </ul>
         </div>
-        <div class="logo_view">BANNER(请给与尺寸范围)</div>
+        <div class="logo_view">
+          <img
+            class="logo_view_img"
+            v-if="imgIndex == 0"
+            src="@a/imgs/miaoshou_banner.jpg"
+            alt=""
+            style="object-fit: cover"
+          />
+          <img
+            class="logo_view_img"
+            v-if="imgIndex == 1"
+            src="@a/imgs/wanqian_banner.jpg"
+            alt=""
+            style="object-fit: cover"
+          />
+          <img
+            class="logo_view_img"
+            v-if="imgIndex == 2"
+            src="@a/imgs/shengsheng_banner.png"
+            alt=""
+            style="object-fit: cover"
+          />
+        </div>
       </div>
     </div>
     <div class="content">
@@ -125,7 +147,7 @@ import CONFIG from '@/config/config'
 export default {
   name: 'ProductDetail',
   computed: {
-    ...mapState(['token', 'userName', 'navigationsMenus', 'avatarUrl'])
+    ...mapState(['token', 'userName', 'navigationsMenus', 'avatarUrl', 'imgIndex'])
   },
   data() {
     return {
@@ -157,7 +179,8 @@ export default {
   },
   methods: {
     reloadTabl() {},
-    toSearch(navigationId) {
+    toSearch(navigationId, index) {
+      this.$store.commit('setimgIndex', index)
       this.searchKeyword = ''
       this.$store.commit('setKeyWords', '')
       this.$store.commit('setNavigationId', navigationId)
@@ -696,6 +719,10 @@ export default {
         align-items: center;
         font-size: 17px;
         border: 1px solid $color6;
+        .logo_view_img {
+          width: 1230px;
+          height: 204px;
+        }
       }
     }
   }
