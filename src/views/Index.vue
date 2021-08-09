@@ -59,9 +59,16 @@
           </li>
         </ul>
       </div>
-      <div class="logo_view">
+      <!-- <div class="logo_view">
         <img class="logo_view_img" src="@a/imgs/home_banner.jpg" alt="" style="object-fit: cover" />
-      </div>
+      </div> -->
+      <swiper ref="mySwiper" v-bind:options="swiperOptions">
+        <swiper-slide v-for="(item, index) in bannerImgArr" v-bind:key="index">
+          <img class="logo_view_img" :src="item" alt="" style="object-fit: cover" />
+        </swiper-slide>
+
+        <div class="swiper-pagination" slot="pagination"></div>
+      </swiper>
     </div>
     <div class="center_view" @click="gotoSearch">
       <div class="left_view">
@@ -127,17 +134,48 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import { getNavigationMenusService } from '@s/navigation-service'
-import Swiper from 'swiper'
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import { searchListService } from '@s/search-list-service'
 export default {
   name: 'IndexView',
   computed: {
     ...mapState(['token', 'userName', 'navigationsMenus', 'avatarUrl'])
   },
+  components: {
+    swiper,
+    swiperSlide
+  },
   data() {
     return {
+      bannerImgArr: [
+        require('@a/imgs/home_banner.jpg'),
+        require('@a/imgs/miaoshou_banner.jpg'),
+        require('@a/imgs/wanqian_banner.jpg'),
+        require('@a/imgs/shengsheng_banner.png')
+      ],
       dropdownStatus: false,
       searchKeyword: '',
-      datas: []
+      datas: [],
+      swiperOptions: {
+        loop: true,
+        speed: 2000,
+        autoplay: {
+          delay: 3000,
+
+          stopOnLastSlide: false,
+          disableOnInteraction: false
+        },
+        // 显示分页
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true //允许分页点击跳转
+        },
+        // 设置点击箭头
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        }
+      }
     }
   },
   async mounted() {
@@ -171,26 +209,10 @@ export default {
         m.ImgId = Datas.length === 0 ? '' : Datas[0].id
       }
     })
-    $store.commit(
+    this.$store.commit(
       'setNavigationMenus',
       titles.filter(f => f.name !== '视频动画')
     )
-
-    new Swiper('.swiper-container', {
-      loop: true,
-      // 如果需要分页器
-      pagination: '.swiper-pagination',
-      // 如果需要前进后退按钮
-      nextButton: '.swiper-button-next',
-      prevButton: '.swiper-button-prev'
-      // 如果需要滚动条
-      // scrollbar: '.swiper-scrollbar',
-      //如果需要自动切换海报
-      // autoplay: {
-      //   delay: 1000,//时间 毫秒
-      //   disableOnInteraction: false,//用户操作之后是否停止自动轮播默认true
-      // },
-    })
 
     document.addEventListener('click', e => {
       if (this.$refs.popMenuRef) {
@@ -254,20 +276,32 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/css/colors';
 @import '../assets/css/font_size';
-
 .swiper-container {
-  height: 500px;
   width: 100%;
-  .swiper-wrapper {
-    .swiper-slide {
-      width: 100%;
-      height: 100%;
-      background-color: #42b983;
-      text-align: center;
-      line-height: 500px;
-    }
+  height: 204px;
+}
+.swiper-slide {
+  width: 100%;
+  height: 204px;
+  background-color: #42b983;
+  .logo_view_img {
+    width: 1230px;
+    height: 204px;
   }
 }
+// .swiper-container {
+//   height: 500px;
+//   width: 100%;
+//   .swiper-wrapper {
+//     .swiper-slide {
+//       width: 100%;
+//       height: 100%;
+//       background-color: #42b983;
+//       text-align: center;
+//       line-height: 500px;
+//     }
+//   }
+// }
 .container {
   box-sizing: border-box;
   margin-left: 103px;
