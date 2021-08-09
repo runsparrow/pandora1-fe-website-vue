@@ -127,6 +127,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import { getNavigationMenusService } from '@s/navigation-service'
+import Swiper from 'swiper'
 export default {
   name: 'IndexView',
   computed: {
@@ -172,8 +173,24 @@ export default {
     })
     $store.commit(
       'setNavigationMenus',
-      titles.filter(f => f.name !== '其他' && f.name !== '视频动画')
+      titles.filter(f => f.name !== '视频动画')
     )
+
+    new Swiper('.swiper-container', {
+      loop: true,
+      // 如果需要分页器
+      pagination: '.swiper-pagination',
+      // 如果需要前进后退按钮
+      nextButton: '.swiper-button-next',
+      prevButton: '.swiper-button-prev'
+      // 如果需要滚动条
+      // scrollbar: '.swiper-scrollbar',
+      //如果需要自动切换海报
+      // autoplay: {
+      //   delay: 1000,//时间 毫秒
+      //   disableOnInteraction: false,//用户操作之后是否停止自动轮播默认true
+      // },
+    })
 
     document.addEventListener('click', e => {
       if (this.$refs.popMenuRef) {
@@ -237,6 +254,20 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/css/colors';
 @import '../assets/css/font_size';
+
+.swiper-container {
+  height: 500px;
+  width: 100%;
+  .swiper-wrapper {
+    .swiper-slide {
+      width: 100%;
+      height: 100%;
+      background-color: #42b983;
+      text-align: center;
+      line-height: 500px;
+    }
+  }
+}
 .container {
   box-sizing: border-box;
   margin-left: 103px;

@@ -103,7 +103,10 @@
         <div class="top_view">
           <span class="label">首页</span>
           <span class="operator">></span>
-          <span class="label">推广海报</span>
+          <span class="label" v-if="imgIndex === 0">妙手丹青</span>
+          <span class="label" v-if="imgIndex === 1">万千组合</span>
+          <span class="label" v-if="imgIndex === 2">生生不息</span>
+          <span class="label" v-if="imgIndex === 3">量身定做</span>
         </div>
         <span class="title">{{ detail.name }}</span>
         <span class="id_label">ID:yyyymmdd000000</span>
@@ -115,12 +118,12 @@
         <span class="spec">颜色 | </span>
         <span class="spec">大小 | </span>
         <div class="btn_view">
-          <div class="buy_vip" @click="applyVIP">立即开通VIP</div>
+          <!-- <div class="buy_vip" @click="applyVIP">立即开通VIP</div> -->
           <div class="collect" v-if="token !== ''">收藏</div>
           <div class="collect" @click="downloadFile">下载</div>
         </div>
-        <div class="line"></div>
-        <div class="author_view">
+        <!-- <div class="line"></div> -->
+        <!-- <div class="author_view">
           <div class="login_header_logo">头像</div>
           <div class="right_view">
             <div class="level">
@@ -132,7 +135,7 @@
               <span class="author">{{ detail.ownerName }}</span>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

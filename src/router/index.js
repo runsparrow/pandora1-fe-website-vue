@@ -54,7 +54,7 @@ router.beforeEach(async (to, from, next) => {
   setTimeout(() => {
     $store.commit(
       'setNavigationMenus',
-      titles.filter(f => f.name !== '其他' && f.name !== '视频动画')
+      titles.filter(f => f.name !== '视频动画')
     )
   }, 1000)
   // }

@@ -240,7 +240,7 @@
             </div>
             <div class="line2">
               <span class="label_01">服务时间</span>
-              <span class="label_02">周一到周五：9:00-21:00</span>
+              <span class="label_02">周一到周日：9:00-21:00</span>
             </div>
             <div class="line3">
               <span class="label_01">扫码关注公众号</span>
