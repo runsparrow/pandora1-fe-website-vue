@@ -68,7 +68,7 @@
             </li>
           </ul>
         </div>
-        <div class="logo_view">
+        <div v-if="navigationId !== 37" class="logo_view">
           <img
             class="logo_view_img"
             v-if="imgIndex == 0"
@@ -93,7 +93,7 @@
         </div>
       </div>
     </div>
-    <div class="content">
+    <div v-if="navigationId !== 37" class="content">
       <ul class="list">
         <li class="item" ref="selectNav01" @click="() => (show_select_index = 0)">
           <span class="label">免费作品</span>
@@ -151,6 +151,27 @@
         />
       </div>
     </div>
+
+    <div v-if="navigationId === 37" class="bottom_view">
+      <div class="b_left_view">
+        <span class="title">漫云客服</span>
+        <img class="qcode_img" src="@a/imgs/qcode.png" alt="" srcset="@a/imgs/qcode@2x.png 2x" />
+      </div>
+      <div class="b_right_view">
+        <div class="line1">
+          <img class="logo_img" src="@a/imgs/logo_01.png" alt="" srcset="@a/imgs/logo_01@2x.png 2x" />
+          <img class="service_img" src="@a/imgs/service_img.png" alt="" srcset="@a/imgs/service_img@2x.png 2x" />
+        </div>
+        <div class="line2">
+          <span class="label_01">服务时间</span>
+          <span class="label_02">周一到周日：9:00-21:00</span>
+        </div>
+        <div class="line3">
+          <span class="label_01">扫码关注公众号</span>
+          <span class="label_02">与在线客户直接沟通</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -160,7 +181,7 @@ import { searchListService } from '@s/search-list-service'
 export default {
   name: 'SearchListView',
   computed: {
-    ...mapState(['token', 'userName', 'navigationsMenus', 'avatarUrl', 'imgIndex'])
+    ...mapState(['token', 'userName', 'navigationsMenus', 'avatarUrl', 'imgIndex', 'navigationId'])
   },
   data() {
     return {
@@ -264,7 +285,7 @@ export default {
       if (level === '') {
         this.keywords = ''
       } else {
-        this.keywords = `^level=${level}`
+        this.keywords = `^level=${level}^navigationId=${this.$store.state.navigationId}`
       }
       this.reloadTable()
     },
@@ -577,6 +598,89 @@ export default {
         .logo_view_img {
           width: 1230px;
           height: 204px;
+        }
+      }
+    }
+  }
+  .bottom_view {
+    box-sizing: border-box;
+    margin-top: 29px;
+    margin-left: 17px;
+    margin-right: 14px;
+    border-top: 1px solid $color6;
+    border-bottom: 1px solid $color6;
+    height: 270px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .b_left_view {
+      box-sizing: border-box;
+      width: 238px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .title {
+        color: $color1;
+        font-size: 25px;
+        margin-top: 69px;
+      }
+      .qcode_img {
+        width: 139px;
+        height: 140px;
+        margin-top: 4px;
+      }
+    }
+    .b_right_view {
+      box-sizing: border-box;
+      width: 253px;
+      display: flex;
+      flex-direction: column;
+      .line1 {
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+        padding-top: 32px;
+        align-items: flex-end;
+        .logo_img {
+          width: 90px;
+          height: 69px;
+          margin-right: 8px;
+        }
+        .service_img {
+          width: 48.51px;
+          height: 43.75px;
+        }
+      }
+      .line2 {
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        margin-top: 14px;
+        .label_01 {
+          font-weight: bold;
+          color: $color20;
+          font-size: 16px;
+        }
+        .label_02 {
+          color: $color21;
+          font-size: 16px;
+        }
+      }
+      .line3 {
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding-top: 38px;
+        .label_01 {
+          color: $color20;
+          font-size: 16px;
+          font-weight: bold;
+        }
+        .label_02 {
+          color: $color20;
+          font-size: 16px;
         }
       }
     }
