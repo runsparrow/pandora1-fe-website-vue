@@ -169,9 +169,9 @@
             <img class="logo_img" src="@a/imgs/logo_01.png" alt="" srcset="@a/imgs/logo_01@2x.png 2x" @click="toHome" />
             <span class="logo_title" @click="toHome">T-pic</span>
           </li>
-          <li class="label" @click="toSearch">推广海报</li>
-          <li class="label" @click="toSearch">新媒体配置</li>
-          <li class="label" @click="toSearch">视频动画</li>
+          <li class="label" v-for="(item, index) in navigationsMenus" :key="index" @click="toSearch(item.id, index)">
+            {{ item.name }}
+          </li>
           <li class="seperator"></li>
           <li class="search_item">
             <input type="text" placeholder="搜索素材" />
@@ -1397,7 +1397,7 @@ export default {
     document.removeEventListener('click')
   },
   computed: {
-    ...mapState(['token', 'userName', 'loading', 'vipList', 'avatarUrl'])
+    ...mapState(['token', 'userName', 'loading', 'vipList', 'avatarUrl', 'navigationsMenus'])
   },
   methods: {
     picVidoe(url, realPath) {
