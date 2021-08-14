@@ -109,14 +109,14 @@
           <span class="label" v-if="imgIndex === 3">量身定做</span>
         </div>
         <span class="title">{{ detail.name }}</span>
-        <span class="id_label">ID:yyyymmdd000000</span>
+        <!-- <span class="id_label">ID:yyyymmdd000000</span> -->
         <span class="sucai_desc">素材版权说明</span>
         <div class="line"></div>
         <span class="spec">格式 | {{ detail.ext }}</span>
         <span class="spec">分辨率 | {{ detail.dpi === '' ? '' : detail.dpi + 'PI' }}</span>
-        <span class="spec">尺寸 | {{ detail.size }}</span>
-        <span class="spec">颜色 | </span>
-        <span class="spec">大小 | </span>
+        <!-- <span class="spec">尺寸 | {{ detail.size }}</span> -->
+        <!-- <span class="spec">颜色 | </span>
+        <span class="spec">大小 | </span> -->
         <div class="btn_view">
           <!-- <div class="buy_vip" @click="applyVIP">立即开通VIP</div> -->
           <div class="collect" v-if="token !== ''">收藏</div>

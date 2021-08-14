@@ -31,24 +31,27 @@ router.beforeEach(async (to, from, next) => {
         sort: '',
         status: [2]
       })
-      console.log(111111111, Datas)
-      m.firstItem = Datas[0]
+      if (Datas.length > 0) {
+        m.firstItem = Datas[0]
 
-      if (
-        m.firstItem.fullUrl.indexOf('mp4') !== -1 ||
-        m.firstItem.fullUrl.indexOf('mkv') !== -1 ||
-        m.firstItem.fullUrl.indexOf('mov') !== -1 ||
-        m.firstItem.fullUrl.indexOf('m4v') !== -1 ||
-        m.firstItem.fullUrl.indexOf('wmv') !== -1 ||
-        m.firstItem.fullUrl.indexOf('avi') !== -1 ||
-        m.firstItem.fullUrl.indexOf('flv') !== -1
-      ) {
-        m.firstUrl = '../assets/imgs/play.png'
+        if (
+          m.firstItem.fullUrl.indexOf('mp4') !== -1 ||
+          m.firstItem.fullUrl.indexOf('mkv') !== -1 ||
+          m.firstItem.fullUrl.indexOf('mov') !== -1 ||
+          m.firstItem.fullUrl.indexOf('m4v') !== -1 ||
+          m.firstItem.fullUrl.indexOf('wmv') !== -1 ||
+          m.firstItem.fullUrl.indexOf('avi') !== -1 ||
+          m.firstItem.fullUrl.indexOf('flv') !== -1
+        ) {
+          m.firstUrl = '../assets/imgs/play.png'
+        } else {
+          m.firstUrl = Datas.length === 0 ? '' : Datas[0].fullUrl
+        }
+
+        m.ImgId = Datas.length === 0 ? '' : Datas[0].id
       } else {
-        m.firstUrl = Datas.length === 0 ? '' : Datas[0].fullUrl
+        m.firstUrl = require('../assets/imgs/dingzuo_banner.jpg')
       }
-
-      m.ImgId = Datas.length === 0 ? '' : Datas[0].id
     }
   })
   setTimeout(() => {

@@ -25,9 +25,16 @@
           </div>
           <div class="row" style="justify-content: flex-start">
             <span class="label">头像</span>
-            <div class="header_logo" v-if="mine_person_info.avatarUrl === ''" @click="toTouchHeaderLogoUploadFile">
-              头像
-            </div>
+            <div
+              class="header_logo"
+              v-if="mine_person_info.avatarUrl === ''"
+              @click="toTouchHeaderLogoUploadFile"
+              :style="{
+                backgroundSize: 'contain',
+                backgroundImage: 'url(' + mine_person_info.avatarUrl + ')',
+                backgroundRepeat: 'no-repeat'
+              }"
+            ></div>
             <div
               class="header_logo"
               v-else
@@ -1021,7 +1028,7 @@ export default {
       mine_person_info: {
         id: this.$store.state.memberId,
         email: '',
-        avatarUrl: ''
+        avatarUrl: require('@a/imgs/default_header_log.png')
       },
       mine_person_pwd: {
         memberName: this.$store.state.userName,
@@ -1495,9 +1502,6 @@ export default {
               this.$store.commit('setlevelDeadline', result2.row.levelDeadline)
               this.payforImg_show = false
               clearInterval(this.payTimer)
-              setTimeout(() => {
-                alert('支付成功!')
-              }, 500)
             }
           })
         }, 5000)

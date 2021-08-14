@@ -36,7 +36,15 @@
             <span class="btn2" @click="toLogin">登录</span>
           </li>
           <li v-else class="btn_view">
-            <div class="login_header_logo" v-if="avatarUrl === ''">头像</div>
+            <div
+              class="login_header_logo"
+              v-if="avatarUrl === ''"
+              :style="{
+                backgroundSize: 'contain',
+                backgroundImage: 'url(' + avatarUrlTtemp + ')',
+                backgroundRepeat: 'no-repeat'
+              }"
+            ></div>
             <div
               class="login_header_logo"
               v-else
@@ -147,11 +155,13 @@ export default {
   },
   data() {
     return {
+      avatarUrlTtemp: require('@a/imgs/default_header_log.png'),
       bannerImgArr: [
         require('@a/imgs/home_banner.jpg'),
         require('@a/imgs/miaoshou_banner.jpg'),
         require('@a/imgs/wanqian_banner.jpg'),
-        require('@a/imgs/shengsheng_banner.png')
+        require('@a/imgs/shengsheng_banner.png'),
+        require('@a/imgs/dingshen_banner.jpg')
       ],
       dropdownStatus: false,
       searchKeyword: '',
@@ -190,25 +200,29 @@ export default {
           sort: '',
           status: [2]
         })
-        m.firstItem = Datas[0]
+        if (Datas.length > 0) {
+          m.firstItem = Datas[0]
+          if (
+            m.firstItem.fullUrl.indexOf('mp4') !== -1 ||
+            m.firstItem.fullUrl.indexOf('mkv') !== -1 ||
+            m.firstItem.fullUrl.indexOf('mov') !== -1 ||
+            m.firstItem.fullUrl.indexOf('m4v') !== -1 ||
+            m.firstItem.fullUrl.indexOf('wmv') !== -1 ||
+            m.firstItem.fullUrl.indexOf('avi') !== -1 ||
+            m.firstItem.fullUrl.indexOf('flv') !== -1
+          ) {
+            m.firstUrl = '../assets/imgs/play.png'
+          } else {
+            m.firstUrl = Datas.length === 0 ? '' : Datas[0].fullUrl
+          }
 
-        if (
-          m.firstItem.fullUrl.indexOf('mp4') !== -1 ||
-          m.firstItem.fullUrl.indexOf('mkv') !== -1 ||
-          m.firstItem.fullUrl.indexOf('mov') !== -1 ||
-          m.firstItem.fullUrl.indexOf('m4v') !== -1 ||
-          m.firstItem.fullUrl.indexOf('wmv') !== -1 ||
-          m.firstItem.fullUrl.indexOf('avi') !== -1 ||
-          m.firstItem.fullUrl.indexOf('flv') !== -1
-        ) {
-          m.firstUrl = '../assets/imgs/play.png'
+          m.ImgId = Datas.length === 0 ? '' : Datas[0].id
         } else {
-          m.firstUrl = Datas.length === 0 ? '' : Datas[0].fullUrl
+          m.firstUrl = require('../assets/imgs/dingzuo_banner.jpg')
         }
-
-        m.ImgId = Datas.length === 0 ? '' : Datas[0].id
       }
     })
+
     this.$store.commit(
       'setNavigationMenus',
       titles.filter(f => f.name !== '视频动画')

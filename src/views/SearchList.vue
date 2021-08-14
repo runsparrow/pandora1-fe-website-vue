@@ -152,8 +152,16 @@
       </div>
     </div>
 
-    <div v-if="navigationId === 37" class="bottom_view">
-      <div class="b_left_view">
+    <div
+      v-if="navigationId === 37"
+      class="bottom_view"
+      :style="{
+        backgroundSize: 'contain',
+        backgroundImage: 'url(' + contactPng + ')',
+        backgroundRepeat: 'no-repeat'
+      }"
+    >
+      <!-- <div class="b_left_view">
         <span class="title">漫云客服</span>
         <img class="qcode_img" src="@a/imgs/qcode.png" alt="" srcset="@a/imgs/qcode@2x.png 2x" />
       </div>
@@ -170,7 +178,7 @@
           <span class="label_01">扫码关注公众号</span>
           <span class="label_02">与在线客户直接沟通</span>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -185,6 +193,8 @@ export default {
   },
   data() {
     return {
+      contactPng: require('@a/imgs/contact.png'),
+
       searchKeyword: '',
       show_select_index: -1,
       dropdownStatus: false,
@@ -607,9 +617,7 @@ export default {
     margin-top: 29px;
     margin-left: 17px;
     margin-right: 14px;
-    border-top: 1px solid $color6;
-    border-bottom: 1px solid $color6;
-    height: 270px;
+    height: 1080px;
     display: flex;
     flex-direction: row;
     justify-content: center;
