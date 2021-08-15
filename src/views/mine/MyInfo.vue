@@ -989,7 +989,7 @@ export default {
   },
   data() {
     return {
-       searchKeyword: '',
+      searchKeyword: '',
       payTimer: null,
       payforImg_show: false,
       video_show: false,
@@ -1496,7 +1496,9 @@ export default {
       ajaxPay({
         // 用axios发送post请求
         method: 'post',
-        url: `${CONFIG.API_URLS.PAY_FOR_MEMBER_URL}?amount=${amount}&content=开通会员`, // 请求地址
+        url: `${CONFIG.API_URLS.PAY_FOR_MEMBER_URL}?amount=${amount}&content=开通会员&taocanId=${parseInt(
+          this.payIndex
+        ) + 1}`, // 请求地址
         responseType: 'blob' // 表明返回服务器返回的数据类型
       }).then(res => {
         let url = window.URL.createObjectURL(res)
@@ -1683,11 +1685,10 @@ export default {
         this.myInfoIndentityModel.entity.certificateNo = myInfo.certificateNo
         this.myInfoIndentityModel.entity.certificateUrl = myInfo.certificateUrl
       }
-      let {
-        result: myInfoDesignResult,
-        row: designRow,
-        designMessage
-      } = await getMyInfoByIdService(this.$store.state.memberId, 1)
+      let { result: myInfoDesignResult, row: designRow, designMessage } = await getMyInfoByIdService(
+        this.$store.state.memberId,
+        1
+      )
       if (myInfoDesignResult) {
         this.desingCheckedAgree = true
         this.myInfoDesignModel.entity.id = designRow.id
@@ -2165,6 +2166,10 @@ export default {
         this.hospitalsArr = rows
       }
     },
+    async searchByKeyword() {
+      this.$store.commit('setKeyWords', this.searchKeyword)
+      this.$router.push('search')
+    },
     async loadHostpitalsByDivision(code) {
       const request = {
         keyWord: `^pid=-1^divisioncode=${code}`,
@@ -2218,6 +2223,10 @@ export default {
     },
     closePicwModal() {
       this.pic_show = false
+    },
+    clearKeyword() {
+      this.$store.commit('setKeyWords', '')
+      this.searchKeyword = ''
     },
     async submitModal() {
       let tagsStr = ''
