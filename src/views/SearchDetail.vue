@@ -721,7 +721,7 @@ export default {
       }
       .logo_view {
         box-sizing: border-box;
-        height: 204px;
+        height: 500px;
         display: flex;
         color: $color1;
         justify-content: center;
@@ -730,7 +730,7 @@ export default {
         border: 1px solid $color6;
         .logo_view_img {
           width: 1230px;
-          height: 204px;
+          height: 500px;
         }
       }
     }
