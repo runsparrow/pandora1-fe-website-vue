@@ -12,7 +12,7 @@
           </li>
           <li class="seperator"></li>
           <li class="search_item">
-            <input type="text" placeholder="搜索素材" v-model.trim="searchKeyword" />
+            <input type="text" placeholder="搜索素材" v-model.trim="searchKeyword" @keyup.enter="searchByKeyword" />
 
             <div class="search_right_bg_view">
               <img
@@ -24,6 +24,7 @@
               />
               <img
                 class="search_clear"
+                style="width: 18px; height: 18px"
                 src="@a/imgs/search.png"
                 alt=""
                 srcset="@a/imgs/search@2x.png 2x"

@@ -25,7 +25,7 @@
             </li>
             <li class="seperator"></li>
             <li class="search_item">
-              <input type="text" placeholder="搜索素材" v-model.trim="searchKeyword" />
+              <input type="text" placeholder="搜索素材" v-model.trim="searchKeyword" @keyup.enter="searchByKeyword" />
 
               <div class="search_right_bg_view">
                 <img
