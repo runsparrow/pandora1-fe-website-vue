@@ -26,17 +26,17 @@
               <div class="search_right_bg_view">
                 <img
                   class="search_icon"
+                  src="@a/imgs/close2.png"
+                  alt=""
+                  @click="clearKeyword"
+                  style="width: 12px; height: 12px; position: absolute; left: -24px; top: 14px; cursor: pointer"
+                />
+                <img
+                  class="search_clear"
                   src="@a/imgs/search.png"
                   alt=""
                   srcset="@a/imgs/search@2x.png 2x"
                   @click="searchByKeyword"
-                />
-                <img
-                  class="search_clear"
-                  src="@a/imgs/search_clear.png"
-                  alt=""
-                  srcset="@a/imgs/search_clear@2x.png 2x"
-                  @click="clearKeyword"
                 />
               </div>
             </li>
@@ -145,7 +145,7 @@
           :title="item.name"
           alt=""
           v-for="(item, index) in tableDatas"
-          style="cursor:pointer;object-fit: contain"
+          style="cursor: pointer; object-fit: contain"
           :key="index"
           @click="toDetail(item.id)"
         />

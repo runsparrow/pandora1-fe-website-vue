@@ -30,17 +30,17 @@
               <div class="search_right_bg_view">
                 <img
                   class="search_icon"
+                  src="@a/imgs/close2.png"
+                  alt=""
+                  @click="clearKeyword"
+                  style="width: 12px; height: 12px; position: absolute; left: -24px; top: 14px; cursor: pointer"
+                />
+                <img
+                  class="search_clear"
                   src="@a/imgs/search.png"
                   alt=""
                   srcset="@a/imgs/search@2x.png 2x"
                   @click="searchByKeyword"
-                />
-                <img
-                  class="search_clear"
-                  src="@a/imgs/search_clear.png"
-                  alt=""
-                  srcset="@a/imgs/search_clear@2x.png 2x"
-                  @click="clearKeyword"
                 />
               </div>
             </li>
@@ -98,7 +98,13 @@
       </div>
     </div>
     <div class="content">
-      <img class="big_img" @click="playVidoe" :src="detail.fullUrl" alt="" style="cursor:pointer;object-fit: contain" />
+      <img
+        class="big_img"
+        @click="playVidoe"
+        :src="detail.fullUrl"
+        alt=""
+        style="cursor: pointer; object-fit: contain"
+      />
       <div class="nav">
         <div class="top_view">
           <span class="label">首页</span>

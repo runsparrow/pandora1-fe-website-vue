@@ -184,8 +184,20 @@
             <input type="text" placeholder="搜索素材" />
 
             <div class="search_right_bg_view">
-              <img class="search_icon" src="@a/imgs/search.png" alt="" srcset="@a/imgs/search@2x.png 2x" />
-              <img class="search_clear" src="@a/imgs/search_clear.png" alt="" srcset="@a/imgs/search_clear@2x.png 2x" />
+              <img
+                class="search_icon"
+                src="@a/imgs/close2.png"
+                alt=""
+                @click="clearKeyword"
+                style="width: 12px; height: 12px; position: absolute; left: -24px; top: 14px; cursor: pointer"
+              />
+              <img
+                class="search_clear"
+                src="@a/imgs/search.png"
+                alt=""
+                srcset="@a/imgs/search@2x.png 2x"
+                @click="searchByKeyword"
+              />
             </div>
           </li>
           <li class="btn_view" v-if="token === ''">
@@ -887,14 +899,12 @@
                   srcset="@a/imgs/wx_checked@2x.png 2x"
                 />
                 <div class="agree_view">
-                  <img
+                  <div
                     class="agree"
+                    style="width: 18px; height: 18px; border-radius: 50%; border: 1px solid #000"
                     @click="clickAgree(true)"
                     v-if="!agree_checked"
-                    src="@a/imgs/pay_unchecked_img.png"
-                    alt=""
-                    srcset="@a/imgs/pay_unchecked_img@2x.png 2x"
-                  />
+                  ></div>
                   <img
                     class="agree"
                     @click="clickAgree(false)"
@@ -1672,10 +1682,11 @@ export default {
         this.myInfoIndentityModel.entity.certificateNo = myInfo.certificateNo
         this.myInfoIndentityModel.entity.certificateUrl = myInfo.certificateUrl
       }
-      let { result: myInfoDesignResult, row: designRow, designMessage } = await getMyInfoByIdService(
-        this.$store.state.memberId,
-        1
-      )
+      let {
+        result: myInfoDesignResult,
+        row: designRow,
+        designMessage
+      } = await getMyInfoByIdService(this.$store.state.memberId, 1)
       if (myInfoDesignResult) {
         this.desingCheckedAgree = true
         this.myInfoDesignModel.entity.id = designRow.id

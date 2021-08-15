@@ -17,17 +17,17 @@
             <div class="search_right_bg_view">
               <img
                 class="search_icon"
+                src="@a/imgs/close2.png"
+                alt=""
+                @click="clearKeyword"
+                style="width: 12px; height: 12px; position: absolute; left: -24px; top: 14px; cursor: pointer"
+              />
+              <img
+                class="search_clear"
                 src="@a/imgs/search.png"
                 alt=""
                 srcset="@a/imgs/search@2x.png 2x"
                 @click="searchByKeyword"
-              />
-              <img
-                class="search_clear"
-                src="@a/imgs/search_clear.png"
-                alt=""
-                srcset="@a/imgs/search_clear@2x.png 2x"
-                @click="clearKeyword"
               />
             </div>
           </li>
@@ -121,7 +121,7 @@
             :src="item.firstUrl"
             alt=""
             @click="toSearch(item.id, index)"
-            style="cursor:pointer;object-fit: contain"
+            style="cursor: pointer; object-fit: contain"
           />
           <span class="hot_title">{{ item.name }}</span>
           <div class="hot_more_view" @click="toSearch(item.id, index)">
