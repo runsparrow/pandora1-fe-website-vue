@@ -491,9 +491,7 @@ export default {
   }
   .container {
     box-sizing: border-box;
-    margin-left: 103px;
-    margin-right: 106px;
-    width: 1230px;
+    width: 1440px;
     .header_view {
       display: flex;
       flex-direction: column;
@@ -721,7 +719,7 @@ export default {
       }
       .logo_view {
         box-sizing: border-box;
-        height: 500px;
+        height: 400px;
         display: flex;
         color: $color1;
         justify-content: center;
@@ -729,8 +727,8 @@ export default {
         font-size: 17px;
         border: 1px solid $color6;
         .logo_view_img {
-          width: 1230px;
-          height: 500px;
+          width: 1440px;
+          height: 400px;
         }
       }
     }
@@ -746,9 +744,8 @@ export default {
     flex-direction: row;
     .big_img {
       box-sizing: border-box;
-      width: 680px;
+      width: 980px;
       height: 650px;
-      margin-left: 70px;
       margin-right: 15px;
     }
     .nav {

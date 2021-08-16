@@ -368,9 +368,7 @@ export default {
   margin: 0 auto;
   .container {
     box-sizing: border-box;
-    margin-left: 103px;
-    margin-right: 106px;
-    width: 1230px;
+    width: 1440px;
     .header_view {
       display: flex;
       flex-direction: column;
@@ -598,7 +596,7 @@ export default {
       }
       .logo_view {
         box-sizing: border-box;
-        height: 500px;
+        height: 400px;
         display: flex;
         color: $color1;
         justify-content: center;
@@ -606,8 +604,8 @@ export default {
         font-size: 17px;
         border: 1px solid $color6;
         .logo_view_img {
-          width: 1230px;
-          height: 500px;
+          width: 1440px;
+          height: 400px;
         }
       }
     }

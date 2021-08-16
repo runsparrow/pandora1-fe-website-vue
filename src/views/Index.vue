@@ -293,15 +293,15 @@ export default {
 @import '../assets/css/font_size';
 .swiper-container {
   width: 100%;
-  height: 500px;
+  height: 400px;
 }
 .swiper-slide {
   width: 100%;
-  height: 500px;
+  height: 400px;
   background-color: #42b983;
   .logo_view_img {
-    width: 1230px;
-    height: 500px;
+    width: 1440px;
+    height: 400px;
   }
 }
 // .swiper-container {
@@ -321,7 +321,7 @@ export default {
   box-sizing: border-box;
   margin-left: 103px;
   margin-right: 106px;
-  width: 1231px;
+  width: 1440px;
   height: 100%;
   margin: 0 auto;
   .header_view {
