@@ -1514,6 +1514,21 @@ export default {
               const result2 = await mineCMSRowByIdService(this.$store.state.memberId)
               this.$store.commit('setlevelDeadline', result2.row.levelDeadline)
               this.payforImg_show = false
+              this.$Message.success({
+                content: '支付成功!',
+                duration: 3,
+                themes: 'classic',
+                styles: {
+                  fontSize: '14px',
+                  top: '140px'
+                },
+                before() {
+                  console.log('my before hook')
+                },
+                done() {
+                  console.log('my done hook')
+                }
+              })
               clearInterval(this.payTimer)
             }
           })
