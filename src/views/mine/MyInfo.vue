@@ -466,23 +466,15 @@
                   </div>
                 </div>
               </div>
-              <div class="footer_view" v-if="statusValue === 0">
+              <div class="footer_view" v-if="statusValue === undefined || statusValue === 0">
                 <div class="left_view">
-                  <input
-                    type="checkbox"
-                    class="chk_agree"
-                    v-model="checkedAgree"
-                  />已阅读并同意《漫云搜医平台隐私及使用政策》
+                  <input type="checkbox" class="chk_agree" v-model="checkedAgree" />已阅读并同意《平台隐私及使用政策》
                 </div>
                 <div class="right_view" style="cursor: pointer" @click="submitData">提交</div>
               </div>
-              <div class="footer_view">
+              <div class="footer_view" v-if="statusValue !== undefined && statusValue !== 0">
                 <div class="left_view">
-                  <input
-                    type="checkbox"
-                    class="chk_agree"
-                    v-model="checkedAgree"
-                  />已阅读并同意《漫云搜医平台隐私及使用政策》
+                  <input type="checkbox" class="chk_agree" v-model="checkedAgree" />已阅读并同意《平台隐私及使用政策》
                 </div>
                 <div class="right_view" style="cursor: pointer" @click="submitDataUpdate">更新</div>
               </div>
@@ -490,19 +482,30 @@
             <template v-if="inner_tabIndex === 1">
               <div class="title_content_view">
                 <div class="left_view">
-                  <div class="header_logo">头像</div>
-                  <span class="label_user">用户名</span>
-                  <span class="label_jifen">积分:999</span>
+                  <div class="header_logo" v-if="avatarUrl === ''">头像</div>
+                  <div
+                    class="header_logo"
+                    v-else
+                    :style="{
+                      backgroundSize: 'contain',
+                      backgroundImage: 'url(' + avatarUrl + ')',
+                      backgroundRepeat: 'no-repeat'
+                    }"
+                  >
+                    <!-- <img class="header_logo_size" :src="myInfoIndentityModel.entity.applier.avatarUrl" alt="" /> -->
+                  </div>
+                  <!-- <span class="label_user">用户名</span>
+                  <span class="label_jifen">积分:999</span> -->
                   <!-- <div class="career_bg_view">
                     <div class="c_name">Lv.1</div>
                     <div class="c_duty">设计师</div>
                   </div> -->
-                  <img
+                  <!-- <img
                     class="career_bg_view"
                     src="@a/imgs/design_img.png"
                     alt=""
                     srcset="@a/imgs/design_img@2x.png 2x"
-                  />
+                  /> -->
                 </div>
                 <div class="right_view">
                   <div class="row">
@@ -606,7 +609,7 @@
                     type="checkbox"
                     class="chk_agree"
                     v-model="desingCheckedAgree"
-                  />已阅读并同意《漫云搜医平台隐私及使用政策》
+                  />已阅读并同意《平台隐私及使用政策》
                 </div>
                 <div class="right_view" @click="submitDesign">提交</div>
               </div>
@@ -616,7 +619,7 @@
                     type="checkbox"
                     class="chk_agree"
                     v-model="desingCheckedAgree"
-                  />已阅读并同意《漫云搜医平台隐私及使用政策》
+                  />已阅读并同意《平台隐私及使用政策》
                 </div>
                 <div class="right_view" @click="submitDesignUpdate">更新</div>
               </div>
@@ -1718,7 +1721,7 @@ export default {
     },
     async submitDesign() {
       if (!this.desingCheckedAgree) {
-        alert('请勾选已阅读并同意《漫云搜医平台隐私及使用政策》!')
+        alert('请勾选已阅读并同意《平台隐私及使用政策》!')
         return
       }
       if (this.myInfoDesignModel.entity.realName === '') {
@@ -1748,7 +1751,7 @@ export default {
     },
     async submitDesignUpdate() {
       if (!this.desingCheckedAgree) {
-        alert('请勾选已阅读并同意《漫云搜医平台隐私及使用政策》!')
+        alert('请勾选已阅读并同意《平台隐私及使用政策》!')
         return
       }
       if (this.myInfoDesignModel.entity.realName === '') {
@@ -1778,7 +1781,7 @@ export default {
     },
     async submitData() {
       if (!this.checkedAgree) {
-        alert('请勾选已阅读并同意《漫云搜医平台隐私及使用政策》!')
+        alert('请勾选已阅读并同意《平台隐私及使用政策》!')
         return
       }
       if (this.myInfoIndentityModel.entity.identityId === -1) {
@@ -1874,7 +1877,7 @@ export default {
     },
     async submitDataUpdate() {
       if (!this.checkedAgree) {
-        alert('请勾选已阅读并同意《漫云搜医平台隐私及使用政策》!')
+        alert('请勾选已阅读并同意《平台隐私及使用政策》!')
         return
       }
       if (this.myInfoIndentityModel.entity.identityId === -1) {
