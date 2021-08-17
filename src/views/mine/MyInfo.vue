@@ -125,6 +125,8 @@
             :disable-branch-nodes="true"
             :show-count="true"
             :options="treeOptions"
+			placeholder="---请选择---"
+			noResultsText=""
           />
         </div>
         <div class="row">
