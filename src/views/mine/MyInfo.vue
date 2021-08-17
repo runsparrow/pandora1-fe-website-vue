@@ -125,8 +125,8 @@
             :disable-branch-nodes="true"
             :show-count="true"
             :options="treeOptions"
-			placeholder="---请选择---"
-			noResultsText=""
+            placeholder="---请选择---"
+            noResultsText=""
           />
         </div>
         <div class="row">
@@ -978,7 +978,8 @@ import {
   mineCMSRowByIdService,
   mineDelProductService,
   mineUpdateMemberService,
-  mineUpdatePwdService
+  mineUpdatePwdService,
+  getZuoPinValidCountService
 } from '@s/mine-info-service'
 import { gettreelist } from '@l/util'
 import { mutipleAjax } from '@l/axios-interceptor'
@@ -1059,7 +1060,7 @@ export default {
         tags: '',
         desc: '',
         authDesc: '',
-        classifyId: '',
+        classifyId: null,
         classifyName: '',
         navigationId: -1,
         url: '',
@@ -1244,6 +1245,7 @@ export default {
         },
         statusKey: 'cms.authority.open'
       },
+      zuopinValidCount: 0,
       myInfoDesignModel: {
         entity: {
           id: 0,
@@ -1414,6 +1416,7 @@ export default {
     this.loadDownRecordList()
     this.loadCollectRecordList()
     this.loadRechargeRecordList()
+    this.loadZuoPinValidCount()
   },
   unmounted() {
     clearInterval(this.payTimer)
@@ -1423,6 +1426,16 @@ export default {
     ...mapState(['token', 'userName', 'loading', 'vipList', 'avatarUrl', 'navigationsMenus'])
   },
   methods: {
+    async loadZuoPinValidCount() {
+      const { total } = await getZuoPinValidCountService({
+        keyWord: '^memberid=' + this.$store.state.memberId,
+        page: '1^20',
+        date: '',
+        sort: '',
+        status: [1]
+      })
+      this.zuopinValidCount = total
+    },
     picVidoe(url, realPath) {
       if (url !== realPath) {
         this.video_show = true
@@ -2230,6 +2243,10 @@ export default {
       }
     },
     uploadPic() {
+      if (this.zuopinValidCount <= 1) {
+        alert('身份认证和设计师认证必须都通过审核,才能上传作品!')
+        return
+      }
       this.modal_loading = true
     },
     closeModal() {

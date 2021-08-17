@@ -151,3 +151,10 @@ export const mineUpdatePwdService = async payload => {
     data: payload
   })
 }
+export const getZuoPinValidCountService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_CMS_Authority_Query_Page_URL}`,
+    method: 'POST',
+    data: payload
+  })
+}

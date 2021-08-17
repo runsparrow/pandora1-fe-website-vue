@@ -35,6 +35,7 @@ export default {
     MIS_CMS_Member_Row_ById_URL: '/MIS/CMS/Member/Row/ById',
     MIS_CMS_Goods_Update_ToStatus_URL: '/MIS/CMS/Goods/Update/ToStatus',
     MIS_CMS_Member_Update_Single_URL: '/MIS/CMS/Member/Update/Single',
-    MIS_AVM_Auth_ChangePassword_URL: '/MIS/CMS/Auth/ChangePassword'
+    MIS_AVM_Auth_ChangePassword_URL: '/MIS/CMS/Auth/ChangePassword',
+    MIS_CMS_Authority_Query_Page_URL: '/MIS/CMS/Authority/Query/Page'
   }
 }
