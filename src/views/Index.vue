@@ -55,7 +55,7 @@
                 backgroundRepeat: 'no-repeat'
               }"
             ></div>
-            <div ref="popMenuRef" style="width: 100px; text-overflow: ellipsis; overflow: hidden">
+            <div ref="popMenuRef" style="width: 120px; text-overflow: ellipsis; overflow: hidden">
               <span class="username" @click="clickDropdown">{{ userName }}</span>
               <div :class="['popMenu', { activePop: dropdownStatus }]">
                 <div class="item1" style="height: 46px" @click="goto(0)">我的信息</div>
