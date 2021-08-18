@@ -150,6 +150,7 @@
           @click="toDetail(item.id)"
         />
       </div>
+      <pagination :records="records" :per-page="perPage" @paginate="reloadTable" v-model="page" />
     </div>
 
     <div
@@ -200,7 +201,12 @@ export default {
       dropdownStatus: false,
       tableDatas: [],
       keywords: '',
-      sortStr: ''
+      sortStr: '',
+
+      page: 1, //默认第一页
+      perPage: 10, //每页多少条
+      pageNo: 1, //当前页
+      records: 0 //总数
     }
   },
   mounted() {
@@ -259,9 +265,11 @@ export default {
     },
     async reloadTable() {
       let conditionStr = ''
-      const { rows } = await searchListService({
+      this.pageNo = this.page
+      var params = { page: this.pageNo, rows: this.perPage }
+      const { rows, total } = await searchListService({
         keyWord: this.keywords,
-        page: '1^100',
+        page: `${params.page}^${params.rows}`,
         date: '',
         sort: this.sortStr,
         status: [2]
@@ -273,6 +281,7 @@ export default {
         }
       })
       this.tableDatas = rows
+      this.records = total
     },
     clickDropdown() {
       this.dropdownStatus = !this.dropdownStatus
@@ -363,6 +372,10 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/css/colors';
 @import '../assets/css/font_size';
+.VuePagination {
+  margin-top: 20px;
+}
+
 .searchListView {
   box-sizing: border-box;
   margin: 0 auto;

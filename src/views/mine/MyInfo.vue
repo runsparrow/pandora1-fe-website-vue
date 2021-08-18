@@ -1434,7 +1434,6 @@ export default {
         sort: '',
         status: [3]
       })
-      alert(total)
       this.zuopinValidCount = total
     },
     picVidoe(url, realPath) {

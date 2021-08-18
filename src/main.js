@@ -6,6 +6,9 @@ import '@a/css/index.scss'
 import 'swiper/swiper-bundle.css'
 import VueMessage from 'vue-messages'
 
+import Pagination from 'vue-pagination-2'
+Vue.component('pagination', Pagination)
+
 Vue.config.productionTip = false
 Vue.use(VueMessage, {
   content: '',
