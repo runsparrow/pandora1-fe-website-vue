@@ -2076,7 +2076,7 @@ export default {
         this.zuopin_upload_obj.previewurl = '../assets/imgs/play.png'
       } else {
         this.zuopin_upload_obj.url = relativePath
-        m.previewurl = relativePath
+        this.zuopin_upload_obj.previewurl = relativePath
       }
     },
 
