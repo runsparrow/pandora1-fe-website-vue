@@ -2059,7 +2059,7 @@ export default {
       let param = new FormData()
       param.append('file', file)
       const {
-        data: { fileName, relativePath },
+        data: { fileName, relativePath,dpi },
         errorInfo
       } = await uploadFileService(param)
 
@@ -2074,9 +2074,11 @@ export default {
       ) {
         this.zuopin_upload_obj.url = relativePath
         this.zuopin_upload_obj.previewurl = '../assets/imgs/play.png'
+        this.zuopin_upload_obj.dpi=''
       } else {
         this.zuopin_upload_obj.url = relativePath
         this.zuopin_upload_obj.previewurl = relativePath
+         this.zuopin_upload_obj.dpi=dpi
       }
     },
 
