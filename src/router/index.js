@@ -50,7 +50,7 @@ router.beforeEach(async (to, from, next) => {
 
         m.ImgId = Datas.length === 0 ? '' : Datas[0].id
       } else {
-        m.firstUrl = require('../assets/imgs/dingzuo_banner.jpg')
+        m.firstUrl = require('../assets/imgs/index_dingshen_banner.jpg')
       }
     }
   })

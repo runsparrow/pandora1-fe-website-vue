@@ -11,13 +11,7 @@
         <div class="top_view">
           <ul class="list">
             <li class="logo">
-              <img
-                class="logo_img"
-                src="@a/imgs/logo_01.png"
-                alt=""
-                srcset="@a/imgs/logo_01@2x.png 2x"
-                @click="toHome"
-              />
+              <img class="logo_img" src="@a/imgs/logo.png" alt="" srcset="@a/imgs/logo@2x.png 2x" @click="toHome" />
               <span class="logo_title" @click="toHome">Yi.CN</span>
             </li>
             <li class="label" v-for="(item, index) in navigationsMenus" :key="index" @click="toSearch(item.id, index)">

@@ -5,13 +5,7 @@
         <div class="top_view">
           <ul class="list">
             <li class="logo">
-              <img
-                class="logo_img"
-                src="@a/imgs/logo_01.png"
-                alt=""
-                srcset="@a/imgs/logo_01@2x.png 2x"
-                @click="toHome"
-              />
+              <img class="logo_img" src="@a/imgs/logo.png" alt="" srcset="@a/imgs/logo@2x.png 2x" @click="toHome" />
               <span class="logo_title" @click="toHome">T-pic</span>
             </li>
 
@@ -68,7 +62,7 @@
             </li>
           </ul>
         </div>
-        <div v-if="navigationId !== 37" class="logo_view">
+        <div class="logo_view">
           <img
             class="logo_view_img"
             v-if="imgIndex == 0"
@@ -87,6 +81,13 @@
             class="logo_view_img"
             v-if="imgIndex == 2"
             src="@a/imgs/shengsheng_banner.png"
+            alt=""
+            style="object-fit: cover"
+          />
+          <img
+            class="logo_view_img"
+            v-if="imgIndex == 3"
+            src="@a/imgs/dingshen_banner.jpg"
             alt=""
             style="object-fit: cover"
           />
@@ -168,7 +169,7 @@
       </div>
       <div class="b_right_view">
         <div class="line1">
-          <img class="logo_img" src="@a/imgs/logo_01.png" alt="" srcset="@a/imgs/logo_01@2x.png 2x" />
+          <img class="logo_img" src="@a/imgs/logo.png" alt="" srcset="@a/imgs/logo@2x.png 2x" />
           <img class="service_img" src="@a/imgs/service_img.png" alt="" srcset="@a/imgs/service_img@2x.png 2x" />
         </div>
         <div class="line2">
@@ -626,8 +627,6 @@ export default {
   .bottom_view {
     box-sizing: border-box;
     margin-top: 29px;
-    margin-left: 17px;
-    margin-right: 14px;
     height: 1080px;
     display: flex;
     flex-direction: row;

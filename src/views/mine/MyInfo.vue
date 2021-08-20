@@ -175,7 +175,7 @@
       <div class="top_view">
         <ul class="list">
           <li class="logo">
-            <img class="logo_img" src="@a/imgs/logo_01.png" alt="" srcset="@a/imgs/logo_01@2x.png 2x" @click="toHome" />
+            <img class="logo_img" src="@a/imgs/logo.png" alt="" srcset="@a/imgs/logo@2x.png 2x" @click="toHome" />
             <span class="logo_title" @click="toHome">T-pic</span>
           </li>
           <li class="label" v-for="(item, index) in navigationsMenus" :key="index" @click="toSearch(item.id, index)">
@@ -256,7 +256,7 @@
           </div>
           <div class="b_right_view">
             <div class="line1">
-              <img class="logo_img" src="@a/imgs/logo_01.png" alt="" srcset="@a/imgs/logo_01@2x.png 2x" />
+              <img class="logo_img" src="@a/imgs/logo.png" alt="" srcset="@a/imgs/logo@2x.png 2x" />
               <img class="service_img" src="@a/imgs/service_img.png" alt="" srcset="@a/imgs/service_img@2x.png 2x" />
             </div>
             <div class="line2">
@@ -2059,7 +2059,7 @@ export default {
       let param = new FormData()
       param.append('file', file)
       const {
-        data: { fileName, relativePath,dpi },
+        data: { fileName, relativePath, dpi },
         errorInfo
       } = await uploadFileService(param)
 
@@ -2074,11 +2074,11 @@ export default {
       ) {
         this.zuopin_upload_obj.url = relativePath
         this.zuopin_upload_obj.previewurl = '../assets/imgs/play.png'
-        this.zuopin_upload_obj.dpi=''
+        this.zuopin_upload_obj.dpi = ''
       } else {
         this.zuopin_upload_obj.url = relativePath
         this.zuopin_upload_obj.previewurl = relativePath
-         this.zuopin_upload_obj.dpi=dpi
+        this.zuopin_upload_obj.dpi = dpi
       }
     },
 
