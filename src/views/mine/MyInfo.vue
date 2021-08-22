@@ -240,12 +240,12 @@
             <span class="label">用户名</span>
             <span class="label_id">ID：{{ userName }}</span>
             <div class="img_row">
-              <span class="value">1</span>
-              <img class="huanguan_img" src="@a/imgs/huang_guan.png" alt="" srcset="@a/imgs/huang_guan@2x.png 2x" />
+              <span class="value" v-if="vip">VIP</span>
+              <!-- <img class="huanguan_img" src="@a/imgs/huang_guan.png" alt="" srcset="@a/imgs/huang_guan@2x.png 2x" />
               <span class="value">1</span>
               <img class="person_img" src="@a/imgs/person.png" alt="" srcset="@a/imgs/person@2x.png 2x" />
               <span class="value">5</span>
-              <img class="doctor_img" src="@a/imgs/doctor.png" alt="" srcset="@a/imgs/doctor@2x.png 2x" />
+              <img class="doctor_img" src="@a/imgs/doctor.png" alt="" srcset="@a/imgs/doctor@2x.png 2x" /> -->
             </div>
           </div>
         </div>
@@ -303,13 +303,13 @@
                     <!-- <img class="header_logo_size" :src="myInfoIndentityModel.entity.applier.avatarUrl" alt="" /> -->
                   </div>
 
-                  <span class="label_user">用户名</span>
+                  <!-- <span class="label_user">用户名</span>
                   <span class="label_jifen">积分:999</span>
                   <div class="career_bg_view">
                     <div class="c_name">医生</div>
                     <div class="c_duty">护士</div>
                     <div class="c_duty">医院行政部门</div>
-                  </div>
+                  </div> -->
                 </div>
                 <div class="right_view">
                   <div class="row">
@@ -995,6 +995,7 @@ export default {
   },
   data() {
     return {
+      vip: false,
       searchKeyword: '',
       payTimer: null,
       payforImg_show: false,
@@ -1385,7 +1386,7 @@ export default {
       }
     }
   },
-  mounted() {
+  async mounted() {
     this.outer_tabIndex = parseInt(this.$route.query.index)
     if (this.outer_tabIndex === 0) {
       this.inner_tabIndex = 0
@@ -1398,6 +1399,14 @@ export default {
     }
     if (this.outer_tabIndex === 2 && parseInt(this.$route.query.inner_index) === 2) {
       this.inner_voucher_tabIndex = 2
+    }
+    const {
+      row: { level }
+    } = await mineCMSRowByIdService(this.$store.state.memberId)
+    if (level === 1) {
+      this.vip = true
+    } else {
+      this.vip = false
     }
     document.addEventListener('click', e => {
       if (this.$refs.popMenuRef) {
@@ -1514,9 +1523,9 @@ export default {
       ajaxPay({
         // 用axios发送post请求
         method: 'post',
-        url: `${CONFIG.API_URLS.PAY_FOR_MEMBER_URL}?amount=${amount}&content=开通会员&taocanId=${parseInt(
-          this.payIndex
-        ) + 1}`, // 请求地址
+        url: `${CONFIG.API_URLS.PAY_FOR_MEMBER_URL}?amount=${amount}&content=开通会员&taocanId=${
+          parseInt(this.payIndex) + 1
+        }`, // 请求地址
         responseType: 'blob' // 表明返回服务器返回的数据类型
       }).then(res => {
         let url = window.URL.createObjectURL(res)
@@ -1718,10 +1727,11 @@ export default {
         this.myInfoIndentityModel.entity.certificateNo = myInfo.certificateNo
         this.myInfoIndentityModel.entity.certificateUrl = myInfo.certificateUrl
       }
-      let { result: myInfoDesignResult, row: designRow, designMessage } = await getMyInfoByIdService(
-        this.$store.state.memberId,
-        1
-      )
+      let {
+        result: myInfoDesignResult,
+        row: designRow,
+        designMessage
+      } = await getMyInfoByIdService(this.$store.state.memberId, 1)
       if (myInfoDesignResult) {
         this.desingCheckedAgree = true
         this.myInfoDesignModel.entity.id = designRow.id
@@ -2259,6 +2269,7 @@ export default {
     },
     closePersonInfoModal() {
       this.person_info_show = false
+      this.person_pwd_info_show = false
     },
     closePicwModal() {
       this.pic_show = false

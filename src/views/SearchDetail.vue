@@ -119,7 +119,10 @@
         <span class="spec">大小 | </span> -->
         <div class="btn_view">
           <!-- <div class="buy_vip" @click="applyVIP">立即开通VIP</div> -->
-          <div class="collect" v-if="token !== ''">收藏</div>
+          <div class="collect" v-if="token !== '' && !collected" @click="collectPic">收藏</div>
+          <div class="collect" v-if="token !== '' && collected" style="width: 73px" @click="cancelCollectPic">
+            取消收藏
+          </div>
           <div class="collect" @click="downloadFile">下载</div>
         </div>
         <!-- <div class="line"></div> -->
@@ -143,7 +146,12 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import { getDetailByIdService } from '@s/detail-service'
+import {
+  getDetailByIdService,
+  createCollectionService,
+  getCollectionByGoodsIdService,
+  cancelCollectionByIdService
+} from '@s/detail-service'
 import ajaxFile from '@l/ajax-file-interceptor'
 import ajaxRequest from '@l/ajax-service'
 import CONFIG from '@/config/config'
@@ -155,10 +163,12 @@ export default {
   data() {
     return {
       dropdownStatus: false,
+      collected: false,
       detail: {},
       searchKeyword: '',
       video_show: false,
-      videoUrl: ''
+      videoUrl: '',
+      collectionId: ''
     }
   },
   async mounted() {
@@ -167,6 +177,16 @@ export default {
       if (!detailObj.row.isImage) {
         detailObj.row.fullUrl = '../assets/imgs/play.png'
       }
+      if (this.$store.state.token !== '') {
+        const { result, rows } = await getCollectionByGoodsIdService(this.$route.params.id)
+        if (rows.length === 0) {
+          this.collected = false
+        } else {
+          this.collectionId = rows[0].id
+          this.collected = result
+        }
+      }
+
       this.detail = detailObj.row
     }
     document.addEventListener('click', e => {
@@ -191,6 +211,35 @@ export default {
     },
     closeVidowModal() {
       this.video_show = false
+    },
+    async collectPic() {
+      const parmas = {
+        id: 0,
+        memberId: this.$store.state.memberId,
+        memberName: this.$store.state.userName,
+        goodsId: this.detail.id,
+        goodsName: this.detail.name,
+        goodsUrl: this.detail.url
+      }
+      const { result } = await createCollectionService(parmas)
+      if (result) {
+        const {result:CollectResult,rows} = await getCollectionByGoodsIdService(this.$route.params.id)
+        this.collected = CollectResult
+        this.collectionId=rows[0].id
+        alert('收藏成功!')
+      }
+    },
+    async cancelCollectPic() {
+      const parmas = {
+        id: this.collectionId
+      }
+      const { result } = await cancelCollectionByIdService(parmas)
+      if (result) {
+        const { result: CollectResult } = await getCollectionByGoodsIdService(this.$route.params.id)
+        this.collected = false
+        this.collectionId = ''
+        alert('取消收藏成功!')
+      }
     },
     playVidoe() {
       if (this.detail.fullUrl.indexOf('play') !== -1) {

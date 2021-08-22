@@ -36,6 +36,9 @@ export default {
     MIS_CMS_Goods_Update_ToStatus_URL: '/MIS/CMS/Goods/Update/ToStatus',
     MIS_CMS_Member_Update_Single_URL: '/MIS/CMS/Member/Update/Single',
     MIS_AVM_Auth_ChangePassword_URL: '/MIS/CMS/Auth/ChangePassword',
-    MIS_CMS_Authority_Query_Page_URL: '/MIS/CMS/Authority/Query/Page'
+    MIS_CMS_Authority_Query_Page_URL: '/MIS/CMS/Authority/Query/Page',
+    MIS_CMS_Collect_Create_Single_URL: '/MIS/CMS/Collect/Create/Single',
+    MIS_CMS_Collect_Rows_ByGoodsId_URL: '/MIS/CMS/Collect/Rows/ByGoodsId',
+    MIS_CMS_Collect_Delete_Single_URL: '/MIS/CMS/Collect/Delete/Single'
   }
 }
