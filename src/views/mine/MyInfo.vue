@@ -747,10 +747,10 @@
                     <div class="delBtn" @click="delZuopin(item)">删除</div>
                   </span>
                 </div>
-                <div class="label_row">
+                <!-- <div class="label_row">
                   请仔细阅读
                   <div class="btn">上传必读</div>
-                </div>
+                </div> -->
               </div>
             </template>
           </div>
@@ -2213,7 +2213,7 @@ export default {
     },
     async searchByKeyword() {
       this.$store.commit('setKeyWords', this.searchKeyword)
-      this.$router.push('search')
+      window.location='/search'
     },
     async loadHostpitalsByDivision(code) {
       const request = {
