@@ -847,7 +847,7 @@
                     <span class="vip_level">普通VIP</span>
                   </div>
                   <div class="item_right">
-                    <span class="xieyi_label">VIP会员服务协议</span>
+                    <!-- <span class="xieyi_label">VIP会员服务协议</span> -->
                     <div class="btn_fapiao">我的发票</div>
                   </div>
                 </div>

@@ -17,6 +17,16 @@
       </div>
     </div>
     <div class="main">
+      <img class="close_img" :src="require('@a/imgs/close.png')" alt="" @click="closeModal" v-show="modalShow" />
+      <private-policy :show="modalShow" style="margin-top: -30px;" />
+      <img
+        class="close_img"
+        :src="require('@a/imgs/close.png')"
+        alt=""
+        @click="closeUserModal"
+        v-show="modalUserShow"
+      />
+      <user-policy :show="modalUserShow" style="margin-top: -30px;" />
       <div class="form_view">
         <div class="title_view">
           <div
@@ -222,9 +232,9 @@
                   srcset="@a/imgs/accept_content@2x.png 2x"
                 />
                 <span class="line_normal" @click="accept_checked = !accept_checked">同意</span>
-                <span class="line_important">用户协议</span>
+                <span class="line_important" @click="openUserModalShow">用户协议</span>
                 <span class="line_normal">与</span>
-                <span class="line_important">隐私政策</span>
+                <span class="line_important" @click="openModalShow">隐私政策</span>
               </div>
               <span v-if="!accept_checked && register_show < 2" class="accept_error_msg"
                 >请阅读后点击同意以完成注册</span
@@ -333,6 +343,8 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
+import PrivatePolicy from '@c/PrivatePolicy.vue'
+import UserPolicy from '@/components/UserPolicy.vue'
 import {
   getUserInfoService,
   getUserCodeService,
@@ -346,6 +358,8 @@ export default {
   name: 'LoginView',
   data() {
     return {
+      modalShow: false,
+      modalUserShow: false,
       accountName: '',
       accountNameErrorMsg: '手机号不能为空',
       accountNameInValid: false,
@@ -380,6 +394,7 @@ export default {
     ...mapState(['token', 'code', 'activeTab', 'navigationsMenus']),
     ...mapGetters(['version'])
   },
+  components: { PrivatePolicy, UserPolicy },
   mounted() {
     document.addEventListener('keyup', e => {
       if (this.$refs.loginRef) {
@@ -396,6 +411,18 @@ export default {
     ...mapMutations(['setUserInfoMutation']),
     toHome() {
       this.$router.push('/home')
+    },
+    closeModal() {
+      this.modalShow = false
+    },
+    closeUserModal() {
+      this.modalUserShow = false
+    },
+    openModalShow() {
+      this.modalShow = true
+    },
+    openUserModalShow() {
+      this.modalUserShow = true
     },
     toForgotPage() {
       this.$router.replace('/forgot')
@@ -706,6 +733,7 @@ export default {
 .loginContainer {
   box-sizing: border-box;
   height: 100%;
+  position: relative;
   .container {
     box-sizing: border-box;
     padding-left: 164px;
@@ -773,6 +801,7 @@ export default {
     }
   }
   .main {
+    position: relative;
     margin: 0 auto;
     /* border: 1px solid blue; */
     background: rgba(72, 72, 72, 0.5);
@@ -781,6 +810,15 @@ export default {
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+    .close_img {
+      width: 64px;
+      height: 64px;
+      position: absolute;
+      cursor: pointer;
+      z-index: 100;
+      top: 120px;
+      right: 330px;
+    }
     .form_view {
       width: 363px;
       box-sizing: border-box;
@@ -1012,6 +1050,7 @@ export default {
           .line_important {
             color: $color4;
             font-size: 16px;
+            cursor: pointer;
           }
         }
         .accept_error_msg {
