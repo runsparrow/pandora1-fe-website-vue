@@ -631,7 +631,6 @@ export default {
           name: that.accountName,
           password: that.accountPwd
         })
-
         if (result) {
           this.btnLoginLabel = '登录'
           that.accountNameInValid = false
@@ -643,7 +642,12 @@ export default {
             memberId: member?.memberId,
             token: token,
             expires: new Date(dateTime).getTime(),
-            levelDeadline: ''
+            levelDeadline: '',
+            avatarUrl:
+              member.avatarUrl === ''
+                ? require('@/assets/imgs/default_header_log.png')
+                : process.env.VUE_APP_FE_FILE_URL + member.avatarUrl,
+            level: member.level
           })
           const result2 = await mineCMSRowByIdService(member.memberId)
 
@@ -653,7 +657,11 @@ export default {
             token: token,
             expires: new Date(dateTime).getTime(),
             levelDeadline: result2.row.levelDeadline,
-            avatarUrl: process.env.VUE_APP_FE_FILE_URL + member?.avatarUrl
+            avatarUrl:
+              member.avatarUrl === ''
+                ? require('@/assets/imgs/default_header_log.png')
+                : process.env.VUE_APP_FE_FILE_URL + member.avatarUrl,
+            level: member.level
           })
           that.timer = setInterval(() => {
             that.seconds -= 1
@@ -742,6 +750,7 @@ export default {
             font-size: 16px;
             margin-top: 20px;
             margin-left: 65px;
+            cursor: pointer;
           }
           .seperator {
             position: relative;

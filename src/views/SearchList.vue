@@ -9,7 +9,12 @@
               <span class="logo_title" @click="toHome">T-pic</span>
             </li>
 
-            <li class="label" v-for="(item, index) in navigationsMenus" :key="index" @click="toSearch(item.id, index)">
+            <li
+              :class="['label', { active: index === imgIndex }]"
+              v-for="(item, index) in navigationsMenus"
+              :key="index"
+              @click="toSearch(item.id, index)"
+            >
               {{ item.name }}
             </li>
 
@@ -424,6 +429,11 @@ export default {
             font-size: 16px;
             margin-top: 20px;
             cursor: pointer;
+            padding-bottom: 5px;
+            &.active {
+              border-bottom: 2px solid blue;
+              color: blue;
+            }
           }
           .seperator {
             position: relative;

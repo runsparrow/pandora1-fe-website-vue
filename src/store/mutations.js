@@ -6,6 +6,7 @@ export default {
     state.expires = payload.expires
     state.avatarUrl = payload.avatarUrl
     state.levelDeadline = payload.levelDeadline
+    state.level = payload.level
   },
   setActiveTab(state, payload) {
     state.activeTab = payload

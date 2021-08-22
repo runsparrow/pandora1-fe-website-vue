@@ -236,11 +236,11 @@
           <div class="top_header_view" v-else>
             <img class="top_header_view_avatarUrl" :src="avatarUrl" alt="" />
           </div>
-          <div class="right_c">
+          <div class="right_c" >
             <span class="label">用户名</span>
             <span class="label_id">ID：{{ userName }}</span>
             <div class="img_row">
-              <span class="value" v-if="vip">VIP</span>
+              <img class="value" src="@a/imgs/vip.png" style="width: 60px;height: 60px;margin-top: -20px;" v-if="level"></img>
               <!-- <img class="huanguan_img" src="@a/imgs/huang_guan.png" alt="" srcset="@a/imgs/huang_guan@2x.png 2x" />
               <span class="value">1</span>
               <img class="person_img" src="@a/imgs/person.png" alt="" srcset="@a/imgs/person@2x.png 2x" />
@@ -1432,7 +1432,7 @@ export default {
     document.removeEventListener('click')
   },
   computed: {
-    ...mapState(['token', 'userName', 'loading', 'vipList', 'avatarUrl', 'navigationsMenus'])
+    ...mapState(['token', 'userName', 'loading', 'vipList', 'avatarUrl', 'navigationsMenus', 'level'])
   },
   methods: {
     async loadZuoPinValidCount() {

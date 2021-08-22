@@ -11,5 +11,6 @@ export default {
   navigationId: -1,
   navigationsMenus: [],
   imgIndex: -1,
-  loading: false
+  loading: false,
+  level: -1
 }

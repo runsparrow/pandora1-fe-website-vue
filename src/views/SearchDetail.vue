@@ -14,7 +14,12 @@
               <img class="logo_img" src="@a/imgs/logo.png" alt="" srcset="@a/imgs/logo@2x.png 2x" @click="toHome" />
               <span class="logo_title" @click="toHome">Yi.CN</span>
             </li>
-            <li class="label" v-for="(item, index) in navigationsMenus" :key="index" @click="toSearch(item.id, index)">
+            <li
+              :class="['label', { active: index === imgIndex }]"
+              v-for="(item, index) in navigationsMenus"
+              :key="index"
+              @click="toSearch(item.id, index)"
+            >
               {{ item.name }}
             </li>
             <li class="seperator"></li>
@@ -158,7 +163,7 @@ import CONFIG from '@/config/config'
 export default {
   name: 'ProductDetail',
   computed: {
-    ...mapState(['token', 'userName', 'navigationsMenus', 'avatarUrl', 'imgIndex'])
+    ...mapState(['token', 'userName', 'navigationsMenus', 'avatarUrl', 'imgIndex', 'level'])
   },
   data() {
     return {
@@ -223,9 +228,9 @@ export default {
       }
       const { result } = await createCollectionService(parmas)
       if (result) {
-        const {result:CollectResult,rows} = await getCollectionByGoodsIdService(this.$route.params.id)
+        const { result: CollectResult, rows } = await getCollectionByGoodsIdService(this.$route.params.id)
         this.collected = CollectResult
-        this.collectionId=rows[0].id
+        this.collectionId = rows[0].id
         alert('收藏成功!')
       }
     },
@@ -248,6 +253,10 @@ export default {
       }
     },
     downloadFile() {
+      if (this.$store.state.level !== 1) {
+        alert('必须是会员才能下载')
+        return
+      }
       if (!this.$store.state.token) {
         this.$router.push({
           path: '/Login',
@@ -576,6 +585,11 @@ export default {
             font-size: 16px;
             margin-top: 20px;
             cursor: pointer;
+            padding-bottom: 5px;
+            &.active {
+              border-bottom: 2px solid blue;
+              color: blue;
+            }
           }
           .seperator {
             position: relative;
