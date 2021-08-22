@@ -19,48 +19,30 @@ const router = new VueRouter({
 router.beforeEach(async (to, from, next) => {
   const { token } = $store.state
 
-  // if ($store.state.navigationsMenus.length === 0) {
-  let { rows: rowDatas } = await getNavigationMenusService(10)
-  let titles = rowDatas.filter(f => f.name !== '首页')
-  titles.forEach(async m => {
-    if (m.name !== '首页') {
-      const { rows: Datas } = await searchListService({
-        keyWord: `^navigationId=${m.id}`,
-        page: '1^100',
-        date: '',
-        sort: '',
-        status: [2]
-      })
-      if (Datas.length > 0) {
-        m.firstItem = Datas[0]
-
-        if (
-          m.firstItem.fullUrl.indexOf('mp4') !== -1 ||
-          m.firstItem.fullUrl.indexOf('mkv') !== -1 ||
-          m.firstItem.fullUrl.indexOf('mov') !== -1 ||
-          m.firstItem.fullUrl.indexOf('m4v') !== -1 ||
-          m.firstItem.fullUrl.indexOf('wmv') !== -1 ||
-          m.firstItem.fullUrl.indexOf('avi') !== -1 ||
-          m.firstItem.fullUrl.indexOf('flv') !== -1
-        ) {
-          m.firstUrl = '../assets/imgs/play.png'
-        } else {
-          m.firstUrl = Datas.length === 0 ? '' : Datas[0].fullUrl
-        }
-
-        m.ImgId = Datas.length === 0 ? '' : Datas[0].id
-      } else {
+  if ($store.state.navigationsMenus.length === 0) {
+    let { rows: rowDatas } = await getNavigationMenusService(10)
+    let titles = rowDatas.filter(f => f.name !== '首页')
+    titles.forEach(async (m, index) => {
+      if (index === 0) {
+        m.firstUrl = process.env.VUE_APP_FE_FILE_URL + '/uploadFiles/video/2021/08/06/妙手丹青.jpg'
+      }
+      if (index === 1) {
+        m.firstUrl = process.env.VUE_APP_FE_FILE_URL + '/uploadFiles/video/2021/08/06/万千组合.jpg'
+      }
+      if (index === 2) {
+        m.firstUrl = process.env.VUE_APP_FE_FILE_URL + '/uploadFiles/video/2021/08/06/生生不息.gif'
+      }
+      if (index === 3) {
         m.firstUrl = require('../assets/imgs/index_dingshen_banner.jpg')
       }
-    }
-  })
-  setTimeout(() => {
-    $store.commit(
-      'setNavigationMenus',
-      titles.filter(f => f.name !== '视频动画')
-    )
-  }, 1000)
-  // }
+    })
+    setTimeout(() => {
+      $store.commit(
+        'setNavigationMenus',
+        titles.filter(f => f.name !== '视频动画')
+      )
+    }, 1000)
+  }
   let { rows } = await getVIPListService({
     keyWord: '',
     page: '1^20',
