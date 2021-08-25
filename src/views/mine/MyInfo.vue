@@ -240,7 +240,7 @@
             <span class="label">用户名</span>
             <span class="label_id">ID：{{ userName }}</span>
             <div class="img_row">
-              <img class="value" src="@a/imgs/vip.png" style="width: 60px;height: 60px;margin-top: -20px;" v-if="level"></img>
+              <img class="value" src="@a/imgs/vip.png" style="width: 50px;height: 20px;" v-if="level"></img>
               <!-- <img class="huanguan_img" src="@a/imgs/huang_guan.png" alt="" srcset="@a/imgs/huang_guan@2x.png 2x" />
               <span class="value">1</span>
               <img class="person_img" src="@a/imgs/person.png" alt="" srcset="@a/imgs/person@2x.png 2x" />
@@ -264,8 +264,8 @@
               <span class="label_02">周一到周日：9:00-21:00</span>
             </div>
             <div class="line3">
-              <span class="label_01">扫码关注公众号</span>
-              <span class="label_02">与在线客户直接沟通</span>
+              <!-- <span class="label_01">关注公众号</span> -->
+              <span class="label_02">扫码与在线客户直接沟通</span>
             </div>
           </div>
         </div>
