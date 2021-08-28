@@ -796,6 +796,8 @@
                     <span class="label">《{{ item.goodsName }}》</span>
                   </span>
                 </div>
+                 <pagination :records="downRecordsRecords" :per-page="downRecordsperPage" @paginate="loadDownRecordList" v-model="downloadpage" />
+
               </div>
             </template>
             <template v-if="inner_voucher_tabIndex === 1">
@@ -817,6 +819,7 @@
                     <span class="label">《{{ item.goodsName }}》</span>
                   </span>
                 </div>
+                 <pagination :records="collectRecordsRecords" :per-page="collectRecordsperPage" @paginate="loadcollectRecordList" v-model="collectloadpage" />
               </div>
               <!-- <div class="title_content_view">
                 <div class="table_header">
@@ -995,6 +998,17 @@ export default {
   },
   data() {
     return {
+      downloadpage: 1, //默认第一页
+      downRecordsperPage: 8, //每页多少条
+      downloadpageNo: 1, //当前页
+      downRecordsRecords: 0, //总数
+
+      collectloadpage: 1, //默认第一页
+      collectRecordsperPage: 8, //每页多少条
+      collectloadpageNo: 1, //当前页
+      collectRecordsRecords: 0, //总数
+
+
       vip: false,
       searchKeyword: '',
       payTimer: null,
@@ -1563,13 +1577,14 @@ export default {
       })
     },
     async loadDownRecordList() {
-      const { rows, result } = await mineDownRecoredsService({
+      const { rows,total, result } = await mineDownRecoredsService({
         keyWord: '^memberId=' + this.$store.state.memberId,
-        page: '1^100',
+        page: `${this.downloadpage}^${this.downRecordsperPage}`,
         date: '',
         sort: '',
         status: [1]
       })
+      this.downRecordsRecords=total
       this.$nextTick(() => {
         rows.forEach(m => {
           m.goodsUrl = process.env.VUE_APP_FE_FILE_URL + m.goodsUrl
@@ -1618,9 +1633,9 @@ export default {
       }
     },
     async loadCollectRecordList() {
-      const { rows, result } = await mineCollectRecoredsService({
+      const { rows, result,total } = await mineCollectRecoredsService({
         keyWord: '^memberId=' + this.$store.state.memberId,
-        page: '1^100',
+        page: `${this.collectloadpage}^${this.collectRecordsperPage}`,
         date: '',
         sort: '',
         status: [1]
@@ -1630,6 +1645,7 @@ export default {
         m.goodsUrl = process.env.VUE_APP_FE_FILE_URL + m.goodsUrl
       })
       this.collectRecords = rows
+      this.collectRecordsRecords=total
     },
     async loadRechargeRecordList() {
       const { rows, result } = await mineRechargeRecoredsService({
@@ -2350,6 +2366,11 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/css/colors';
 @import '../../assets/css/font_size';
+
+.VuePagination
+{
+  margin-top: 10px;
+}
 .container {
   box-sizing: border-box;
   margin-left: 103px;
