@@ -149,7 +149,8 @@
 
                 <input
                   class="form_input_pwd"
-                  maxlength="20"
+                  minlength="6"
+                  maxlength="10"
                   type="password"
                   placeholder="请输入新密码"
                   v-model.trim="accountRegPwd"
@@ -176,7 +177,8 @@
                 <input
                   class="form_input_pwd"
                   style="margin-top: 0"
-                  maxlength="20"
+                  minlength="6"
+                  maxlength="10"
                   type="password"
                   placeholder="请再次输入密码"
                   v-model.trim="accountRegConfirmPwd"
