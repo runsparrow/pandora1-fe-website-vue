@@ -1,5 +1,5 @@
 <template>
-  <div class="modal" v-show="show">
+  <div class="modal2" v-show="show">
     <p style="text-align:center">用户协议</p>
     <p>更新日期 2021年 9月 1 日</p>
     <p>生效日期 2021年 9月 1日</p>
@@ -413,7 +413,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal {
+.modal2 {
   width: 720px;
   height: 600px;
   box-sizing: border-box;

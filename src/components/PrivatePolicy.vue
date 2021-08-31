@@ -1,5 +1,5 @@
 <template>
-  <div class="modal" v-show="show">
+  <div class="modal2" v-show="show">
     <p style="text-align:center">
       <span style="font-family:&#39;微软雅黑&#39;,sans-serif">隐私政策</span>
     </p>
@@ -551,7 +551,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal {
+.modal2 {
   width: 720px;
   height: 600px;
   box-sizing: border-box;
