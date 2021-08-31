@@ -1694,7 +1694,7 @@ export default {
         page: '1^100',
         date: '',
         sort: '',
-        status: [1, 2]
+        status: [1, 2,-2]
       })
       if (result) {
         this.myZuoPinArr = rows
