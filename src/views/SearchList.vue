@@ -49,7 +49,7 @@
                 class="login_header_logo"
                 v-else
                 :style="{
-                  backgroundSize: 'contain',
+                  backgroundSize: 'cover',
                   backgroundImage: 'url(' + avatarUrl + ')',
                   backgroundRepeat: 'no-repeat'
                 }"
@@ -163,7 +163,7 @@
       v-if="navigationId === 37"
       class="bottom_view"
       :style="{
-        backgroundSize: 'contain',
+        backgroundSize: 'cover',
         backgroundImage: 'url(' + contactPng + ')',
         backgroundRepeat: 'no-repeat'
       }"

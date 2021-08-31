@@ -41,7 +41,7 @@
               class="login_header_logo"
               v-if="avatarUrl === ''"
               :style="{
-                backgroundSize: 'contain',
+                backgroundSize: 'cover',
                 backgroundImage: 'url(' + avatarUrlTtemp + ')',
                 backgroundRepeat: 'no-repeat'
               }"
@@ -50,7 +50,7 @@
               class="login_header_logo"
               v-else
               :style="{
-                backgroundSize: 'contain',
+                backgroundSize: 'cover',
                 backgroundImage: 'url(' + avatarUrl + ')',
                 backgroundRepeat: 'no-repeat'
               }"

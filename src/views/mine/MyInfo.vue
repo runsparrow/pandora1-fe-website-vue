@@ -30,7 +30,7 @@
               v-if="mine_person_info.avatarUrl === ''"
               @click="toTouchHeaderLogoUploadFile"
               :style="{
-                backgroundSize: 'contain',
+                backgroundSize: 'cover',
                 backgroundImage: 'url(' + mine_person_info.avatarUrl + ')',
                 backgroundRepeat: 'no-repeat'
               }"
@@ -40,7 +40,7 @@
               v-else
               @click="toTouchHeaderLogoUploadFile"
               :style="{
-                backgroundSize: 'contain',
+                backgroundSize: 'cover',
                 backgroundImage: 'url(' + mine_person_info.avatarUrl + ')',
                 backgroundRepeat: 'no-repeat'
               }"
@@ -150,7 +150,7 @@
             class="img_item"
             @click="toTouchUploadZuoPinPic"
             :style="{
-              backgroundSize: 'contain',
+              backgroundSize: 'cover',
               backgroundImage: 'url(' + zuopin_upload_obj.previewurl + ')',
               backgroundRepeat: 'no-repeat'
             }"
@@ -212,7 +212,7 @@
               class="login_header_logo"
               v-else
               :style="{
-                backgroundSize: 'contain',
+                backgroundSize: 'cover',
                 backgroundImage: 'url(' + avatarUrl + ')',
                 backgroundRepeat: 'no-repeat'
               }"
@@ -307,7 +307,7 @@
                     class="header_logo"
                     v-else
                     :style="{
-                      backgroundSize: 'contain',
+                      backgroundSize: 'cover',
                       backgroundImage: 'url(' + avatarUrl + ')',
                       backgroundRepeat: 'no-repeat'
                     }"
@@ -414,7 +414,7 @@
                           class="img_item"
                           @click="toTouchUploadFile"
                           :style="{
-                            backgroundSize: 'contain',
+                            backgroundSize: 'cover',
                             backgroundImage: 'url(' + myInfoIndentityModel.entity.certificateUrl + ')',
                             backgroundRepeat: 'no-repeat'
                           }"
@@ -450,7 +450,7 @@
                           class="img_item"
                           @click="toTouchGongPaiUploadFile"
                           :style="{
-                            backgroundSize: 'contain',
+                            backgroundSize: 'cover',
                             backgroundImage: 'url(' + myInfoIndentityModel.entity.jobUrl + ')',
                             backgroundRepeat: 'no-repeat'
                           }"
@@ -501,7 +501,7 @@
                     class="header_logo"
                     v-else
                     :style="{
-                      backgroundSize: 'contain',
+                      backgroundSize: 'cover',
                       backgroundImage: 'url(' + avatarUrl + ')',
                       backgroundRepeat: 'no-repeat'
                     }"
@@ -567,7 +567,7 @@
                         <div
                           class="img_item"
                           :style="{
-                            backgroundSize: 'contain',
+                            backgroundSize: 'cover',
                             backgroundImage: 'url(' + myInfoDesignModel.entity.idCardFUrl + ')',
                             backgroundRepeat: 'no-repeat'
                           }"
@@ -591,7 +591,7 @@
                         <div
                           class="img_item"
                           :style="{
-                            backgroundSize: 'contain',
+                            backgroundSize: 'cover',
                             backgroundImage: 'url(' + myInfoDesignModel.entity.idCardBUrl + ')',
                             backgroundRepeat: 'no-repeat'
                           }"

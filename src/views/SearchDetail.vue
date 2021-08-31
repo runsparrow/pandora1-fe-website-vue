@@ -53,7 +53,7 @@
                 class="login_header_logo"
                 v-else
                 :style="{
-                  backgroundSize: 'contain',
+                  backgroundSize: 'cover',
                   backgroundImage: 'url(' + avatarUrl + ')',
                   backgroundRepeat: 'no-repeat'
                 }"
