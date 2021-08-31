@@ -470,13 +470,13 @@
               </div>
               <div class="footer_view" v-if="statusValue === undefined || statusValue === 0">
                 <div class="left_view">
-                  <input type="checkbox" class="chk_agree" v-model="checkedAgree" />已阅读并同意《平台隐私及使用政策》
+                  <input type="checkbox" class="chk_agree" v-model="checkedAgree" /> 已阅读并同意《<span style="text-decoration: underline;cursor:pointer;"  @click="openUserModalShow">平台隐私</span>及<span style="text-decoration: underline;cursor:pointer;">使用政策</span>》
                 </div>
                 <div class="right_view" style="cursor: pointer" @click="submitData">提交</div>
               </div>
               <div class="footer_view" v-if="statusValue !== undefined && statusValue !== 0">
                 <div class="left_view">
-                  <input type="checkbox" class="chk_agree" v-model="checkedAgree" />已阅读并同意《平台隐私及使用政策》
+                  <input type="checkbox" class="chk_agree" v-model="checkedAgree" /> 已阅读并同意《<span  style="text-decoration: underline;cursor:pointer;" @click="openUserModalShow">平台隐私</span>及<span style="text-decoration: underline;cursor:pointer;">使用政策</span>》
                 </div>
                 <div class="right_view" style="cursor: pointer" @click="submitDataUpdate">更新</div>
               </div>
@@ -611,17 +611,19 @@
                     type="checkbox"
                     class="chk_agree"
                     v-model="desingCheckedAgree"
-                  />已阅读并同意《平台隐私及使用政策》
+                  />
+                  已阅读并同意《<span style="text-decoration: underline;cursor:pointer;" @click="openUserModalShow">平台隐私</span>及<span style="text-decoration: underline;cursor:pointer;">使用政策</span>》
                 </div>
                 <div class="right_view" @click="submitDesign">提交</div>
               </div>
-              <div class="footer_view" v-if="statusDesignValue === 1">
+              <div class="footer_view" v-if="statusDesignValue >0">
                 <div class="left_view">
                   <input
                     type="checkbox"
                     class="chk_agree"
                     v-model="desingCheckedAgree"
-                  />已阅读并同意《平台隐私及使用政策》
+                  /> 已阅读并同意《<span style="text-decoration: underline;cursor:pointer;" @click="openUserModalShow">平台隐私</span>及<span style="text-decoration: underline;cursor:pointer;">使用政策</span>》
+
                 </div>
                 <div class="right_view" @click="submitDesignUpdate">更新</div>
               </div>
@@ -808,7 +810,7 @@
                   <div class="title">作品信息</div>
                 </div>
                 <div class="table_row" v-for="(item, index) in collectRecords" :key="index">
-                  <span class="column">{{ item.downDateTime }} </span>
+                  <span class="column">{{ item.collectDateTime }} </span>
                   <span class="column">
                     <img class="small_img" :src="item.goodsUrl" alt="" />
                   </span>
@@ -934,7 +936,7 @@
               <div class="title_content_view">
                 <div class="table_header">
                   <div class="title">购买时间</div>
-                  <div class="title">支出</div>
+                  <div class="title">支出名目</div>
                   <div class="title">金额</div>
                 </div>
                 <div class="table_row" v-for="(item, index) in rechargeList" :key="index">
@@ -990,14 +992,17 @@ import ajaxPay from '@l/ajax-pay-interceptor'
 import VueTagsInput from '@johmun/vue-tags-input'
 import Treeselect from '@riophae/vue-treeselect'
 import CONFIG from '@/config/config'
+import UserPolicy from '@/components/UserPolicy.vue'
 export default {
   name: 'MyInfoView',
   components: {
     VueTagsInput,
-    Treeselect
+    Treeselect,
+    UserPolicy
   },
   data() {
     return {
+      modalUserShow: false,
       downloadpage: 1, //默认第一页
       downRecordsperPage: 8, //每页多少条
       downloadpageNo: 1, //当前页
@@ -1608,6 +1613,10 @@ export default {
       }
     },
 
+    openUserModalShow() {
+      this.modalUserShow = true
+    },
+
     async updateMemberPwd() {
       if (this.mine_person_pwd.oldPassword === '') {
         alert('旧密码不能为空!')
@@ -1817,6 +1826,7 @@ export default {
       }
       const { result, errorInfo } = await submitMyInfoIndentityUpdateService(this.myInfoDesignModel)
       if (result) {
+        this.loadInitialData();
         alert('提交成功!')
       }
     },

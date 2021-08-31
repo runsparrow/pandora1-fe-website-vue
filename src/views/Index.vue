@@ -162,7 +162,7 @@ export default {
         require('@a/imgs/miaoshou_banner.jpg'),
         require('@a/imgs/wanqian_banner.jpg'),
         require('@a/imgs/shengsheng_banner.png'),
-        require('@a/imgs/dingshen_banner.jpg')
+        require('@a/imgs/dingzuo_banner.jpg')
       ],
       dropdownStatus: false,
       searchKeyword: '',

@@ -92,7 +92,7 @@
           <img
             class="logo_view_img"
             v-if="imgIndex == 3"
-            src="@a/imgs/dingshen_banner.jpg"
+            src="@a/imgs/dingzuo_banner.jpg"
             alt=""
             style="object-fit: cover"
           />
@@ -210,7 +210,7 @@ export default {
       sortStr: '',
 
       page: 1, //默认第一页
-      perPage: 10, //每页多少条
+      perPage: 50, //每页多少条
       pageNo: 1, //当前页
       records: 0 //总数
     }
@@ -431,8 +431,8 @@ export default {
             cursor: pointer;
             padding-bottom: 5px;
             &.active {
-              border-bottom: 2px solid blue;
-              color: blue;
+              border-bottom: 2px solid rgb(35,97,172);
+              color: rgb(35,97,172);
             }
           }
           .seperator {

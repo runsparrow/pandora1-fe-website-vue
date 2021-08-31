@@ -12,7 +12,7 @@
           <ul class="list">
             <li class="logo">
               <img class="logo_img" src="@a/imgs/logo.png" alt="" srcset="@a/imgs/logo@2x.png 2x" @click="toHome" />
-              <span class="logo_title" @click="toHome">Yi.CN</span>
+              <span class="logo_title" @click="toHome">T-pic</span>
             </li>
             <li
               :class="['label', { active: index === imgIndex }]"
@@ -179,6 +179,7 @@ export default {
   async mounted() {
     if (this.$route.params.id) {
       const detailObj = await getDetailByIdService({ id: this.$route.params.id })
+      console.log(44444,detailObj)
       if (!detailObj.row.isImage) {
         detailObj.row.fullUrl = '../assets/imgs/play.png'
       }
@@ -253,10 +254,12 @@ export default {
       }
     },
     downloadFile() {
-      if (this.$store.state.level !== 1) {
-        alert('必须是会员才能下载')
-        return
+      if(this.detail.level===1&&this.$store.state.level !== 1)
+      {
+          alert('必须是会员才能下载')
+          return
       }
+
       if (!this.$store.state.token) {
         this.$router.push({
           path: '/Login',
@@ -587,8 +590,8 @@ export default {
             cursor: pointer;
             padding-bottom: 5px;
             &.active {
-              border-bottom: 2px solid blue;
-              color: blue;
+              border-bottom: 2px solid rgb(35,97,172);
+              color: rgb(35,97,172);
             }
           }
           .seperator {
