@@ -207,7 +207,15 @@
             <span class="btn2" @click="toLogin">登录</span>
           </li>
           <li v-else class="btn_view">
-            <div class="login_header_logo" v-if="avatarUrl === ''">头像</div>
+              <div
+              class="login_header_logo"
+              v-if="avatarUrl === ''"
+              :style="{
+                backgroundSize: 'contain',
+                backgroundImage: 'url(' + avatarUrlTtemp + ')',
+                backgroundRepeat: 'no-repeat'
+              }"
+            ></div>
             <div
               class="login_header_logo"
               v-else
@@ -238,7 +246,7 @@
           </div>
           <div class="right_c" >
             <span class="label">用户名</span>
-            <span class="label_id">ID：{{ userName }}</span>
+            <span class="label_id">{{ userName }}</span>
             <div class="img_row">
               <img class="value" src="@a/imgs/vip.png" style="width: 50px;height: 20px;" v-if="level"></img>
               <!-- <img class="huanguan_img" src="@a/imgs/huang_guan.png" alt="" srcset="@a/imgs/huang_guan@2x.png 2x" />
@@ -861,7 +869,8 @@
                       alt=""
                       srcset="@a/imgs/account_img@2x.png 2x"
                     />
-                    <span class="vip_level">普通VIP</span>
+                    <span class="vip_level" v-if="!vip">普通用户</span>
+                    <span class="vip_level" v-else>普通VIP用户</span>
                   </div>
                   <div class="item_right">
                     <!-- <span class="xieyi_label">VIP会员服务协议</span> -->
@@ -872,10 +881,10 @@
                   <img class="vip_icon" src="@a/imgs/account_img.png" alt="" srcset="@a/imgs/account_img@2x.png 2x" />
 
                   <span class="title">我的VIP</span>
-                  <span class="effect_label">有效期至：{{ this.$store.state.levelDeadline }}</span>
+                  <span class="effect_label">有效期至：{{ levelDeadlineStr }}</span>
                 </div>
                 <div class="month_nav">
-                  <div class="month_desc" v-for="(item, index) in vipList" :key="index">缴费{{ item.name }}</div>
+                  <div class="month_desc" v-for="(item, index) in vipList" :key="index">{{ item.name }}</div>
                 </div>
                 <div class="select_pay_kind">
                   <div
@@ -884,12 +893,12 @@
                     :key="index"
                     @click="selectPay(index)"
                   >
-                    <img
+                    <!-- <img
                       class="zhekou_div"
                       src="@a/imgs/sale_10_img.png"
                       alt=""
                       srcset="@a/imgs/sale_10_img@2x.png 2x"
-                    />
+                    /> -->
                     <div class="amount_div">
                       <span class="amount">{{ item.price }}</span>
                       <span class="unit">元</span>
@@ -1016,6 +1025,7 @@ export default {
   },
   data() {
     return {
+      avatarUrlTtemp: require('@a/imgs/default_header_log.png'),
       modalUserShow: false,
       modalShow: false,
       downloadpage: 1, //默认第一页
@@ -1466,7 +1476,10 @@ export default {
     document.removeEventListener('click')
   },
   computed: {
-    ...mapState(['token', 'userName', 'loading', 'vipList', 'avatarUrl', 'navigationsMenus', 'level'])
+    ...mapState(['token', 'userName', 'loading', 'vipList', 'avatarUrl', 'navigationsMenus', 'level']),
+    levelDeadlineStr(){
+      return this.$store.state.levelDeadline.substring(0,this.$store.state.levelDeadline.indexOf(' '))
+    }
   },
   methods: {
     async loadZuoPinValidCount() {

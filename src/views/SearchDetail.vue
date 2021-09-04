@@ -48,7 +48,15 @@
               <span class="btn2" @click="toLogin">登录</span>
             </li>
             <li v-else class="btn_view">
-              <div class="login_header_logo" v-if="avatarUrl === ''">头像</div>
+              <div
+              class="login_header_logo"
+              v-if="avatarUrl === ''"
+              :style="{
+                backgroundSize: 'contain',
+                backgroundImage: 'url(' + avatarUrlTtemp + ')',
+                backgroundRepeat: 'no-repeat'
+              }"
+            ></div>
               <div
                 class="login_header_logo"
                 v-else
@@ -167,6 +175,7 @@ export default {
   },
   data() {
     return {
+      avatarUrlTtemp: require('@a/imgs/default_header_log.png'),
       dropdownStatus: false,
       collected: false,
       detail: {},

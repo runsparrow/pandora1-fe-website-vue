@@ -41,7 +41,7 @@
               class="login_header_logo"
               v-if="avatarUrl === ''"
               :style="{
-                backgroundSize: 'cover',
+                backgroundSize: 'contain',
                 backgroundImage: 'url(' + avatarUrlTtemp + ')',
                 backgroundRepeat: 'no-repeat'
               }"
