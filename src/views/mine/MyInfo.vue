@@ -248,7 +248,7 @@
             <span class="label">用户名</span>
             <span class="label_id">{{ userName }}</span>
             <div class="img_row">
-              <img class="value" src="@a/imgs/vip.png" style="width: 50px;height: 20px;" v-if="level"></img>
+              <img class="value" src="@a/imgs/vip.png" style="width: 50px;height: 20px;" v-if="vip"/>
               <!-- <img class="huanguan_img" src="@a/imgs/huang_guan.png" alt="" srcset="@a/imgs/huang_guan@2x.png 2x" />
               <span class="value">1</span>
               <img class="person_img" src="@a/imgs/person.png" alt="" srcset="@a/imgs/person@2x.png 2x" />
@@ -809,7 +809,7 @@
                 <div class="table_row" v-for="(item, index) in downRecords" :key="index">
                   <span class="column">{{ item.downDateTime }} </span>
                   <span class="column">
-                    <img class="small_img" :src="item.goodsUrl" alt="" />
+                    <img class="small_img" :src="item.goodsUrl" alt=""   @click="toDetail(item.id)"/>
                   </span>
                   <span
                     class="column"
@@ -959,6 +959,8 @@
                   <div class="title">购买时间</div>
                   <div class="title">支出名目</div>
                   <div class="title">金额</div>
+                  <div class="title">用户订单号</div>
+                  <div class="title">套餐名称</div>
                 </div>
                 <div class="table_row" v-for="(item, index) in rechargeList" :key="index">
                   <span class="column"> {{ item.dealDateTime }} </span>
@@ -967,6 +969,8 @@
                     <span class="vip_label">VIP开通</span>
                   </span>
                   <span class="column"> {{ item.dealAmount }} 元 </span>
+                  <span class="column"> {{ item.serialNo }}  </span>
+                  <span class="column"> {{ item.memberPowerName }}  </span>
                 </div>
               </div>
             </template>
@@ -1492,6 +1496,9 @@ export default {
       })
       this.zuopinValidCount = total
     },
+    toDetail(id) {
+      window.location='/search_detail/' + id
+    },
     gotoDingzuo()
     {
        this.$store.commit('setimgIndex', 3)
@@ -1579,7 +1586,7 @@ export default {
         method: 'post',
         url: `${CONFIG.API_URLS.PAY_FOR_MEMBER_URL}?amount=${amount}&content=开通会员&taocanId=${
           parseInt(this.payIndex) + 1
-        }`, // 请求地址
+        }&taocanName=${this.vipList[this.payIndex].name}`, // 请求地址
         responseType: 'blob' // 表明返回服务器返回的数据类型
       }).then(res => {
         let url = window.URL.createObjectURL(res)
@@ -1595,6 +1602,7 @@ export default {
               const result2 = await mineCMSRowByIdService(this.$store.state.memberId)
               this.$store.commit('setlevelDeadline', result2.row.levelDeadline)
               this.payforImg_show = false
+              this.vip=true
               this.$Message.success({
                 content: '支付成功!',
                 duration: 3,
@@ -1611,6 +1619,14 @@ export default {
                 }
               })
               clearInterval(this.payTimer)
+               const { rows, result } = await mineRechargeRecoredsService({
+                keyWord: '^memberId=' + this.$store.state.memberId,
+                page: '1^100',
+                date: '',
+                sort: '',
+                status: [1]
+              })
+              this.rechargeList = rows
             }
           })
         }, 5000)
@@ -2063,8 +2079,14 @@ export default {
     {
       this.modalShow=false
     },
-    toSearch() {
-      this.$router.push('/search')
+    toSearch(navigationId, index) {
+
+      this.$store.commit('setimgIndex', index)
+      this.searchKeyword = ''
+      this.$store.commit('setKeyWords', '')
+      this.$store.commit('setNavigationId', navigationId)
+      this.keywords = `^navigationId=${navigationId}`
+       this.$router.push('/search')
     },
     toRegister() {
       this.$store.commit('setActiveTab', 0)

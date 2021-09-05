@@ -16,6 +16,11 @@ export default [
     component: () => import(/* webpackChunkName: "login-view" */ '@v/Login.vue')
   },
   {
+    path: '/company_intro',
+    meta: { title: '公司介绍' },
+    component: () => import(/* webpackChunkName: "company-intro-view" */ '@v/companyIntro.vue')
+  },
+  {
     path: '/card_activate',
     meta: { title: '邀请码登录' },
     component: () => import(/* webpackChunkName: "card-activate-view" */ '@v/CardActivate.vue')

@@ -79,7 +79,7 @@
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
     </div>
-    <div class="center_view" @click="gotoSearch">
+    <div class="center_view">
       <div class="left_view">
         <p class="point_title">Initiate Professional</p>
         <p class="point_title">Rapid Original</p>
@@ -88,11 +88,12 @@
         </p>
 
         <p class="desc"></p>
-        <div class="btn_more">
+        <div class="btn_more" @click="()=>$router.push('/company_intro')">
           <span class="label">了解更多</span>
           <img
             class="label_img"
             src="@a/imgs/arrow-pointing-to-right.png"
+            @click="gotoSearch"
             alt=""
             srcset="@a/imgs/arrow-pointing-to-right@2x.png 2x"
           />

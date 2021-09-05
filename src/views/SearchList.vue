@@ -171,7 +171,7 @@
       v-if="navigationId === 37"
       class="bottom_view"
       :style="{
-        backgroundSize: 'cover',
+        backgroundSize: 'contain',
         backgroundImage: 'url(' + contactPng + ')',
         backgroundRepeat: 'no-repeat'
       }"
