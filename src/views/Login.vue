@@ -464,7 +464,10 @@ export default {
       if ($event.target.value === '') {
         this.userNameErrorMsg = '用户名不能为空'
         this.accountRegPwdInValid = true
-      } else {
+      } else if($event.target.value.length<6) {
+         this.accountRegPwdErrorMsg="密码长度最小6位最大10位"
+         this.accountRegPwdInValid = true
+      }else{
         this.accountRegPwdInValid = false
       }
     },
@@ -473,13 +476,17 @@ export default {
         this.accountRegConfirmPwdErrorMsg = '确认密码不能为空'
         this.accountRegConfirmPwdInValid = true
       } else {
-        if (this.accountRegConfirmPwd !== this.accountRegPwd) {
+        if($event.target.value.length<6) {
+          this.accountRegConfirmPwdErrorMsg="密码长度最小6位最大10位"
+         this.accountRegConfirmPwdInValid = true
+        }else if (this.accountRegConfirmPwd !== this.accountRegPwd) {
           this.accountRegConfirmPwdErrorMsg = '两次密码不同，请重新输入'
           this.accountRegConfirmPwdInValid = true
         } else {
           this.accountRegConfirmPwdInValid = false
         }
       }
+
     },
     async reloadGetCode() {
       this.btn_disabled = true
