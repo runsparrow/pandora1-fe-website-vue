@@ -40,6 +40,7 @@
             <div
               class="login_header_logo"
               v-if="avatarUrl === ''"
+              @click="tominepage"
               :style="{
                 backgroundSize: 'contain',
                 backgroundImage: 'url(' + avatarUrlTtemp + ')',
@@ -48,6 +49,7 @@
             ></div>
             <div
               class="login_header_logo"
+              @click="tominepage"
               v-else
               :style="{
                 backgroundSize: 'cover',
@@ -88,7 +90,7 @@
         </p>
 
         <p class="desc"></p>
-        <div class="btn_more" @click="()=>$router.push('/company_intro')">
+        <div class="btn_more" @click="() => $router.push('/company_intro')">
           <span class="label">了解更多</span>
           <img
             class="label_img"
@@ -242,6 +244,9 @@ export default {
     document.removeEventListener('click')
   },
   methods: {
+    tominepage() {
+      this.$router.push('/mine/info?index=0')
+    },
     toSearch(navigationId, index) {
       this.searchKeyword = ''
       this.$store.commit('setKeyWords', '')

@@ -207,7 +207,7 @@
             <span class="btn2" @click="toLogin">登录</span>
           </li>
           <li v-else class="btn_view">
-              <div
+            <div
               class="login_header_logo"
               v-if="avatarUrl === ''"
               :style="{
@@ -244,11 +244,11 @@
           <div class="top_header_view" v-else>
             <img class="top_header_view_avatarUrl" :src="avatarUrl" alt="" />
           </div>
-          <div class="right_c" >
+          <div class="right_c">
             <span class="label">用户名</span>
             <span class="label_id">{{ userName }}</span>
             <div class="img_row">
-              <img class="value" src="@a/imgs/vip.png" style="width: 50px;height: 20px;" v-if="vip"/>
+              <img class="value" src="@a/imgs/vip.png" style="width: 50px;height: 20px;" v-if="vip" />
               <!-- <img class="huanguan_img" src="@a/imgs/huang_guan.png" alt="" srcset="@a/imgs/huang_guan@2x.png 2x" />
               <span class="value">1</span>
               <img class="person_img" src="@a/imgs/person.png" alt="" srcset="@a/imgs/person@2x.png 2x" />
@@ -279,18 +279,25 @@
         </div>
       </div>
       <div class="right_view">
-            <img
-        class="close_img"
-        :src="require('@a/imgs/close.png')"
-        alt=""
-        @click="closeUserModal"
-        style="position: absolute;top: 60px;right: 70px;z-index: 100;cursor: pointer;"
-        v-show="modalUserShow"
-      />
-    <user-policy :show="modalUserShow" style="margin-top: 90px;margin-left:50px" />
+        <img
+          class="close_img"
+          :src="require('@a/imgs/close.png')"
+          alt=""
+          @click="closeUserModal"
+          style="position: absolute;top: 60px;right: 70px;z-index: 100;cursor: pointer;"
+          v-show="modalUserShow"
+        />
+        <user-policy :show="modalUserShow" style="margin-top: 90px;margin-left:50px" />
 
-     <img class="close_img" :src="require('@a/imgs/close.png')" alt="" @click="closePrivateModal" style="position: absolute;top: 60px;right: 70px;z-index: 100;cursor: pointer;" v-show="modalShow" />
-      <private-policy :show="modalShow"  style="margin-top: 90px;margin-left:50px"  />
+        <img
+          class="close_img"
+          :src="require('@a/imgs/close.png')"
+          alt=""
+          @click="closePrivateModal"
+          style="position: absolute;top: 60px;right: 70px;z-index: 100;cursor: pointer;"
+          v-show="modalShow"
+        />
+        <private-policy :show="modalShow" style="margin-top: 90px;margin-left:50px" />
         <div class="row">
           <div :class="['item', { active: outer_tabIndex === 0 }]" @click="() => (outer_tabIndex = 0)">我的信息</div>
           <div :class="['item', { active: outer_tabIndex === 1 }]" @click="() => (outer_tabIndex = 1)">我的作品</div>
@@ -490,13 +497,21 @@
               </div>
               <div class="footer_view" v-if="statusValue === undefined || statusValue === 0">
                 <div class="left_view">
-                  <input type="checkbox" class="chk_agree" v-model="checkedAgree" /> 已阅读并同意《<span style="text-decoration: underline;cursor:pointer;"  @click="openUserModalShow">平台隐私</span>及<span style="text-decoration: underline;cursor:pointer;" @click="openModalShow">使用政策</span>》
+                  <input type="checkbox" class="chk_agree" v-model="checkedAgree" /> 已阅读并同意《<span
+                    style="text-decoration: underline;cursor:pointer;"
+                    @click="openUserModalShow"
+                    >平台隐私</span
+                  >及<span style="text-decoration: underline;cursor:pointer;" @click="openModalShow">使用政策</span>》
                 </div>
                 <div class="right_view" style="cursor: pointer" @click="submitData">提交</div>
               </div>
               <div class="footer_view" v-if="statusValue !== undefined && statusValue !== 0">
                 <div class="left_view">
-                  <input type="checkbox" class="chk_agree" v-model="checkedAgree" /> 已阅读并同意《<span  style="text-decoration: underline;cursor:pointer;" @click="openUserModalShow">平台隐私</span>及<span style="text-decoration: underline;cursor:pointer;" @click="openModalShow">使用政策</span>》
+                  <input type="checkbox" class="chk_agree" v-model="checkedAgree" /> 已阅读并同意《<span
+                    style="text-decoration: underline;cursor:pointer;"
+                    @click="openUserModalShow"
+                    >平台隐私</span
+                  >及<span style="text-decoration: underline;cursor:pointer;" @click="openModalShow">使用政策</span>》
                 </div>
                 <div class="right_view" style="cursor: pointer" @click="submitDataUpdate">更新</div>
               </div>
@@ -627,23 +642,20 @@
               </div>
               <div class="footer_view" v-if="statusDesignValue === 0">
                 <div class="left_view">
-                  <input
-                    type="checkbox"
-                    class="chk_agree"
-                    v-model="desingCheckedAgree"
-                  />
-                  已阅读并同意《<span style="text-decoration: underline;cursor:pointer;" @click="openUserModalShow">平台隐私</span>及<span style="text-decoration: underline;cursor:pointer;" @click="openModalShow">使用政策</span>》
+                  <input type="checkbox" class="chk_agree" v-model="desingCheckedAgree" />
+                  已阅读并同意《<span style="text-decoration: underline;cursor:pointer;" @click="openUserModalShow"
+                    >平台隐私</span
+                  >及<span style="text-decoration: underline;cursor:pointer;" @click="openModalShow">使用政策</span>》
                 </div>
                 <div class="right_view" @click="submitDesign">提交</div>
               </div>
-              <div class="footer_view" v-if="statusDesignValue >0">
+              <div class="footer_view" v-if="statusDesignValue > 0">
                 <div class="left_view">
-                  <input
-                    type="checkbox"
-                    class="chk_agree"
-                    v-model="desingCheckedAgree"
-                  /> 已阅读并同意《<span style="text-decoration: underline;cursor:pointer;" @click="openUserModalShow">平台隐私</span>及<span style="text-decoration: underline;cursor:pointer;" @click="openModalShow">使用政策</span>》
-
+                  <input type="checkbox" class="chk_agree" v-model="desingCheckedAgree" /> 已阅读并同意《<span
+                    style="text-decoration: underline;cursor:pointer;"
+                    @click="openUserModalShow"
+                    >平台隐私</span
+                  >及<span style="text-decoration: underline;cursor:pointer;" @click="openModalShow">使用政策</span>》
                 </div>
                 <div class="right_view" @click="submitDesignUpdate">更新</div>
               </div>
@@ -809,7 +821,7 @@
                 <div class="table_row" v-for="(item, index) in downRecords" :key="index">
                   <span class="column">{{ item.downDateTime }} </span>
                   <span class="column">
-                    <img class="small_img" :src="item.goodsUrl" alt=""   @click="toDetail(item.id)"/>
+                    <img class="small_img" :src="item.goodsUrl" alt="" @click="toDetail(item.goodsId)" />
                   </span>
                   <span
                     class="column"
@@ -818,8 +830,12 @@
                     <span class="label">《{{ item.goodsName }}》</span>
                   </span>
                 </div>
-                 <pagination :records="downRecordsRecords" :per-page="downRecordsperPage" @paginate="loadDownRecordList" v-model="downloadpage" />
-
+                <pagination
+                  :records="downRecordsRecords"
+                  :per-page="downRecordsperPage"
+                  @paginate="loadDownRecordList"
+                  v-model="downloadpage"
+                />
               </div>
             </template>
             <template v-if="inner_voucher_tabIndex === 1">
@@ -832,7 +848,7 @@
                 <div class="table_row" v-for="(item, index) in collectRecords" :key="index">
                   <span class="column">{{ item.collectDateTime }} </span>
                   <span class="column">
-                    <img class="small_img" :src="item.goodsUrl" alt="" />
+                    <img class="small_img" :src="item.goodsUrl" alt="" @click="toDetail(item.goodsId)" />
                   </span>
                   <span
                     class="column"
@@ -841,7 +857,12 @@
                     <span class="label">《{{ item.goodsName }}》</span>
                   </span>
                 </div>
-                 <pagination :records="collectRecordsRecords" :per-page="collectRecordsperPage" @paginate="loadcollectRecordList" v-model="collectloadpage" />
+                <pagination
+                  :records="collectRecordsRecords"
+                  :per-page="collectRecordsperPage"
+                  @paginate="loadcollectRecordList"
+                  v-model="collectloadpage"
+                />
               </div>
               <!-- <div class="title_content_view">
                 <div class="table_header">
@@ -881,7 +902,7 @@
                   <img class="vip_icon" src="@a/imgs/account_img.png" alt="" srcset="@a/imgs/account_img@2x.png 2x" />
 
                   <span class="title">我的VIP</span>
-                  <span class="effect_label">有效期至：{{ levelDeadlineStr }}</span>
+                  <span class="effect_label">{{ levelDeadlineStr }}</span>
                 </div>
                 <div class="month_nav">
                   <div class="month_desc" v-for="(item, index) in vipList" :key="index">{{ item.name }}</div>
@@ -969,8 +990,8 @@
                     <span class="vip_label">VIP开通</span>
                   </span>
                   <span class="column"> {{ item.dealAmount }} 元 </span>
-                  <span class="column"> {{ item.serialNo }}  </span>
-                  <span class="column"> {{ item.memberPowerName }}  </span>
+                  <span class="column"> {{ item.serialNo }} </span>
+                  <span class="column"> {{ item.memberPowerName }} </span>
                 </div>
               </div>
             </template>
@@ -1041,7 +1062,6 @@ export default {
       collectRecordsperPage: 8, //每页多少条
       collectloadpageNo: 1, //当前页
       collectRecordsRecords: 0, //总数
-
 
       vip: false,
       searchKeyword: '',
@@ -1481,8 +1501,8 @@ export default {
   },
   computed: {
     ...mapState(['token', 'userName', 'loading', 'vipList', 'avatarUrl', 'navigationsMenus', 'level']),
-    levelDeadlineStr(){
-      return this.$store.state.levelDeadline.substring(0,this.$store.state.levelDeadline.indexOf(' '))
+    levelDeadlineStr() {
+      return this.$store.state.levelDeadline.substring(0, this.$store.state.levelDeadline.indexOf(' '))
     }
   },
   methods: {
@@ -1497,14 +1517,13 @@ export default {
       this.zuopinValidCount = total
     },
     toDetail(id) {
-      window.location='/search_detail/' + id
+      window.location = '/search_detail/' + id
     },
-    gotoDingzuo()
-    {
-       this.$store.commit('setimgIndex', 3)
-        this.$store.commit('setKeyWords', '')
+    gotoDingzuo() {
+      this.$store.commit('setimgIndex', 3)
+      this.$store.commit('setKeyWords', '')
       this.$store.commit('setNavigationId', 37)
-       this.$router.push("/search")
+      this.$router.push('/search')
     },
     picVidoe(url, realPath) {
       if (url !== realPath) {
@@ -1584,9 +1603,9 @@ export default {
       ajaxPay({
         // 用axios发送post请求
         method: 'post',
-        url: `${CONFIG.API_URLS.PAY_FOR_MEMBER_URL}?amount=${amount}&content=开通会员&taocanId=${
-          parseInt(this.payIndex) + 1
-        }&taocanName=${this.vipList[this.payIndex].name}`, // 请求地址
+        url: `${CONFIG.API_URLS.PAY_FOR_MEMBER_URL}?amount=${amount}&content=开通会员&taocanId=${parseInt(
+          this.payIndex
+        ) + 1}&taocanName=${this.vipList[this.payIndex].name}`, // 请求地址
         responseType: 'blob' // 表明返回服务器返回的数据类型
       }).then(res => {
         let url = window.URL.createObjectURL(res)
@@ -1602,7 +1621,7 @@ export default {
               const result2 = await mineCMSRowByIdService(this.$store.state.memberId)
               this.$store.commit('setlevelDeadline', result2.row.levelDeadline)
               this.payforImg_show = false
-              this.vip=true
+              this.vip = true
               this.$Message.success({
                 content: '支付成功!',
                 duration: 3,
@@ -1619,7 +1638,7 @@ export default {
                 }
               })
               clearInterval(this.payTimer)
-               const { rows, result } = await mineRechargeRecoredsService({
+              const { rows, result } = await mineRechargeRecoredsService({
                 keyWord: '^memberId=' + this.$store.state.memberId,
                 page: '1^100',
                 date: '',
@@ -1633,14 +1652,14 @@ export default {
       })
     },
     async loadDownRecordList() {
-      const { rows,total, result } = await mineDownRecoredsService({
+      const { rows, total, result } = await mineDownRecoredsService({
         keyWord: '^memberId=' + this.$store.state.memberId,
         page: `${this.downloadpage}^${this.downRecordsperPage}`,
         date: '',
         sort: '',
         status: [1]
       })
-      this.downRecordsRecords=total
+      this.downRecordsRecords = total
       this.$nextTick(() => {
         rows.forEach(m => {
           m.goodsUrl = process.env.VUE_APP_FE_FILE_URL + m.goodsUrl
@@ -1693,7 +1712,7 @@ export default {
       }
     },
     async loadCollectRecordList() {
-      const { rows, result,total } = await mineCollectRecoredsService({
+      const { rows, result, total } = await mineCollectRecoredsService({
         keyWord: '^memberId=' + this.$store.state.memberId,
         page: `${this.collectloadpage}^${this.collectRecordsperPage}`,
         date: '',
@@ -1705,7 +1724,7 @@ export default {
         m.goodsUrl = process.env.VUE_APP_FE_FILE_URL + m.goodsUrl
       })
       this.collectRecords = rows
-      this.collectRecordsRecords=total
+      this.collectRecordsRecords = total
     },
     async loadRechargeRecordList() {
       const { rows, result } = await mineRechargeRecoredsService({
@@ -1723,7 +1742,7 @@ export default {
         page: '1^100',
         date: '',
         sort: '',
-        status: [1, 2,-2]
+        status: [1, 2, -2]
       })
       if (result) {
         this.myZuoPinArr = rows
@@ -1807,11 +1826,10 @@ export default {
         this.myInfoIndentityModel.entity.certificateNo = myInfo.certificateNo
         this.myInfoIndentityModel.entity.certificateUrl = myInfo.certificateUrl
       }
-      let {
-        result: myInfoDesignResult,
-        row: designRow,
-        designMessage
-      } = await getMyInfoByIdService(this.$store.state.memberId, 1)
+      let { result: myInfoDesignResult, row: designRow, designMessage } = await getMyInfoByIdService(
+        this.$store.state.memberId,
+        1
+      )
       if (myInfoDesignResult) {
         this.desingCheckedAgree = true
         this.myInfoDesignModel.entity.id = designRow.id
@@ -1881,7 +1899,7 @@ export default {
       }
       const { result, errorInfo } = await submitMyInfoIndentityUpdateService(this.myInfoDesignModel)
       if (result) {
-        this.loadInitialData();
+        this.loadInitialData()
         alert('提交成功!')
       }
     },
@@ -2075,18 +2093,16 @@ export default {
         alert('提交成功!')
       }
     },
-    closePrivateModal()
-    {
-      this.modalShow=false
+    closePrivateModal() {
+      this.modalShow = false
     },
     toSearch(navigationId, index) {
-
       this.$store.commit('setimgIndex', index)
       this.searchKeyword = ''
       this.$store.commit('setKeyWords', '')
       this.$store.commit('setNavigationId', navigationId)
       this.keywords = `^navigationId=${navigationId}`
-       this.$router.push('/search')
+      this.$router.push('/search')
     },
     toRegister() {
       this.$store.commit('setActiveTab', 0)
@@ -2307,7 +2323,7 @@ export default {
     },
     async searchByKeyword() {
       this.$store.commit('setKeyWords', this.searchKeyword)
-      window.location='/search'
+      window.location = '/search'
     },
     async loadHostpitalsByDivision(code) {
       const request = {
@@ -2405,7 +2421,7 @@ export default {
         return
       }
       if (this.zuopin_upload_obj.url === '') {
-        alert('图片必须上传!')
+        alert('不可上传同一张图片!')
         return
       }
 
@@ -2445,8 +2461,7 @@ export default {
 @import '../../assets/css/colors';
 @import '../../assets/css/font_size';
 
-.VuePagination
-{
+.VuePagination {
   margin-top: 10px;
 }
 .container {
@@ -2477,7 +2492,7 @@ export default {
       background: #ffffff;
       position: relative;
       .right_view {
-        position:relative;
+        position: relative;
         width: 91px;
         height: 38px;
         background: #dd3d29;

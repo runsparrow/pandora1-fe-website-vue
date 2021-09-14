@@ -45,16 +45,18 @@
             </li>
             <li v-else class="btn_view">
               <div
-              class="login_header_logo"
-              v-if="avatarUrl === ''"
-              :style="{
-                backgroundSize: 'contain',
-                backgroundImage: 'url(' + avatarUrlTtemp + ')',
-                backgroundRepeat: 'no-repeat'
-              }"
-            ></div>
+                class="login_header_logo"
+                v-if="avatarUrl === ''"
+                @click="tominepage"
+                :style="{
+                  backgroundSize: 'contain',
+                  backgroundImage: 'url(' + avatarUrlTtemp + ')',
+                  backgroundRepeat: 'no-repeat'
+                }"
+              ></div>
               <div
                 class="login_header_logo"
+                @click="tominepage"
                 v-else
                 :style="{
                   backgroundSize: 'cover',
@@ -323,6 +325,9 @@ export default {
       }
       this.reloadTable()
     },
+    tominepage() {
+      this.$router.push('/mine/info?index=0')
+    },
     chooseItemByExt(ext) {
       this.show_select_index = -1
       if (ext === '') {
@@ -440,8 +445,8 @@ export default {
             cursor: pointer;
             padding-bottom: 5px;
             &.active {
-              border-bottom: 2px solid rgb(35,97,172);
-              color: rgb(35,97,172);
+              border-bottom: 2px solid rgb(35, 97, 172);
+              color: rgb(35, 97, 172);
             }
           }
           .seperator {

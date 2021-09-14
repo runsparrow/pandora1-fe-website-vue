@@ -49,16 +49,18 @@
             </li>
             <li v-else class="btn_view">
               <div
-              class="login_header_logo"
-              v-if="avatarUrl === ''"
-              :style="{
-                backgroundSize: 'contain',
-                backgroundImage: 'url(' + avatarUrlTtemp + ')',
-                backgroundRepeat: 'no-repeat'
-              }"
-            ></div>
+                class="login_header_logo"
+                v-if="avatarUrl === ''"
+                @click="tominepage"
+                :style="{
+                  backgroundSize: 'contain',
+                  backgroundImage: 'url(' + avatarUrlTtemp + ')',
+                  backgroundRepeat: 'no-repeat'
+                }"
+              ></div>
               <div
                 class="login_header_logo"
+                @click="tominepage"
                 v-else
                 :style="{
                   backgroundSize: 'cover',
@@ -188,7 +190,7 @@ export default {
   async mounted() {
     if (this.$route.params.id) {
       const detailObj = await getDetailByIdService({ id: this.$route.params.id })
-      console.log(44444,detailObj)
+      console.log(44444, detailObj)
       if (!detailObj.row.isImage) {
         detailObj.row.fullUrl = '../assets/imgs/play.png'
       }
@@ -223,6 +225,9 @@ export default {
       this.$store.commit('setKeyWords', '')
       this.$store.commit('setNavigationId', navigationId)
       this.$router.push('/search')
+    },
+    tominepage() {
+      this.$router.push('/mine/info?index=0')
     },
     closeVidowModal() {
       this.video_show = false
@@ -263,10 +268,9 @@ export default {
       }
     },
     downloadFile() {
-      if(this.detail.level===1&&this.$store.state.level !== 1)
-      {
-          alert('必须是会员才能下载')
-          return
+      if (this.detail.level === 1 && this.$store.state.level !== 1) {
+        alert('必须是会员才能下载')
+        return
       }
 
       if (!this.$store.state.token) {
@@ -599,8 +603,8 @@ export default {
             cursor: pointer;
             padding-bottom: 5px;
             &.active {
-              border-bottom: 2px solid rgb(35,97,172);
-              color: rgb(35,97,172);
+              border-bottom: 2px solid rgb(35, 97, 172);
+              color: rgb(35, 97, 172);
             }
           }
           .seperator {
