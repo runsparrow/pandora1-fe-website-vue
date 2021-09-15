@@ -128,6 +128,7 @@
         <span class="sucai_desc">素材版权说明</span>
         <div class="line"></div>
         <span class="spec">格式 | {{ detail.ext }}</span>
+        <span class="spec">下载次数 | {{ detail.downCount }}</span>
         <span class="spec">分辨率 | {{ detail.dpi === '' ? '' : detail.dpi + 'PI' }}</span>
         <!-- <span class="spec">尺寸 | {{ detail.size }}</span> -->
         <!-- <span class="spec">颜色 | </span>

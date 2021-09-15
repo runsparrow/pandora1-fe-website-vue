@@ -1517,7 +1517,10 @@ export default {
       this.zuopinValidCount = total
     },
     toDetail(id) {
-      window.location = '/search_detail/' + id
+      let newUrl = this.$router.resolve({
+        path: 'search_detail/' + id
+      })
+      window.open(newUrl.href, '_blank')
     },
     gotoDingzuo() {
       this.$store.commit('setimgIndex', 3)
