@@ -383,19 +383,19 @@
                       <option v-for="item in divisionArr" :key="item.code" :value="item.code">{{ item.name }}</option>
                     </select>
                   </div>
-                  <div class="row" v-if="personIdentity === '5'">
+                  <div class="row" v-if="personIdentity === '5' || personIdentity === '36' || personIdentity === '58'">
                     <span class="label">公司名称</span>
                     <input type="text" class="select_view" v-model.trim="myInfoIndentityModel.entity.unitName" />
                   </div>
-                  <div class="row" v-if="personIdentity === '5'">
+                  <div class="row" v-if="personIdentity === '5' || personIdentity === '36' || personIdentity === '58'">
                     <span class="label">所属部门</span>
                     <input type="text" class="select_view" v-model.trim="myInfoIndentityModel.entity.officeName" />
                   </div>
-                  <div class="row" v-if="personIdentity === '5'">
+                  <div class="row" v-if="personIdentity === '5' || personIdentity === '36' || personIdentity === '58'">
                     <span class="label">职位职务</span>
                     <input type="text" class="select_view" v-model.trim="myInfoIndentityModel.entity.dutyName" />
                   </div>
-                  <div class="row" v-if="personIdentity === '5'">
+                  <div class="row" v-if="personIdentity === '5' || personIdentity === '36' || personIdentity === '58'">
                     <span class="label">公司邮箱</span>
                     <input type="text" class="select_view" v-model.trim="myInfoIndentityModel.entity.email" />
                   </div>
