@@ -997,7 +997,28 @@
             </template>
           </div>
           <div v-else-if="outer_tabIndex === 3" class="my_support_tab_view">
-            <div class="help_view"></div>
+            <div class="notice_view">
+              <div class="left_view">
+                <ul>
+                  <li @click="noticeIndex(0)">登录和注册</li>
+                  <li @click="noticeIndex(1)">下载和上传</li>
+                  <li @click="noticeIndex(2)">票据、充值、退款</li>
+                </ul>
+              </div>
+              <div class="right_view">
+                <img v-if="notice_index===0" style="width:634px" src="@a/imgs/notice_1.png" alt="">
+                <img v-if="notice_index===0" style="width:634px" src="@a/imgs/notice_00.png" alt="">
+                <img v-if="notice_index===1" style="width:634px" src="@a/imgs/notice_2.png" alt="">
+                <img v-if="notice_index===1" style="width:634px" src="@a/imgs/notice_3.png" alt="">
+                <img v-if="notice_index===2" style="width:634px" src="@a/imgs/notice_4.png" alt="">
+                <img v-if="notice_index===2" style="width:634px" src="@a/imgs/notice_5.png" alt="">
+                <img v-if="notice_index===2" style="width:634px" src="@a/imgs/notice_6.png" alt="">
+                <img v-if="notice_index===2" style="width:634px" src="@a/imgs/notice_7.png" alt="">
+                <img v-if="notice_index===2" style="width:634px" src="@a/imgs/notice_8.png" alt="">
+                <img v-if="notice_index===2" style="width:634px" src="@a/imgs/notice_9.png" alt="">
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -1050,6 +1071,7 @@ export default {
   },
   data() {
     return {
+      notice_index:0,
       avatarUrlTtemp: require('@a/imgs/default_header_log.png'),
       modalUserShow: false,
       modalShow: false,
@@ -1521,6 +1543,10 @@ export default {
         path: 'search_detail/' + id
       })
       window.open(newUrl.href, '_blank')
+    },
+    noticeIndex(index)
+    {
+      this.notice_index=index;
     },
     gotoDingzuo() {
       this.$store.commit('setimgIndex', 3)
@@ -4331,6 +4357,31 @@ export default {
           background: #ffffff;
           display: flex;
           flex-direction: column;
+          .notice_view
+          {
+            display: flex;
+            flex-direction: row;
+            .left_view
+            {
+              box-sizing: border-box;
+              height: 742px;
+              width: 200px;
+              padding: 30px;
+              line-height: 30px;
+              ul li
+              {
+                cursor: pointer;
+                text-decoration: underline;
+              }
+            }
+            .right_view
+            {
+              width: 634px;
+              height: 742px;
+              overflow:auto;
+            }
+          }
+
           .help_view {
             margin-top: 58px;
             height: 100%;
