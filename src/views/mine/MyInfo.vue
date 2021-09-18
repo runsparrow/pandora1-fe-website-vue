@@ -1003,6 +1003,7 @@
                   <li @click="noticeIndex(0)">登录和注册</li>
                   <li @click="noticeIndex(1)">下载和上传</li>
                   <li @click="noticeIndex(2)">票据、充值、退款</li>
+                  <li @click="noticeIndex(3)">常见问题</li>
                 </ul>
               </div>
               <div class="right_view">
@@ -1012,10 +1013,10 @@
                 <img v-if="notice_index===1" style="width:634px" src="@a/imgs/notice_3.png" alt="">
                 <img v-if="notice_index===2" style="width:634px" src="@a/imgs/notice_4.png" alt="">
                 <img v-if="notice_index===2" style="width:634px" src="@a/imgs/notice_5.png" alt="">
-                <img v-if="notice_index===2" style="width:634px" src="@a/imgs/notice_6.png" alt="">
-                <img v-if="notice_index===2" style="width:634px" src="@a/imgs/notice_7.png" alt="">
-                <img v-if="notice_index===2" style="width:634px" src="@a/imgs/notice_8.png" alt="">
-                <img v-if="notice_index===2" style="width:634px" src="@a/imgs/notice_9.png" alt="">
+                <img v-if="notice_index===3" style="width:634px" src="@a/imgs/notice_6.png" alt="">
+                <img v-if="notice_index===3" style="width:634px" src="@a/imgs/notice_7.png" alt="">
+                <img v-if="notice_index===3" style="width:634px" src="@a/imgs/notice_8.png" alt="">
+                <img v-if="notice_index===3" style="width:634px" src="@a/imgs/notice_9.png" alt="">
               </div>
             </div>
 
