@@ -6,3 +6,6 @@ import store from '@x'
 export const uploadFileService = async payload => {
   return ajaxFile.post(process.env.VUE_APP_FILE_BASE_API_URL + CONFIG.API_URLS.Upload_API_URL, payload)
 }
+export const uploadHeaderFileService = async payload => {
+  return ajaxFile.post(process.env.VUE_APP_FILE_BASE_API_URL + CONFIG.API_URLS.Upload_HEADER_API_URL, payload)
+}

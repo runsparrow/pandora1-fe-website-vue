@@ -1029,7 +1029,7 @@
 <script>
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import { mapState } from 'vuex'
-import { uploadFileService } from '@s/upload-file-service'
+import { uploadFileService,uploadHeaderFileService } from '@s/upload-file-service'
 import {
   getDcotorsService,
   getAreaInfoService,
@@ -2190,7 +2190,7 @@ export default {
       const {
         data: { fileName, relativePath },
         errorInfo
-      } = await uploadFileService(param)
+      } = await uploadHeaderFileService(param)
       this.myInfoIndentityModel.entity.applier.avatarUrl = relativePath
       this.mine_person_info.avatarUrl = relativePath
     },
