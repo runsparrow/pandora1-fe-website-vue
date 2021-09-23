@@ -42,7 +42,7 @@
               v-if="avatarUrl === ''"
               @click="tominepage"
               :style="{
-                backgroundSize: 'cover',
+                backgroundSize: 'contain',
                 backgroundImage: 'url(' + avatarUrlTtemp + ')',
                 backgroundRepeat: 'no-repeat'
               }"

@@ -40,7 +40,7 @@
               v-else
               @click="toTouchHeaderLogoUploadFile"
               :style="{
-                backgroundSize: 'cover',
+                backgroundSize: 'contain',
                 backgroundImage: 'url(' + mine_person_info.avatarUrl + ')',
                 backgroundRepeat: 'no-repeat'
               }"
@@ -249,6 +249,7 @@
             <span class="label_id">{{ userName }}</span>
             <div class="img_row">
               <img class="value" src="@a/imgs/vip.png" style="width: 50px;height: 20px;" v-if="vip" />
+              <span class="effect_label">{{ levelDeadlineStr }}</span>
               <!-- <img class="huanguan_img" src="@a/imgs/huang_guan.png" alt="" srcset="@a/imgs/huang_guan@2x.png 2x" />
               <span class="value">1</span>
               <img class="person_img" src="@a/imgs/person.png" alt="" srcset="@a/imgs/person@2x.png 2x" />
@@ -902,7 +903,7 @@
                   <img class="vip_icon" src="@a/imgs/account_img.png" alt="" srcset="@a/imgs/account_img@2x.png 2x" />
 
                   <span class="title">我的VIP</span>
-                  <span class="effect_label">{{ levelDeadlineStr }}</span>
+                  <!-- <span class="effect_label">{{ levelDeadlineStr }}</span> -->
                 </div>
                 <div class="month_nav">
                   <div class="month_desc" v-for="(item, index) in vipList" :key="index">{{ item.name }}</div>
@@ -1029,7 +1030,7 @@
 <script>
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import { mapState } from 'vuex'
-import { uploadFileService,uploadHeaderFileService } from '@s/upload-file-service'
+import { uploadFileService, uploadHeaderFileService } from '@s/upload-file-service'
 import {
   getDcotorsService,
   getAreaInfoService,
@@ -3420,6 +3421,13 @@ export default {
             align-items: flex-end;
             justify-content: space-between;
             margin-top: 14px;
+            .effect_label {
+              color: #2361ac;
+              font-size: 12px;
+              margin-left: 22px;
+              margin-top: 10px;
+              letter-spacing: 3px;
+            }
             .value {
               line-height: 10px;
             }
