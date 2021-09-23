@@ -1007,19 +1007,18 @@
                 </ul>
               </div>
               <div class="right_view">
-                <img v-if="notice_index===0" style="width:634px" src="@a/imgs/notice_1.png" alt="">
-                <img v-if="notice_index===0" style="width:634px" src="@a/imgs/notice_00.png" alt="">
-                <img v-if="notice_index===1" style="width:634px" src="@a/imgs/notice_2.png" alt="">
-                <img v-if="notice_index===1" style="width:634px" src="@a/imgs/notice_3.png" alt="">
-                <img v-if="notice_index===2" style="width:634px" src="@a/imgs/notice_4.png" alt="">
-                <img v-if="notice_index===2" style="width:634px" src="@a/imgs/notice_5.png" alt="">
-                <img v-if="notice_index===3" style="width:634px" src="@a/imgs/notice_6.png" alt="">
-                <img v-if="notice_index===3" style="width:634px" src="@a/imgs/notice_7.png" alt="">
-                <img v-if="notice_index===3" style="width:634px" src="@a/imgs/notice_8.png" alt="">
-                <img v-if="notice_index===3" style="width:634px" src="@a/imgs/notice_9.png" alt="">
+                <img v-if="notice_index === 0" style="width:634px" src="@a/imgs/notice_1.png" alt="" />
+                <img v-if="notice_index === 0" style="width:634px" src="@a/imgs/notice_00.png" alt="" />
+                <img v-if="notice_index === 1" style="width:634px" src="@a/imgs/notice_2.png" alt="" />
+                <img v-if="notice_index === 1" style="width:634px" src="@a/imgs/notice_3.png" alt="" />
+                <img v-if="notice_index === 2" style="width:634px" src="@a/imgs/notice_4.png" alt="" />
+                <img v-if="notice_index === 2" style="width:634px" src="@a/imgs/notice_5.png" alt="" />
+                <img v-if="notice_index === 3" style="width:634px" src="@a/imgs/notice_6.png" alt="" />
+                <img v-if="notice_index === 3" style="width:634px" src="@a/imgs/notice_7.png" alt="" />
+                <img v-if="notice_index === 3" style="width:634px" src="@a/imgs/notice_8.png" alt="" />
+                <img v-if="notice_index === 3" style="width:634px" src="@a/imgs/notice_9.png" alt="" />
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -1052,7 +1051,8 @@ import {
   mineDelProductService,
   mineUpdateMemberService,
   mineUpdatePwdService,
-  getZuoPinValidCountService
+  getZuoPinValidCountService,
+  getZuoPinByIdService
 } from '@s/mine-info-service'
 import { gettreelist } from '@l/util'
 import { mutipleAjax } from '@l/axios-interceptor'
@@ -1072,7 +1072,7 @@ export default {
   },
   data() {
     return {
-      notice_index:0,
+      notice_index: 0,
       avatarUrlTtemp: require('@a/imgs/default_header_log.png'),
       modalUserShow: false,
       modalShow: false,
@@ -1539,15 +1539,21 @@ export default {
       })
       this.zuopinValidCount = total
     },
-    toDetail(id) {
+    async toDetail(id) {
+      const {
+        row: { statusValue }
+      } = await getZuoPinByIdService(id)
+      if (statusValue < 0) {
+        alert('该作品已下架')
+        return
+      }
       let newUrl = this.$router.resolve({
-        path: 'search_detail/' + id
+        path: '/search_detail/' + id
       })
       window.open(newUrl.href, '_blank')
     },
-    noticeIndex(index)
-    {
-      this.notice_index=index;
+    noticeIndex(index) {
+      this.notice_index = index
     },
     gotoDingzuo() {
       this.$store.commit('setimgIndex', 3)
@@ -2395,6 +2401,12 @@ export default {
       }
     },
     uploadPic() {
+      this.zuopin_upload_obj.tags = ''
+      this.zuopin_upload_obj.name = ''
+      this.zuopin_upload_obj.classifyId = null
+      this.zuopin_upload_obj.navigationId = '-1'
+      this.zuopin_upload_obj.level = -1
+      this.zuopin_upload_obj.previewurl = ''
       if (this.zuopinValidCount <= 1) {
         alert('身份认证和设计师认证必须都通过审核,才能上传作品!')
         return
@@ -4358,28 +4370,24 @@ export default {
           background: #ffffff;
           display: flex;
           flex-direction: column;
-          .notice_view
-          {
+          .notice_view {
             display: flex;
             flex-direction: row;
-            .left_view
-            {
+            .left_view {
               box-sizing: border-box;
               height: 742px;
               width: 200px;
               padding: 30px;
               line-height: 30px;
-              ul li
-              {
+              ul li {
                 cursor: pointer;
                 text-decoration: underline;
               }
             }
-            .right_view
-            {
+            .right_view {
               width: 634px;
               height: 742px;
-              overflow:auto;
+              overflow: auto;
             }
           }
 

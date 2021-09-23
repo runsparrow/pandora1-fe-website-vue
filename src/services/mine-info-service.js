@@ -158,3 +158,9 @@ export const getZuoPinValidCountService = async payload => {
     data: payload
   })
 }
+export const getZuoPinByIdService = async payload => {
+  return await ajax({
+    url: `${CONFIG.API_URLS.MIS_CMS_Goods_Row_ById}/${payload}`,
+    method: 'Get'
+  })
+}
