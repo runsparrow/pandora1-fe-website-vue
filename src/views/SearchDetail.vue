@@ -63,7 +63,7 @@
                 @click="tominepage"
                 v-else
                 :style="{
-                  backgroundSize: 'cover',
+                  backgroundSize: avatarUrl.indexOf('default_header_log') !== -1 ? 'contain' : 'cover',
                   backgroundImage: 'url(' + avatarUrl + ')',
                   backgroundRepeat: 'no-repeat'
                 }"

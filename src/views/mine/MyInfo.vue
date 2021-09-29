@@ -220,7 +220,7 @@
               class="login_header_logo"
               v-else
               :style="{
-                backgroundSize: 'cover',
+                backgroundSize: avatarUrl.indexOf('default_header_log') !== -1 ? 'contain' : 'cover',
                 backgroundImage: 'url(' + avatarUrl + ')',
                 backgroundRepeat: 'no-repeat'
               }"
@@ -241,9 +241,15 @@
       <div class="left_view">
         <div class="top_view">
           <div class="top_header_view" v-if="avatarUrl === ''">头像</div>
-          <div class="top_header_view" v-else>
-            <img class="top_header_view_avatarUrl" :src="avatarUrl" alt="" />
-          </div>
+          <div
+            class="top_header_view"
+            v-else
+            :style="{
+              backgroundSize: avatarUrl.indexOf('default_header_log') !== -1 ? 'contain' : 'cover',
+              backgroundImage: 'url(' + avatarUrl + ')',
+              backgroundRepeat: 'no-repeat'
+            }"
+          ></div>
           <div class="right_c">
             <span class="label">用户名</span>
             <span class="label_id">{{ userName }}</span>
