@@ -2408,6 +2408,7 @@ export default {
       }
     },
     uploadPic() {
+      this.tags = []
       this.zuopin_upload_obj.tags = ''
       this.zuopin_upload_obj.name = ''
       this.zuopin_upload_obj.classifyId = null
