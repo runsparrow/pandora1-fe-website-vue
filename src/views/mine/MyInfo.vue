@@ -406,7 +406,7 @@
                     <span class="label">公司邮箱</span>
                     <input type="text" class="select_view" v-model.trim="myInfoIndentityModel.entity.email" />
                   </div>
-                  <div class="row" v-if=" personIdentity === '4'">
+                  <div class="row" v-if="personIdentity === '2' || personIdentity === '3' || personIdentity === '4'">
                     <span class="label">医院/单位</span>
                     <select
                       class="select_view"
@@ -417,7 +417,7 @@
                       <option v-for="item in hospitalsArr" :key="item.id" :value="item.id">{{ item.name }}</option>
                     </select>
                   </div>
-                  <div class="row" v-if="personIdentity === '4'">
+                  <div class="row" v-if="personIdentity === '2' || personIdentity === '3' || personIdentity === '4'">
                     <span class="label">科室/部门</span>
                     <select class="select_view" v-model="myInfoIndentityModel.entity.officeId">
                       <option value="-1">-----请选择-----</option>
