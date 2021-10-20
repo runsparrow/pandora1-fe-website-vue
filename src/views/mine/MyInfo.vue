@@ -306,10 +306,10 @@
         />
         <private-policy :show="modalShow" style="margin-top: 90px;margin-left:50px" />
         <div class="row">
-          <div :class="['item', { active: outer_tabIndex === 0 }]" @click="() => (outer_tabIndex = 0)">我的信息</div>
-          <div :class="['item', { active: outer_tabIndex === 1 }]" @click="() => (outer_tabIndex = 1)">我的作品</div>
-          <div :class="['item', { active: outer_tabIndex === 2 }]" @click="() => (outer_tabIndex = 2)">我的资产</div>
-          <div :class="['item', { active: outer_tabIndex === 3 }]" @click="() => (outer_tabIndex = 3)">帮助中心</div>
+          <div :class="['item', { active: outer_tabIndex === 0 }]" @click="() => chooseTab(0)">我的信息</div>
+          <div :class="['item', { active: outer_tabIndex === 1 }]" @click="() => chooseTab(1)">我的作品</div>
+          <div :class="['item', { active: outer_tabIndex === 2 }]" @click="() => chooseTab(2)">我的资产</div>
+          <div :class="['item', { active: outer_tabIndex === 3 }]" @click="() => chooseTab(3)">帮助中心</div>
         </div>
         <div class="content_row">
           <div v-if="outer_tabIndex === 0" class="my_info_tab_view">
@@ -799,12 +799,12 @@
             <div class="title_view">
               <span
                 :class="['title', { active: inner_voucher_tabIndex === 0 }]"
-                @click="() => (inner_voucher_tabIndex = 0)"
+                @click="() => (inner_voucher_tabIndex = 0,downloadpage=1)"
                 >已下载({{ downRecords.length }})</span
               >
               <span
                 :class="['title', { active: inner_voucher_tabIndex === 1 }]"
-                @click="() => (inner_voucher_tabIndex = 1)"
+                @click="() => (inner_voucher_tabIndex = 1,collectloadpage=1)"
                 >已收藏({{ collectRecords.length }})</span
               >
               <span
@@ -837,12 +837,6 @@
                     <span class="label">《{{ item.goodsName }}》</span>
                   </span>
                 </div>
-                <pagination
-                  :records="downRecordsRecords"
-                  :per-page="downRecordsperPage"
-                  @paginate="loadDownRecordList"
-                  v-model="downloadpage"
-                />
               </div>
             </template>
             <template v-if="inner_voucher_tabIndex === 1">
@@ -864,12 +858,6 @@
                     <span class="label">《{{ item.goodsName }}》</span>
                   </span>
                 </div>
-                <pagination
-                  :records="collectRecordsRecords"
-                  :per-page="collectRecordsperPage"
-                  @paginate="loadcollectRecordList"
-                  v-model="collectloadpage"
-                />
               </div>
               <!-- <div class="title_content_view">
                 <div class="table_header">
@@ -1002,6 +990,19 @@
                 </div>
               </div>
             </template>
+
+              <pagination v-show="inner_voucher_tabIndex===0"
+                  :records="downRecordsRecords"
+                  :per-page="downRecordsperPage"
+                  @paginate="loadDownRecordList"
+                  v-model="downloadpage"
+              />
+              <pagination v-show="inner_voucher_tabIndex===1"
+                  :records="collectRecordsRecords"
+                  :per-page="collectRecordsperPage"
+                  @paginate="loadCollectRecordList"
+                  v-model="collectloadpage"
+              />
           </div>
           <div v-else-if="outer_tabIndex === 3" class="my_support_tab_view">
             <div class="notice_view">
@@ -1112,7 +1113,6 @@ export default {
       approvedZuoPinArr: [],
       unApprovedZuoPinArr: [],
       approveingZuoPinArr: [],
-      outer_tabIndex: 0,
       inner_tabIndex: 0,
       inner_sample_tabIndex: 0,
       inner_voucher_tabIndex: 0,
@@ -1530,12 +1530,16 @@ export default {
     document.removeEventListener('click')
   },
   computed: {
-    ...mapState(['token', 'userName', 'loading', 'vipList', 'avatarUrl', 'navigationsMenus', 'level']),
+    ...mapState(['token', 'userName', 'loading', 'vipList', 'avatarUrl', 'navigationsMenus', 'level','outer_tabIndex']),
     levelDeadlineStr() {
       return this.$store.state.levelDeadline.substring(0, this.$store.state.levelDeadline.indexOf(' '))
     }
   },
   methods: {
+    chooseTab(index)
+    {
+      this.$store.commit('setminePageIndex',index)
+    },
     async loadZuoPinValidCount() {
       const { total } = await getZuoPinValidCountService({
         keyWord: '^memberid=' + this.$store.state.memberId,
@@ -3952,7 +3956,7 @@ export default {
         }
         .my_voucher_tab_view {
           width: 100%;
-          height: 742px;
+          height: 760px;
           background: #ffffff;
           display: flex;
           flex-direction: column;

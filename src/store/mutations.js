@@ -35,6 +35,9 @@ export default {
   setVipList(state, payload) {
     state.vipList = payload
   },
+  setminePageIndex(state, payload) {
+    state.outer_tabIndex = payload
+  },
   clearStore(state, payload) {
     state.userName = ''
     state.token = ''

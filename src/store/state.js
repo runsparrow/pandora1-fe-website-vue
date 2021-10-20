@@ -12,5 +12,6 @@ export default {
   navigationsMenus: [],
   imgIndex: -1,
   loading: false,
-  level: -1
+  level: -1,
+  outer_tabIndex:0
 }
