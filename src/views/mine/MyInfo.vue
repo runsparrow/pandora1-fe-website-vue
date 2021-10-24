@@ -390,19 +390,19 @@
                       <option v-for="item in divisionArr" :key="item.code" :value="item.code">{{ item.name }}</option>
                     </select>
                   </div>
-                  <div class="row" v-if="personIdentity >=5">
+                  <div class="row" v-if="personIdentity >= 5">
                     <span class="label">公司名称</span>
                     <input type="text" class="select_view" v-model.trim="myInfoIndentityModel.entity.unitName" />
                   </div>
-                  <div class="row" v-if="personIdentity >=5">
+                  <div class="row" v-if="personIdentity >= 5">
                     <span class="label">所属部门</span>
                     <input type="text" class="select_view" v-model.trim="myInfoIndentityModel.entity.officeName" />
                   </div>
-                  <div class="row" v-if="personIdentity >=5">
+                  <div class="row" v-if="personIdentity >= 5">
                     <span class="label">职位职务</span>
                     <input type="text" class="select_view" v-model.trim="myInfoIndentityModel.entity.dutyName" />
                   </div>
-                  <div class="row" v-if="personIdentity >=5">
+                  <div class="row" v-if="personIdentity >= 5">
                     <span class="label">公司邮箱</span>
                     <input type="text" class="select_view" v-model.trim="myInfoIndentityModel.entity.email" />
                   </div>
@@ -799,12 +799,12 @@
             <div class="title_view">
               <span
                 :class="['title', { active: inner_voucher_tabIndex === 0 }]"
-                @click="() => (inner_voucher_tabIndex = 0,downloadpage=1)"
+                @click="() => ((inner_voucher_tabIndex = 0), (downloadpage = 1))"
                 >已下载({{ downRecords.length }})</span
               >
               <span
                 :class="['title', { active: inner_voucher_tabIndex === 1 }]"
-                @click="() => (inner_voucher_tabIndex = 1,collectloadpage=1)"
+                @click="() => ((inner_voucher_tabIndex = 1), (collectloadpage = 1))"
                 >已收藏({{ collectRecords.length }})</span
               >
               <span
@@ -991,18 +991,20 @@
               </div>
             </template>
 
-              <pagination v-show="inner_voucher_tabIndex===0"
-                  :records="downRecordsRecords"
-                  :per-page="downRecordsperPage"
-                  @paginate="loadDownRecordList"
-                  v-model="downloadpage"
-              />
-              <pagination v-show="inner_voucher_tabIndex===1"
-                  :records="collectRecordsRecords"
-                  :per-page="collectRecordsperPage"
-                  @paginate="loadCollectRecordList"
-                  v-model="collectloadpage"
-              />
+            <pagination
+              v-show="inner_voucher_tabIndex === 0"
+              :records="downRecordsRecords"
+              :per-page="downRecordsperPage"
+              @paginate="loadDownRecordList"
+              v-model="downloadpage"
+            />
+            <pagination
+              v-show="inner_voucher_tabIndex === 1"
+              :records="collectRecordsRecords"
+              :per-page="collectRecordsperPage"
+              @paginate="loadCollectRecordList"
+              v-model="collectloadpage"
+            />
           </div>
           <div v-else-if="outer_tabIndex === 3" class="my_support_tab_view">
             <div class="notice_view">
@@ -1143,8 +1145,9 @@ export default {
       rechargeList: [],
       mine_person_info: {
         id: this.$store.state.memberId,
-        email: '',
-        avatarUrl: require('@a/imgs/default_header_log.png')
+        email: this.$store.state.email,
+        avatarUrl:
+          this.$store.state.avatarUrl === '' ? require('@a/imgs/default_header_log.png') : this.$store.state.avatarUrl
       },
       mine_person_pwd: {
         memberName: this.$store.state.userName,
@@ -1530,15 +1533,24 @@ export default {
     document.removeEventListener('click')
   },
   computed: {
-    ...mapState(['token', 'userName', 'loading', 'vipList', 'avatarUrl', 'navigationsMenus', 'level','outer_tabIndex']),
+    ...mapState([
+      'token',
+      'userName',
+      'loading',
+      'vipList',
+      'avatarUrl',
+      'navigationsMenus',
+      'level',
+      'outer_tabIndex',
+      'email'
+    ]),
     levelDeadlineStr() {
       return this.$store.state.levelDeadline.substring(0, this.$store.state.levelDeadline.indexOf(' '))
     }
   },
   methods: {
-    chooseTab(index)
-    {
-      this.$store.commit('setminePageIndex',index)
+    chooseTab(index) {
+      this.$store.commit('setminePageIndex', index)
     },
     async loadZuoPinValidCount() {
       const { total } = await getZuoPinValidCountService({
@@ -1726,6 +1738,7 @@ export default {
       if (result) {
         this.person_info_show = false
         this.$store.commit('setAvatarUrl', process.env.VUE_APP_FE_FILE_URL + this.mine_person_info.avatarUrl)
+        this.$store.commit('setEmail', this.mine_person_info.email)
         alert('修改个人信息成功!')
       }
     },

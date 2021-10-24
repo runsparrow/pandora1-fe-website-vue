@@ -7,6 +7,7 @@ export default {
     state.avatarUrl = payload.avatarUrl
     state.levelDeadline = payload.levelDeadline
     state.level = payload.level
+    state.email = payload.email
   },
   setActiveTab(state, payload) {
     state.activeTab = payload
@@ -22,6 +23,9 @@ export default {
   },
   setNavigationId(state, payload) {
     state.navigationId = payload
+  },
+  setEmail(state, payload) {
+    state.email = payload
   },
   setNavigationMenus(state, payload) {
     state.navigationsMenus = payload
