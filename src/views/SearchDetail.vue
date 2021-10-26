@@ -141,6 +141,10 @@
           </div>
           <div class="collect" @click="downloadFile">下载</div>
         </div>
+        <span v-if="imgIndex === 0 || imgIndex === 1" class="spec" style="color:red;font-size:12px;margin-top: 15px;"
+          >说明：本网站下载图片尺寸大小，适用于公众号文章使用，如需其他格式或尺寸，请联系客服</span
+        >
+
         <!-- <div class="line"></div> -->
         <!-- <div class="author_view">
           <div class="login_header_logo">头像</div>
