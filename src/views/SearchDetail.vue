@@ -144,6 +144,9 @@
         <span v-if="imgIndex === 0 || imgIndex === 1" class="spec" style="color:red;font-size:12px;margin-top: 15px;"
           >说明：本网站下载图片尺寸大小，适用于公众号文章使用，如需其他格式或尺寸，请联系客服</span
         >
+		 <span v-if="imgIndex === 2" class="spec" style="color:red;font-size:12px;margin-top: 15px;"
+          >说明：本网站下载动图水印，不影响公众号等文章内的使用，如需无水印动图，请联系客服</span
+        >
 
         <!-- <div class="line"></div> -->
         <!-- <div class="author_view">
