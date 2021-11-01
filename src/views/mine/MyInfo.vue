@@ -1721,7 +1721,7 @@ export default {
       this.downRecordsRecords = total
       this.$nextTick(() => {
         rows.forEach(m => {
-          m.goodsUrl = process.env.VUE_APP_FE_FILE_URL + m.goodsUrl
+          m.goodsUrl = process.env.VUE_APP_FE_FILE_URL + '/' + m.goodsUrl
         })
         this.downRecords = rows
       })
