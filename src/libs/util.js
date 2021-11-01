@@ -13,3 +13,22 @@ export const gettreelist = item => {
   }
   return newtreelist
 }
+
+export const TIME_STAMP = 'timeStamp'
+export const TOKEN_TIMEOUT_VALUE = 1 * 3600 * 1000
+
+export function getTimeStamp() {
+  return JSON.parse(localStorage.getItem(TIME_STAMP))
+}
+
+export function setTimeStamp() {
+  window.localStorage.setItem(TIME_STAMP, Date.now())
+}
+
+export function isCheckTimeout() {
+  var currentTime = Date.now()
+
+  var timeStamp = getTimeStamp()
+
+  return currentTime - timeStamp > TOKEN_TIMEOUT_VALUE
+}

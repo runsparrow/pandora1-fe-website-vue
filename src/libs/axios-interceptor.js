@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from '@x'
+import { isCheckTimeout } from '@/libs/util'
 
 let ajaxQueues = {}
 const ajax = axios.create({
@@ -11,6 +12,10 @@ ajax.interceptors.request.use(
   config => {
     const { cancelTimeout, url } = config
     config.headers.Authorization = 'Bearer ' + store.state.token
+    if (store.state.token && isCheckTimeout()) {
+      // 登出操作
+      store.dispatch('logout')
+    }
     store.commit('setLoading', true)
     if (cancelTimeout) {
       config.timeout = 0

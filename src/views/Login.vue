@@ -347,6 +347,7 @@
 import { mapState, mapMutations, mapGetters } from 'vuex'
 import PrivatePolicy from '@c/PrivatePolicy.vue'
 import UserPolicy from '@/components/UserPolicy.vue'
+import { setTimeStamp } from '@/libs/util'
 import {
   getUserInfoService,
   getUserCodeService,
@@ -684,6 +685,7 @@ export default {
                 : process.env.VUE_APP_FE_FILE_URL + member.avatarUrl,
             level: member.level
           })
+          setTimeStamp()
           const result2 = await mineCMSRowByIdService(member.memberId)
           that.setUserInfoMutation({
             userName: member?.memberName,
