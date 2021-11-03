@@ -1566,7 +1566,7 @@ export default {
       const {
         row: { statusValue }
       } = await getZuoPinByIdService(id)
-      if (statusValue < 0) {
+      if (statusValue === -2) {
         alert('该作品已下架')
         return
       }
