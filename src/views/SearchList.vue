@@ -300,6 +300,7 @@ export default {
       })
       this.tableDatas = rows
       this.records = total
+      document.documentElement.scrollTop = 200
     },
     clickDropdown() {
       this.dropdownStatus = !this.dropdownStatus
