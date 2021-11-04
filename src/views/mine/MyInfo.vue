@@ -56,6 +56,9 @@
               accept="image/png,image/jpeg,image/gif,image/jpg"
             />
           </div>
+          <p style="font-size: 12px;color: red;font-weight: bold;margin-left: 70px;">
+            【注】上传头像的尺寸和大小为:70*70
+          </p>
         </div>
         <div class="right_view" style="cursor: pointer" @click="updateMemberInfo">保存</div>
       </div>
