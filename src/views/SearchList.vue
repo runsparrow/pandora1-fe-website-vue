@@ -273,6 +273,7 @@ export default {
   },
   methods: {
     toSearch(navigationId, index) {
+      this.page = 1
       this.$store.commit('setimgIndex', index)
       this.searchKeyword = ''
       this.$store.commit('setKeyWords', '')
