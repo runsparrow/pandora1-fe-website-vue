@@ -109,6 +109,7 @@
     <div class="content">
       <img
         class="big_img"
+        v-watermark="option"
         @click="playVidoe"
         :src="detail.fullUrl"
         alt=""
@@ -144,7 +145,7 @@
         <span v-if="imgIndex === 0 || imgIndex === 1" class="spec" style="color:red;font-size:12px;margin-top: 15px;"
           >说明：本网站下载图片尺寸大小，适用于公众号文章使用，如需其他格式或尺寸，请联系客服</span
         >
-		 <span v-if="imgIndex === 2" class="spec" style="color:red;font-size:12px;margin-top: 15px;"
+        <span v-if="imgIndex === 2" class="spec" style="color:red;font-size:12px;margin-top: 15px;"
           >说明：本网站下载动图水印，不影响公众号等文章内的使用，如需无水印动图，请联系客服</span
         >
 
@@ -192,7 +193,16 @@ export default {
       searchKeyword: '',
       video_show: false,
       videoUrl: '',
-      collectionId: ''
+      collectionId: '',
+      option: {
+        // "bottomleft", "bottomright", "topleft", "topright", "center", "fill"
+        mode: 'center',
+        textBaseline: 'middle',
+        font: '60px Arial',
+        fillStyle: 'white',
+        content: 't-pic.cn',
+        rotate: 30
+      }
     }
   },
   async mounted() {

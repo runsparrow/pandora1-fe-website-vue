@@ -7,7 +7,9 @@ import 'swiper/swiper-bundle.css'
 import VueMessage from 'vue-messages'
 
 import Pagination from 'vue-pagination-2'
+import plugin from '@serializedowen/vue-img-watermark'
 Vue.component('pagination', Pagination)
+Vue.use(plugin)
 
 Vue.config.productionTip = false
 Vue.use(VueMessage, {

@@ -157,6 +157,7 @@
       <div class="result-view">
         <img
           class="lis_img"
+          v-watermark="option"
           :src="item.fullUrl"
           :title="item.name"
           alt=""
@@ -223,7 +224,16 @@ export default {
       page: 1, //默认第一页
       perPage: 50, //每页多少条
       pageNo: 1, //当前页
-      records: 0 //总数
+      records: 0, //总数,
+      option: {
+        // "bottomleft", "bottomright", "topleft", "topright", "center", "fill"
+        mode: 'center',
+        textBaseline: 'middle',
+        font: '60px Arial',
+        fillStyle: 'white',
+        content: 't-pic.cn',
+        rotate: 30
+      }
     }
   },
   mounted() {

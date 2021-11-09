@@ -12,6 +12,7 @@
   "dependencies": {
     "@johmun/vue-tags-input": "^2.1.0",
     "@riophae/vue-treeselect": "^0.4.0",
+    "@serializedowen/vue-img-watermark": "^1.1.0",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "core-js": "^3.6.5",
