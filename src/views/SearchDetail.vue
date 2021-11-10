@@ -198,7 +198,7 @@ export default {
         // "bottomleft", "bottomright", "topleft", "topright", "center", "fill"
         mode: 'center',
         textBaseline: 'middle',
-        font: '15rem Arial',
+        font: '13rem Arial',
         fillStyle: 'white',
         content: 't-pic.cn',
         rotate: 30
@@ -833,10 +833,9 @@ export default {
     padding-bottom: 39px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     .big_img {
       box-sizing: border-box;
-      width: 980px;
-      height: 650px;
       margin-right: 15px;
     }
     .nav {
