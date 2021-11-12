@@ -229,7 +229,7 @@ export default {
         // "bottomleft", "bottomright", "topleft", "topright", "center", "fill"
         mode: 'center',
         textBaseline: 'middle',
-        font: '4rem Arial',
+        font: '2rem Arial',
         fillStyle: 'white',
         content: 't-pic.cn',
         rotate: 30
