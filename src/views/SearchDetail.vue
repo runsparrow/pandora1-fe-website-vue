@@ -199,7 +199,7 @@ export default {
         mode: 'center',
         textBaseline: 'middle',
         font: '6rem Arial',
-        fillStyle: 'white',
+        fillStyle: 'gray',
         content: 't-pic.cn',
         rotate: 30
       }
