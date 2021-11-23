@@ -109,7 +109,16 @@
     <div class="content">
       <img
         class="big_img"
+        @click="playVidoe"
+        :src="detail.fullUrl"
+        v-if="detail.fullUrl.indexOf('.gif') !== -1"
+        alt=""
+        style="cursor: pointer; object-fit: contain"
+      />
+      <img
+        class="big_img"
         v-watermark="option"
+        v-if="detail.fullUrl.indexOf('.gif') === -1"
         @click="playVidoe"
         :src="detail.fullUrl"
         alt=""

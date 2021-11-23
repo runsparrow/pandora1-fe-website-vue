@@ -157,11 +157,21 @@
       <div class="result-view">
         <img
           class="lis_img"
+          :src="item.fullUrl"
+          :title="item.name"
+          alt=""
+          v-for="(item, index) in tableDatas.filter(f => f.fullUrl.indexOf('.gif') !== -1)"
+          style="cursor: pointer; object-fit: contain"
+          :key="index"
+          @click="toDetail(item.id)"
+        />
+        <img
+          class="lis_img"
           v-watermark="option"
           :src="item.fullUrl"
           :title="item.name"
           alt=""
-          v-for="(item, index) in tableDatas"
+          v-for="(item, index) in tableDatas.filter(f => f.fullUrl.indexOf('.gif') === -1)"
           style="cursor: pointer; object-fit: contain"
           :key="index"
           @click="toDetail(item.id)"
