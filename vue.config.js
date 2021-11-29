@@ -7,7 +7,7 @@ let proxy_target_url = ''
 if (process.env.NODE_ENV === 'development' && process.env.VUE_APP_ENV == 'dev-18') {
   proxy_target_url = 'https://webapi-xs.com'
 } else if (process.env.NODE_ENV === 'development' && process.env.VUE_APP_ENV == 'dev-41') {
-  proxy_target_url = 'https://fourlifecode.com'
+  proxy_target_url = 'https://t-pic.cn'
 }
 
 module.exports = {
