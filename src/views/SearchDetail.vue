@@ -122,7 +122,7 @@
         @click="playVidoe"
         :src="detail.fullUrl"
         alt=""
-        style="cursor: pointer; object-fit: contain"
+        style="cursor: pointer; object-fit: contain;width:708px;height:708px"
       />
       <div class="nav">
         <div class="top_view">
