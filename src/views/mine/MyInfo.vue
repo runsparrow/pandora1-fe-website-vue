@@ -1655,12 +1655,13 @@ export default {
         alert('请同意同意用户协议与隐私政策!')
         return
       }
+      console.log(9999,this.vipList)
       if (this.payIndex === 0) {
-        amount = 1
+        amount = this.vipList[this.payIndex].price*100
       } else if (this.payIndex === 1) {
-        amount = 2
+        amount = this.vipList[this.payIndex].price*100
       } else if (this.payIndex === 2) {
-        amount = 3
+        amount = this.vipList[this.payIndex].price*100
       }
       ajaxPay({
         // 用axios发送post请求
