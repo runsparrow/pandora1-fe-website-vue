@@ -105,7 +105,7 @@
         <div class="frame_view">
           <!-- <img class="frame_banner_img" src="@a/imgs/index_banner.png" alt="" /> -->
           <video
-            src="https://webapi-xs.com:8003/assets/videos/site_animation_player.mp4"
+            src="https://t-pic.cn:8003/assets/videos/site_animation_player.mp4"
             width="489"
             height="305"
             controls="controls"
