@@ -139,7 +139,10 @@
           </div>
         </div>
       </div>
-      <span style="font-weight:400;font-size:12px;">T图漫画社&nbsp;&nbsp;&nbsp;&nbsp;沪ICP备2021010880号-2</span>
+      <span
+        style="font-size: 14px;font-weight: 600;text-align: center;display: block;margin-top: 30px;letter-spacing: 1px;"
+        >T图漫画社&nbsp;&nbsp;&nbsp;&nbsp;沪ICP备2021010880号-2</span
+      >
     </div>
   </div>
 </template>
