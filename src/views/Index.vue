@@ -140,8 +140,8 @@
         </div>
       </div>
       <div style="width:100%;margin-top: 30px;display:flex;align-items:center;justify-content:center;">
-        <img src="https://pic3.zhimg.com/80/v2-d0289dc0a46fc5b15b3363ffa78cf6c7.png" />
         <span style="font-size: 14px;font-weight: 600;letter-spacing: 1px;">T图漫画社</span>
+        <img src="https://pic3.zhimg.com/80/v2-d0289dc0a46fc5b15b3363ffa78cf6c7.png" />
         <a style="font-size: 14px;font-weight: 600;letter-spacing: 1px;" href="https://beian.miit.gov.cn/"
           >沪ICP备2021010880号-2</a
         >
