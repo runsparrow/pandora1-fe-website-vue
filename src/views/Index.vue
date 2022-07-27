@@ -139,6 +139,7 @@
           </div>
         </div>
       </div>
+      <span style="font-weight:400;font-size:12px;">T图漫画社&nbsp;&nbsp;&nbsp;&nbsp;沪ICP备2021010880号-2</span>
     </div>
   </div>
 </template>
